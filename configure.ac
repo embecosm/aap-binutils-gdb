@@ -1056,6 +1056,9 @@ case "${target}" in
     ;;
   *-*-vxworks*)
     ;;
+  aap*-*-*)
+    noconfigdirs="$noconfigdirs target-libiberty target-libstdc++-v3 ${libgcj} target-libssp"
+    ;;
   alpha*-dec-osf*)
     # ld works, but does not support shared libraries.
     # gas doesn't generate exception information.
