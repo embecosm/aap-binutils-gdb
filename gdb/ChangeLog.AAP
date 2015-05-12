@@ -1,3 +1,9 @@
+2015-05-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Add AAP target dependency files.  Fix i386 targets
+	for tag creation.
+	* aap-tdep.c: Created.
+
 2015-04-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* ChangeLog.AAP: Created.

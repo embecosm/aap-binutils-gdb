@@ -2272,6 +2272,8 @@ enum bfd_architecture
 #define bfd_mach_nios2 0
   bfd_arch_visium,     /* Visium */
 #define bfd_mach_visium        1
+  bfd_arch_aap,       /* An Altruistic Processor  */
+#define bfd_mach_aap          1
   bfd_arch_last
   };
 

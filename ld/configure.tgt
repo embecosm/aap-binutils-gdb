@@ -45,6 +45,8 @@ targ64_extra_libpath=
 # architecture variants should be kept together even if their names
 # break the alpha sorting.
 case "${targ}" in
+aap-*-*)		targ_emul=elf32aap
+			;;
 aarch64_be-*-elf)	targ_emul=aarch64elfb
 			targ_extra_emuls="aarch64elf aarch64elf32 aarch64elf32b armelfb armelf" ;;
 aarch64-*-elf)		targ_emul=aarch64elf

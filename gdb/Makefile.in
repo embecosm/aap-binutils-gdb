@@ -651,6 +651,7 @@ ALL_64_TARGET_OBS = \
 
 # All other target-dependent objects files (used with --enable-targets=all).
 ALL_TARGET_OBS = \
+	aap-tdep.o \
 	armbsd-tdep.o arm-linux-tdep.o arm-symbian-tdep.o \
 	armnbsd-tdep.o armobsd-tdep.o \
 	arm-tdep.o arm-wince-tdep.o \
@@ -959,7 +960,7 @@ psymtab.h psympriv.h progspace.h bfin-tdep.h \
 amd64-darwin-tdep.h charset-list.h \
 config/djgpp/langinfo.h config/djgpp/nl_types.h darwin-nat.h \
 dicos-tdep.h filesystem.h gcore.h gdb_wchar.h hppabsd-tdep.h \
-i386-darwin-tdep.h i386-nat.h linux-record.h moxie-tdep.h nios2-tdep.h \
+i386-darwin-tdep.h i386bsd-nat.h i386-linux-nat.h linux-record.h moxie-tdep.h nios2-tdep.h \
 ft32-tdep.h \
 osdata.h procfs.h python/py-event.h python/py-events.h python/py-stopevent.h \
 python/python-internal.h python/python.h ravenscar-thread.h record.h \
@@ -1640,6 +1641,7 @@ force_update:
 MAKEOVERRIDES=
 
 ALLDEPFILES = \
+	aap-tdep.c \
 	aarch64-tdep.c aarch64-linux-tdep.c aarch64-newlib-tdep.c \
 	aarch64-linux-nat.c \
 	aix-thread.c \

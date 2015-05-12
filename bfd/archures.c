@@ -501,6 +501,8 @@ DESCRIPTION
 .#define bfd_mach_nios2	0
 .  bfd_arch_visium,	{* Visium *}
 .#define bfd_mach_visium	1
+.  bfd_arch_aap,       {* An Altruistic Processor  *}
+.#define bfd_mach_aap          1
 .  bfd_arch_last
 .  };
 */
@@ -545,6 +547,7 @@ DESCRIPTION
 .
 */
 
+extern const bfd_arch_info_type bfd_aap_arch;
 extern const bfd_arch_info_type bfd_aarch64_arch;
 extern const bfd_arch_info_type bfd_alpha_arch;
 extern const bfd_arch_info_type bfd_arc_arch;
@@ -636,6 +639,7 @@ static const bfd_arch_info_type * const bfd_archures_list[] =
 #ifdef SELECT_ARCHITECTURES
     SELECT_ARCHITECTURES,
 #else
+    &bfd_aap_arch,
     &bfd_aarch64_arch,
     &bfd_alpha_arch,
     &bfd_arc_arch,

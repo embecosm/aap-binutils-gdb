@@ -1,0 +1,12 @@
+2015-05-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.am: Add cpu-aap.lo as target.
+	* Makefile.in: Regenerated.
+	* archures.c: Add AAP architecture.
+	* bfd-in2.h: Regenerated.
+	* config.bfd: Add ELF32 vector for AAP.
+	* configure: Regenerated
+	* configure.ac: Add ELF32 vector for AAP as target.
+	* cpu-aap.c: Created.
+	* elf32-aap.c: Created.
+	* targets.c: Add references to AAP ELF32 vector.
