@@ -220,6 +220,7 @@ ALL_EMULATION_SOURCES = \
 	eelf32_tic6x_linux_le.c \
 	eelf32_tic6x_elf_be.c \
 	eelf32_tic6x_elf_le.c \
+	eelf32aap.c \
 	eelf32am33lin.c \
 	eelf32bfin.c \
 	eelf32bfinfd.c \
@@ -961,6 +962,10 @@ eelf32_tic6x_linux_be.c: $(srcdir)/emulparams/elf32_tic6x_linux_be.sh \
 eelf32_tic6x_linux_le.c: $(srcdir)/emulparams/elf32_tic6x_linux_le.sh \
   $(ELF_DEPS) $(srcdir)/scripttempl/elf.sc  $(srcdir)/emultempl/tic6xdsbt.em \
   ${GEN_DEPENDS}
+
+eelf32aap.c: $(srcdir)/emulparams/elf32aap.sh \
+	$(srcdir)/emulparams/elf32aap.sh \
+	$(ELF_DEPS) $(srcdir)/scripttempl/aap.sc $(GEN_DEPENDS)
 
 eelf32am33lin.c: $(srcdir)/emulparams/elf32am33lin.sh \
   $(srcdir)/emulparams/elf32am33lin.sh \
