@@ -30,6 +30,11 @@
 
 #define BASEADDR(SEC)	((SEC)->output_section->vma + (SEC)->output_offset)
 
+/* The top byte contains the address space id, we need to mask this off
+   to get the actually memory address */
+#define AAP_GET_MEM_SPACE(ADDR) (((ADDR) >> (32 - 8)) & 0xff)
+#define AAP_GET_ADDR_LOCATION(ADDR) ((ADDR) & 0xffffff)
+
 static reloc_howto_type elf_aap_howto_table[] =
 {
   HOWTO (R_AAP_NONE,            /* Type.  */
@@ -356,51 +361,62 @@ aap_final_link_relocate (reloc_howto_type *  howto,
 			  const char *        symbol_name ATTRIBUTE_UNUSED,
                           struct elf_link_hash_entry * h ATTRIBUTE_UNUSED)
 {
-  printf("%d\n", relocation);
-
-  /* If this is a relocation to a code symbol, and the relocation is NOT
-     located inside debugging information then we should scale the value to
-     make it into a word addressed value.  */
-  if (symbol_section
-      && ((symbol_section->flags & SEC_CODE) != 0)
-      && ((input_section->flags & SEC_DEBUGGING) == 0))
-    {
-      /* TODO: Warn if this scaling drops a set bit, as it may indicate that
-	 something has gone wrong */
-      relocation >>= 1;
-      rel->r_addend >>= 1;
-    }
-
-  /* Install the relocation */
-  bfd_vma address = rel->r_offset;
+  bfd_vma offset = rel->r_offset;
   bfd_vma addend = rel->r_addend;
+  bfd_vma address = (input_section->output_section->vma
+		     + input_section->output_offset
+		     + offset);
+  bfd_vma reloc_mem_space;
+  bfd_vma addr_location;
 
-  bfd_size_type octets = address * bfd_octets_per_byte (input_bfd);
-
-  /* Sanity check the address.  */
-  if (octets + bfd_get_reloc_size (howto)
-      > bfd_get_section_limit_octets (input_bfd, input_section))
+  /* Sanity check the address */
+  if (offset > bfd_get_section_limit_octets (input_bfd, input_section))
     return bfd_reloc_outofrange;
 
-  /* Assume that the relocation is a basic symbol value + addend */
-  relocation = relocation + addend;
+  relocation += addend;
 
-  printf("%d\n", relocation);
+  /* memory space that this relocation points to */
+  reloc_mem_space = AAP_GET_MEM_SPACE(relocation);
+
+  /* Check that the memory space of the relocation is the same as that of
+     its address. If not, then treat it as being out of range
+     FIXME: This needs a more helpful error message */
+  if (howto->pc_relative
+      && reloc_mem_space != 0
+      && reloc_mem_space != AAP_GET_MEM_SPACE(address))
+    return bfd_reloc_outofrange;
+
+  /* actual location of the relocation and address sans memory space */
+  relocation = AAP_GET_ADDR_LOCATION(relocation);
+  bfd_vma address_location = AAP_GET_ADDR_LOCATION(address);
 
   /* if pc-relative, we want RELOCATION to be the distance between the symbol
    * and the location we are relocating */
   if (howto->pc_relative)
+    relocation -= address_location;
+
+  /* If the relocation is to a code address and is not located inside debug
+     information then we must scale the value to make it word addressed */
+  if (symbol_section
+      && ((symbol_section->flags & SEC_CODE) != 0)
+      && ((symbol_section->flags & SEC_DEBUGGING) == 0))
     {
-      relocation -= (input_section->output_section->vma
-		     + input_section->output_offset);
-      if (howto->pcrel_offset)
-	relocation -= address;
+      /* FIXME: handle the case where lsb erroneously set */
+      if (relocation & 1)
+	return bfd_reloc_outofrange;
+      if (address_location & 1)
+	return bfd_reloc_outofrange;
+
+      /* Scale the byte addresses into word addresses */
+      relocation = ((bfd_signed_vma)relocation) >> 1;
+      address_location = ((bfd_signed_vma)address_location) >> 1;
     }
 
-  printf("%d\n", relocation);
-
+  /* Call a custom function to handle actually emplacing the relocation. This
+     is necessary as most of our relocations are not contiguous and require
+     special handling */
   return aap_relocate_contents (howto, input_bfd, relocation,
-				contents + address);
+				contents + offset);
 }
 
 
@@ -410,92 +426,149 @@ aap_relocate_contents (reloc_howto_type *howto,
 		       bfd_vma relocation,
 		       bfd_byte *location)
 {
-  int size;
-  bfd_vma x = 0;
-  bfd_reloc_status_type flag;
-  unsigned int rightshift = howto->rightshift;
-  unsigned int bitpos = howto->bitpos;
-
-  /* Get the value we are going to relocate. */
-  size = bfd_get_reloc_size (howto);
-  switch (size)
+  if (howto->type == R_AAP_BR32)
     {
-    default:
-      abort();
-    case 0:
-      return bfd_reloc_ok;
-    case 1:
-      x = bfd_get_8 (input_bfd, location);
-      break;
-    case 2:
-      x = bfd_get_16 (input_bfd, location);
-      break;
-    case 4:
-      x = bfd_get_32 (input_bfd, location);
-      break;
-    case 8:
-#ifdef BFD64
-      x	= bfd_get_64 (input_bfd, location);
-#else
-      abort();
-#endif
-      break;
-    }
+      /* check for signed overflow, top bit must match upper bits */
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 17;
+      if ((sign != 0) && (sign != -1))
+	return bfd_reloc_outofrange;
 
-  /* Check for overflow */
-  flag = bfd_reloc_ok;
-  if (howto->complain_on_overflow != complain_overflow_dont)
-    {
-      flag = bfd_check_overflow (howto->complain_on_overflow,
-				 howto->bitsize,
-				 howto->rightshift,
-				 bfd_arch_bits_per_address (input_bfd),
-				 relocation);
-    }
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
 
-  /* Put RELOCATION in the correct bits */
-  relocation >>= (bfd_vma) rightshift;
-  relocation <<= (bfd_vma) bitpos;
-  x = x & ~howto->dst_mask;
+      x |= (relocation & 0x1ff) <<  0;  relocation >>= 9;
+      x |= (relocation & 0x1ff) << 16;
 
-  bfd_vma bit = 1;
-  unsigned bitnum = 0;
-  while (relocation && bit)
-    {
-      if (howto->dst_mask & bit)
-	{
-	  x |= (relocation & 1) << bitnum;
-	  relocation >>= 1;
-	}
-      bitnum++;
-      bit <<= 1;
-    }
-
-
-  /* Put the relocated value back in the object file. */
-  switch (size)
-    {
-    default:
-      abort();
-    case 1:
-      bfd_put_8 (input_bfd, x, location);
-      break;
-    case 2:
-      bfd_put_16 (input_bfd, x, location);
-      break;
-    case 4:
       bfd_put_32 (input_bfd, x, location);
-      break;
-    case 8:
-#ifdef BFD64
-      bfd_put_64 (input_bfd, x, location);
-#else
-      abort();
-#endif
-      break;
+      return bfd_reloc_ok;
     }
+  else if (howto->type == R_AAP_BRCC32)
+    {
+      /* signed overflow check, top bit must match upper bits  */
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 9;
+      if ((sign != 0) && (sign != -1))
+	return bfd_reloc_outofrange;
 
-  return flag;
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation &  0x7) <<  6;  relocation >>= 3;
+      x |= (relocation & 0x7f) << 22;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_BAL16)
+    {
+      /* signed overflow check, top bit must match upper bits  */
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 5;
+      if ((sign != 0) && (sign != -1))
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_16(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) <<  6;
+
+      bfd_put_16 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_BAL32)
+    {
+      /* signed overflow check, top bit must match upper bits  */
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 15;
+      if ((sign != 0) && (sign != -1))
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation &  0x7) <<  0;  relocation >>= 3;
+      x |= (relocation &  0x7) <<  6;  relocation >>= 3;
+      x |= (relocation &  0x7) << 16;  relocation >>= 3;
+      x |= (relocation & 0x7f) << 22;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_ABS6)
+    {
+      if (relocation >> 6 != 0)
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) << 16;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_ABS9)
+    {
+      if (relocation >> 9 != 0)
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) << 16;  relocation >>= 3;
+      x |= (relocation & 0x7) << 26;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_ABS10)
+    {
+      if (relocation >> 10 != 0)
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) << 16;  relocation >>= 3;
+      x |= (relocation & 0xf) << 25;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_ABS12)
+    {
+      if (relocation >> 12 != 0)
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x3f) <<  0;  relocation >>= 6;
+      x |= (relocation & 0x3f) << 16;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_ABS16)
+    {
+      if (relocation >> 16 != 0)
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x3f) <<  0;  relocation >>= 6;
+      x |= (relocation & 0x3f) << 16;  relocation >>= 6;
+      x |= (relocation &  0xf) << 25;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else
+    {
+      return _bfd_relocate_contents (howto, input_bfd, relocation, location);
+    }
 }
 
 /* Relocate an AAP ELF section.
