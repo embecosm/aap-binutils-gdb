@@ -19,7 +19,6 @@ SECTIONS
 {
   .text :
   {
-    KEEP (*(.vectors))
     *(.text .text.*)
   } >CODE_MEM
 
