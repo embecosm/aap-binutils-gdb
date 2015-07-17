@@ -1,3 +1,16 @@
+2015-07-17  Edward Jones  <ed.jones@embecosm.com>
+
+	* elf32-aap.c: Added R_AAP_OFF10 relocation, allow signed values in the
+	ABS16 relocation.
+
+2015-05-29  Edward Jones  <ed.jones@embecosm.com>
+
+  * elf32-aap.c: Refactored to handle complex relocs.
+
+2015-05-22  Edward Jones  <ed.jones@embecosm.com>
+
+  * elf32-aap.c: Reimplemented.
+
 2015-05-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.am: Add cpu-aap.lo as target.

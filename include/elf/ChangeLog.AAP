@@ -1,3 +1,11 @@
+2015-07-17  Edward Jones  <ed.jones@embecosm.com>
+
+	* aap.h: Added R_AAP_OFF10 relocation.
+
+2015-05-22  Edward Jones  <ed.jones@embecosm.com>
+
+  * aap.h: Reimplemented, AAP relocations.
+
 2015-05-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* aap.h: Created.
