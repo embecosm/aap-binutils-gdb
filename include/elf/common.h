@@ -411,7 +411,7 @@
 #define EM_OPENRISC		EM_OR1K
 
 /* See the above comment before you add a new EM_* value here.  */
-#define EM_AAP                  0xe896
+#define EM_AAP                  0x5343
 
 /* Values for e_version.  */
 

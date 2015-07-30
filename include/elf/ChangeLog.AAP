@@ -1,3 +1,7 @@
+2015-07-30  Edward Jones  <ed.jones@embecosm.com>
+
+	* common.h: Define EM_AAP to match the compiler.
+
 2015-07-17  Edward Jones  <ed.jones@embecosm.com>
 
 	* aap.h: Added R_AAP_OFF10 relocation.
