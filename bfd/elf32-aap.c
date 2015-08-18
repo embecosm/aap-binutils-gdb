@@ -34,6 +34,7 @@
    to get the actually memory address */
 #define AAP_GET_MEM_SPACE(ADDR) (((ADDR) >> (32 - 8)) & 0xff)
 #define AAP_GET_ADDR_LOCATION(ADDR) ((ADDR) & 0xffffff)
+#define AAP_BUILD_ADDRESS(ID, ADDR) (((ID & 0xff) << (32 - 8)) | (ADDR & 0xffffff))
 
 static reloc_howto_type elf_aap_howto_table[] =
 {
@@ -411,7 +412,7 @@ aap_final_link_relocate (reloc_howto_type *  howto,
      information then we must scale the value to make it word addressed */
   if (symbol_section
       && ((symbol_section->flags & SEC_CODE) != 0)
-      && ((symbol_section->flags & SEC_DEBUGGING) == 0))
+      && ((input_section->flags & SEC_DEBUGGING) == 0))
     {
       /* FIXME: handle the case where lsb erroneously set */
       if (relocation & 1)
@@ -423,6 +424,13 @@ aap_final_link_relocate (reloc_howto_type *  howto,
       relocation = ((bfd_signed_vma)relocation) >> 1;
       address_location = ((bfd_signed_vma)address_location) >> 1;
     }
+
+  /* If the input section is a debug section, then we need to merge the
+     address space bits back into the relocation */
+  if ((input_section->flags & SEC_DEBUGGING) != 0
+      && !howto->pc_relative
+      && (howto->bitsize == 32 || howto->bitsize == 64))
+    relocation = AAP_BUILD_ADDRESS (reloc_mem_space, relocation);
 
   /* Call a custom function to handle actually emplacing the relocation. This
      is necessary as most of our relocations are not contiguous and require
