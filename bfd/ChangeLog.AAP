@@ -1,5 +1,9 @@
 2015-08-18  Edward Jones  <ed.jones@embecosm.com>
 
+	* cpu-aap.c (bfd_arch_aap_fill): Correct noop fill.
+
+2015-08-18  Edward Jones  <ed.jones@embecosm.com>
+
 	* elf32-aap.c (aap_final_link_relocate): Preserve address space bits
 	for debug sections. Fix bug causing incorrect scaling of addresses.
 

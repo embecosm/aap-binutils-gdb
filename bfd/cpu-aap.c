@@ -30,8 +30,8 @@ bfd_arch_aap_fill (bfd_size_type count,
 		    bfd_boolean is_bigendian ATTRIBUTE_UNUSED,
 		    bfd_boolean code ATTRIBUTE_UNUSED)
 {
-  /* mov.b r0l, r0l */
-  static const char nop[] = { 0x40, 0x68 };
+  /* nop $r0, 0 */
+  static const char nop[] = { 0x00, 0x00 };
   bfd_size_type nop_size = 2;
 
   void *fill = bfd_malloc (count);
