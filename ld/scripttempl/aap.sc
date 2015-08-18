@@ -47,9 +47,16 @@ SECTIONS
   } >DATA_MEM
 
   PROVIDE (___heap_start = ALIGN (., 0x100));
+
+EOF
+
+  . $srcdir/scripttempl/DWARF.sc
+
+cat <<EOF
 }
 
 PROVIDE (___stack_end = (0xfff0));
 PROVIDE (___heap_end = (___stack_end + ___heap_start) / 2);
 EOF
+
 

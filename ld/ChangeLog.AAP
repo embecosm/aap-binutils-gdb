@@ -1,5 +1,9 @@
 2015-05-29  Edward Jones  <ed.jones@embecosm.com>
 
+	* scripttempl/aap.sc: Include DWARF.sc for dwarf sections.
+
+2015-05-29  Edward Jones  <ed.jones@embecosm.com>
+
 	* scripttempl/aap.sc: Removed vectors from linker script.
 
 2015-05-22  Edward Jones  <ed.jones@embecosm.com>
