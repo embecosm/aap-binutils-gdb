@@ -160,26 +160,26 @@ static reloc_howto_type elf_aap_howto_table[] =
          1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
          6,                     /* Bitsize.  */
          TRUE,                  /* PC_relative.  */
-         0,                     /* Bitpos. */
+         3,                     /* Bitpos. */
          complain_overflow_signed,/* Complain_on_overflow.  */
          bfd_elf_generic_reloc, /* Special_function.  */
          "R_AAP_BAL16",         /* Name.  */
          TRUE,                  /* Partial_inplace.  */
-         0x01c7,                /* Src_mask.  */
-         0x01c7,                /* Dst_mask.  */
+         0x01f8,                /* Src_mask.  */
+         0x01f8,                /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_BAL32,           /* Type.  */
          0,                     /* Rightshift.  */
          2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
          16,                    /* Bitsize.  */
          TRUE,                  /* PC_relative.  */
-         0,                     /* Bitpos. */
+         3,                     /* Bitpos. */
          complain_overflow_signed,/* Complain_on_overflow.  */
          bfd_elf_generic_reloc, /* Special_function.  */
          "R_AAP_BAL32",         /* Name.  */
          TRUE,                  /* Partial_inplace.  */
-         0x1fc701c7,            /* Src_mask.  */
-         0x1fc701c7,            /* Dst_mask.  */
+         0x1ff801f8,            /* Src_mask.  */
+         0x1ff801f8,            /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_ABS3_SHORT,      /* Type.  */
          0,                     /* Rightshift.  */
@@ -489,22 +489,6 @@ aap_relocate_contents (reloc_howto_type *howto,
       x |= (relocation & 0x7f) << 22;
 
       bfd_put_32 (input_bfd, x, location);
-      return bfd_reloc_ok;
-    }
-  else if (howto->type == R_AAP_BAL16)
-    {
-      /* signed overflow check, top bit must match upper bits  */
-      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 5;
-      if ((sign != 0) && (sign != -1))
-	return bfd_reloc_outofrange;
-
-      bfd_vma x = bfd_get_16(input_bfd, location);
-      x &= ~howto->dst_mask;
-
-      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
-      x |= (relocation & 0x7) <<  6;
-
-      bfd_put_16 (input_bfd, x, location);
       return bfd_reloc_ok;
     }
   else if (howto->type == R_AAP_BAL32)

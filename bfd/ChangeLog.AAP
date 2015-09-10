@@ -1,5 +1,10 @@
 2015-09-10  Edward Jones  <ed.jones@embecosm.com>
 
+	* elf32-aap.c (HOWTO): Updated R_AAP_BAL32 and R_AAP_BAL16
+	relocations. Removed custom handling of R_AAP_BAL16.
+
+2015-09-10  Edward Jones  <ed.jones@embecosm.com>
+
 	* elf32-aap.c (HOWTO): Added R_AAP_OFF3 relocation.
 
 2015-08-18  Edward Jones  <ed.jones@embecosm.com>
