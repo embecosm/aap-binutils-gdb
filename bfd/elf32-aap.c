@@ -194,6 +194,19 @@ static reloc_howto_type elf_aap_howto_table[] =
          0x0007,                /* Src_mask.  */
          0x0007,                /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
+  HOWTO (R_AAP_OFF3_SHORT,      /* Type.  */
+         0,                     /* Rightshift.  */
+         1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
+         3,                     /* Bitsize.  */
+         FALSE,                 /* PC_relative.  */
+         0,                     /* Bitpos. */
+         complain_overflow_signed,/* Complain_on_overflow.  */
+         bfd_elf_generic_reloc, /* Special_function.  */
+         "R_AAP_OFF3_SHORT",    /* Name.  */
+         TRUE,                  /* Partial_inplace.  */
+         0x0007,                /* Src_mask.  */
+         0x0007,                /* Dst_mask.  */
+         FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_ABS6_SHORT,      /* Type.  */
          0,                     /* Rightshift.  */
          1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
