@@ -181,45 +181,6 @@ static reloc_howto_type elf_aap_howto_table[] =
          0x1ff801f8,            /* Src_mask.  */
          0x1ff801f8,            /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
-  HOWTO (R_AAP_ABS3_SHORT,      /* Type.  */
-         0,                     /* Rightshift.  */
-         1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
-         3,                     /* Bitsize.  */
-         FALSE,                 /* PC_relative.  */
-         0,                     /* Bitpos. */
-         complain_overflow_unsigned,/* Complain_on_overflow.  */
-         bfd_elf_generic_reloc, /* Special_function.  */
-         "R_AAP_ABS3_SHORT",    /* Name.  */
-         TRUE,                  /* Partial_inplace.  */
-         0x0007,                /* Src_mask.  */
-         0x0007,                /* Dst_mask.  */
-         FALSE),                /* PCrel_offset.  */
-  HOWTO (R_AAP_OFF3_SHORT,      /* Type.  */
-         0,                     /* Rightshift.  */
-         1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
-         3,                     /* Bitsize.  */
-         FALSE,                 /* PC_relative.  */
-         0,                     /* Bitpos. */
-         complain_overflow_signed,/* Complain_on_overflow.  */
-         bfd_elf_generic_reloc, /* Special_function.  */
-         "R_AAP_OFF3_SHORT",    /* Name.  */
-         TRUE,                  /* Partial_inplace.  */
-         0x0007,                /* Src_mask.  */
-         0x0007,                /* Dst_mask.  */
-         FALSE),                /* PCrel_offset.  */
-  HOWTO (R_AAP_ABS6_SHORT,      /* Type.  */
-         0,                     /* Rightshift.  */
-         1,                     /* Size (0 = byte, 1 = short, 2 = long).  */
-         6,                     /* Bitsize.  */
-         FALSE,                 /* PC_relative.  */
-         0,                     /* Bitpos. */
-         complain_overflow_unsigned,/* Complain_on_overflow.  */
-         bfd_elf_generic_reloc, /* Special_function.  */
-         "R_AAP_ABS6_SHORT",    /* Name.  */
-         TRUE,                  /* Partial_inplace.  */
-         0x003f,                /* Src_mask.  */
-         0x003f,                /* Dst_mask.  */
-         FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_ABS6,            /* Type.  */
          0,                     /* Rightshift.  */
          2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
@@ -259,19 +220,6 @@ static reloc_howto_type elf_aap_howto_table[] =
          0x1e070007,            /* Src_mask.  */
          0x1e070007,            /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
-  HOWTO (R_AAP_OFF10,           /* Type.  */
-         0,                     /* Rightshift.  */
-         2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
-         10,                    /* Bitsize.  */
-         FALSE,                 /* PC_relative.  */
-         0,                     /* Bitpos. */
-         complain_overflow_unsigned,/* Complain_on_overflow.  */
-         bfd_elf_generic_reloc, /* Special_function.  */
-         "R_AAP_OFF10",         /* Name.  */
-         TRUE,                  /* Partial_inplace.  */
-         0x1e070007,            /* Src_mask.  */
-         0x1e070007,            /* Dst_mask.  */
-         FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_ABS12,           /* Type.  */
          0,                     /* Rightshift.  */
          2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
@@ -297,6 +245,32 @@ static reloc_howto_type elf_aap_howto_table[] =
          TRUE,                  /* Partial_inplace.  */
          0x1e3f003f,            /* Src_mask.  */
          0x1e3f003f,            /* Dst_mask.  */
+         FALSE),                /* PCrel_offset.  */
+  HOWTO (R_AAP_SHIFT6,          /* Type.  */
+         0,                     /* Rightshift.  */
+         2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
+         6,                     /* Bitsize.  */
+         FALSE,                 /* PC_relative.  */
+         0,                     /* Bitpos. */
+         complain_overflow_unsigned,/* Complain_on_overflow.  */
+         bfd_elf_generic_reloc, /* Special_function.  */
+         "R_AAP_SHIFT6",        /* Name.  */
+         TRUE,                  /* Partial_inplace.  */
+         0x00070007,            /* Src_mask.  */
+         0x00070007,            /* Dst_mask.  */
+         FALSE),                /* PCrel_offset.  */
+  HOWTO (R_AAP_OFF10,           /* Type.  */
+         0,                     /* Rightshift.  */
+         2,                     /* Size (0 = byte, 1 = short, 2 = long).  */
+         10,                    /* Bitsize.  */
+         FALSE,                 /* PC_relative.  */
+         0,                     /* Bitpos. */
+         complain_overflow_unsigned,/* Complain_on_overflow.  */
+         bfd_elf_generic_reloc, /* Special_function.  */
+         "R_AAP_OFF10",         /* Name.  */
+         TRUE,                  /* Partial_inplace.  */
+         0x1e070007,            /* Src_mask.  */
+         0x1e070007,            /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
 };
 
@@ -553,23 +527,6 @@ aap_relocate_contents (reloc_howto_type *howto,
       bfd_put_32 (input_bfd, x, location);
       return bfd_reloc_ok;
     }
-  else if (howto->type == R_AAP_OFF10)
-    {
-      /* signed overflow check, top bit must match upper bits  */
-      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 10;
-      if ((sign != 0) && (sign != -1))
-	return bfd_reloc_outofrange;
-
-      bfd_vma x = bfd_get_32(input_bfd, location);
-      x &= ~howto->dst_mask;
-
-      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
-      x |= (relocation & 0x7) << 16;  relocation >>= 3;
-      x |= (relocation & 0xf) << 25;
-
-      bfd_put_32 (input_bfd, x, location);
-      return bfd_reloc_ok;
-    }
   else if (howto->type == R_AAP_ABS12)
     {
       if (relocation >> 12 != 0)
@@ -597,6 +554,40 @@ aap_relocate_contents (reloc_howto_type *howto,
       x |= (relocation & 0x3f) <<  0;  relocation >>= 6;
       x |= (relocation & 0x3f) << 16;  relocation >>= 6;
       x |= (relocation &  0xf) << 25;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_SHIFT6)
+    {
+      if (relocation == 0 || relocation > 64)
+	return bfd_reloc_outofrange;
+
+      /* map from the range [1, 64], to [0, 63] for encoding */
+      relocation -= 1;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) << 16;
+
+      bfd_put_32 (input_bfd, x, location);
+      return bfd_reloc_ok;
+    }
+  else if (howto->type == R_AAP_OFF10)
+    {
+      /* signed overflow check, top bit must match upper bits  */
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 10;
+      if ((sign != 0) && (sign != -1))
+	return bfd_reloc_outofrange;
+
+      bfd_vma x = bfd_get_32(input_bfd, location);
+      x &= ~howto->dst_mask;
+
+      x |= (relocation & 0x7) <<  0;  relocation >>= 3;
+      x |= (relocation & 0x7) << 16;  relocation >>= 3;
+      x |= (relocation & 0xf) << 25;
 
       bfd_put_32 (input_bfd, x, location);
       return bfd_reloc_ok;

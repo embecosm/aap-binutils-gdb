@@ -1,3 +1,11 @@
+2015-09-11  Edward Jones  <ed.jones@embecosm.com>
+
+	* elf32-aap.c (HOWTO): Removed R_AAP_ABS3_SHORT and R_AAP_ABS6_SHORT
+	relocations. Added R_AAP_SHIFT6 reloc, and moved R_AAP_OFF10 reloc to
+	be the final relocation.
+	(aap_relocate_contents): Added custom handling for R_AAP_SHIFT6
+	reloc, moved R_AAP_OFF10 to end of custom handling.
+
 2015-09-10  Edward Jones  <ed.jones@embecosm.com>
 
 	* elf32-aap.c (HOWTO): Updated R_AAP_BAL32 and R_AAP_BAL16

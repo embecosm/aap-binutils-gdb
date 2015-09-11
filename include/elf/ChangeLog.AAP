@@ -1,3 +1,8 @@
+2015-09-11  Edward Jones  <ed.jones@embecosm.com>
+
+	* aap.h: Removed R_AAP_ABS3_SHORT and R_AAP_ABS6_SHORT relocations.
+	Added R_AAP_SHIFT6 reloc, and moved R_AAP_OFF10 reloc to the end.
+
 2015-09-10  Edward Jones  <ed.jones@embecosm.com>
 
 	* aap.h: Added R_AAP_OFF3 relocation.
