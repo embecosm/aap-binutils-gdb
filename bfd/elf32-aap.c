@@ -475,10 +475,8 @@ aap_relocate_contents (reloc_howto_type *howto,
       bfd_vma x = bfd_get_32(input_bfd, location);
       x &= ~howto->dst_mask;
 
-      x |= (relocation &  0x7) <<  0;  relocation >>= 3;
-      x |= (relocation &  0x7) <<  6;  relocation >>= 3;
-      x |= (relocation &  0x7) << 16;  relocation >>= 3;
-      x |= (relocation & 0x7f) << 22;
+      x |= (relocation &  0x3f) << 3;  relocation >>= 6;
+      x |= (relocation & 0x3ff) << 16;
 
       bfd_put_32 (input_bfd, x, location);
       return bfd_reloc_ok;

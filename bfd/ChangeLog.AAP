@@ -1,3 +1,8 @@
+2015-10-29  Edward Jones  <ed.jones@embecosm.com>
+
+	* elf32-aap.c (aap_relocate_contents): Fix R_AAP_BAL32 to match
+	updated encoding.
+
 2015-09-11  Edward Jones  <ed.jones@embecosm.com>
 
 	* elf32-aap.c (HOWTO): Removed R_AAP_ABS3_SHORT and R_AAP_ABS6_SHORT
