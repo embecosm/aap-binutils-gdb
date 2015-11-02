@@ -1,5 +1,11 @@
 2015-11-02  Edward Jones  <ed.jones@embecosm.com>
 
+	* elf32-aap.c (AAP_GET_MEM_SPACE AAP_GET_ADDR_LOCATION)
+	(AAP_BUILD_ADDRESS): Alter mask so that top 5 bits contain the address
+	space identifier.
+
+2015-11-02  Edward Jones  <ed.jones@embecosm.com>
+
 	* elf32-aap.c (aap_relocate_contents): Actually Fix R_AAP_BAL32 to
 	matched updated encoding.
 

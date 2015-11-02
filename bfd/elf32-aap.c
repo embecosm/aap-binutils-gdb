@@ -30,11 +30,11 @@
 
 #define BASEADDR(SEC)	((SEC)->output_section->vma + (SEC)->output_offset)
 
-/* The top byte contains the address space id, we need to mask this off
-   to get the actually memory address */
-#define AAP_GET_MEM_SPACE(ADDR) (((ADDR) >> (32 - 8)) & 0xff)
-#define AAP_GET_ADDR_LOCATION(ADDR) ((ADDR) & 0xffffff)
-#define AAP_BUILD_ADDRESS(ID, ADDR) (((ID & 0xff) << (32 - 8)) | (ADDR & 0xffffff))
+/* The top 5 bits contain the address space id, we need to mask this off
+   to get the actual memory address */
+#define AAP_GET_MEM_SPACE(ADDR) (((ADDR) >> (32 - 5)) & 0x1f)
+#define AAP_GET_ADDR_LOCATION(ADDR) ((ADDR) & 0x7ffffff)
+#define AAP_BUILD_ADDRESS(ID, ADDR) (((ID & 0x1f) << (32 - 5)) | (ADDR & 0x7ffffff))
 
 static reloc_howto_type elf_aap_howto_table[] =
 {

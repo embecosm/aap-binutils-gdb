@@ -1,3 +1,8 @@
+2015-11-02  Edward Jones  <ed.jones@embecosm.com>
+
+	* scripttempl/aap.sc (AAP_MEM_TYPE_CODE): Set 5th bit from top to
+	be the code flag bit.
+
 2015-05-29  Edward Jones  <ed.jones@embecosm.com>
 
 	* scripttempl/aap.sc: Include DWARF.sc for dwarf sections.
