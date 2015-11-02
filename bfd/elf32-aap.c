@@ -468,7 +468,7 @@ aap_relocate_contents (reloc_howto_type *howto,
   else if (howto->type == R_AAP_BAL32)
     {
       /* signed overflow check, top bit must match upper bits  */
-      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 15;
+      bfd_signed_vma sign = ((bfd_signed_vma)relocation) >> 17;
       if ((sign != 0) && (sign != -1))
 	return bfd_reloc_outofrange;
 
@@ -476,7 +476,7 @@ aap_relocate_contents (reloc_howto_type *howto,
       x &= ~howto->dst_mask;
 
       x |= (relocation &  0x3f) << 3;  relocation >>= 6;
-      x |= (relocation & 0x3ff) << 16;
+      x |= (relocation & 0x3ff) << 19;
 
       bfd_put_32 (input_bfd, x, location);
       return bfd_reloc_ok;
