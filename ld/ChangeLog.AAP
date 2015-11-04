@@ -1,3 +1,7 @@
+2015-11-04  Edward Jones  <ed.jones@embecosm.com>
+
+	* emulparams/elf32aap.sh: Update alignment from 8 to 4.
+
 2015-11-02  Edward Jones  <ed.jones@embecosm.com>
 
 	* scripttempl/aap.sc (AAP_MEM_TYPE_CODE): Set 5th bit from top to

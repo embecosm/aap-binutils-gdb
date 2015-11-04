@@ -1,3 +1,8 @@
+2015-11-04  Edward Jones <ed.jones@embecosm.com>
+
+	* aap-tdep.c (AAP_MEMSPACE_MASK AAP_MEMSPACE_CODE AAP_MEMSPACE_DATA):
+	Update flag bits.
+
 2015-05-12  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.in: Add AAP target dependency files.  Fix i386 targets

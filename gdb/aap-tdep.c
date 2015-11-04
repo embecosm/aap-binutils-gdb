@@ -124,13 +124,13 @@ addressed).
 
 
 /*! Mask for the address space bits */
-static const uint32_t  AAP_MEMSPACE_MASK = 0xfe000000;
+static const uint32_t  AAP_MEMSPACE_MASK = 0xf8000000;
 
 /*! Address space bits for code */
-static const uint32_t  AAP_MEMSPACE_CODE = 0x00000000;
+static const uint32_t  AAP_MEMSPACE_CODE = 0x08000000;
 
 /*! Address space bits for data */
-static const uint32_t  AAP_MEMSPACE_DATA = 0x80000000;
+static const uint32_t  AAP_MEMSPACE_DATA = 0x00000000;
 
 /* Define the breakpoint instruction which is inserted by GDB into the target
    code. This must be exactly the same as the simulator expects.
@@ -1240,16 +1240,16 @@ aap_gdbarch_init (struct gdbarch_info  info,
   set_gdbarch_int_bit (gdbarch, 2 * TARGET_CHAR_BIT);
   set_gdbarch_long_bit (gdbarch, 4 * TARGET_CHAR_BIT);
   set_gdbarch_long_long_bit (gdbarch, 8 * TARGET_CHAR_BIT);
-  set_gdbarch_ptr_bit (gdbarch, 8 * TARGET_CHAR_BIT);
-  set_gdbarch_addr_bit (gdbarch, 8 * TARGET_CHAR_BIT);
+  set_gdbarch_ptr_bit (gdbarch, 4 * TARGET_CHAR_BIT);
+  set_gdbarch_addr_bit (gdbarch, 4 * TARGET_CHAR_BIT);
 
   set_gdbarch_float_bit (gdbarch, 4 * TARGET_CHAR_BIT);
-  set_gdbarch_double_bit (gdbarch, 4 * TARGET_CHAR_BIT);
-  set_gdbarch_long_double_bit (gdbarch, 4 * TARGET_CHAR_BIT);
+  set_gdbarch_double_bit (gdbarch, 8 * TARGET_CHAR_BIT);
+  set_gdbarch_long_double_bit (gdbarch, 8 * TARGET_CHAR_BIT);
 
   set_gdbarch_float_format (gdbarch, floatformats_ieee_single);
-  set_gdbarch_double_format (gdbarch, floatformats_ieee_single);
-  set_gdbarch_long_double_format (gdbarch, floatformats_ieee_single);
+  set_gdbarch_double_format (gdbarch, floatformats_ieee_double);
+  set_gdbarch_long_double_format (gdbarch, floatformats_ieee_double);
 
   set_gdbarch_read_pc (gdbarch, aap_read_pc);
   set_gdbarch_write_pc (gdbarch, aap_write_pc);
