@@ -1,3 +1,7 @@
+2015-11-13  Edward Jones  <ed.jones@embecosm.com>
+
+	* elf32-aap.c (HOWTO): Fix the source and dest masks for R_AAP_BRCC32
+
 2015-11-02  Edward Jones  <ed.jones@embecosm.com>
 
 	* elf32-aap.c (AAP_GET_MEM_SPACE AAP_GET_ADDR_LOCATION)

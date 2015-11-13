@@ -152,8 +152,8 @@ static reloc_howto_type elf_aap_howto_table[] =
          bfd_elf_generic_reloc, /* Special_function.  */
          "R_AAP_BRCC32",        /* Name.  */
          TRUE,                  /* Partial_inplace.  */
-         0x01fc01c0,            /* Src_mask.  */
-         0x01fc01c0,            /* Dst_mask.  */
+         0x1fc001c0,            /* Src_mask.  */
+         0x1fc001c0,            /* Dst_mask.  */
          FALSE),                /* PCrel_offset.  */
   HOWTO (R_AAP_BAL16,           /* Type.  */
          0,                     /* Rightshift.  */
