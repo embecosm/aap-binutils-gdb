@@ -1,0 +1,6 @@
+2016-01-27  Andrew Burgess  <andrew.burgess@embecosm.com>
+
+	* readelf.c: Add 'elf/aap.h' include.
+	(guess_is_rela): Add aap support.
+	(get_machine_name): Add aap support.
+

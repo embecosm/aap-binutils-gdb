@@ -89,6 +89,7 @@
 
 #define RELOC_MACROS_GEN_FUNC
 
+#include "elf/aap.h"
 #include "elf/aarch64.h"
 #include "elf/alpha.h"
 #include "elf/arc.h"
@@ -717,6 +718,7 @@ guess_is_rela (unsigned int e_machine)
       /* Targets that use RELA relocations.  */
     case EM_68K:
     case EM_860:
+    case EM_AAP:
     case EM_AARCH64:
     case EM_ADAPTEVA_EPIPHANY:
     case EM_ALPHA:
@@ -1166,6 +1168,10 @@ dump_relocations (FILE * file,
 	{
 	default:
 	  rtype = NULL;
+	  break;
+
+	case EM_AAP:
+	  rtype = elf_aap_reloc_type (type);
 	  break;
 
 	case EM_AARCH64:
@@ -2084,6 +2090,7 @@ get_machine_name (unsigned e_machine)
   switch (e_machine)
     {
     case EM_NONE:		return _("None");
+    case EM_AAP:		return "AAP";
     case EM_AARCH64:		return "AArch64";
     case EM_M32:		return "WE32100";
     case EM_SPARC:		return "Sparc";
