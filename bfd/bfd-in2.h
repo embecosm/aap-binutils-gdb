@@ -2770,6 +2770,9 @@ relocation types already defined.  */
   BFD_RELOC_SPU_PPU64,
   BFD_RELOC_SPU_ADD_PIC,
 
+/* AAP Relocations.  */
+  BFD_RELOC_AAP_IADDR22,
+
 /* Alpha ECOFF and ELF relocations.  Some of these treat the symbol or
 "addend" in some special way.
 For GPDISP_HI16 ("gpdisp") relocations, the symbol is ignored when

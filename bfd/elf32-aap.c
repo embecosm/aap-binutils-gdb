@@ -287,7 +287,8 @@ static const struct aap_reloc_map aap_reloc_map[] =
   { BFD_RELOC_NONE, R_AAP_NONE },
   { BFD_RELOC_8,    R_AAP_8 },
   { BFD_RELOC_16,   R_AAP_16 },
-  { BFD_RELOC_32,   R_AAP_32 }
+  { BFD_RELOC_32,   R_AAP_32 },
+  { BFD_RELOC_AAP_IADDR22, R_AAP_BR32 },
 };
 
 static reloc_howto_type *

@@ -2058,6 +2058,11 @@ ENUMDOC
   SPU Relocations.
 
 ENUM
+  BFD_RELOC_AAP_IADDR22
+ENUMDOC
+  AAP Relocations.
+
+ENUM
   BFD_RELOC_ALPHA_GPDISP_HI16
 ENUMDOC
   Alpha ECOFF and ELF relocations.  Some of these treat the symbol or
