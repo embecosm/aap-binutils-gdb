@@ -129,6 +129,7 @@ HFILES = \
 # CPU files in config.
 
 TARGET_CPU_CFILES = \
+	config/tc-aap.c \
 	config/tc-aarch64.c \
 	config/tc-alpha.c \
 	config/tc-arc.c \
@@ -203,6 +204,7 @@ TARGET_CPU_CFILES = \
 	config/xtensa-relax.c
 
 TARGET_CPU_HFILES = \
+	config/tc-aap.h \
 	config/tc-aarch64.h \
 	config/tc-alpha.h \
 	config/tc-arc.h \

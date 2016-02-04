@@ -1,0 +1,5 @@
+# AAP assembler testsuite. -*- Tcl -*-
+
+if [istarget aap*-*-*] {
+    run_dump_test "allinsn"
+}
