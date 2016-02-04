@@ -1,0 +1,49 @@
+/* AAP opcode support.  -*- C -*-
+
+   Copyright 2016 Free Software Foundation, Inc.
+
+   Contributed by Embecosm.
+
+   This file is part of the GNU Binutils and of GDB.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston,
+   MA 02110-1301, USA.  */
+
+/* -- opc.h */
+
+/* -- opc.c */
+
+#define CGEN_DIS_HASH_SIZE 128
+#define CGEN_DIS_HASH(buf, value) (((buf [1]) >> 1) & 0x7f)
+
+/* -- asm.c */
+
+/* -- dis.c */
+
+#define CGEN_PRINT_INSN aap_print_insn
+
+static int
+aap_print_insn (CGEN_CPU_DESC cd, bfd_vma pc, disassemble_info *info)
+{
+  /* Configure INFO to correctly display decode instruction bytes.  */
+  info->bytes_per_line = 4;
+  info->bytes_per_chunk = 2;
+  info->display_endian = BFD_ENDIAN_LITTLE;
+
+  return default_print_insn (cd, pc, info);
+}
+
+/* -- */
+
