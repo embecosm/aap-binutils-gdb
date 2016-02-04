@@ -59,6 +59,7 @@ BUILD_LIB_DEPS = @BUILD_LIB_DEPS@
 
 # Header files.
 HFILES = \
+	aap-desc.h aap-opc.h \
 	aarch64-asm.h aarch64-dis.h aarch64-opc.h aarch64-tbl.h \
 	epiphany-desc.h epiphany-opc.h \
 	fr30-desc.h fr30-opc.h \
@@ -91,6 +92,11 @@ HFILES = \
 # C source files that correspond to .o's ending up in libopcodes
 # for all machines.
 TARGET_LIBOPCODES_CFILES = \
+	aap-asm.c \
+	aap-desc.c \
+	aap-dis.c \
+	aap-ibld.c \
+	aap-opc.c \
 	aarch64-asm.c \
 	aarch64-asm-2.c \
 	aarch64-dis.c \
@@ -353,7 +359,8 @@ po/POTFILES.in: @MAINT@ Makefile
 	  && mv tmp $(srcdir)/po/POTFILES.in
 
 CLEANFILES = \
-	stamp-epiphany stamp-fr30 stamp-frv stamp-ip2k stamp-iq2000 stamp-lm32 \
+	stamp-aap stamp-epiphany stamp-fr30 stamp-frv stamp-ip2k \
+	stamp-iq2000 stamp-lm32 \
 	stamp-m32c stamp-m32r stamp-mep stamp-mt \
 	stamp-or1k stamp-xc16x stamp-xstormy16 \
 	libopcodes.a stamp-lib
@@ -371,9 +378,10 @@ CGENDEPS = \
 	$(CGENDIR)/opc-opinst.scm \
 	cgen-asm.in cgen-dis.in cgen-ibld.in
 
-CGEN_CPUS = epiphany fr30 frv ip2k iq2000 lm32 m32c m32r mep mt or1k xc16x xstormy16
+CGEN_CPUS = aap epiphany fr30 frv ip2k iq2000 lm32 m32c m32r mep mt or1k xc16x xstormy16
 
 if CGEN_MAINT
+AAP_DEPS = stamp-aap
 EPIPHANY_DEPS = stamp-epiphany
 FR30_DEPS = stamp-fr30
 FRV_DEPS = stamp-frv
@@ -388,6 +396,7 @@ OR1K_DEPS = stamp-or1k
 XC16X_DEPS = stamp-xc16x
 XSTORMY16_DEPS = stamp-xstormy16
 else
+AAP_DEPS =
 EPIPHANY_DEPS =
 FR30_DEPS =
 FRV_DEPS =
@@ -419,6 +428,16 @@ run-cgen-all:
 .PHONY: run-cgen-all
 
 # For now, require developers to configure with --enable-cgen-maint.
+
+$(srcdir)/aap-desc.h $(srcdir)/aap-desc.c $(srcdir)/aap-opc.h \
+		$(srcdir)/aap-opc.c $(srcdir)/aap-ibld.c \
+		$(srcdir)/aap-opinst.c $(srcdir)/aap-asm.c \
+		$(srcdir)/aap-dis.c: $(AAP_DEPS)
+	@true
+
+stamp-aap: $(CGENDEPS) $(CPUDIR)/aap.cpu $(CPUDIR)/aap.opc
+	$(MAKE) run-cgen arch=aap prefix=aap options= \
+		archfile=$(CPUDIR)/aap.cpu opcfile=$(CPUDIR)/aap.opc extrafiles=
 
 $(srcdir)/epiphany-desc.h $(srcdir)/epiphany-desc.c $(srcdir)/epiphany-opc.h \
 		$(srcdir)/epiphany-opc.c $(srcdir)/epiphany-ibld.c \

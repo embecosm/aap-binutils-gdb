@@ -252,7 +252,7 @@ if test x${all_targets} = xfalse ; then
 	ad=`echo $arch | sed -e s/bfd_//g -e s/_arch//g`
 	archdefs="$archdefs -DARCH_$ad"
 	case "$arch" in
-	bfd_aap_arch)		;;
+	bfd_aap_arch)		ta="$ta aap-asm.lo aap-desc.lo aap-dis.lo aap-ibld.lo aap-opc.lo" using_cgen=yes ;;
 	bfd_aarch64_arch)	ta="$ta aarch64-asm.lo aarch64-dis.lo aarch64-opc.lo aarch64-asm-2.lo aarch64-dis-2.lo aarch64-opc-2.lo" ;;
 	bfd_alpha_arch)		ta="$ta alpha-dis.lo alpha-opc.lo" ;;
 	bfd_arc_arch)		ta="$ta arc-dis.lo arc-opc.lo arc-ext.lo" ;;

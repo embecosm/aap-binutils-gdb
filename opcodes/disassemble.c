@@ -22,6 +22,7 @@
 #include "dis-asm.h"
 
 #ifdef ARCH_all
+#define ARCH_aap
 #define ARCH_aarch64
 #define ARCH_alpha
 #define ARCH_arc
@@ -116,6 +117,11 @@ disassembler (abfd)
     {
       /* If you add a case to this table, also add it to the
 	 ARCH_all definition right above this function.  */
+#ifdef ARCH_aap
+    case bfd_arch_aap:
+      disassemble = print_insn_aap;
+      break;
+#endif
 #ifdef ARCH_aarch64
     case bfd_arch_aarch64:
       disassemble = print_insn_aarch64;
