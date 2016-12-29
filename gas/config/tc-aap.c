@@ -196,7 +196,7 @@ valueT
 aap_section_align (segT sec, valueT size)
 {
   int align = bfd_get_section_alignment (stdoutput, sec);
-  return ((size + (1 << align) - 1) & (-1 << align));
+  return ((size + (1 << align) - 1) & (((valueT) -1) << align));
 }
 
 symbolS *
