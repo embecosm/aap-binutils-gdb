@@ -49,7 +49,7 @@ count_decodable_bits (const CGEN_INSN *insn)
   return bits;
 }
 
-/* Add an instruction to the hash chain.  */     
+/* Add an instruction to the hash chain.  */
 static void
 add_insn_to_hash_chain (CGEN_INSN_LIST *hentbuf,
 			const CGEN_INSN *insn,
@@ -110,7 +110,7 @@ hash_insn_array (CGEN_CPU_DESC cd,
     {
       unsigned int hash;
       char buf [4];
-      unsigned long value;
+      unsigned long value, tmp;
       const CGEN_INSN *insn = &insns[i];
 
       if (! (* cd->dis_hash_p) (insn))
@@ -124,6 +124,16 @@ hash_insn_array (CGEN_CPU_DESC cd,
 		    buf,
 		    CGEN_INSN_MASK_BITSIZE (insn),
 		    big_p);
+
+      /* The instruction might have different instruction lengths, and a
+         chunk size that is smaller than the instruction length.  */
+      tmp = cgen_get_insn_value (cd, (unsigned char *) buf, 
+                                 CGEN_INSN_MASK_BITSIZE (insn));
+      bfd_put_bits ((bfd_vma) tmp,
+		    buf,
+		    CGEN_INSN_MASK_BITSIZE (insn),
+		    big_p);
+
       hash = (* cd->dis_hash) (buf, value);
       add_insn_to_hash_chain (hentbuf, insn, htable, hash);
     }
@@ -161,6 +171,10 @@ hash_insn_list (CGEN_CPU_DESC cd,
 		   buf,
 		   CGEN_INSN_MASK_BITSIZE (ilist->insn),
 		   big_p);
+      fprintf (stderr, "hash_insn_list:: `%s' (len %d) value `0x%llx' / 0x%lx\n",
+               CGEN_INSN_NAME (ilist->insn),
+               CGEN_INSN_BITSIZE (ilist->insn),
+               ((unsigned long long) hash), value);
       hash = (* cd->dis_hash) (buf, value);
       add_insn_to_hash_chain (hentbuf, ilist->insn, htable, hash);
     }

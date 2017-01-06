@@ -83,33 +83,50 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gr_names, & fields->f_dst_reg);
       break;
+    case AAP_OPERAND_IADDR10 :
+      {
+        bfd_vma value = 0;
+        errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR10, 0, NULL,  & value);
+        fields->f_pcrel_simm10 = value;
+      }
+      break;
+    case AAP_OPERAND_IADDR16 :
+      {
+        bfd_vma value = 0;
+        errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR16, 0, NULL,  & value);
+        fields->f_pcrel_simm16 = value;
+      }
+      break;
     case AAP_OPERAND_IADDR22 :
       {
         bfd_vma value = 0;
         errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR22, 0, NULL,  & value);
-        fields->f_simm22 = value;
+        fields->f_pcrel_simm22 = value;
       }
       break;
     case AAP_OPERAND_IADDR3 :
       {
         bfd_vma value = 0;
         errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR3, 0, NULL,  & value);
-        fields->f_simm3 = value;
+        fields->f_pcrel_simm3 = value;
       }
       break;
     case AAP_OPERAND_IADDR6 :
       {
         bfd_vma value = 0;
         errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR6, 0, NULL,  & value);
-        fields->f_simm6 = value;
+        fields->f_pcrel_simm6 = value;
       }
       break;
     case AAP_OPERAND_IADDR9 :
       {
         bfd_vma value = 0;
         errmsg = cgen_parse_address (cd, strp, AAP_OPERAND_IADDR9, 0, NULL,  & value);
-        fields->f_simm9 = value;
+        fields->f_pcrel_simm9 = value;
       }
+      break;
+    case AAP_OPERAND_INT10 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT10, (long *) (& fields->f_simm10));
       break;
     case AAP_OPERAND_INT3 :
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT3, (long *) (& fields->f_int_2_3));

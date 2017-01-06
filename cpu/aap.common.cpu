@@ -1,0 +1,672 @@
+; AAP architecture.  -*- Scheme -*-
+; Copyright 2016 Embecosm
+;
+; This program is free software; you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation; either version 3 of the License, or
+; (at your option) any later version.
+;
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+;
+; You should have received a copy of the GNU General Public License
+; along with this program; if not, see <http://www.gnu.org/licenses/>
+
+(include "simplify.inc")
+
+(define-arch
+  (name aap)
+  (comment "AAP")
+  (default-alignment aligned)
+  (insn-lsb0? #t)
+  (machs aap)
+  (isas aap))
+
+; Instruction set parameters.
+(define-isa
+  (name aap)
+  (default-insn-word-bitsize 32)
+  (default-insn-bitsize 32)
+  (base-insn-bitsize 32))
+
+(define-cpu
+  (name aap)
+  (comment "AAP CPU Family")
+  (endian little)
+  (insn-endian little)
+  (insn-chunk-bitsize 16)
+  (word-bitsize 32))
+
+(define-mach
+  (name aap)
+  (comment "AAP Mach")
+  (cpu aap)
+  (isas aap))
+
+(define-model
+  (name aap)
+  (comment "AAP Model")
+  (mach aap)
+
+  (unit u-exec "execution unit" ()
+	1 1 ; issue done
+	() () () ()))
+
+;; --------- Helper Macros ---------
+
+(define-pmacro all-aap-isas () (ISA aap))
+
+;; --------- Hardware ---------
+
+(define-keyword
+  (name gr-names)
+  (print-name h-registers)
+  (prefix "")
+  (values
+   ($r0  0)  ($r1  1)  ($r2  2)  ($r3  3)  ($r4  4)  ($r5  5)  ($r6  6)  ($r7  7)
+   ($r8  8)  ($r9  9)  ($r10 10) ($r11 11) ($r12 12) ($r13 13) ($r14 14) ($r15 15)
+   ($r16 16) ($r17 17) ($r18 18) ($r19 19) ($r20 20) ($r21 21) ($r22 22) ($r23 23)
+   ($r24 24) ($r25 25) ($r26 26) ($r27 27) ($r28 28) ($r29 29) ($r30 30) ($r31 31)
+   ($r32 32) ($r33 33) ($r34 34) ($r35 35) ($r36 36) ($r37 37) ($r38 38) ($r39 39)
+   ($r40 40) ($r41 41) ($r42 42) ($r43 43) ($r44 44) ($r45 45) ($r46 46) ($r47 47)
+   ($r48 48) ($r49 49) ($r50 50) ($r51 51) ($r52 52) ($r53 53) ($r54 54) ($r55 55)
+   ($r56 56) ($r57 57) ($r58 58) ($r59 59) ($r60 60) ($r61 61) ($r62 62) ($r63 63)))
+
+(define-hardware
+  (name h-gpr)
+  (comment "General Purpose Registers")
+  (attrs all-aap-isas CACHE-ADDR)
+  (type register SI (8))
+  (indices extern-keyword gr-names))
+
+(dnh h-pc "program counter" (PC PROFILE) (pc) () () ())
+
+;; --------- Instruction Fields ---------
+
+;; 16 Bit Instructions
+
+;; 1 11 111
+;; 5 43 2109 876 543 210
+
+;; 0 CC OOOO DDD AAA BBB
+;; 0 CC OOOO DDD AAA III
+;; 0 CC OOOO SSS AAA BBB
+;; 0 CC OOOO DDD AAA SSS
+;; 0 CC OOOO DDD III III
+;; 0 CC OOOO SSS SSS BBB
+;; 0 CC OOOO SSS SSS SSS
+
+(dnf f-length    "long insn bit (16-bit)"      (all-aap-isas) 15 1)
+(dnf f-x-length  "long insn bit (32-bit)"      (all-aap-isas) 31 1)
+
+(dnf f-class     "instruction class (16-bit)"  (all-aap-isas) 14 2) ;; CC
+(dnf f-x-class   "instruction class (32-bit)"  (all-aap-isas) 30 2) ;; CC
+
+(dnf f-opcode    "instruction opcode (16-bit)" (all-aap-isas) 12 4) ;; OOOO
+(dnf f-x-opcode  "instruction opcode (32-bit)" (all-aap-isas) 28 4) ;; OOOO
+
+(dnf f-dst-reg   "dst reg"            (all-aap-isas) 8  3) ;; DDD
+(dnf f-src-reg-1 "src reg 1"          (all-aap-isas) 5  3) ;; AAA
+(dnf f-src-reg-2 "src reg 2"          (all-aap-isas) 2  3) ;; BBB
+
+(dnf f-x-dst-reg   "dst reg (x)"     (all-aap-isas) 24  3)
+(dnf f-x-src-reg-1 "src reg 1 (x)"   (all-aap-isas) 21  3)
+(dnf f-x-src-reg-2 "src reg 2 (x)"   (all-aap-isas) 18  3)
+
+(dnf f-x-filler-7  "7-bit filler field"  (all-aap-isas) 15 7)
+(dnf f-x-filler-3  "3-bit filler field"  (all-aap-isas) 15 3)
+
+(df f-uint-5-6  "imm: ----------iiiiii" (all-aap-isas) 5   6 UINT #f #f)
+(df f-uint-2-3  "imm: -------------iii" (all-aap-isas) 2   3 UINT #f #f)
+(df f-uint-8-9  "imm: -------iiiiiiiii" (all-aap-isas) 8   9 UINT #f #f)
+
+(df f-int-5-6   "imm: ----------ssssss" (all-aap-isas) 5   6 INT #f #f)
+(df f-int-2-3   "imm: -------------sss" (all-aap-isas) 2   3 INT #f #f)
+(df f-int-12-4  "imm: ---ssss---------" (all-aap-isas) 12  4 INT #f #f)
+(df f-int-12-7  "imm: ---sssssss------" (all-aap-isas) 12  7 INT #f #f)
+(df f-int-12-10 "imm: ---ssssssssss---" (all-aap-isas) 12 10 INT #f #f)
+
+(df f-x-uint-2-3  "imm: -------------iii" (all-aap-isas) 18  3 UINT #f #f)
+(df f-x-uint-8-3  "imm: -------iii------" (all-aap-isas) 24  3 UINT #f #f)
+(df f-x-uint-8-6  "imm: -------iiiiii---" (all-aap-isas) 24  6 UINT #f #f)
+(df f-x-int-12-13 "imm: ---sssssssssssss" (all-aap-isas) 28 13 INT  #f #f)
+
+(df f-pcrel-simm9 "9-bit branch displacement" (all-aap-isas PCREL-ADDR) 8 9 INT
+    ((value pc) (sra SI (sub SI value pc) 1))
+    ((value pc) (add SI (sll SI value 1) pc)))
+
+(df f-pcrel-simm6 "6-bit branch displacement" (all-aap-isas PCREL-ADDR) 8 6 INT
+    ((value pc) (sra SI (sub SI value pc) 1))
+    ((value pc) (add SI (sll SI value 1) pc)))
+
+(df f-pcrel-simm3 "3-bit branch displacement" (all-aap-isas PCREL-ADDR) 8 3 INT
+    ((value pc) (sra SI (sub SI value pc) 1))
+    ((value pc) (add SI (sll SI value 1) pc)))
+
+;; --------- Instruction Multi-IFields ---------
+
+(define-pmacro (define-aap-reg-multi-ifield f-name f-comment f-sub-field-1 f-sub-field-2)
+  (define-multi-ifield
+    (name f-name)
+    (comment f-comment)
+    (attrs all-aap-isas)
+    (mode UINT)
+    (subfields f-sub-field-1 f-sub-field-2)
+    (insert (sequence ()
+                      (set (ifield f-sub-field-1)
+                           (and (ifield f-name) #x7))
+                      (set (ifield f-sub-field-2)
+                           (and (srl (ifield f-name) #x3) #x7))))
+    (extract (sequence ()
+                       (set (ifield f-name)
+                            (or (ifield f-sub-field-1)
+                                (sll (ifield f-sub-field-2) #x3)))))))
+
+(define-aap-reg-multi-ifield f-long-dst-reg   "dst reg (6-bit)"   f-x-dst-reg   f-dst-reg)
+(define-aap-reg-multi-ifield f-long-src-reg-1 "src reg 1 (6-bit)" f-x-src-reg-1 f-src-reg-1)
+(define-aap-reg-multi-ifield f-long-src-reg-2 "src reg 2 (6-bit)" f-x-src-reg-2 f-src-reg-2)
+
+(define-multi-ifield
+   (name f-simm10)
+   (comment "f-simm10")
+   (attrs all-aap-isas)
+   (mode INT)
+   (subfields f-x-uint-2-3 f-int-12-4 f-uint-2-3)
+   (insert (sequence ()
+                      (set (ifield f-x-uint-2-3)
+                           (and (ifield f-simm10) #x7))
+                      (set (ifield f-int-12-4)
+                           (and (srl (ifield f-simm10) #x6) #xf))
+                      (set (ifield f-uint-2-3)
+                           (and (srl (ifield f-simm10) #x3) #x7))))
+   (extract (sequence ()
+                       (set (ifield f-simm10)
+                            (or (ifield f-x-uint-2-3)
+                                (or (sll (ifield f-uint-2-3) #x3)
+                                    (sll (ifield f-int-12-4) #x6)))))))
+
+(define-multi-ifield
+   (name f-pcrel-simm22)
+   (comment "f-pcrel-simm22")
+   (attrs all-aap-isas PCREL-ADDR)
+   (mode INT)
+   (subfields f-uint-8-9 f-x-int-12-13)
+   (insert (sequence ()
+                      (set (ifield f-uint-8-9)
+                           (and (ifield f-pcrel-simm22) #x1ff))
+                      (set (ifield f-x-int-12-13)
+                           (and (srl (ifield f-pcrel-simm22) #x9) #x1fff))))
+   (extract (sequence ()
+                       (set (ifield f-pcrel-simm22)
+                            (or (ifield f-uint-8-9)
+                                (sll (ifield f-x-int-12-13) #x9)))))
+   (encode (value pc) (sra SI (sub SI value pc) 1))
+   (decode (value pc) (add SI (sll SI value 1) pc)))
+
+(define-multi-ifield
+   (name f-pcrel-simm16)
+   (comment "f-pcrel-simm16")
+   (attrs all-aap-isas PCREL-ADDR)
+   (mode INT)
+   (subfields f-int-12-10 f-x-uint-8-6)
+   (insert (sequence ()
+                      (set (ifield f-x-uint-8-6)
+                           (and (ifield f-pcrel-simm16) #x3f))
+                      (set (ifield f-int-12-10)
+                           (and (srl (ifield f-pcrel-simm16) #x6) #x3ff))))
+   (extract (sequence ()
+                       (set (ifield f-pcrel-simm16)
+                            (or (ifield f-x-uint-8-6)
+                                (sll (ifield f-int-12-10) #x6)))))
+   (encode (value pc) (sra SI (sub SI value pc) 1))
+   (decode (value pc) (add SI (sll SI value 1) pc)))
+
+(define-multi-ifield
+   (name f-pcrel-simm10)
+   (comment "f-pcrel-simm10")
+   (attrs all-aap-isas PCREL-ADDR)
+   (mode INT)
+   (subfields f-int-12-7 f-x-uint-8-3)
+   (insert (sequence ()
+                      (set (ifield f-x-uint-8-3)
+                           (and (ifield f-pcrel-simm10) #x7))
+                      (set (ifield f-int-12-7)
+                           (and (srl (ifield f-pcrel-simm10) #x3) #x7f))))
+   (extract (sequence ()
+                       (set (ifield f-pcrel-simm10)
+                            (or (ifield f-x-uint-8-3)
+                                (sll (ifield f-int-12-7) #x3)))))
+   (encode (value pc) (sra SI (sub SI value pc) 1))
+   (decode (value pc) (add SI (sll SI value 1) pc)))
+
+;; --------- Single Field Operands ---------
+
+(define-operand
+  (name dest)
+  (comment "dest")
+  (type h-gpr)
+  (index f-dst-reg))
+
+(define-operand
+  (name src1)
+  (comment "src1")
+  (type h-gpr)
+  (index f-src-reg-1))
+
+(define-operand
+  (name src2)
+  (comment "src2")
+  (type h-gpr)
+  (index f-src-reg-2))
+
+(define-operand
+  (name uint3)
+  (comment "uint3")
+  (type h-uint)
+  (index f-uint-2-3))
+
+(define-operand
+  (name uint6)
+  (comment "uint6")
+  (type h-uint)
+  (index f-uint-5-6))
+
+(define-operand
+  (name int3)
+  (comment "int3")
+  (type h-sint)
+  (index f-int-2-3))
+
+(define-operand
+  (name int10)
+  (comment "int10")
+  (type h-sint)
+  (index f-simm10))
+
+(define-operand
+   (name iaddr22)
+   (comment "iaddr22")
+   (type h-iaddr)
+   (index f-pcrel-simm22))
+
+(define-operand
+   (name iaddr16)
+   (comment "iaddr16")
+   (type h-iaddr)
+   (index f-pcrel-simm16))
+
+(define-operand
+   (name iaddr10)
+   (comment "iaddr10")
+   (type h-iaddr)
+   (index f-pcrel-simm10))
+
+(define-operand
+  (name iaddr9)
+  (comment "iaddr9")
+  (type h-iaddr)
+  (index f-pcrel-simm9))
+
+(define-operand
+  (name iaddr6)
+  (comment "iaddr6")
+  (type h-iaddr)
+  (index f-pcrel-simm6))
+
+(define-operand
+  (name iaddr3)
+  (comment "iaddr3")
+  (type h-iaddr)
+  (index f-pcrel-simm3))
+
+;; --------- Multi Field Operands ---------
+
+(define-operand
+  (name xdest)
+  (comment "xdest")
+  (type h-gpr)
+  (index f-long-dst-reg))
+
+(define-operand
+  (name xsrc1)
+  (comment "xsrc1")
+  (type h-gpr)
+  (index f-long-src-reg-1))
+
+(define-operand
+  (name xsrc2)
+  (comment "xsrc2")
+  (type h-gpr)
+  (index f-long-src-reg-2))
+
+;; --------- Support Macros To Create Instructions ---------
+
+(define-pmacro (aap-rrr-insn-16-32 mnemonic class opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment mnemonic)
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},${src1},${src2}"))
+      (format (.splice + (f-length 0) (f-class class) (f-opcode opcode)
+                       dest src1 src2)))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},${xsrc1},${xsrc2}"))
+      (format (.splice + (f-x-length 1) (f-x-class class) (f-x-opcode opcode)
+                       xdest xsrc1 xsrc2 (f-x-filler-7 0))))))
+
+(define-pmacro (aap-rrz-insn-16-32 mnemonic class opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},${src1}"))
+      (format (.splice + (f-length 0) (f-class class) (f-opcode opcode)
+                       dest src1 (f-src-reg-2 0))))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},${xsrc1}"))
+      (format (.splice + (f-x-length 1) (f-x-class class) (f-x-opcode opcode)
+                       xdest xsrc1 (f-x-filler-7 0) (f-src-reg-2 0)
+                       (f-x-src-reg-2 0))))))
+
+(define-pmacro (aap-rzr-insn-16-32 mnemonic class opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},${src2}"))
+      (format (.splice + (f-length 0) (f-class class) (f-opcode opcode)
+                       dest (f-src-reg-1 0) src2)))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},${xsrc2}"))
+      (format (.splice + (f-x-length 1) (f-x-class class) (f-x-opcode opcode)
+                       xdest xsrc2 (f-src-reg-1 0) (f-x-src-reg-1 0)
+                       (f-x-filler-7 0))))))
+
+(define-pmacro (aap-rzz-insn-16 mnemonic class opcode)
+  (define-insn
+    (name (.sym mnemonic))
+    (comment (.str mnemonic))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${dest}"))
+    (format (.splice + (f-length 0) (f-class class) (f-opcode opcode) dest
+                     (f-src-reg-1 0) (f-src-reg-2 0)))))
+
+(define-pmacro (aap-rzz-insn-32 mnemonic class opcode)
+  (define-insn
+    (name (.sym mnemonic "_x"))
+    (comment (.str mnemonic "_x"))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${xdest}"))
+    (format (.splice + (f-x-length 1) (f-x-class class) (f-x-opcode opcode) xdest
+                     (f-src-reg-1 0) (f-x-src-reg-1 0)
+                     (f-src-reg-2 0) (f-x-src-reg-2 0)
+                     (f-x-filler-7 0)))))
+
+(define-pmacro (aap-rzz-insn-16-32 mnemonic class opcode)
+  (begin
+    (aap-rzz-insn-16 mnemonic class opcode)
+    (aap-rzz-insn-32 mnemonic class opcode)))
+
+(define-pmacro (aap-rri-insn-16 mnemonic class opcode)
+  (define-insn
+    (name (.sym mnemonic))
+    (comment (.str mnemonic))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${dest},${src1},#${uint3}"))
+    (format (.splice + (f-length 0) (f-class class) (f-opcode opcode)
+                     dest src1 uint3))))
+
+(define-pmacro (aap-ri-insn-16 mnemonic class opcode)
+  (define-insn
+    (name (.sym mnemonic))
+    (comment (.str mnemonic))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${dest},${uint6}"))
+    (format (.splice + (f-length 0) (f-class class) (f-opcode opcode) dest uint6))))
+
+(define-pmacro (aap-ld-insn-16-32 mnemonic opcode0 opcode1 opcode2)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},(${src1},${int3})"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode0) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_brackets") (.str mnemonic "_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${dest},[${src1},${int3}]")
+          (emit (.sym mnemonic) dest src1 int3))
+
+    (dnmi (.sym mnemonic "_zr") (.str mnemonic "_zr")
+          (all-aap-isas)
+          (.str mnemonic " ${dest},(${src1})")
+          (emit (.sym mnemonic) dest src1 (int3 0)))
+
+    (dnmi (.sym mnemonic "_zr_brackets") (.str mnemonic "_zr_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${dest},[${src1}]")
+          (emit (.sym mnemonic) dest src1 (int3 0)))
+
+    (define-insn
+      (name (.sym mnemonic "_post_inc"))
+      (comment (.str mnemonic "_post_inc"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},(${src1}+,${int3})"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode1) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_post_inc_brackets")
+          (.str mnemonic "_post_inc_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${dest},[${src1}+,${int3}]")
+          (emit (.sym mnemonic "_post_inc") dest src1 int3))
+
+    (define-insn
+      (name (.sym mnemonic "_pre_dec"))
+      (comment (.str mnemonic "_pre_dec"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${dest},(-${src1},${int3})"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode2) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_pre_dec_brackets")
+          (.str mnemonic "_pre_dec_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${dest},[-${src1},${int3}]")
+          (emit (.sym mnemonic "_pre_dec") dest src1 int3))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},(${xsrc1},${int10})"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0)
+                       (f-x-opcode opcode0) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_x_brackets") (.str mnemonic "_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${xdest},[${xsrc1},${int10}]")
+          (emit (.sym mnemonic "_x") xdest xsrc1 int10))
+
+    (define-insn
+      (name (.sym mnemonic "_post_inc_x"))
+      (comment (.str mnemonic "_post_inc_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},(${xsrc1}+,${int10})"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0)
+                       (f-x-opcode opcode1) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_post_inc_x_brackets") (.str mnemonic "_post_inc_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${xdest},[${xsrc1}+,${int10}]")
+          (emit (.sym mnemonic "_post_inc_x") xdest xsrc1 int10))
+
+    (define-insn
+      (name (.sym mnemonic "_pre_dec_x"))
+      (comment (.str mnemonic "_pre_dec_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${xdest},(-${xsrc1},${int10})"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0)
+                       (f-x-opcode opcode2) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_pre_dec_x_brackets") (.str mnemonic "_pre_dec_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " ${xdest},[-${xsrc1},${int10}]")
+          (emit (.sym mnemonic "_pre_dec_x") xdest xsrc1 int10))))
+
+;; Used to create 16 and 32 bit store instructions.  Also create macro
+;; instructions for various cases, including use of alternative "[]"
+;; brackets instead of "()" parenthesis.  Also macro instructions for
+;; zero offset store are created.
+(define-pmacro (aap-st-insn-16-32 mnemonic opcode0 opcode1 opcode2)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (${dest},${int3}),${src1}"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode0) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_brackets") (.str mnemonic "_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [${dest},${int3}],${src1}")
+          (emit (.sym mnemonic) dest src1 int3))
+
+    (dnmi (.sym mnemonic "_zr") (.str mnemonic "_zr")
+          (all-aap-isas)
+          (.str mnemonic " (${dest}),${src1}")
+          (emit (.sym mnemonic) dest src1 (int3 0)))
+
+    (dnmi (.sym mnemonic "_zr_brackets") (.str mnemonic "_zr_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [${dest}],${src1}")
+          (emit (.sym mnemonic) dest src1 (int3 0)))
+
+    (define-insn
+      (name (.sym mnemonic "_post_inc"))
+      (comment (.str mnemonic "_post_inc"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (${dest}+,${int3}),${src1}"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode1) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_post_inc_brackets") (.str mnemonic "_post_inc_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [${dest}+,${int3}],${src1}")
+          (emit (.sym mnemonic "_post_inc") dest src1 int3))
+
+    (define-insn
+      (name (.sym mnemonic "_pre_dec"))
+      (comment (.str mnemonic "_pre_dec"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (-${dest},${int3}),${src1}"))
+      (format (.splice + (f-length 0) (f-class 1) (f-opcode opcode2) dest src1 int3)))
+
+    (dnmi (.sym mnemonic "_pre_dec_brackets") (.str mnemonic "_pre_dec_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [-${dest},${int3}],${src1}")
+          (emit (.sym mnemonic "_pre_dec") dest src1 int3))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (${xdest},${int10}),${xsrc1}"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0) (f-x-opcode opcode0) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_x_brackets") (.str mnemonic "_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [${xdest},${int10}],${xsrc1}")
+          (emit (.sym mnemonic "_x") xdest xsrc1 int10))
+
+    (define-insn
+      (name (.sym mnemonic "_post_inc_x"))
+      (comment (.str mnemonic "_post_inc_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (${xdest}+,${int10}),${xsrc1}"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0) (f-x-opcode opcode1) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_post_inc_x_brackets") (.str mnemonic "_post_inc_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [${xdest}+,${int10}],${xsrc1}")
+          (emit (.sym mnemonic "_post_inc_x") xdest xsrc1 int10))
+
+    (define-insn
+      (name (.sym mnemonic "_pre_dec_x"))
+      (comment (.str mnemonic "_pre_dec_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " (-${xdest},${int10}),${xsrc1}"))
+      (format (.splice + (f-x-length 1) (f-x-class 1) (f-x-filler-3 0) (f-x-opcode opcode2) xdest xsrc1 int10)))
+
+    (dnmi (.sym mnemonic "_pre_dec_x_brackets") (.str mnemonic "_pre_dec_x_brackets")
+          (all-aap-isas NO-DIS)
+          (.str mnemonic " [-${xdest},${int10}],${xsrc1}")
+          (emit (.sym mnemonic "_pre_dec_x") xdest xsrc1 int10))))
+
+(define-pmacro (aap-s-insn-16-32 mnemonic opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${iaddr9}"))
+      (format (.splice + (f-length 0) (f-class 2) (f-opcode opcode) iaddr9)))
+
+  (define-insn
+    (name (.sym mnemonic "_x"))
+    (comment (.str mnemonic "_x"))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${iaddr22}"))
+    (format (.splice + (f-x-length 1)  (f-x-filler-3 0) (f-x-class 2)
+                     (f-x-opcode opcode) iaddr22)))))
+
+(define-pmacro (aap-sr-insn-16-32 mnemonic opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${iaddr6},${src2}"))
+      (format (.splice + (f-length 0) (f-class 2) (f-opcode opcode) iaddr6 src2)))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${iaddr16},${xsrc2}"))
+      (format (.splice + (f-x-length 1) (f-x-filler-3 0) (f-x-class 2)
+                       (f-x-opcode opcode) iaddr16 xsrc2)))))
+
+(define-pmacro (aap-srr-insn-16-32 mnemonic opcode)
+  (begin
+    (define-insn
+      (name (.sym mnemonic))
+      (comment (.str mnemonic))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${iaddr3},${src1},${src2}"))
+      (format (.splice + (f-length 0) (f-class 2) (f-opcode opcode)
+                       iaddr3 src1 src2)))
+
+    (define-insn
+      (name (.sym mnemonic "_x"))
+      (comment (.str mnemonic "_x"))
+      (attrs all-aap-isas)
+      (syntax (.str mnemonic " ${iaddr10},${xsrc1},${xsrc2}"))
+      (format (.splice + (f-x-length 1)  (f-x-filler-3 0) (f-x-class 2)
+                       (f-x-opcode opcode) iaddr10 xsrc1 xsrc2)))))
+

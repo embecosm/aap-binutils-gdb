@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright (C) 1996-2015 Free Software Foundation, Inc.
+Copyright 1996-2010 Free Software Foundation, Inc.
 
 This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
@@ -113,7 +113,7 @@ const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[] =
 /* Instruction set variants.  */
 
 static const CGEN_ISA aap_cgen_isa_table[] = {
-  { "aap", 16, 16, 16, 32 },
+  { "aap", 32, 32, 16, 32 },
   { 0, 0, 0, 0, 0 }
 };
 
@@ -126,70 +126,70 @@ static const CGEN_MACH aap_cgen_mach_table[] = {
 
 static CGEN_KEYWORD_ENTRY aap_cgen_opval_gr_names_entries[] =
 {
-  { "r0", 0, {0, {{{0, 0}}}}, 0, 0 },
-  { "r1", 1, {0, {{{0, 0}}}}, 0, 0 },
-  { "r2", 2, {0, {{{0, 0}}}}, 0, 0 },
-  { "r3", 3, {0, {{{0, 0}}}}, 0, 0 },
-  { "r4", 4, {0, {{{0, 0}}}}, 0, 0 },
-  { "r5", 5, {0, {{{0, 0}}}}, 0, 0 },
-  { "r6", 6, {0, {{{0, 0}}}}, 0, 0 },
-  { "r7", 7, {0, {{{0, 0}}}}, 0, 0 },
-  { "r8", 8, {0, {{{0, 0}}}}, 0, 0 },
-  { "r9", 9, {0, {{{0, 0}}}}, 0, 0 },
-  { "r10", 10, {0, {{{0, 0}}}}, 0, 0 },
-  { "r11", 11, {0, {{{0, 0}}}}, 0, 0 },
-  { "r12", 12, {0, {{{0, 0}}}}, 0, 0 },
-  { "r13", 13, {0, {{{0, 0}}}}, 0, 0 },
-  { "r14", 14, {0, {{{0, 0}}}}, 0, 0 },
-  { "r15", 15, {0, {{{0, 0}}}}, 0, 0 },
-  { "r16", 16, {0, {{{0, 0}}}}, 0, 0 },
-  { "r17", 17, {0, {{{0, 0}}}}, 0, 0 },
-  { "r18", 18, {0, {{{0, 0}}}}, 0, 0 },
-  { "r19", 19, {0, {{{0, 0}}}}, 0, 0 },
-  { "r20", 20, {0, {{{0, 0}}}}, 0, 0 },
-  { "r21", 21, {0, {{{0, 0}}}}, 0, 0 },
-  { "r22", 22, {0, {{{0, 0}}}}, 0, 0 },
-  { "r23", 23, {0, {{{0, 0}}}}, 0, 0 },
-  { "r24", 24, {0, {{{0, 0}}}}, 0, 0 },
-  { "r25", 25, {0, {{{0, 0}}}}, 0, 0 },
-  { "r26", 26, {0, {{{0, 0}}}}, 0, 0 },
-  { "r27", 27, {0, {{{0, 0}}}}, 0, 0 },
-  { "r28", 28, {0, {{{0, 0}}}}, 0, 0 },
-  { "r29", 29, {0, {{{0, 0}}}}, 0, 0 },
-  { "r30", 30, {0, {{{0, 0}}}}, 0, 0 },
-  { "r31", 31, {0, {{{0, 0}}}}, 0, 0 },
-  { "r32", 32, {0, {{{0, 0}}}}, 0, 0 },
-  { "r33", 33, {0, {{{0, 0}}}}, 0, 0 },
-  { "r34", 34, {0, {{{0, 0}}}}, 0, 0 },
-  { "r35", 35, {0, {{{0, 0}}}}, 0, 0 },
-  { "r36", 36, {0, {{{0, 0}}}}, 0, 0 },
-  { "r37", 37, {0, {{{0, 0}}}}, 0, 0 },
-  { "r38", 38, {0, {{{0, 0}}}}, 0, 0 },
-  { "r39", 39, {0, {{{0, 0}}}}, 0, 0 },
-  { "r40", 40, {0, {{{0, 0}}}}, 0, 0 },
-  { "r41", 41, {0, {{{0, 0}}}}, 0, 0 },
-  { "r42", 42, {0, {{{0, 0}}}}, 0, 0 },
-  { "r43", 43, {0, {{{0, 0}}}}, 0, 0 },
-  { "r44", 44, {0, {{{0, 0}}}}, 0, 0 },
-  { "r45", 45, {0, {{{0, 0}}}}, 0, 0 },
-  { "r46", 46, {0, {{{0, 0}}}}, 0, 0 },
-  { "r47", 47, {0, {{{0, 0}}}}, 0, 0 },
-  { "r48", 48, {0, {{{0, 0}}}}, 0, 0 },
-  { "r49", 49, {0, {{{0, 0}}}}, 0, 0 },
-  { "r50", 50, {0, {{{0, 0}}}}, 0, 0 },
-  { "r51", 51, {0, {{{0, 0}}}}, 0, 0 },
-  { "r52", 52, {0, {{{0, 0}}}}, 0, 0 },
-  { "r53", 53, {0, {{{0, 0}}}}, 0, 0 },
-  { "r54", 54, {0, {{{0, 0}}}}, 0, 0 },
-  { "r55", 55, {0, {{{0, 0}}}}, 0, 0 },
-  { "r56", 56, {0, {{{0, 0}}}}, 0, 0 },
-  { "r57", 57, {0, {{{0, 0}}}}, 0, 0 },
-  { "r58", 58, {0, {{{0, 0}}}}, 0, 0 },
-  { "r59", 59, {0, {{{0, 0}}}}, 0, 0 },
-  { "r60", 60, {0, {{{0, 0}}}}, 0, 0 },
-  { "r61", 61, {0, {{{0, 0}}}}, 0, 0 },
-  { "r62", 62, {0, {{{0, 0}}}}, 0, 0 },
-  { "r63", 63, {0, {{{0, 0}}}}, 0, 0 }
+  { "$r0", 0, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r1", 1, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r2", 2, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r3", 3, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r4", 4, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r5", 5, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r6", 6, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r7", 7, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r8", 8, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r9", 9, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r10", 10, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r11", 11, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r12", 12, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r13", 13, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r14", 14, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r15", 15, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r16", 16, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r17", 17, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r18", 18, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r19", 19, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r20", 20, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r21", 21, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r22", 22, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r23", 23, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r24", 24, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r25", 25, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r26", 26, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r27", 27, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r28", 28, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r29", 29, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r30", 30, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r31", 31, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r32", 32, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r33", 33, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r34", 34, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r35", 35, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r36", 36, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r37", 37, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r38", 38, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r39", 39, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r40", 40, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r41", 41, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r42", 42, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r43", 43, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r44", 44, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r45", 45, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r46", 46, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r47", 47, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r48", 48, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r49", 49, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r50", 50, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r51", 51, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r52", 52, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r53", 53, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r54", 54, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r55", 55, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r56", 56, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r57", 57, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r58", 58, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r59", 59, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r60", 60, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r61", 61, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r62", 62, {0, {{{0, 0}}}}, 0, 0 },
+  { "$r63", 63, {0, {{{0, 0}}}}, 0, 0 }
 };
 
 CGEN_KEYWORD aap_cgen_opval_gr_names =
@@ -227,30 +227,42 @@ const CGEN_IFLD aap_cgen_ifld_table[] =
 {
   { AAP_F_NIL, "f-nil", 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_ANYOF, "f-anyof", 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_LENGTH, "f-length", 0, 16, 15, 1, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_CLASS, "f-class", 0, 16, 14, 2, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_OPCODE, "f-opcode", 0, 16, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_DST_REG, "f-dst-reg", 0, 16, 8, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SRC_REG_1, "f-src-reg-1", 0, 16, 5, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SRC_REG_2, "f-src-reg-2", 0, 16, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_X_DST_REG, "f-x-dst-reg", 16, 16, 8, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_X_SRC_REG_1, "f-x-src-reg-1", 16, 16, 5, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_X_SRC_REG_2, "f-x-src-reg-2", 16, 16, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_X_FILLER_7, "f-x-filler-7", 16, 16, 15, 7, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_X_FILLER_3, "f-x-filler-3", 16, 16, 15, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_5_6, "f-uint-5-6", 0, 16, 5, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_2_3, "f-uint-2-3", 0, 16, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_5_6, "f-int-5-6", 0, 16, 5, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_2_3, "f-int-2-3", 0, 16, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SIMM9, "f-simm9", 0, 16, 8, 9, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SIMM6, "f-simm6", 0, 16, 8, 6, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SIMM3, "f-simm3", 0, 16, 8, 3, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_LENGTH, "f-length", 0, 32, 15, 1, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_LENGTH, "f-x-length", 0, 32, 31, 1, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_CLASS, "f-class", 0, 32, 14, 2, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_CLASS, "f-x-class", 0, 32, 30, 2, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_OPCODE, "f-opcode", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_OPCODE, "f-x-opcode", 0, 32, 28, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_DST_REG, "f-dst-reg", 0, 32, 8, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_SRC_REG_1, "f-src-reg-1", 0, 32, 5, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_SRC_REG_2, "f-src-reg-2", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_DST_REG, "f-x-dst-reg", 0, 32, 24, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_SRC_REG_1, "f-x-src-reg-1", 0, 32, 21, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_SRC_REG_2, "f-x-src-reg-2", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_FILLER_7, "f-x-filler-7", 0, 32, 15, 7, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_FILLER_3, "f-x-filler-3", 0, 32, 15, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_UINT_5_6, "f-uint-5-6", 0, 32, 5, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_UINT_2_3, "f-uint-2-3", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_UINT_8_9, "f-uint-8-9", 0, 32, 8, 9, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_5_6, "f-int-5-6", 0, 32, 5, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_2_3, "f-int-2-3", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_12_4, "f-int-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_12_7, "f-int-12-7", 0, 32, 12, 7, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_12_10, "f-int-12-10", 0, 32, 12, 10, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_UINT_2_3, "f-x-uint-2-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_UINT_8_3, "f-x-uint-8-3", 0, 32, 24, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_UINT_8_6, "f-x-uint-8-6", 0, 32, 24, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_X_INT_12_13, "f-x-int-12-13", 0, 32, 28, 13, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM9, "f-pcrel-simm9", 0, 32, 8, 9, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM6, "f-pcrel-simm6", 0, 32, 8, 6, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM3, "f-pcrel-simm3", 0, 32, 8, 3, { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_LONG_DST_REG, "f-long-dst-reg", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_LONG_SRC_REG_1, "f-long-src-reg-1", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_LONG_SRC_REG_2, "f-long-src-reg-2", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_APB_1, "f-apb-1", 0, 16, 8, 9, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_APB_2, "f-apb-2", 16, 16, 12, 13, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_SIMM22, "f-simm22", 0, 0, 0, 0,{ 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_SIMM10, "f-simm10", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM22, "f-pcrel-simm22", 0, 0, 0, 0,{ 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM16, "f-pcrel-simm16", 0, 0, 0, 0,{ 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_PCREL_SIMM10, "f-pcrel-simm10", 0, 0, 0, 0,{ 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
   { 0, 0, 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } }
 };
 
@@ -263,33 +275,55 @@ const CGEN_IFLD aap_cgen_ifld_table[] =
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_DST_REG_MULTI_IFIELD [];
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_SRC_REG_1_MULTI_IFIELD [];
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_SRC_REG_2_MULTI_IFIELD [];
-const CGEN_MAYBE_MULTI_IFLD AAP_F_SIMM22_MULTI_IFIELD [];
+const CGEN_MAYBE_MULTI_IFLD AAP_F_SIMM10_MULTI_IFIELD [];
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM22_MULTI_IFIELD [];
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM16_MULTI_IFIELD [];
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM10_MULTI_IFIELD [];
 
 
 /* multi ifield definitions */
 
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_DST_REG_MULTI_IFIELD [] =
 {
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_DST_REG] } },
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_DST_REG] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_DST_REG] } },
     { 0, { (const PTR) 0 } }
 };
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_SRC_REG_1_MULTI_IFIELD [] =
 {
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SRC_REG_1] } },
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_SRC_REG_1] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SRC_REG_1] } },
     { 0, { (const PTR) 0 } }
 };
 const CGEN_MAYBE_MULTI_IFLD AAP_F_LONG_SRC_REG_2_MULTI_IFIELD [] =
 {
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SRC_REG_2] } },
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_SRC_REG_2] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SRC_REG_2] } },
     { 0, { (const PTR) 0 } }
 };
-const CGEN_MAYBE_MULTI_IFLD AAP_F_SIMM22_MULTI_IFIELD [] =
+const CGEN_MAYBE_MULTI_IFLD AAP_F_SIMM10_MULTI_IFIELD [] =
 {
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_APB_1] } },
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_APB_2] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_UINT_2_3] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_12_4] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_UINT_2_3] } },
+    { 0, { (const PTR) 0 } }
+};
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM22_MULTI_IFIELD [] =
+{
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_UINT_8_9] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_INT_12_13] } },
+    { 0, { (const PTR) 0 } }
+};
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM16_MULTI_IFIELD [] =
+{
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_12_10] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_UINT_8_6] } },
+    { 0, { (const PTR) 0 } }
+};
+const CGEN_MAYBE_MULTI_IFLD AAP_F_PCREL_SIMM10_MULTI_IFIELD [] =
+{
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_12_7] } },
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_X_UINT_8_3] } },
     { 0, { (const PTR) 0 } }
 };
 
@@ -328,21 +362,33 @@ const CGEN_OPERAND aap_cgen_operand_table[] =
   { "int3", AAP_OPERAND_INT3, HW_H_SINT, 2, 3,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_2_3] } }, 
     { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+/* int10: int10 */
+  { "int10", AAP_OPERAND_INT10, HW_H_SINT, 2, 10,
+    { 3, { (const PTR) &AAP_F_SIMM10_MULTI_IFIELD[0] } }, 
+    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
 /* iaddr22: iaddr22 */
   { "iaddr22", AAP_OPERAND_IADDR22, HW_H_IADDR, 8, 22,
-    { 2, { (const PTR) &AAP_F_SIMM22_MULTI_IFIELD[0] } }, 
+    { 2, { (const PTR) &AAP_F_PCREL_SIMM22_MULTI_IFIELD[0] } }, 
+    { 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+/* iaddr16: iaddr16 */
+  { "iaddr16", AAP_OPERAND_IADDR16, HW_H_IADDR, 12, 16,
+    { 2, { (const PTR) &AAP_F_PCREL_SIMM16_MULTI_IFIELD[0] } }, 
+    { 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+/* iaddr10: iaddr10 */
+  { "iaddr10", AAP_OPERAND_IADDR10, HW_H_IADDR, 12, 10,
+    { 2, { (const PTR) &AAP_F_PCREL_SIMM10_MULTI_IFIELD[0] } }, 
     { 0|A(PCREL_ADDR)|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
 /* iaddr9: iaddr9 */
   { "iaddr9", AAP_OPERAND_IADDR9, HW_H_IADDR, 8, 9,
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SIMM9] } }, 
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_PCREL_SIMM9] } }, 
     { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
 /* iaddr6: iaddr6 */
   { "iaddr6", AAP_OPERAND_IADDR6, HW_H_IADDR, 8, 6,
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SIMM6] } }, 
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_PCREL_SIMM6] } }, 
     { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
 /* iaddr3: iaddr3 */
   { "iaddr3", AAP_OPERAND_IADDR3, HW_H_IADDR, 8, 3,
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_SIMM3] } }, 
+    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_PCREL_SIMM3] } }, 
     { 0|A(PCREL_ADDR), { { { (1<<MACH_BASE), 0 } } } }  },
 /* xdest: xdest */
   { "xdest", AAP_OPERAND_XDEST, HW_H_GPR, 8, 6,
@@ -376,7 +422,7 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
      A `num' value of zero is thus invalid.
      Also, the special `invalid' insn resides here.  */
   { 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
-/* nop ${dest},#${uint6} */
+/* nop ${dest},${uint6} */
   {
     AAP_INSN_NOP, "nop", "nop", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
@@ -386,9 +432,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_ADD, "add", "add", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* add ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_ADD_X, "add_x", "add", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* sub ${dest},${src1},${src2} */
   {
     AAP_INSN_SUB, "sub", "sub", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* sub ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_SUB_X, "sub_x", "sub", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* and ${dest},${src1},${src2} */
@@ -396,9 +452,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_AND, "and", "and", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* and ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_AND_X, "and_x", "and", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* or ${dest},${src1},${src2} */
   {
     AAP_INSN_OR, "or", "or", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* or ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_OR_X, "or_x", "or", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* xor ${dest},${src1},${src2} */
@@ -406,9 +472,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_XOR, "xor", "xor", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* xor ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_XOR_X, "xor_x", "xor", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* asr ${dest},${src1},${src2} */
   {
     AAP_INSN_ASR, "asr", "asr", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* asr ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_ASR_X, "asr_x", "asr", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* lsl ${dest},${src1},${src2} */
@@ -416,14 +492,29 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_LSL, "lsl", "lsl", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* lsl ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_LSL_X, "lsl_x", "lsl", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* lsr ${dest},${src1},${src2} */
   {
     AAP_INSN_LSR, "lsr", "lsr", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* lsr ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_LSR_X, "lsr_x", "lsr", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* mov ${dest},${src1} */
   {
     AAP_INSN_MOV, "mov", "mov", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* mov ${xdest},${xsrc1} */
+  {
+    AAP_INSN_MOV_X, "mov_x", "mov", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* addi ${dest},${src1},#${uint3} */
@@ -451,9 +542,14 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_LSRI, "lsri", "lsri", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
-/* movi ${dest},#${uint6} */
+/* movi ${dest},${uint6} */
   {
     AAP_INSN_MOVI, "movi", "movi", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldb ${dest},(${src1},${int3}) */
+  {
+    AAP_INSN_LDB, "ldb", "ldb", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* ldb ${dest},(${src1}+,${int3}) */
@@ -461,9 +557,59 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_LDB_POST_INC, "ldb_post_inc", "ldb", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* ldb ${dest},(-${src1},${int3}) */
+  {
+    AAP_INSN_LDB_PRE_DEC, "ldb_pre_dec", "ldb", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldb ${xdest},(${xsrc1},${int10}) */
+  {
+    AAP_INSN_LDB_X, "ldb_x", "ldb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldb ${xdest},(${xsrc1}+,${int10}) */
+  {
+    AAP_INSN_LDB_POST_INC_X, "ldb_post_inc_x", "ldb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldb ${xdest},(-${xsrc1},${int10}) */
+  {
+    AAP_INSN_LDB_PRE_DEC_X, "ldb_pre_dec_x", "ldb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldw ${dest},(${src1},${int3}) */
+  {
+    AAP_INSN_LDW, "ldw", "ldw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* ldw ${dest},(${src1}+,${int3}) */
   {
     AAP_INSN_LDW_POST_INC, "ldw_post_inc", "ldw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldw ${dest},(-${src1},${int3}) */
+  {
+    AAP_INSN_LDW_PRE_DEC, "ldw_pre_dec", "ldw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldw ${xdest},(${xsrc1},${int10}) */
+  {
+    AAP_INSN_LDW_X, "ldw_x", "ldw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldw ${xdest},(${xsrc1}+,${int10}) */
+  {
+    AAP_INSN_LDW_POST_INC_X, "ldw_post_inc_x", "ldw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* ldw ${xdest},(-${xsrc1},${int10}) */
+  {
+    AAP_INSN_LDW_PRE_DEC_X, "ldw_pre_dec_x", "ldw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stb (${dest},${int3}),${src1} */
+  {
+    AAP_INSN_STB, "stb", "stb", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* stb (${dest}+,${int3}),${src1} */
@@ -471,9 +617,64 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_STB_POST_INC, "stb_post_inc", "stb", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* stb (-${dest},${int3}),${src1} */
+  {
+    AAP_INSN_STB_PRE_DEC, "stb_pre_dec", "stb", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stb (${xdest},${int10}),${xsrc1} */
+  {
+    AAP_INSN_STB_X, "stb_x", "stb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stb (${xdest}+,${int10}),${xsrc1} */
+  {
+    AAP_INSN_STB_POST_INC_X, "stb_post_inc_x", "stb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stb (-${xdest},${int10}),${xsrc1} */
+  {
+    AAP_INSN_STB_PRE_DEC_X, "stb_pre_dec_x", "stb", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stw (${dest},${int3}),${src1} */
+  {
+    AAP_INSN_STW, "stw", "stw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* stw (${dest}+,${int3}),${src1} */
   {
     AAP_INSN_STW_POST_INC, "stw_post_inc", "stw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stw (-${dest},${int3}),${src1} */
+  {
+    AAP_INSN_STW_PRE_DEC, "stw_pre_dec", "stw", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stw (${xdest},${int10}),${xsrc1} */
+  {
+    AAP_INSN_STW_X, "stw_x", "stw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stw (${xdest}+,${int10}),${xsrc1} */
+  {
+    AAP_INSN_STW_POST_INC_X, "stw_post_inc_x", "stw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* stw (-${xdest},${int10}),${xsrc1} */
+  {
+    AAP_INSN_STW_PRE_DEC_X, "stw_pre_dec_x", "stw", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bra ${iaddr9} */
+  {
+    AAP_INSN_BRA, "bra", "bra", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bra ${iaddr22} */
+  {
+    AAP_INSN_BRA_X, "bra_x", "bra", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* bal ${iaddr6},${src2} */
@@ -481,9 +682,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_BAL, "bal", "bal", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* bal ${iaddr16},${xsrc2} */
+  {
+    AAP_INSN_BAL_X, "bal_x", "bal", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* beq ${iaddr3},${src1},${src2} */
   {
     AAP_INSN_BEQ, "beq", "beq", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* beq ${iaddr10},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_BEQ_X, "beq_x", "beq", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* bne ${iaddr3},${src1},${src2} */
@@ -491,14 +702,29 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_BNE, "bne", "bne", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* bne ${iaddr10},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_BNE_X, "bne_x", "bne", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* blts ${iaddr3},${src1},${src2} */
   {
     AAP_INSN_BLTS, "blts", "blts", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
-/* bgts ${iaddr3},${src1},${src2} */
+/* blts ${iaddr10},${xsrc1},${xsrc2} */
   {
-    AAP_INSN_BGTS, "bgts", "bgts", 16,
+    AAP_INSN_BLTS_X, "blts_x", "blts", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bles ${iaddr3},${src1},${src2} */
+  {
+    AAP_INSN_BLES, "bles", "bles", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bles ${iaddr10},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_BLES_X, "bles_x", "bles", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* bltu ${iaddr3},${src1},${src2} */
@@ -506,9 +732,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_BLTU, "bltu", "bltu", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
-/* bgtu ${iaddr3},${src1},${src2} */
+/* bltu ${iaddr10},${xsrc1},${xsrc2} */
   {
-    AAP_INSN_BGTU, "bgtu", "bgtu", 16,
+    AAP_INSN_BLTU_X, "bltu_x", "bltu", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bleu ${iaddr3},${src1},${src2} */
+  {
+    AAP_INSN_BLEU, "bleu", "bleu", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* bleu ${iaddr10},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_BLEU_X, "bleu_x", "bleu", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* jmp ${dest} */
@@ -516,9 +752,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_JMP, "jmp", "jmp", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* jmp ${xdest} */
+  {
+    AAP_INSN_JMP_X, "jmp_x", "jmp", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* jal ${dest},${src2} */
   {
     AAP_INSN_JAL, "jal", "jal", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jal ${xdest},${xsrc2} */
+  {
+    AAP_INSN_JAL_X, "jal_x", "jal", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* jeq ${dest},${src1},${src2} */
@@ -526,9 +772,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_JEQ, "jeq", "jeq", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
+/* jeq ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_JEQ_X, "jeq_x", "jeq", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
 /* jne ${dest},${src1},${src2} */
   {
     AAP_INSN_JNE, "jne", "jne", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jne ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_JNE_X, "jne_x", "jne", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* jlts ${dest},${src1},${src2} */
@@ -536,9 +792,19 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_JLTS, "jlts", "jlts", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
-/* jgts ${dest},${src1},${src2} */
+/* jlts ${xdest},${xsrc1},${xsrc2} */
   {
-    AAP_INSN_JGTS, "jgts", "jgts", 16,
+    AAP_INSN_JLTS_X, "jlts_x", "jlts", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jles ${dest},${src1},${src2} */
+  {
+    AAP_INSN_JLES, "jles", "jles", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jles ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_JLES_X, "jles_x", "jles", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* jltu ${dest},${src1},${src2} */
@@ -546,64 +812,24 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
     AAP_INSN_JLTU, "jltu", "jltu", 16,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
-/* jgtu ${dest},${src1},${src2} */
+/* jltu ${xdest},${xsrc1},${xsrc2} */
   {
-    AAP_INSN_JGTU, "jgtu", "jgtu", 16,
+    AAP_INSN_JLTU_X, "jltu_x", "jltu", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jleu ${dest},${src1},${src2} */
+  {
+    AAP_INSN_JLEU, "jleu", "jleu", 16,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* jleu ${xdest},${xsrc1},${xsrc2} */
+  {
+    AAP_INSN_JLEU_X, "jleu_x", "jleu", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* rte ${dest} */
   {
     AAP_INSN_RTE, "rte", "rte", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* add ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_ADD_X, "add_x", "add", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* sub ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_SUB_X, "sub_x", "sub", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* and ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_AND_X, "and_x", "and", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* or ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_OR_X, "or_x", "or", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* xor ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_XOR_X, "xor_x", "xor", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* asr ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_ASR_X, "asr_x", "asr", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* lsl ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_LSL_X, "lsl_x", "lsl", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* lsr ${xdest},${xsrc1},${xsrc2} */
-  {
-    AAP_INSN_LSR_X, "lsr_x", "lsr", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* mov ${xdest},${xsrc1} */
-  {
-    AAP_INSN_MOV_X, "mov_x", "mov", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
-  },
-/* bra ${iaddr22} */
-  {
-    AAP_INSN_BRA_X, "bra_x", "bra", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 };

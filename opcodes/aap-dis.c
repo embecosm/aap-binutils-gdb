@@ -108,17 +108,26 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       print_keyword (cd, info, & aap_cgen_opval_gr_names, fields->f_dst_reg, 0);
       break;
+    case AAP_OPERAND_IADDR10 :
+      print_address (cd, info, fields->f_pcrel_simm10, 0|(1<<CGEN_OPERAND_PCREL_ADDR)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_IADDR16 :
+      print_address (cd, info, fields->f_pcrel_simm16, 0|(1<<CGEN_OPERAND_PCREL_ADDR)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
     case AAP_OPERAND_IADDR22 :
-      print_address (cd, info, fields->f_simm22, 0|(1<<CGEN_OPERAND_PCREL_ADDR)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      print_address (cd, info, fields->f_pcrel_simm22, 0|(1<<CGEN_OPERAND_PCREL_ADDR)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_IADDR3 :
-      print_address (cd, info, fields->f_simm3, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
+      print_address (cd, info, fields->f_pcrel_simm3, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
       break;
     case AAP_OPERAND_IADDR6 :
-      print_address (cd, info, fields->f_simm6, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
+      print_address (cd, info, fields->f_pcrel_simm6, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
       break;
     case AAP_OPERAND_IADDR9 :
-      print_address (cd, info, fields->f_simm9, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
+      print_address (cd, info, fields->f_pcrel_simm9, 0|(1<<CGEN_OPERAND_PCREL_ADDR), pc, length);
+      break;
+    case AAP_OPERAND_INT10 :
+      print_normal (cd, info, fields->f_simm10, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_INT3 :
       print_normal (cd, info, fields->f_int_2_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
