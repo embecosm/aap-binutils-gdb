@@ -330,6 +330,7 @@ BFD_H = ../bfd/bfd.h
 
 # Header files.
 HFILES = \
+	aap-desc.h aap-opc.h \
 	aarch64-asm.h aarch64-dis.h aarch64-opc.h aarch64-tbl.h \
 	epiphany-desc.h epiphany-opc.h \
 	fr30-desc.h fr30-opc.h \
@@ -363,6 +364,11 @@ HFILES = \
 # C source files that correspond to .o's ending up in libopcodes
 # for all machines.
 TARGET_LIBOPCODES_CFILES = \
+	aap-asm.c \
+	aap-desc.c \
+	aap-dis.c \
+	aap-ibld.c \
+	aap-opc.c \
 	aarch64-asm.c \
 	aarch64-asm-2.c \
 	aarch64-dis.c \
@@ -594,6 +600,7 @@ noinst_LIBRARIES = libopcodes.a
 libopcodes_a_SOURCES = 
 POTFILES = $(HFILES) $(CFILES)
 CLEANFILES = \
+	stamp-aap \
 	stamp-epiphany stamp-fr30 stamp-frv stamp-ip2k stamp-iq2000 stamp-lm32 \
 	stamp-m32c stamp-m32r stamp-mep stamp-mt \
 	stamp-or1k stamp-xc16x stamp-xstormy16 \
@@ -610,7 +617,9 @@ CGENDEPS = \
 	$(CGENDIR)/opc-opinst.scm \
 	cgen-asm.in cgen-dis.in cgen-ibld.in
 
-CGEN_CPUS = epiphany fr30 frv ip2k iq2000 lm32 m32c m32r mep mt or1k xc16x xstormy16
+CGEN_CPUS = aap epiphany fr30 frv ip2k iq2000 lm32 m32c m32r mep mt or1k xc16x xstormy16
+@CGEN_MAINT_FALSE@AAP_DEPS = 
+@CGEN_MAINT_TRUE@AAP_DEPS = stamp-aap
 @CGEN_MAINT_FALSE@EPIPHANY_DEPS = 
 @CGEN_MAINT_TRUE@EPIPHANY_DEPS = stamp-epiphany
 @CGEN_MAINT_FALSE@FR30_DEPS = 
@@ -764,6 +773,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aap-asm.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aap-desc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aap-dis.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aap-ibld.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aap-opc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aarch64-asm-2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aarch64-asm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aarch64-dis-2.Plo@am__quote@
@@ -1306,6 +1320,12 @@ $(srcdir)/epiphany-desc.h $(srcdir)/epiphany-desc.c $(srcdir)/epiphany-opc.h \
 		$(srcdir)/epiphany-opinst.c $(srcdir)/epiphany-asm.c \
 		$(srcdir)/epiphany-dis.c: $(EPIPHANY_DEPS)
 	@true
+
+$(srcdir)/aap-desc.h $(srcdir)/aap-desc.c $(srcdir)/aap-opc.h $(srcdir)/aap-opc.c $(srcdir)/aap-ibld.c $(srcdir)/aap-asm.c $(srcdir)/aap-dis.c: $(AAP_DEPS)
+	@true
+stamp-aap: $(CGENDEPS) $(CPUDIR)/aap.cpu $(CPUDIR)/aap.opc
+	$(MAKE) run-cgen arch=aap prefix=aap options= \
+		archfile=$(CPUDIR)/aap.cpu opcfile=$(CPUDIR)/aap.opc extrafiles=
 
 stamp-epiphany: $(CGENDEPS) $(CPUDIR)/epiphany.cpu $(CPUDIR)/epiphany.opc
 	$(MAKE) run-cgen arch=epiphany prefix=epiphany options= \

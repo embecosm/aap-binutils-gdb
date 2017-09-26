@@ -330,6 +330,10 @@ changequote([,])dnl
     # Any other special object files needed ?
     case ${cpu_type} in
 
+      aap)
+	using_cgen=yes
+	;;
+
       bfin)
         echo ${extra_objects} | grep -s "bfin-parse.o"
         if test $? -ne 0 ; then

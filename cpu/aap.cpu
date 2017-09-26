@@ -1,0 +1,225 @@
+;; AAP cpu thing: need to tell cgen the registers and ISA
+
+
+(include "simplify.inc")
+
+;;
+;; define-architure must appear first
+;;
+(define-arch
+  (name aap)	;; name of cpu architecture
+  (comment "AAP")
+  (insn-lsb0? #t)
+  (machs aap)	;; list of machines
+  (isas aap)  	;; isa name
+)
+
+(define-isa
+  (name aap)
+  (default-insn-word-bitsize 32)
+  (default-insn-bitsize 32)
+  (base-insn-bitsize 32)
+)
+
+;;
+;; Cpu family definitions.
+;;
+(define-cpu
+  ;; cpu names must be distinct from the architecture name and machine names.
+  ;; The "b" suffix stands for "base" and is the convention.
+  ;; The "f" suffix stands for "family" and is the convention.
+  (name aapbf)
+  (comment "AAP base family")
+  (endian little)
+  (word-bitsize 32)
+)
+;;
+;; Generic AAP machine. Supports the entire architecture
+;;
+(define-mach
+  (name aap)
+  (comment "Generic AAP machine")
+  (cpu aapbf)
+  (isas aap)
+)
+(define-model
+  (name aap)
+  (comment "Generic AAP model")
+  (mach aap)
+  
+  (unit u-exec "Execution Unit" ()
+	1 1 ;; issue done
+	() ;; state
+	() ;; inputs
+	() ;; outputs
+	() ;; profile action (default)
+	)
+)
+
+;;
+;; Helper Macros (copied Andrew)
+;;
+
+(define-pmacro all-aap-isas () (ISA aap))
+
+;;
+;; Hardware (copied Andrew)
+;;
+
+(define-keyword
+  (name gr-names)
+  (print-name h-registers)
+  (prefix "")
+  (values
+    ($r0  0) ($r1  1) ($r2  2) ($r3  3) ($r4  4) ($r5  5) ($r6  6) ($r7  7)
+    ($r8  8) ($r9  9) ($r10  10) ($r11  11) ($r12  12) ($r13  13) ($r14  14) ($r15  15)
+    ($r16  16) ($r17  17) ($r18  18) ($r19  19) ($r20  20) ($r21  21) ($r22  22) ($r23  23)
+    ($r24  24) ($r25  25) ($r26  26) ($r27  27) ($r28  28) ($r29  29) ($r30  30) ($r31  31)
+    ($r32  32) ($r33  33) ($r34  34) ($r35  35) ($r36  36) ($r37  37) ($r38  38) ($r39  39)
+    ($r40  40) ($r41  41) ($r42  42) ($r43  43) ($r44  44) ($r45  45) ($r46  46) ($r47  47)
+    ($r48  48) ($r49  49) ($r50  50) ($r51  51) ($r52  52) ($r53  53) ($r54  54) ($r55  55)
+    ($r56  56) ($r57  57) ($r58  58) ($r59  59) ($r60  60) ($r61  61) ($r62  62) ($r63  63)
+  )
+)
+
+(define-hardware
+  (name h-gpr)
+  (comment "General Purpose Registers")
+  (attrs all-aap-isas CACHE-ADDR)
+  (type register SI (8))
+  (indices extern-keyword gr-names)
+)
+
+(dnh h-pc "program couner" (PC PROFILE) (pc) () () ())
+
+;;
+;; Instruction fields
+;;
+;; 0 CC OOOO DDD AAA BBB 0 00 0000 000 000 000
+;; 0 CC OOOO DDD AAA III 0 00 0000 000 000 000
+;; 0 CC OOOO SSS AAA BBB 0 00 0000 000 000 000
+;; 0 CC OOOO DDD AAA SSS 0 00 0000 000 000 000
+;; 0 CC OOOO DDD III III 0 00 0000 000 000 000
+;; 0 CC OOOO SSS SSS BBB 0 00 0000 000 000 000
+;; 0 CC OOOO SSS SSS SSS 0 00 0000 000 000 000
+;;
+;; 1 CC OOOO DDD AAA BBB 0 CC OOOO DDD AAA BBB
+;; 1 CC OOOO DDD AAA III 0 CC OOOO DDD AAA III
+;; 1 CC OOOO DDD AAA III 0 CC III1 DDD AAA III
+;; 1 CC OOOO DDD AAA III 0 CC IIII DDD AAA III
+;; 1 CC OOOO SSS AAA BBB 0 CC SSSS SSS AAA BBB
+
+;; 1 CC OOOO DDD AAA SSS 0 CC SSSS DDD AAA SSS
+;; 1 CC OOOO DDD III III 0 CC OOOO DDD III III
+;; 1 CC OOOO DDD III III 0 CC IIII DDD III III
+;; 1 CC OOOO SSS SSS BBB 0 CC SSSS SSS SSS BBB
+;; 1 CC OOOO SSS SSS SSS 0 CC SSSS SSS SSS SSS
+
+;;    name        comment                 macro   start length   (mode: UINT)
+(dnf f-length "long insn bit (31-16)" (all-aap-isas) 31 1)
+(dnf f-x-length "long insn bit (15-0)" (all-aap-isas) 15 1)
+
+(dnf f-class "instruction class (31-16)" (all-aap-isas) 30 2)
+(dnf f-x-class "instruction class (15-0)" (all-aap-isas) 14 2)
+
+(dnf f-opcode "instruction opcode (31-16)" (all-aap-isas) 28 4)
+(dnf f-x-opcode "instruction opcode (15-0)" (all-aap-isas) 12 4)
+
+(dnf f-dst-reg "destination register (31-16)" (all-aap-isas) 24 3)
+(dnf f-x-dst-reg "destination register (15-0)" (all-aap-isas) 8 3)
+(dnf f-src-reg-1 "source 1 register (31-16)" (all-aap-isas) 21 3)
+(dnf f-x-scr-reg-1 "source 1 register (15-0)" (all-aap-isas) 5 3)
+(dnf f-src-reg-2 "source 2 register (31-16)" (all-aap-isas) 18 3)
+(dnf f-x-src-reg-2 "source 2 register (15-0)" (all-aap-isas) 2 3)
+
+(dnf f-blank "- -- ---- --- --- --- - 00 0000 000 000 000"
+  (all-aap-isas) 14 15)
+
+(df f-uint-18-3 "- -- ---- --- --- iii - -- ---- --- --- ---"
+  (all-aap-isas) 18 3 UINT #f #f)
+(df f-uint-21-6 "- -- ---- --- iii iii - -- ---- --- --- ---"
+  (all-aap-isas) 21 6 UINT #f #f)
+(df f-uint-12-4 "- -- ---- --- --- --- - -- iiii --- --- ---"
+  (all-aap-isas) 12 4 UINT #f #f)
+(df f-uint-iii1 "- -- ---- --- --- --- - -- iii1 --- --- ---"
+  (all-aap-isas) 12 4 UINT #f #f)
+(df f-uint-2-3 "- -- ---- --- --- --- - -- ---- --- --- iii"
+  (all-aap-isas) 2 3 UINT #f #f)
+(df f-uint-6-3 "- -- ---- --- --- --- - -- ---- --- iii iii"
+  (all-aap-isas) 5 6 UINT #f #f)
+
+(df f-int-18-3 "- -- ---- --- --- sss - -- ---- --- --- ---"
+  (all-aap-isas) 18 3 INT #f #f)
+(df f-int-24-9 "- -- ---- sss sss sss - -- ---- --- --- ---"
+  (all-aap-isas) 24 9 INT #f #f)
+(df f-int-24-6 "- -- ---- sss sss --- - -- ---- --- --- ---"
+  (all-aap-isas) 24 6 INT #f #f)
+(df f-int-24-3 "- -- ---- sss --- --- - -- ---- --- --- ---"
+  (all-aap-isas) 24 3 INT #f #f)
+(df f-int-12-4 "- -- ---- --- --- --- - -- ssss --- --- ---"
+  (all-aap-isas) 12 4 INT #f #f)
+(df f-int-2-3 "- -- ---- --- --- --- - -- ---- --- --- sss"
+  (all-aap-isas) 2 3 INT #f #f)
+(df f-int-8-3 "- -- ---- --- --- --- - -- ---- sss --- ---"
+  (all-aap-isas) 8 3 INT #f #f)
+(df f-int-8-6 "- -- ---- --- --- --- - -- ---- sss sss ---"
+  (all-aap-isas) 8 6 INT #f #f)
+(df f-int-8-9 "- -- ---- --- --- --- - -- ---- sss sss sss"
+  (all-aap-isas) 8 9 INT #f #f)
+
+;;
+;; Single Field operands
+;;
+
+(define-operand
+  (name dest)
+  (comment "dest")
+  (type h-gpr)
+  (index f-dst-reg)
+)
+(define-operand
+  (name src1)
+  (comment "src1")
+  (type h-gpr)
+  (index f-src-reg-1)
+)
+(define-operand
+  (name src2)
+  (comment "src2")
+  (type h-gpr)
+  (index f-src-reg-2)
+)
+(define-operand
+  (name uint216)
+  (comment "uint 21 6")
+  (type h-uint)
+  (index f-uint-21-6)
+)
+(define-operand
+  (name blank)
+  (comment "blank")
+  (type h-uint)
+  (index f-blank)
+)
+
+;;
+;; Support Macros to create instructions
+;;
+;; Format 1
+
+;; Format 5 (NOP)
+(define-pmacro (aap-format-5 mnemonic class opcode)
+  (define-insn
+    (name (.sym mnemonic))
+    (comment (.str mnemonic))
+    (attrs all-aap-isas)
+    (syntax (.str mnemonic " ${dest},${uint216},${blank}"))
+    (format (.splice + (f-length 0) (f-class class) (f-opcode opcode) dest uint216 blank))
+    )
+)
+
+;;
+;; Instructions
+;;
+;; Class 0
+(aap-format-5	"l.nop" 0 0)

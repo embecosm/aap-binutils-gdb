@@ -1,0 +1,39 @@
+/* This file is for aap.cpu.  
+
+   Language is C. (Copied Andrew)
+
+   Each section is delimited with start and end markers.
+
+   <arch>-opc.h additions use: "-- opc.h"
+   <arch>-opc.c additions use: "-- opc.c"
+   <arch>-asm.c additions use: "-- asm.c"
+   <arch>-dis.c additions use: "-- dis.c"
+   <arch>-ibd.h additions use: "-- ibd.h".  */
+
+/* -- opc.h */
+
+/* -- opc.c */
+
+#define CGEN_DIS_HASH_SIZE 128
+#define CGEN_DIS_HASH(buf, value) (((buf [1]) >> 1) & 0x7f)
+
+/* -- */
+
+/* -- asm.c */
+
+/* -- dis.c */
+
+#define CGEN_PRINT_INSN aap_print_insn
+
+static int
+aap_print_insn (CGEN_CPU_DESC cd, bfd_vma pc, disassemble_info *info)
+{
+  /* Configure INFO to correctly display decode instruction bytes. */
+  info->bytes_per_line = 4;
+  info->bytes_per_chunk = 2;
+  info->display_endian = BFD_ENDIAN_LITTLE;
+}
+
+/* -- */
+
+/* -- ibd.h */
