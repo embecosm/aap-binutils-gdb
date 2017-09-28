@@ -12,3 +12,5 @@
 #define WORKING_DOT_WORD
 
 #define md_operand(x)
+
+#define NO_RELOC	BFD_RELOC_NONE

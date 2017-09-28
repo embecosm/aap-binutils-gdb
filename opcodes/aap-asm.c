@@ -80,17 +80,14 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_BLANK, (unsigned long *) (& fields->f_blank));
-      break;
     case AAP_OPERAND_DEST :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gr_names, & fields->f_dst_reg);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_dst_reg);
       break;
     case AAP_OPERAND_SRC1 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gr_names, & fields->f_src_reg_1);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_1);
       break;
     case AAP_OPERAND_SRC2 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gr_names, & fields->f_src_reg_2);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_2);
       break;
     case AAP_OPERAND_UINT216 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT216, (unsigned long *) (& fields->f_uint_21_6));

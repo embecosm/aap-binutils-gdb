@@ -103,17 +103,14 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      print_normal (cd, info, fields->f_blank, 0, pc, length);
-      break;
     case AAP_OPERAND_DEST :
-      print_keyword (cd, info, & aap_cgen_opval_gr_names, fields->f_dst_reg, 0);
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_dst_reg, 0);
       break;
     case AAP_OPERAND_SRC1 :
-      print_keyword (cd, info, & aap_cgen_opval_gr_names, fields->f_src_reg_1, 0);
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_1, 0);
       break;
     case AAP_OPERAND_SRC2 :
-      print_keyword (cd, info, & aap_cgen_opval_gr_names, fields->f_src_reg_2, 0);
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_2, 0);
       break;
     case AAP_OPERAND_UINT216 :
       print_normal (cd, info, fields->f_uint_21_6, 0, pc, length);

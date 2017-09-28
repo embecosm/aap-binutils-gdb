@@ -565,9 +565,6 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      errmsg = insert_normal (cd, fields->f_blank, 0, 0, 14, 15, 32, total_length, buffer);
-      break;
     case AAP_OPERAND_DEST :
       errmsg = insert_normal (cd, fields->f_dst_reg, 0, 0, 24, 3, 32, total_length, buffer);
       break;
@@ -590,59 +587,6 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
 
   return errmsg;
 }
-
-/*int aap_cgen_validate_operand
-  (CGEN_CPU_DESC, int, CGEN_EXTRACT_INFO *, CGEN_INSN_INT, CGEN_FIELDS *, bfd_vma);*/
-
-/* Main entry point for operand validation (after extraction).
-   The result is 0 for error, !0 for success.
-   ??? Actual values aren't well defined right now.
-
-   This function is basically just a big switch statement.  For now we
-   validate all operands, but in the future this should probably change
-   so we only validate specific operands that we mark in the CPU file.  */
-
-/*int
-aap_cgen_validate_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
-			      int opindex,
-			      CGEN_EXTRACT_INFO *ex_info ATTRIBUTE_UNUSED,
-			      CGEN_INSN_INT insn_value ATTRIBUTE_UNUSED,
-			      CGEN_FIELDS * fields ATTRIBUTE_UNUSED,
-			      bfd_vma pc ATTRIBUTE_UNUSED)
-{
-int valid = 1; *//* Assume valid.  *//*
-
-  switch (opindex)
-    {
-    case AAP_OPERAND_BLANK :
-      valid = 1;
-      break;
-    case AAP_OPERAND_DEST :
-				     *//* <keyword>::gen-validate *//*
-      valid = validate_keyword (cd, ex_info, & aap_cgen_opval_gr_names, fields->f_dst_reg, 0);
-      break;
-    case AAP_OPERAND_SRC1 :
-         *//* <keyword>::gen-validate *//*
-      valid = validate_keyword (cd, ex_info, & aap_cgen_opval_gr_names, fields->f_src_reg_1, 0);
-      break;
-    case AAP_OPERAND_SRC2 :
-       	*//* <keyword>::gen-validate *//*
-      valid = validate_keyword (cd, ex_info, & aap_cgen_opval_gr_names, fields->f_src_reg_2, 0);
-      break;
-    case AAP_OPERAND_UINT216 :
-      valid = 1;
-      break;
-
-    default :
-      *//* xgettext:c-format *//*
-      fprintf (stderr, _("Unrecognized field %d while decoding insn.\n"),
-	       opindex);
-      abort ();
-    }
-
- *//* Assume success.  *//*
-  return valid;
-  }*/
 
 int aap_cgen_extract_operand
   (CGEN_CPU_DESC, int, CGEN_EXTRACT_INFO *, CGEN_INSN_INT, CGEN_FIELDS *, bfd_vma);
@@ -676,9 +620,6 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 14, 15, 32, total_length, pc, & fields->f_blank);
-      break;
     case AAP_OPERAND_DEST :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 24, 3, 32, total_length, pc, & fields->f_dst_reg);
       break;
@@ -698,9 +639,6 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
 	       opindex);
       abort ();
     }
-
-  /* if (!aap_cgen_validate_operand (cd, opindex, ex_info, insn_value, fields, pc))
-     return -1;*/
 
   return length;
 }
@@ -732,9 +670,6 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      value = fields->f_blank;
-      break;
     case AAP_OPERAND_DEST :
       value = fields->f_dst_reg;
       break;
@@ -767,9 +702,6 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      value = fields->f_blank;
-      break;
     case AAP_OPERAND_DEST :
       value = fields->f_dst_reg;
       break;
@@ -809,9 +741,6 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 {
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      fields->f_blank = value;
-      break;
     case AAP_OPERAND_DEST :
       fields->f_dst_reg = value;
       break;
@@ -841,9 +770,6 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 {
   switch (opindex)
     {
-    case AAP_OPERAND_BLANK :
-      fields->f_blank = value;
-      break;
     case AAP_OPERAND_DEST :
       fields->f_dst_reg = value;
       break;

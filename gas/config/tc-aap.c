@@ -16,6 +16,7 @@
 #include "safe-ctype.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /***********************************************************/
 
@@ -63,11 +64,12 @@ aap_insn;
 
 /* initialise GAS cgen interface */
 void
-md_assemble (char *str ATTRIBUTE_UNUSED)
+md_assemble (char *str)
 {
   aap_insn insn;
   char *errmsg;
 
+  printf("md_assemble\n");
   /* Initialize GAS's cgen interface for a new instruction.  */
   gas_cgen_init_parse ();
 
@@ -88,6 +90,7 @@ md_assemble (char *str ATTRIBUTE_UNUSED)
 void
 md_begin (void)
 {
+  printf("md_begin\n");
   /* Set the machine number and endian.  */
   gas_cgen_cpu_desc = aap_cgen_cpu_open (CGEN_CPU_OPEN_MACHS,
                                          bfd_mach_aap,
@@ -100,18 +103,93 @@ md_begin (void)
   cgen_set_parse_operand_fn (gas_cgen_cpu_desc, gas_cgen_parse_operand);
 }
 
+/* Translate internal representation of relocation info to BFD target
+   format.  */
+
 arelent *
-tc_gen_reloc (asection *section ATTRIBUTE_UNUSED, fixS *fixp ATTRIBUTE_UNUSED)
+tc_gen_reloc (asection *section, fixS *fixp)
 {
-  abort();
+  printf("tc_gen_reloc\n");
+  
+  arelent *reloc;
+  bfd_reloc_code_real_type code;
+
+  reloc = xmalloc (sizeof (arelent));
+
+  reloc->sym_ptr_ptr = xmalloc (sizeof (asymbol *));
+  *reloc->sym_ptr_ptr = symbol_get_bfdsym (fixp->fx_addsy);
+  reloc->address = fixp->fx_frag->fr_address + fixp->fx_where;
+
+  if (fixp->fx_pcrel)
+    {
+      if (section->use_rela_p)
+	fixp->fx_offset -= md_pcrel_from (fixp);
+      else
+	fixp->fx_offset = reloc->address;
+    }
+  reloc->addend = fixp->fx_offset;
+
+  code = fixp->fx_r_type;
+  switch (code)
+    {
+    case BFD_RELOC_16:
+      if (fixp->fx_pcrel)
+	code = BFD_RELOC_16_PCREL;
+      break;
+
+    case BFD_RELOC_32:
+      if (fixp->fx_pcrel)
+	code = BFD_RELOC_32_PCREL;
+      break;
+
+    case BFD_RELOC_64:
+      if (fixp->fx_pcrel)
+	code = BFD_RELOC_64_PCREL;
+      break;
+
+    default:
+      break;
+    }
+
+  reloc->howto = bfd_reloc_type_lookup (stdoutput, code);
+  if (reloc->howto == NULL)
+    {
+      as_bad_where (fixp->fx_file, fixp->fx_line,
+		    _
+		    ("cannot represent %s relocation in this object file format"),
+		    bfd_get_reloc_code_name (code));
+      return NULL;
+    }
+
+  return reloc;
 }
 
-void
-md_apply_fix (fixS *fixP ATTRIBUTE_UNUSED,
-	      valueT *valP ATTRIBUTE_UNUSED,
-	      segT seg ATTRIBUTE_UNUSED)
+/* Fix up some data or instructions after we find out the value of a symbol
+   that they reference.  */
+
+void				/* Knows about order of bytes in address.  */
+md_apply_fix (fixS *fixP, valueT *valueP, segT seg)
 {
-  abort();
+  printf("md_apply_fix\n");
+  
+  valueT value = * valueP;
+  seg = seg;
+
+  if (fixP->fx_subsy != (symbolS *) NULL)
+    as_bad_where (fixP->fx_file, fixP->fx_line, _("expression too complex"));
+
+  if (fixP->fx_addsy == NULL)
+    fixP->fx_done = 1;
+
+  if (fixP->fx_done)
+    number_to_chars_littleendian (fixP->fx_where + fixP->fx_frag->fr_literal,
+				  value, fixP->fx_size);
+  else
+    /* Initialise the part of an instruction frag covered by the
+       relocation.  (Many occurrences of frag_more followed by fix_new
+       lack any init of the frag.)  Since VAX uses RELA relocs the
+       value we write into this field doesn't really matter.  */
+    memset (fixP->fx_where + fixP->fx_frag->fr_literal, 0, fixP->fx_size);
 }
 
 char *
@@ -119,6 +197,7 @@ md_atof (int type ATTRIBUTE_UNUSED,
 	 char *litP ATTRIBUTE_UNUSED,
 	 int *sizeP ATTRIBUTE_UNUSED)
 {
+  printf("md_atof");
   return NULL;
 }
 
@@ -127,6 +206,7 @@ md_convert_frag (bfd *abfd ATTRIBUTE_UNUSED,
 		 segT sec ATTRIBUTE_UNUSED,
 		 fragS *fragp ATTRIBUTE_UNUSED)
 {
+  printf("md_convert_frag");
   abort();
 }
 
@@ -134,6 +214,7 @@ int
 md_estimate_size_before_relax (fragS *fragP ATTRIBUTE_UNUSED,
 			       segT seg ATTRIBUTE_UNUSED)
 {
+  printf("md_estimate_size_before_relax");
   abort();
 }
 
@@ -142,6 +223,7 @@ md_number_to_chars (char con[] ATTRIBUTE_UNUSED,
 		    valueT value ATTRIBUTE_UNUSED,
 		    int nbytes ATTRIBUTE_UNUSED)
 {
+  printf("md_number_to_chars");
   abort();
 }
 
@@ -149,31 +231,41 @@ int
 md_parse_option (int c ATTRIBUTE_UNUSED,
 		 char *arg ATTRIBUTE_UNUSED)
 {
+  printf("md_parse_option");
   abort();
 }
 
 void
 md_show_usage (FILE *stream ATTRIBUTE_UNUSED)
 {
+  printf("md_show_usage");
   abort();
 }
 
+/* GAS will call this function for each section at the end of the assembly,
+   to permit the CPU backend to adjust the alignment of a section.  */
+
 valueT
-md_section_align (segT segment ATTRIBUTE_UNUSED,
+md_section_align (segT segment,
 		  valueT size)
 {
-  return size;			/* Byte alignment is fine.  */
+  printf("md_section_align\n");
+  
+  int align = bfd_get_section_alignment (stdoutput, segment);
+  return ((size + (1 << align) - 1) & (-1 << align));
 }
 
 symbolS *
 md_undefined_symbol (char *name ATTRIBUTE_UNUSED)
 {
+  printf("md_undefined_symbol\n");
   return NULL;
 }
 
 long
 md_pcrel_from (fixS *fixP ATTRIBUTE_UNUSED)
 {
+  printf("md_pcrel_from");
   abort();
 }
 
@@ -187,6 +279,7 @@ md_create_short_jump (char *ptr ATTRIBUTE_UNUSED,
 		      fragS *frag ATTRIBUTE_UNUSED,
 		      symbolS *to_symbol ATTRIBUTE_UNUSED)
 {
+  printf("md_create_short_jump");
   abort();
 }
 
@@ -197,6 +290,7 @@ md_create_long_jump (char *ptr ATTRIBUTE_UNUSED,
 		     fragS *frag ATTRIBUTE_UNUSED,
 		     symbolS *to_symbol ATTRIBUTE_UNUSED)
 {
+  printf("md_create_long_jump");
   abort();
 }
 
@@ -205,5 +299,6 @@ md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
 		      const CGEN_OPERAND *operand ATTRIBUTE_UNUSED,
 		      fixS *fixP ATTRIBUTE_UNUSED)
 {
+  printf("md_cgen_lookup_reloc");
   abort();
 }

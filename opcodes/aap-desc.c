@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright (C) 1996-2016 Free Software Foundation, Inc.
+Copyright 1996-2010 Free Software Foundation, Inc.
 
 This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
@@ -113,7 +113,7 @@ const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[] =
 /* Instruction set variants.  */
 
 static const CGEN_ISA aap_cgen_isa_table[] = {
-  { "aap", 32, 32, 31, 31 },
+  { "aap", 32, 32, 32, 32 },
   { 0, 0, 0, 0, 0 }
 };
 
@@ -124,7 +124,7 @@ static const CGEN_MACH aap_cgen_mach_table[] = {
   { 0, 0, 0, 0 }
 };
 
-static CGEN_KEYWORD_ENTRY aap_cgen_opval_gr_names_entries[] =
+static CGEN_KEYWORD_ENTRY aap_cgen_opval_h_gpr_entries[] =
 {
   { "$r0", 0, {0, {{{0, 0}}}}, 0, 0 },
   { "$r1", 1, {0, {{{0, 0}}}}, 0, 0 },
@@ -192,9 +192,9 @@ static CGEN_KEYWORD_ENTRY aap_cgen_opval_gr_names_entries[] =
   { "$r63", 63, {0, {{{0, 0}}}}, 0, 0 }
 };
 
-CGEN_KEYWORD aap_cgen_opval_gr_names =
+CGEN_KEYWORD aap_cgen_opval_h_gpr =
 {
-  & aap_cgen_opval_gr_names_entries[0],
+  & aap_cgen_opval_h_gpr_entries[0],
   64,
   0, 0, 0, 0, ""
 };
@@ -211,7 +211,7 @@ const CGEN_HW_ENTRY aap_cgen_hw_table[] =
   { "h-uint", HW_H_UINT, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-addr", HW_H_ADDR, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-iaddr", HW_H_IADDR, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
-  { "h-gpr", HW_H_GPR, CGEN_ASM_KEYWORD, (PTR) & aap_cgen_opval_gr_names, { 0|A(CACHE_ADDR), { { { (1<<MACH_BASE), 0 } } } } },
+  { "h-gpr", HW_H_GPR, CGEN_ASM_KEYWORD, (PTR) & aap_cgen_opval_h_gpr, { 0|A(CACHE_ADDR), { { { (1<<MACH_BASE), 0 } } } } },
   { "h-pc", HW_H_PC, CGEN_ASM_NONE, 0, { 0|A(PROFILE)|A(PC), { { { (1<<MACH_BASE), 0 } } } } },
   { 0, 0, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } }
 };
@@ -240,6 +240,7 @@ const CGEN_IFLD aap_cgen_ifld_table[] =
   { AAP_F_SRC_REG_2, "f-src-reg-2", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_X_SRC_REG_2, "f-x-src-reg-2", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_BLANK, "f-blank", 0, 32, 14, 15, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_COVER, "f-cover", 0, 32, 30, 32, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_UINT_18_3, "f-uint-18-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_UINT_21_6, "f-uint-21-6", 0, 32, 21, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_UINT_12_4, "f-uint-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
@@ -296,10 +297,6 @@ const CGEN_OPERAND aap_cgen_operand_table[] =
   { "uint216", AAP_OPERAND_UINT216, HW_H_UINT, 21, 6,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_UINT_21_6] } }, 
     { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-/* blank: blank */
-  { "blank", AAP_OPERAND_BLANK, HW_H_UINT, 14, 15,
-    { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_BLANK] } }, 
-    { 0, { { { (1<<MACH_BASE), 0 } } } }  },
 /* sentinel */
   { 0, 0, 0, 0, 0,
     { 0, { (const PTR) 0 } },
@@ -320,9 +317,14 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
      A `num' value of zero is thus invalid.
      Also, the special `invalid' insn resides here.  */
   { 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
-/* nop ${dest},${uint216},${blank} */
+/* l.nop ${dest},${uint216} */
   {
-    AAP_INSN_NOP, "nop", "nop", 31,
+    AAP_INSN_L_NOP_16, "l.nop-16", "l.nop", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* l.add ${dest},${src1},${src2} */
+  {
+    AAP_INSN_L_ADD_16, "l.add-16", "l.add", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 };

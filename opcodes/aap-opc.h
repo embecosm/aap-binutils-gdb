@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright (C) 1996-2016 Free Software Foundation, Inc.
+Copyright 1996-2010 Free Software Foundation, Inc.
 
 This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
@@ -30,14 +30,14 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 /* -- opc.c */
 /* Enum declaration for aap instruction types.  */
 typedef enum cgen_insn_type {
-  AAP_INSN_INVALID, AAP_INSN_NOP
+  AAP_INSN_INVALID, AAP_INSN_L_NOP_16, AAP_INSN_L_ADD_16
 } CGEN_INSN_TYPE;
 
 /* Index of `invalid' insn place holder.  */
 #define CGEN_INSN_INVALID AAP_INSN_INVALID
 
 /* Total number of insns in table.  */
-#define MAX_INSNS ((int) AAP_INSN_NOP + 1)
+#define MAX_INSNS ((int) AAP_INSN_L_ADD_16 + 1)
 
 /* This struct records data prior to insertion or after extraction.  */
 struct cgen_fields
@@ -58,6 +58,7 @@ struct cgen_fields
   long f_src_reg_2;
   long f_x_src_reg_2;
   long f_blank;
+  long f_cover;
   long f_uint_18_3;
   long f_uint_21_6;
   long f_uint_12_4;

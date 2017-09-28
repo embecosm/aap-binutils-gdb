@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright (C) 1996-2016 Free Software Foundation, Inc.
+Copyright 1996-2010 Free Software Foundation, Inc.
 
 This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
@@ -45,7 +45,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INT_INSN_P 1
 
 /* Maximum number of syntax elements in an instruction.  */
-#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 11
+#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 13
 
 /* CGEN_MNEMONIC_OPERANDS is defined if mnemonics have operands.
    e.g. In "b,a foo" the ",a" is an operand.  If mnemonics have operands
@@ -53,29 +53,45 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_MNEMONIC_OPERANDS
 
 /* Maximum number of fields in an instruction.  */
-#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 6
+#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 8
 
 /* Enums.  */
 
-/* Enum declaration for .  */
-typedef enum gr_names {
-  H_REGISTERS__R0, H_REGISTERS__R1, H_REGISTERS__R2, H_REGISTERS__R3
- , H_REGISTERS__R4, H_REGISTERS__R5, H_REGISTERS__R6, H_REGISTERS__R7
- , H_REGISTERS__R8, H_REGISTERS__R9, H_REGISTERS__R10, H_REGISTERS__R11
- , H_REGISTERS__R12, H_REGISTERS__R13, H_REGISTERS__R14, H_REGISTERS__R15
- , H_REGISTERS__R16, H_REGISTERS__R17, H_REGISTERS__R18, H_REGISTERS__R19
- , H_REGISTERS__R20, H_REGISTERS__R21, H_REGISTERS__R22, H_REGISTERS__R23
- , H_REGISTERS__R24, H_REGISTERS__R25, H_REGISTERS__R26, H_REGISTERS__R27
- , H_REGISTERS__R28, H_REGISTERS__R29, H_REGISTERS__R30, H_REGISTERS__R31
- , H_REGISTERS__R32, H_REGISTERS__R33, H_REGISTERS__R34, H_REGISTERS__R35
- , H_REGISTERS__R36, H_REGISTERS__R37, H_REGISTERS__R38, H_REGISTERS__R39
- , H_REGISTERS__R40, H_REGISTERS__R41, H_REGISTERS__R42, H_REGISTERS__R43
- , H_REGISTERS__R44, H_REGISTERS__R45, H_REGISTERS__R46, H_REGISTERS__R47
- , H_REGISTERS__R48, H_REGISTERS__R49, H_REGISTERS__R50, H_REGISTERS__R51
- , H_REGISTERS__R52, H_REGISTERS__R53, H_REGISTERS__R54, H_REGISTERS__R55
- , H_REGISTERS__R56, H_REGISTERS__R57, H_REGISTERS__R58, H_REGISTERS__R59
- , H_REGISTERS__R60, H_REGISTERS__R61, H_REGISTERS__R62, H_REGISTERS__R63
-} GR_NAMES;
+/* Enum declaration for length.  */
+typedef enum length1 {
+  LEN1_16, LEN1_32
+} LENGTH1;
+
+/* Enum declaration for x_length.  */
+typedef enum length2 {
+  LEN2_0, LEN2_ERROR
+} LENGTH2;
+
+/* Enum declaration for class.  */
+typedef enum class1 {
+  CLA1_ALU, CLA1_LOAD, CLA1_JUMP, CLA1_MISC
+} CLASS1;
+
+/* Enum declaration for x_class.  */
+typedef enum class2 {
+  CLA2_ALU, CLA2_LOAD, CLA2_JUMP, CLA2_MISC
+} CLASS2;
+
+/* Enum declaration for opcodes.  */
+typedef enum opcodes1 {
+  OP1_NOP, OP1_ADD, OP1_SUB, OP1_AND
+ , OP1_OR, OP1_XOR
+} OPCODES1;
+
+/* Enum declaration for blank.  */
+typedef enum blank {
+  BLA_00, BLA_ERROR
+} BLANK;
+
+/* Enum declaration for cover.  */
+typedef enum cover {
+  COV_00, COV_ERROR
+} COVER;
 
 /* Attributes.  */
 
@@ -121,11 +137,11 @@ typedef enum ifield_type {
   AAP_F_NIL, AAP_F_ANYOF, AAP_F_LENGTH, AAP_F_X_LENGTH
  , AAP_F_CLASS, AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE
  , AAP_F_DST_REG, AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SCR_REG_1
- , AAP_F_SRC_REG_2, AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_UINT_18_3
- , AAP_F_UINT_21_6, AAP_F_UINT_12_4, AAP_F_UINT_III1, AAP_F_UINT_2_3
- , AAP_F_UINT_6_3, AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6
- , AAP_F_INT_24_3, AAP_F_INT_12_4, AAP_F_INT_2_3, AAP_F_INT_8_3
- , AAP_F_INT_8_6, AAP_F_INT_8_9, AAP_F_MAX
+ , AAP_F_SRC_REG_2, AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_COVER
+ , AAP_F_UINT_18_3, AAP_F_UINT_21_6, AAP_F_UINT_12_4, AAP_F_UINT_III1
+ , AAP_F_UINT_2_3, AAP_F_UINT_6_3, AAP_F_INT_18_3, AAP_F_INT_24_9
+ , AAP_F_INT_24_6, AAP_F_INT_24_3, AAP_F_INT_12_4, AAP_F_INT_2_3
+ , AAP_F_INT_8_3, AAP_F_INT_8_6, AAP_F_INT_8_9, AAP_F_MAX
 } IFIELD_TYPE;
 
 #define MAX_IFLD ((int) AAP_F_MAX)
@@ -182,11 +198,11 @@ typedef enum cgen_operand_attr {
 /* Enum declaration for aap operand types.  */
 typedef enum cgen_operand_type {
   AAP_OPERAND_PC, AAP_OPERAND_DEST, AAP_OPERAND_SRC1, AAP_OPERAND_SRC2
- , AAP_OPERAND_UINT216, AAP_OPERAND_BLANK, AAP_OPERAND_MAX
+ , AAP_OPERAND_UINT216, AAP_OPERAND_MAX
 } CGEN_OPERAND_TYPE;
 
 /* Number of operands types.  */
-#define MAX_OPERANDS 6
+#define MAX_OPERANDS 5
 
 /* Maximum number of operands referenced by any insn.  */
 #define MAX_OPERAND_INSTANCES 8
@@ -230,7 +246,7 @@ extern const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[];
 
 /* Hardware decls.  */
 
-extern CGEN_KEYWORD aap_cgen_opval_gr_names;
+extern CGEN_KEYWORD aap_cgen_opval_h_gpr;
 
 extern const CGEN_HW_ENTRY aap_cgen_hw_table[];
 

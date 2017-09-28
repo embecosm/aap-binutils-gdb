@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright (C) 1996-2016 Free Software Foundation, Inc.
+Copyright 1996-2010 Free Software Foundation, Inc.
 
 This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
@@ -51,8 +51,12 @@ static const CGEN_IFMT ifmt_empty ATTRIBUTE_UNUSED = {
   0, 0, 0x0, { { 0 } }
 };
 
-static const CGEN_IFMT ifmt_nop ATTRIBUTE_UNUSED = {
-  31, 31, 0xfe000000, { { F (F_LENGTH) }, { F (F_CLASS) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_UINT_21_6) }, { F (F_BLANK) }, { 0 } }
+static const CGEN_IFMT ifmt_l_nop_16 ATTRIBUTE_UNUSED = {
+  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_CLASS) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_UINT_21_6) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+};
+
+static const CGEN_IFMT ifmt_l_add_16 ATTRIBUTE_UNUSED = {
+  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_CLASS) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_SRC_REG_1) }, { F (F_SRC_REG_2) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
 };
 
 #undef F
@@ -70,11 +74,17 @@ static const CGEN_OPCODE aap_cgen_insn_opcode_table[MAX_INSNS] =
      A `num' value of zero is thus invalid.
      Also, the special `invalid' insn resides here.  */
   { { 0, 0, 0, 0 }, {{0}}, 0, {0}},
-/* nop ${dest},${uint216},${blank} */
+/* l.nop ${dest},${uint216} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (UINT216), ',', OP (BLANK), 0 } },
-    & ifmt_nop, { 0x0 }
+    { { MNEM, ' ', OP (DEST), ',', OP (UINT216), 0 } },
+    & ifmt_l_nop_16, { 0x0 }
+  },
+/* l.add ${dest},${src1},${src2} */
+  {
+    { 0, 0, 0, 0 },
+    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
+    & ifmt_l_add_16, { 0x2000000 }
   },
 };
 
