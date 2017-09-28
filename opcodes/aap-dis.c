@@ -70,6 +70,8 @@ aap_print_insn (CGEN_CPU_DESC cd, bfd_vma pc, disassemble_info *info)
   info->display_endian = BFD_ENDIAN_LITTLE;
 }
 
+print_insn_aap ();
+
 /* -- */
 
 void aap_cgen_print_operand

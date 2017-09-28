@@ -319,12 +319,27 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
   { 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
 /* l.nop ${dest},${uint216} */
   {
-    AAP_INSN_L_NOP_16, "l.nop-16", "l.nop", 32,
+    AAP_INSN_AAP_NOP_16, "aap-nop-16", "l.nop", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 /* l.add ${dest},${src1},${src2} */
   {
-    AAP_INSN_L_ADD_16, "l.add-16", "l.add", 32,
+    AAP_INSN_AAP_ADD_16, "aap-add-16", "l.add", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* l.sub ${dest},${src1},${src2} */
+  {
+    AAP_INSN_AAP_SUB_16, "aap-sub-16", "l.sub", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* l.and ${dest},${src1},${src2} */
+  {
+    AAP_INSN_AAP_AND_16, "aap-and-16", "l.and", 32,
+    { 0, { { { (1<<MACH_BASE), 0 } } } }
+  },
+/* l.or ${dest},${src1},${src2} */
+  {
+    AAP_INSN_AAP_OR_16, "aap-or-16", "l.or", 32,
     { 0, { { { (1<<MACH_BASE), 0 } } } }
   },
 };

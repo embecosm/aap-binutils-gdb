@@ -250,32 +250,38 @@
 ;; Define Instructions
 ;;
 ;; nop
-(dni l.nop-16 "nop 16 bit" (all-aap-isas)
+(dni aap-nop-16 "nop 16 bit" (all-aap-isas)
   "l.nop ${dest},${uint216}"
   (+ LEN1_16 CLA1_ALU OP1_NOP dest uint216 LEN2_0 BLA_00)
   (nop)
   ()
 )
 ;; add
-(dni l.add-16 "add 16 bit" ()
-        "l.add ${dest},${src1},${src2}"
+(dni aap-add-16 "add 16 bit" (all-aap-isas)
+  "l.add ${dest},${src1},${src2}"
         (+ LEN1_16 CLA1_ALU OP1_ADD dest src1 src2 LEN2_0 BLA_00)
         (set dest (add src1 src2))
         ()
 )
-
-;;(define-insn
-;;  (name (l.add-16))
-;;  (comment ("add 16 bit"))
-;;  (attrs all-aap-isas)
-;;  (syntax ("l.add ${dest},${src1},${src2}"))
-;;  (format (.splice + LEN1_16 CLA1_ALU OP1_ADD dest src1 src2 LEN2_0 BLA_00))
-;;)
-
-;;(define-insn
-;;  (name (l.nop-16))
-;;  (comment ("nop 16 bit"))
-;;  (attrs all-aap-isas)
-;;  (syntax ("l.nop ${dest},${uint216}"))
-;;  (format (.splice + LEN1_16 CLA1_ALU OP1_NOP dest uint216 LEN2_0 BLA_00))
-;;)
+;; sub
+(dni aap-sub-16 "sub 16 bit" (all-aap-isas)
+        "l.sub ${dest},${src1},${src2}"
+        (+ LEN1_16 CLA1_ALU OP1_SUB dest src1 src2 LEN2_0 BLA_00)
+        (set dest (sub src1 src2))
+        ()
+)
+;; and
+(dni aap-and-16 "and 16 bit" (all-aap-isas)
+        "l.and ${dest},${src1},${src2}"
+        (+ LEN1_16 CLA1_ALU OP1_AND dest src1 src2 LEN2_0 BLA_00)
+        (set dest (and src1 src2))
+        ()
+)
+;; or
+(dni aap-or-16 "or 16 bit" (all-aap-isas)
+        "l.or ${dest},${src1},${src2}"
+        (+ LEN1_16 CLA1_ALU OP1_OR dest src1 src2 LEN2_0 BLA_00)
+        (set dest (or src1 src2))
+        ()
+)
+;; xor

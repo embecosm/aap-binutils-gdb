@@ -30,14 +30,15 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 /* -- opc.c */
 /* Enum declaration for aap instruction types.  */
 typedef enum cgen_insn_type {
-  AAP_INSN_INVALID, AAP_INSN_L_NOP_16, AAP_INSN_L_ADD_16
+  AAP_INSN_INVALID, AAP_INSN_AAP_NOP_16, AAP_INSN_AAP_ADD_16, AAP_INSN_AAP_SUB_16
+ , AAP_INSN_AAP_AND_16, AAP_INSN_AAP_OR_16
 } CGEN_INSN_TYPE;
 
 /* Index of `invalid' insn place holder.  */
 #define CGEN_INSN_INVALID AAP_INSN_INVALID
 
 /* Total number of insns in table.  */
-#define MAX_INSNS ((int) AAP_INSN_L_ADD_16 + 1)
+#define MAX_INSNS ((int) AAP_INSN_AAP_OR_16 + 1)
 
 /* This struct records data prior to insertion or after extraction.  */
 struct cgen_fields
