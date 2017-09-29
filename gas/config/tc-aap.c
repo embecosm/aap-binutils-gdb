@@ -1,7 +1,8 @@
 /* tc-aap.c -- To assemble code for AAP
  *
  * 2017/09/21: allows a blank page to compile using abort()
- * Todo: link to CGEN
+ * 2017/09/28: allows a all of instructions to be assembled
+ * Todo: disassembler
  */
 
 #include "config.h"
@@ -207,14 +208,21 @@ md_convert_frag (bfd *abfd ATTRIBUTE_UNUSED,
 		 fragS *fragp ATTRIBUTE_UNUSED)
 {
   printf("md_convert_frag");
+
   abort();
 }
+
+/* md_estimate_size_before_relax(), called just before relax().
+   Any symbol that is now undefined will not become defined.
+   Return the correct fr_subtype in the frag and the growth beyond
+   fr_fix.  */
 
 int
 md_estimate_size_before_relax (fragS *fragP ATTRIBUTE_UNUSED,
 			       segT seg ATTRIBUTE_UNUSED)
 {
   printf("md_estimate_size_before_relax");
+
   abort();
 }
 
@@ -236,10 +244,18 @@ md_parse_option (int c ATTRIBUTE_UNUSED,
 }
 
 void
-md_show_usage (FILE *stream ATTRIBUTE_UNUSED)
+md_show_usage (FILE *stream)
 {
-  printf("md_show_usage");
-  abort();
+  printf("md_show_usage");  /*VAX*/
+
+  fprintf (stream, _("\
+AAP options:\n\
+-d LENGTH		ignored\n\
+-J			ignored\n\
+-S			ignored\n\
+-t FILE			ignored\n\
+-T			ignored\n\
+-V			ignored\n"));
 }
 
 /* GAS will call this function for each section at the end of the assembly,
@@ -266,6 +282,7 @@ long
 md_pcrel_from (fixS *fixP ATTRIBUTE_UNUSED)
 {
   printf("md_pcrel_from");
+  
   abort();
 }
 
@@ -280,6 +297,7 @@ md_create_short_jump (char *ptr ATTRIBUTE_UNUSED,
 		      symbolS *to_symbol ATTRIBUTE_UNUSED)
 {
   printf("md_create_short_jump");
+
   abort();
 }
 
@@ -291,8 +309,13 @@ md_create_long_jump (char *ptr ATTRIBUTE_UNUSED,
 		     symbolS *to_symbol ATTRIBUTE_UNUSED)
 {
   printf("md_create_long_jump");
+
   abort();
 }
+
+/* Return the bfd reloc type for OPERAND of INSN at fixup FIXP.
+   Returns BFD_RELOC_NONE if no reloc type can be found.
+   *FIXP may be modified if desired.  */
 
 bfd_reloc_code_real_type
 md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
@@ -300,5 +323,6 @@ md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
 		      fixS *fixP ATTRIBUTE_UNUSED)
 {
   printf("md_cgen_lookup_reloc");
+
   abort();
 }

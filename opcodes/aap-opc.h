@@ -30,15 +30,39 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 /* -- opc.c */
 /* Enum declaration for aap instruction types.  */
 typedef enum cgen_insn_type {
-  AAP_INSN_INVALID, AAP_INSN_AAP_NOP_16, AAP_INSN_AAP_ADD_16, AAP_INSN_AAP_SUB_16
- , AAP_INSN_AAP_AND_16, AAP_INSN_AAP_OR_16
+  AAP_INSN_INVALID, AAP_INSN_L_ADD, AAP_INSN_L_SUB, AAP_INSN_L_AND
+ , AAP_INSN_L_OR, AAP_INSN_L_XOR, AAP_INSN_L_ASR, AAP_INSN_L_LSL
+ , AAP_INSN_L_LSR, AAP_INSN_L_MOV, AAP_INSN_L_JMP, AAP_INSN_L_JAL
+ , AAP_INSN_L_JEQ, AAP_INSN_L_JNE, AAP_INSN_L_JLTS, AAP_INSN_L_JLES
+ , AAP_INSN_L_JLTU, AAP_INSN_L_JLEU, AAP_INSN_L_RD, AAP_INSN_L_ADDI
+ , AAP_INSN_L_SUBI, AAP_INSN_L_ASRI, AAP_INSN_L_LSLI, AAP_INSN_L_LSRI
+ , AAP_INSN_L_BEQ, AAP_INSN_L_BNE, AAP_INSN_L_BLTS, AAP_INSN_L_BLES
+ , AAP_INSN_L_BLTU, AAP_INSN_L_BLEU, AAP_INSN_L_LDB, AAP_INSN_L_LDW
+ , AAP_INSN_L_LDBPO, AAP_INSN_L_LDWPO, AAP_INSN_L_LDBPR, AAP_INSN_L_LDWPR
+ , AAP_INSN_L_SDB, AAP_INSN_L_SDW, AAP_INSN_L_SDBPO, AAP_INSN_L_SDWPO
+ , AAP_INSN_L_SDBPR, AAP_INSN_L_SDWPR, AAP_INSN_L_NOP, AAP_INSN_L_MOVI
+ , AAP_INSN_L_BAL, AAP_INSN_L_BRA, AAP_INSN_L_ADD32, AAP_INSN_L_SUB32
+ , AAP_INSN_L_AND32, AAP_INSN_L_OR32, AAP_INSN_L_XOR32, AAP_INSN_L_ASR32
+ , AAP_INSN_L_LSL32, AAP_INSN_L_LSR32, AAP_INSN_L_MOV32, AAP_INSN_L_ADDC32
+ , AAP_INSN_L_SUBC32, AAP_INSN_L_JMP32, AAP_INSN_L_JAL32, AAP_INSN_L_JEQ32
+ , AAP_INSN_L_JNE32, AAP_INSN_L_JLTS32, AAP_INSN_L_JLES32, AAP_INSN_L_JLTU32
+ , AAP_INSN_L_JLEU32, AAP_INSN_L_JMPL32, AAP_INSN_L_JALL32, AAP_INSN_L_JEQL32
+ , AAP_INSN_L_JNEL32, AAP_INSN_L_JLTSL32, AAP_INSN_L_JLESL32, AAP_INSN_L_JLTUL32
+ , AAP_INSN_L_JLEUL32, AAP_INSN_L_ASRI32, AAP_INSN_L_LSLI32, AAP_INSN_L_LSRI32
+ , AAP_INSN_L_ANDI32, AAP_INSN_L_ORI32, AAP_INSN_L_XORI32, AAP_INSN_L_ADDI32
+ , AAP_INSN_L_SUBI32, AAP_INSN_L_BEQ32, AAP_INSN_L_BNE32, AAP_INSN_L_BLTS32
+ , AAP_INSN_L_BLES32, AAP_INSN_L_BLTU32, AAP_INSN_L_BLEU32, AAP_INSN_L_LDB32
+ , AAP_INSN_L_LDW32, AAP_INSN_L_LDBPO32, AAP_INSN_L_LDWPO32, AAP_INSN_L_LDBPR32
+ , AAP_INSN_L_LDWPR32, AAP_INSN_L_SDB32, AAP_INSN_L_SDW32, AAP_INSN_L_SDBPO32
+ , AAP_INSN_L_SDWPO32, AAP_INSN_L_SDBPR32, AAP_INSN_L_SDWPR32, AAP_INSN_L_NOP32
+ , AAP_INSN_L_MOVI32, AAP_INSN_L_BAL32, AAP_INSN_L_BRA32
 } CGEN_INSN_TYPE;
 
 /* Index of `invalid' insn place holder.  */
 #define CGEN_INSN_INVALID AAP_INSN_INVALID
 
 /* Total number of insns in table.  */
-#define MAX_INSNS ((int) AAP_INSN_AAP_OR_16 + 1)
+#define MAX_INSNS ((int) AAP_INSN_L_BRA32 + 1)
 
 /* This struct records data prior to insertion or after extraction.  */
 struct cgen_fields
@@ -48,24 +72,22 @@ struct cgen_fields
   long f_anyof;
   long f_length;
   long f_x_length;
-  long f_class;
   long f_x_class;
   long f_opcode;
   long f_x_opcode;
   long f_dst_reg;
   long f_x_dst_reg;
   long f_src_reg_1;
-  long f_x_scr_reg_1;
+  long f_x_src_reg_1;
   long f_src_reg_2;
   long f_x_src_reg_2;
   long f_blank;
-  long f_cover;
   long f_uint_18_3;
   long f_uint_21_6;
   long f_uint_12_4;
   long f_uint_iii1;
   long f_uint_2_3;
-  long f_uint_6_3;
+  long f_uint_5_6;
   long f_int_18_3;
   long f_int_24_9;
   long f_int_24_6;

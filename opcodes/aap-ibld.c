@@ -568,14 +568,65 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       errmsg = insert_normal (cd, fields->f_dst_reg, 0, 0, 24, 3, 32, total_length, buffer);
       break;
+    case AAP_OPERAND_INT023 :
+      errmsg = insert_normal (cd, fields->f_int_2_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT083 :
+      errmsg = insert_normal (cd, fields->f_int_8_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT086 :
+      errmsg = insert_normal (cd, fields->f_int_8_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT089 :
+      errmsg = insert_normal (cd, fields->f_int_8_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT124 :
+      errmsg = insert_normal (cd, fields->f_int_12_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 4, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT183 :
+      errmsg = insert_normal (cd, fields->f_int_18_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT243 :
+      errmsg = insert_normal (cd, fields->f_int_24_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT246 :
+      errmsg = insert_normal (cd, fields->f_int_24_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_INT249 :
+      errmsg = insert_normal (cd, fields->f_int_24_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, buffer);
+      break;
     case AAP_OPERAND_SRC1 :
       errmsg = insert_normal (cd, fields->f_src_reg_1, 0, 0, 21, 3, 32, total_length, buffer);
       break;
     case AAP_OPERAND_SRC2 :
       errmsg = insert_normal (cd, fields->f_src_reg_2, 0, 0, 18, 3, 32, total_length, buffer);
       break;
+    case AAP_OPERAND_UINT023 :
+      errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_UINT056 :
+      errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_UINT124 :
+      errmsg = insert_normal (cd, fields->f_uint_12_4, 0, 0, 12, 4, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_UINT183 :
+      errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
+      break;
     case AAP_OPERAND_UINT216 :
       errmsg = insert_normal (cd, fields->f_uint_21_6, 0, 0, 21, 6, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      errmsg = insert_normal (cd, fields->f_uint_iii1, 0, 0, 12, 4, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_XDEST :
+      errmsg = insert_normal (cd, fields->f_x_dst_reg, 0, 0, 8, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_XSRC1 :
+      errmsg = insert_normal (cd, fields->f_x_src_reg_1, 0, 0, 5, 3, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_XSRC2 :
+      errmsg = insert_normal (cd, fields->f_x_src_reg_2, 0, 0, 2, 3, 32, total_length, buffer);
       break;
 
     default :
@@ -623,14 +674,65 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 24, 3, 32, total_length, pc, & fields->f_dst_reg);
       break;
+    case AAP_OPERAND_INT023 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, pc, & fields->f_int_2_3);
+      break;
+    case AAP_OPERAND_INT083 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 3, 32, total_length, pc, & fields->f_int_8_3);
+      break;
+    case AAP_OPERAND_INT086 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, pc, & fields->f_int_8_6);
+      break;
+    case AAP_OPERAND_INT089 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, pc, & fields->f_int_8_9);
+      break;
+    case AAP_OPERAND_INT124 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 4, 32, total_length, pc, & fields->f_int_12_4);
+      break;
+    case AAP_OPERAND_INT183 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, pc, & fields->f_int_18_3);
+      break;
+    case AAP_OPERAND_INT243 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, pc, & fields->f_int_24_3);
+      break;
+    case AAP_OPERAND_INT246 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, pc, & fields->f_int_24_6);
+      break;
+    case AAP_OPERAND_INT249 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, pc, & fields->f_int_24_9);
+      break;
     case AAP_OPERAND_SRC1 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 3, 32, total_length, pc, & fields->f_src_reg_1);
       break;
     case AAP_OPERAND_SRC2 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_src_reg_2);
       break;
+    case AAP_OPERAND_UINT023 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
+      break;
+    case AAP_OPERAND_UINT056 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
+      break;
+    case AAP_OPERAND_UINT124 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_12_4);
+      break;
+    case AAP_OPERAND_UINT183 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
+      break;
     case AAP_OPERAND_UINT216 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 6, 32, total_length, pc, & fields->f_uint_21_6);
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_iii1);
+      break;
+    case AAP_OPERAND_XDEST :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 8, 3, 32, total_length, pc, & fields->f_x_dst_reg);
+      break;
+    case AAP_OPERAND_XSRC1 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 3, 32, total_length, pc, & fields->f_x_src_reg_1);
+      break;
+    case AAP_OPERAND_XSRC2 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_x_src_reg_2);
       break;
 
     default :
@@ -673,14 +775,65 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_DEST :
       value = fields->f_dst_reg;
       break;
+    case AAP_OPERAND_INT023 :
+      value = fields->f_int_2_3;
+      break;
+    case AAP_OPERAND_INT083 :
+      value = fields->f_int_8_3;
+      break;
+    case AAP_OPERAND_INT086 :
+      value = fields->f_int_8_6;
+      break;
+    case AAP_OPERAND_INT089 :
+      value = fields->f_int_8_9;
+      break;
+    case AAP_OPERAND_INT124 :
+      value = fields->f_int_12_4;
+      break;
+    case AAP_OPERAND_INT183 :
+      value = fields->f_int_18_3;
+      break;
+    case AAP_OPERAND_INT243 :
+      value = fields->f_int_24_3;
+      break;
+    case AAP_OPERAND_INT246 :
+      value = fields->f_int_24_6;
+      break;
+    case AAP_OPERAND_INT249 :
+      value = fields->f_int_24_9;
+      break;
     case AAP_OPERAND_SRC1 :
       value = fields->f_src_reg_1;
       break;
     case AAP_OPERAND_SRC2 :
       value = fields->f_src_reg_2;
       break;
+    case AAP_OPERAND_UINT023 :
+      value = fields->f_uint_2_3;
+      break;
+    case AAP_OPERAND_UINT056 :
+      value = fields->f_uint_5_6;
+      break;
+    case AAP_OPERAND_UINT124 :
+      value = fields->f_uint_12_4;
+      break;
+    case AAP_OPERAND_UINT183 :
+      value = fields->f_uint_18_3;
+      break;
     case AAP_OPERAND_UINT216 :
       value = fields->f_uint_21_6;
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      value = fields->f_uint_iii1;
+      break;
+    case AAP_OPERAND_XDEST :
+      value = fields->f_x_dst_reg;
+      break;
+    case AAP_OPERAND_XSRC1 :
+      value = fields->f_x_src_reg_1;
+      break;
+    case AAP_OPERAND_XSRC2 :
+      value = fields->f_x_src_reg_2;
       break;
 
     default :
@@ -705,14 +858,65 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_DEST :
       value = fields->f_dst_reg;
       break;
+    case AAP_OPERAND_INT023 :
+      value = fields->f_int_2_3;
+      break;
+    case AAP_OPERAND_INT083 :
+      value = fields->f_int_8_3;
+      break;
+    case AAP_OPERAND_INT086 :
+      value = fields->f_int_8_6;
+      break;
+    case AAP_OPERAND_INT089 :
+      value = fields->f_int_8_9;
+      break;
+    case AAP_OPERAND_INT124 :
+      value = fields->f_int_12_4;
+      break;
+    case AAP_OPERAND_INT183 :
+      value = fields->f_int_18_3;
+      break;
+    case AAP_OPERAND_INT243 :
+      value = fields->f_int_24_3;
+      break;
+    case AAP_OPERAND_INT246 :
+      value = fields->f_int_24_6;
+      break;
+    case AAP_OPERAND_INT249 :
+      value = fields->f_int_24_9;
+      break;
     case AAP_OPERAND_SRC1 :
       value = fields->f_src_reg_1;
       break;
     case AAP_OPERAND_SRC2 :
       value = fields->f_src_reg_2;
       break;
+    case AAP_OPERAND_UINT023 :
+      value = fields->f_uint_2_3;
+      break;
+    case AAP_OPERAND_UINT056 :
+      value = fields->f_uint_5_6;
+      break;
+    case AAP_OPERAND_UINT124 :
+      value = fields->f_uint_12_4;
+      break;
+    case AAP_OPERAND_UINT183 :
+      value = fields->f_uint_18_3;
+      break;
     case AAP_OPERAND_UINT216 :
       value = fields->f_uint_21_6;
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      value = fields->f_uint_iii1;
+      break;
+    case AAP_OPERAND_XDEST :
+      value = fields->f_x_dst_reg;
+      break;
+    case AAP_OPERAND_XSRC1 :
+      value = fields->f_x_src_reg_1;
+      break;
+    case AAP_OPERAND_XSRC2 :
+      value = fields->f_x_src_reg_2;
       break;
 
     default :
@@ -744,14 +948,65 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_DEST :
       fields->f_dst_reg = value;
       break;
+    case AAP_OPERAND_INT023 :
+      fields->f_int_2_3 = value;
+      break;
+    case AAP_OPERAND_INT083 :
+      fields->f_int_8_3 = value;
+      break;
+    case AAP_OPERAND_INT086 :
+      fields->f_int_8_6 = value;
+      break;
+    case AAP_OPERAND_INT089 :
+      fields->f_int_8_9 = value;
+      break;
+    case AAP_OPERAND_INT124 :
+      fields->f_int_12_4 = value;
+      break;
+    case AAP_OPERAND_INT183 :
+      fields->f_int_18_3 = value;
+      break;
+    case AAP_OPERAND_INT243 :
+      fields->f_int_24_3 = value;
+      break;
+    case AAP_OPERAND_INT246 :
+      fields->f_int_24_6 = value;
+      break;
+    case AAP_OPERAND_INT249 :
+      fields->f_int_24_9 = value;
+      break;
     case AAP_OPERAND_SRC1 :
       fields->f_src_reg_1 = value;
       break;
     case AAP_OPERAND_SRC2 :
       fields->f_src_reg_2 = value;
       break;
+    case AAP_OPERAND_UINT023 :
+      fields->f_uint_2_3 = value;
+      break;
+    case AAP_OPERAND_UINT056 :
+      fields->f_uint_5_6 = value;
+      break;
+    case AAP_OPERAND_UINT124 :
+      fields->f_uint_12_4 = value;
+      break;
+    case AAP_OPERAND_UINT183 :
+      fields->f_uint_18_3 = value;
+      break;
     case AAP_OPERAND_UINT216 :
       fields->f_uint_21_6 = value;
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      fields->f_uint_iii1 = value;
+      break;
+    case AAP_OPERAND_XDEST :
+      fields->f_x_dst_reg = value;
+      break;
+    case AAP_OPERAND_XSRC1 :
+      fields->f_x_src_reg_1 = value;
+      break;
+    case AAP_OPERAND_XSRC2 :
+      fields->f_x_src_reg_2 = value;
       break;
 
     default :
@@ -773,14 +1028,65 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_DEST :
       fields->f_dst_reg = value;
       break;
+    case AAP_OPERAND_INT023 :
+      fields->f_int_2_3 = value;
+      break;
+    case AAP_OPERAND_INT083 :
+      fields->f_int_8_3 = value;
+      break;
+    case AAP_OPERAND_INT086 :
+      fields->f_int_8_6 = value;
+      break;
+    case AAP_OPERAND_INT089 :
+      fields->f_int_8_9 = value;
+      break;
+    case AAP_OPERAND_INT124 :
+      fields->f_int_12_4 = value;
+      break;
+    case AAP_OPERAND_INT183 :
+      fields->f_int_18_3 = value;
+      break;
+    case AAP_OPERAND_INT243 :
+      fields->f_int_24_3 = value;
+      break;
+    case AAP_OPERAND_INT246 :
+      fields->f_int_24_6 = value;
+      break;
+    case AAP_OPERAND_INT249 :
+      fields->f_int_24_9 = value;
+      break;
     case AAP_OPERAND_SRC1 :
       fields->f_src_reg_1 = value;
       break;
     case AAP_OPERAND_SRC2 :
       fields->f_src_reg_2 = value;
       break;
+    case AAP_OPERAND_UINT023 :
+      fields->f_uint_2_3 = value;
+      break;
+    case AAP_OPERAND_UINT056 :
+      fields->f_uint_5_6 = value;
+      break;
+    case AAP_OPERAND_UINT124 :
+      fields->f_uint_12_4 = value;
+      break;
+    case AAP_OPERAND_UINT183 :
+      fields->f_uint_18_3 = value;
+      break;
     case AAP_OPERAND_UINT216 :
       fields->f_uint_21_6 = value;
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      fields->f_uint_iii1 = value;
+      break;
+    case AAP_OPERAND_XDEST :
+      fields->f_x_dst_reg = value;
+      break;
+    case AAP_OPERAND_XSRC1 :
+      fields->f_x_src_reg_1 = value;
+      break;
+    case AAP_OPERAND_XSRC2 :
+      fields->f_x_src_reg_2 = value;
       break;
 
     default :

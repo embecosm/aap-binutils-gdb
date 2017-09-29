@@ -108,14 +108,65 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_dst_reg, 0);
       break;
+    case AAP_OPERAND_INT023 :
+      print_normal (cd, info, fields->f_int_2_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT083 :
+      print_normal (cd, info, fields->f_int_8_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT086 :
+      print_normal (cd, info, fields->f_int_8_6, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT089 :
+      print_normal (cd, info, fields->f_int_8_9, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT124 :
+      print_normal (cd, info, fields->f_int_12_4, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT183 :
+      print_normal (cd, info, fields->f_int_18_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT243 :
+      print_normal (cd, info, fields->f_int_24_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT246 :
+      print_normal (cd, info, fields->f_int_24_6, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
+    case AAP_OPERAND_INT249 :
+      print_normal (cd, info, fields->f_int_24_9, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      break;
     case AAP_OPERAND_SRC1 :
       print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_1, 0);
       break;
     case AAP_OPERAND_SRC2 :
       print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_2, 0);
       break;
+    case AAP_OPERAND_UINT023 :
+      print_normal (cd, info, fields->f_uint_2_3, 0, pc, length);
+      break;
+    case AAP_OPERAND_UINT056 :
+      print_normal (cd, info, fields->f_uint_5_6, 0, pc, length);
+      break;
+    case AAP_OPERAND_UINT124 :
+      print_normal (cd, info, fields->f_uint_12_4, 0, pc, length);
+      break;
+    case AAP_OPERAND_UINT183 :
+      print_normal (cd, info, fields->f_uint_18_3, 0, pc, length);
+      break;
     case AAP_OPERAND_UINT216 :
       print_normal (cd, info, fields->f_uint_21_6, 0, pc, length);
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      print_normal (cd, info, fields->f_uint_iii1, 0, pc, length);
+      break;
+    case AAP_OPERAND_XDEST :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_dst_reg, 0);
+      break;
+    case AAP_OPERAND_XSRC1 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_src_reg_1, 0);
+      break;
+    case AAP_OPERAND_XSRC2 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_src_reg_2, 0);
       break;
 
     default :

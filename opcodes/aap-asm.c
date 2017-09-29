@@ -83,14 +83,65 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_DEST :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_dst_reg);
       break;
+    case AAP_OPERAND_INT023 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
+      break;
+    case AAP_OPERAND_INT083 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT083, (long *) (& fields->f_int_8_3));
+      break;
+    case AAP_OPERAND_INT086 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT086, (long *) (& fields->f_int_8_6));
+      break;
+    case AAP_OPERAND_INT089 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT089, (long *) (& fields->f_int_8_9));
+      break;
+    case AAP_OPERAND_INT124 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT124, (long *) (& fields->f_int_12_4));
+      break;
+    case AAP_OPERAND_INT183 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT183, (long *) (& fields->f_int_18_3));
+      break;
+    case AAP_OPERAND_INT243 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT243, (long *) (& fields->f_int_24_3));
+      break;
+    case AAP_OPERAND_INT246 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT246, (long *) (& fields->f_int_24_6));
+      break;
+    case AAP_OPERAND_INT249 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT249, (long *) (& fields->f_int_24_9));
+      break;
     case AAP_OPERAND_SRC1 :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_1);
       break;
     case AAP_OPERAND_SRC2 :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_2);
       break;
+    case AAP_OPERAND_UINT023 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT023, (unsigned long *) (& fields->f_uint_2_3));
+      break;
+    case AAP_OPERAND_UINT056 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT056, (unsigned long *) (& fields->f_uint_5_6));
+      break;
+    case AAP_OPERAND_UINT124 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT124, (unsigned long *) (& fields->f_uint_12_4));
+      break;
+    case AAP_OPERAND_UINT183 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT183, (unsigned long *) (& fields->f_uint_18_3));
+      break;
     case AAP_OPERAND_UINT216 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT216, (unsigned long *) (& fields->f_uint_21_6));
+      break;
+    case AAP_OPERAND_UINTIII1 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINTIII1, (unsigned long *) (& fields->f_uint_iii1));
+      break;
+    case AAP_OPERAND_XDEST :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_dst_reg);
+      break;
+    case AAP_OPERAND_XSRC1 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_src_reg_1);
+      break;
+    case AAP_OPERAND_XSRC2 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_src_reg_2);
       break;
 
     default :

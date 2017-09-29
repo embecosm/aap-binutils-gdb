@@ -45,7 +45,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INT_INSN_P 1
 
 /* Maximum number of syntax elements in an instruction.  */
-#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 13
+#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 25
 
 /* CGEN_MNEMONIC_OPERANDS is defined if mnemonics have operands.
    e.g. In "b,a foo" the ",a" is an operand.  If mnemonics have operands
@@ -53,7 +53,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_MNEMONIC_OPERANDS
 
 /* Maximum number of fields in an instruction.  */
-#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 8
+#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 11
 
 /* Enums.  */
 
@@ -67,31 +67,36 @@ typedef enum length2 {
   LEN2_0, LEN2_ERROR
 } LENGTH2;
 
-/* Enum declaration for class.  */
-typedef enum class1 {
-  CLA1_ALU, CLA1_LOAD, CLA1_JUMP, CLA1_MISC
-} CLASS1;
-
-/* Enum declaration for x_class.  */
-typedef enum class2 {
-  CLA2_ALU, CLA2_LOAD, CLA2_JUMP, CLA2_MISC
-} CLASS2;
-
 /* Enum declaration for opcodes.  */
 typedef enum opcodes1 {
-  OP1_NOP, OP1_ADD, OP1_SUB, OP1_AND
- , OP1_OR, OP1_XOR
+  OP1_NOP = 0, OP1_ADD = 1, OP1_SUB = 2, OP1_AND = 3
+ , OP1_OR = 4, OP1_XOR = 5, OP1_ASR = 6, OP1_LSL = 7
+ , OP1_LSR = 8, OP1_MOV = 9, OP1_ADDI = 10, OP1_SUBI = 11
+ , OP1_ASRI = 12, OP1_LSLI = 13, OP1_LSRI = 14, OP1_MOVI = 15
+ , OP1_LDB = 16, OP1_LDW = 20, OP1_LDBPO = 17, OP1_LDWPO = 21
+ , OP1_LDBPR = 18, OP1_LDWPR = 22, OP1_SDB = 24, OP1_SDW = 28
+ , OP1_SDBPO = 25, OP1_SDWPO = 29, OP1_SDBPR = 26, OP1_SDWPR = 30
+ , OP1_BRA = 32, OP1_BAL = 33, OP1_BEQ = 34, OP1_BNE = 35
+ , OP1_BLTS = 36, OP1_BLES = 37, OP1_BLTU = 38, OP1_BLEU = 39
+ , OP1_JMP = 40, OP1_JAL = 41, OP1_JEQ = 42, OP1_JNE = 43
+ , OP1_JLTS = 44, OP1_JLES = 45, OP1_JLTU = 46, OP1_JLEU = 47
+ , OP1_RD = 48
 } OPCODES1;
+
+/* Enum declaration for opcodes2.  */
+typedef enum opcodes2 {
+  OP2_NOP, OP2_ADD
+} OPCODES2;
+
+/* Enum declaration for xclass.  */
+typedef enum xclass {
+  CLA_NOP, CLA_ERROR
+} XCLASS;
 
 /* Enum declaration for blank.  */
 typedef enum blank {
   BLA_00, BLA_ERROR
 } BLANK;
-
-/* Enum declaration for cover.  */
-typedef enum cover {
-  COV_00, COV_ERROR
-} COVER;
 
 /* Attributes.  */
 
@@ -135,13 +140,13 @@ typedef enum cgen_ifld_attr {
 /* Enum declaration for aap ifield types.  */
 typedef enum ifield_type {
   AAP_F_NIL, AAP_F_ANYOF, AAP_F_LENGTH, AAP_F_X_LENGTH
- , AAP_F_CLASS, AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE
- , AAP_F_DST_REG, AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SCR_REG_1
- , AAP_F_SRC_REG_2, AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_COVER
- , AAP_F_UINT_18_3, AAP_F_UINT_21_6, AAP_F_UINT_12_4, AAP_F_UINT_III1
- , AAP_F_UINT_2_3, AAP_F_UINT_6_3, AAP_F_INT_18_3, AAP_F_INT_24_9
- , AAP_F_INT_24_6, AAP_F_INT_24_3, AAP_F_INT_12_4, AAP_F_INT_2_3
- , AAP_F_INT_8_3, AAP_F_INT_8_6, AAP_F_INT_8_9, AAP_F_MAX
+ , AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE, AAP_F_DST_REG
+ , AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SRC_REG_1, AAP_F_SRC_REG_2
+ , AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_UINT_18_3, AAP_F_UINT_21_6
+ , AAP_F_UINT_12_4, AAP_F_UINT_III1, AAP_F_UINT_2_3, AAP_F_UINT_5_6
+ , AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3
+ , AAP_F_INT_12_4, AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6
+ , AAP_F_INT_8_9, AAP_F_MAX
 } IFIELD_TYPE;
 
 #define MAX_IFLD ((int) AAP_F_MAX)
@@ -198,11 +203,15 @@ typedef enum cgen_operand_attr {
 /* Enum declaration for aap operand types.  */
 typedef enum cgen_operand_type {
   AAP_OPERAND_PC, AAP_OPERAND_DEST, AAP_OPERAND_SRC1, AAP_OPERAND_SRC2
- , AAP_OPERAND_UINT216, AAP_OPERAND_MAX
+ , AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1, AAP_OPERAND_XSRC2, AAP_OPERAND_UINT216
+ , AAP_OPERAND_UINT183, AAP_OPERAND_UINT124, AAP_OPERAND_UINT056, AAP_OPERAND_UINT023
+ , AAP_OPERAND_UINTIII1, AAP_OPERAND_INT243, AAP_OPERAND_INT246, AAP_OPERAND_INT249
+ , AAP_OPERAND_INT183, AAP_OPERAND_INT124, AAP_OPERAND_INT083, AAP_OPERAND_INT086
+ , AAP_OPERAND_INT089, AAP_OPERAND_INT023, AAP_OPERAND_MAX
 } CGEN_OPERAND_TYPE;
 
 /* Number of operands types.  */
-#define MAX_OPERANDS 5
+#define MAX_OPERANDS 22
 
 /* Maximum number of operands referenced by any insn.  */
 #define MAX_OPERAND_INSTANCES 8
