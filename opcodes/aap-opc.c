@@ -31,10 +31,6 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #include "libiberty.h"
 
 /* -- opc.c */
-
-#define CGEN_DIS_HASH_SIZE 128
-#define CGEN_DIS_HASH(buf, value) (((buf [1]) >> 1) & 0x7f)
-
 /* -- */
 /* The hash functions are recorded here to help keep assembler code out of
    the disassembler and vice versa.  */
@@ -52,31 +48,31 @@ static const CGEN_IFMT ifmt_empty ATTRIBUTE_UNUSED = {
 };
 
 static const CGEN_IFMT ifmt_l_add ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_SRC_REG_1) }, { F (F_SRC_REG_2) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_X_DST_REG) }, { F (F_X_SRC_REG_1) }, { F (F_X_SRC_REG_2) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_addi ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_SRC_REG_1) }, { F (F_UINT_18_3) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_X_DST_REG) }, { F (F_X_SRC_REG_1) }, { F (F_UINT_2_3) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_beq ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_INT_24_3) }, { F (F_SRC_REG_1) }, { F (F_SRC_REG_2) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_INT_8_3) }, { F (F_X_SRC_REG_1) }, { F (F_X_SRC_REG_2) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_ldb ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_SRC_REG_1) }, { F (F_INT_18_3) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_X_DST_REG) }, { F (F_X_SRC_REG_1) }, { F (F_INT_2_3) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_nop ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_DST_REG) }, { F (F_UINT_21_6) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_X_DST_REG) }, { F (F_UINT_5_6) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_bal ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_INT_24_6) }, { F (F_SRC_REG_2) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_INT_8_6) }, { F (F_X_SRC_REG_2) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_bra ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00ffff, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_INT_24_9) }, { F (F_X_LENGTH) }, { F (F_BLANK) }, { 0 } }
+  16, 16, 0xfe00, { { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_INT_8_9) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_add32 ATTRIBUTE_UNUSED = {
@@ -134,275 +130,275 @@ static const CGEN_OPCODE aap_cgen_insn_opcode_table[MAX_INSNS] =
      A `num' value of zero is thus invalid.
      Also, the special `invalid' insn resides here.  */
   { { 0, 0, 0, 0 }, {{0}}, 0, {0}},
-/* l.add ${dest},${src1},${src2} */
+/* l.add ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x2000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x200 }
   },
-/* l.sub ${dest},${src1},${src2} */
+/* l.sub ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x4000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x400 }
   },
-/* l.and ${dest},${src1},${src2} */
+/* l.and ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x6000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x600 }
   },
-/* l.or ${dest},${src1},${src2} */
+/* l.or ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x8000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x800 }
   },
-/* l.xor ${dest},${src1},${src2} */
+/* l.xor ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0xa000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0xa00 }
   },
-/* l.asr ${dest},${src1},${src2} */
+/* l.asr ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0xc000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0xc00 }
   },
-/* l.lsl ${dest},${src1},${src2} */
+/* l.lsl ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0xe000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0xe00 }
   },
-/* l.lsr ${dest},${src1},${src2} */
+/* l.lsr ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x10000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x1000 }
   },
-/* l.mov ${dest},${src1},${src2} */
+/* l.mov ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x12000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x1200 }
   },
-/* l.jmp ${dest},${src1},${src2} */
+/* l.jmp ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x50000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5000 }
   },
-/* l.jal ${dest},${src1},${src2} */
+/* l.jal ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x52000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5200 }
   },
-/* l.jeq ${dest},${src1},${src2} */
+/* l.jeq ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x54000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5400 }
   },
-/* l.jne ${dest},${src1},${src2} */
+/* l.jne ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x56000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5600 }
   },
-/* l.jlts ${dest},${src1},${src2} */
+/* l.jlts ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x58000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5800 }
   },
-/* l.jles ${dest},${src1},${src2} */
+/* l.jles ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x5a000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5a00 }
   },
-/* l.jltu ${dest},${src1},${src2} */
+/* l.jltu ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x5c000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5c00 }
   },
-/* l.jleu ${dest},${src1},${src2} */
+/* l.jleu ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x5e000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x5e00 }
   },
-/* l.rd ${dest},${src1},${src2} */
+/* l.rd ${xdest},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_add, { 0x60000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_add, { 0x6000 }
   },
-/* l.addi ${dest},${src1},${uint183} */
+/* l.addi ${xdest},${xsrc1},${uint023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (UINT183), 0 } },
-    & ifmt_l_addi, { 0x14000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (UINT023), 0 } },
+    & ifmt_l_addi, { 0x1400 }
   },
-/* l.subi ${dest},${src1},${uint183} */
+/* l.subi ${xdest},${xsrc1},${uint023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (UINT183), 0 } },
-    & ifmt_l_addi, { 0x16000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (UINT023), 0 } },
+    & ifmt_l_addi, { 0x1600 }
   },
-/* l.asri ${dest},${src1},${uint183} */
+/* l.asri ${xdest},${xsrc1},${uint023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (UINT183), 0 } },
-    & ifmt_l_addi, { 0x18000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (UINT023), 0 } },
+    & ifmt_l_addi, { 0x1800 }
   },
-/* l.lsli ${dest},${src1},${uint183} */
+/* l.lsli ${xdest},${xsrc1},${uint023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (UINT183), 0 } },
-    & ifmt_l_addi, { 0x1a000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (UINT023), 0 } },
+    & ifmt_l_addi, { 0x1a00 }
   },
-/* l.lsri ${dest},${src1},${uint183} */
+/* l.lsri ${xdest},${xsrc1},${uint023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (UINT183), 0 } },
-    & ifmt_l_addi, { 0x1c000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (UINT023), 0 } },
+    & ifmt_l_addi, { 0x1c00 }
   },
-/* l.beq ${int243},${src1},${src2} */
+/* l.beq ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x44000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4400 }
   },
-/* l.bne ${int243},${src1},${src2} */
+/* l.bne ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x46000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4600 }
   },
-/* l.blts ${int243},${src1},${src2} */
+/* l.blts ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x48000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4800 }
   },
-/* l.bles ${int243},${src1},${src2} */
+/* l.bles ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x4a000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4a00 }
   },
-/* l.bltu ${int243},${src1},${src2} */
+/* l.bltu ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x4c000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4c00 }
   },
-/* l.bleu ${int243},${src1},${src2} */
+/* l.bleu ${int083},${xsrc1},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT243), ',', OP (SRC1), ',', OP (SRC2), 0 } },
-    & ifmt_l_beq, { 0x4e000000 }
+    { { MNEM, ' ', OP (INT083), ',', OP (XSRC1), ',', OP (XSRC2), 0 } },
+    & ifmt_l_beq, { 0x4e00 }
   },
-/* l.ldb ${dest},${src1},${int183} */
+/* l.ldb ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x20000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2000 }
   },
-/* l.ldw ${dest},${src1},${int183} */
+/* l.ldw ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x28000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2800 }
   },
-/* l.ldbpo ${dest},${src1},${int183} */
+/* l.ldbpo ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x22000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2200 }
   },
-/* l.ldwpo ${dest},${src1},${int183} */
+/* l.ldwpo ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x2a000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2a00 }
   },
-/* l.ldbpr ${dest},${src1},${int183} */
+/* l.ldbpr ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x24000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2400 }
   },
-/* l.ldwpr ${dest},${src1},${int183} */
+/* l.ldwpr ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x2c000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x2c00 }
   },
-/* l.sdb ${dest},${src1},${int183} */
+/* l.sdb ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x30000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3000 }
   },
-/* l.sdw ${dest},${src1},${int183} */
+/* l.sdw ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x38000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3800 }
   },
-/* l.sdbpo ${dest},${src1},${int183} */
+/* l.sdbpo ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x32000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3200 }
   },
-/* l.sdwpo ${dest},${src1},${int183} */
+/* l.sdwpo ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x3a000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3a00 }
   },
-/* l.sdbpr ${dest},${src1},${int183} */
+/* l.sdbpr ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x34000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3400 }
   },
-/* l.sdwpr ${dest},${src1},${int183} */
+/* l.sdwpr ${xdest},${xsrc1},${int023} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (SRC1), ',', OP (INT183), 0 } },
-    & ifmt_l_ldb, { 0x3c000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (XSRC1), ',', OP (INT023), 0 } },
+    & ifmt_l_ldb, { 0x3c00 }
   },
-/* l.nop ${dest},${uint216} */
+/* l.nop ${xdest},${uint056} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (UINT216), 0 } },
+    { { MNEM, ' ', OP (XDEST), ',', OP (UINT056), 0 } },
     & ifmt_l_nop, { 0x0 }
   },
-/* l.movi ${dest},${uint216} */
+/* l.movi ${xdest},${uint056} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (DEST), ',', OP (UINT216), 0 } },
-    & ifmt_l_nop, { 0x1e000000 }
+    { { MNEM, ' ', OP (XDEST), ',', OP (UINT056), 0 } },
+    & ifmt_l_nop, { 0x1e00 }
   },
-/* l.bal ${int246},${src2} */
+/* l.bal ${int086},${xsrc2} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT246), ',', OP (SRC2), 0 } },
-    & ifmt_l_bal, { 0x42000000 }
+    { { MNEM, ' ', OP (INT086), ',', OP (XSRC2), 0 } },
+    & ifmt_l_bal, { 0x4200 }
   },
-/* l.bra ${int249} */
+/* l.bra ${int089} */
   {
     { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (INT249), 0 } },
-    & ifmt_l_bra, { 0x40000000 }
+    { { MNEM, ' ', OP (INT089), 0 } },
+    & ifmt_l_bra, { 0x4000 }
   },
 /* l.add32 ${dest},${src1},${src2},${xdest},${xsrc1},${xsrc2} */
   {

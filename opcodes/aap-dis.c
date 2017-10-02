@@ -58,19 +58,71 @@ static int read_insn
 /* -- disassembler routines inserted here.  */
 
 /* -- dis.c */
-
+#define CGEN_PRINT_NORMAL(cd, info, value, attrs, pc, length)
+#define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length) 
 #define CGEN_PRINT_INSN aap_print_insn
+#define CGEN_BFD_ARCH bfd_arch_aap
+
+/* The print_insn_aap is a function that is a wrapper around
+  default_print_insn that is created by cgen. Your wrapper just sets
+  up some default flags in the disassembler_info struct, then calls
+  the cgen generated print routine. */
 
 static int
-aap_print_insn (CGEN_CPU_DESC cd, bfd_vma pc, disassemble_info *info)
+aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info *info)
 {
+  int result = 0;
+  bfd_byte buffer[CGEN_MAX_INSN_SIZE];
+  bfd_byte *buf = buffer;
+  int status = -1;
+  int buflen = (pc & 3) == 0 ? 4 : 2;
+  int big_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_BIG;
+  int little_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_LITTLE;
+  bfd_byte *x;
+  
   /* Configure INFO to correctly display decode instruction bytes. */
   info->bytes_per_line = 4;
   info->bytes_per_chunk = 2;
   info->display_endian = BFD_ENDIAN_LITTLE;
+
+  /* Read the base part of the insn.  */
+  status = (*info->read_memory_func) (pc - ((!little_p && (pc & 3) != 0) ? 2 : 0),
+				      buf, buflen, info);
+  if (status != 0)
+  {
+    (*info->memory_error_func) (status, pc, info);
+    return -1;
+  }
+    
+  /* 32 bit insn?  */
+  x = (big_p ? &buf[0] : &buf[3]);
+  if ((pc & 3) == 0 && (*x & 0x80) != 0)
+    return print_insn (cd, pc, info, buf, buflen);
+
+  /* Print the first insn.  */
+  if ((pc & 3) == 0)
+  {
+    buf += (little_p ? 0 : 2);
+    if (print_insn (cd, pc, info, buf, 2) == 0)
+      (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
+    buf += (little_p ? 2 : -2);
+  }
+
+  x = (little_p ? &buf[0] : &buf[1]);
+
+  (*info->fprintf_func) (info->stream, "\t");
+
+  /* The "& 3" is to pass a consistent address.
+     Parallel insns arguably both begin on the word boundary.
+     Also, branch insns are calculated relative to the word boundary.  */
+  if (print_insn (cd, pc & ~ (bfd_vma) 3, info, buf, 2) == 0)
+    (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
+
+  result = (pc & 3) ? 2 : 4;
+  return result;
 }
 
-print_insn_aap ();
+print_insn_aap(pc, info);
 
 /* -- */
 

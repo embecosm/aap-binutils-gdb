@@ -2,7 +2,7 @@
  *
  * 2017/09/21: allows a blank page to compile using abort()
  * 2017/09/28: allows a all of instructions to be assembled
- * Todo: disassembler
+ * 2017/10/02: disassembler for 32 bit instructions
  */
 
 #include "config.h"
@@ -15,6 +15,7 @@
 #include "subsegs.h"
 #include "symcat.h"
 #include "safe-ctype.h"
+#include "elf/aap.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -65,12 +66,12 @@ aap_insn;
 
 /* initialise GAS cgen interface */
 void
-md_assemble (char *str)
+aap_assemble (char *str)
 {
   aap_insn insn;
   char *errmsg;
 
-  printf("md_assemble\n");
+  printf("aap_assemble\n");
   /* Initialize GAS's cgen interface for a new instruction.  */
   gas_cgen_init_parse ();
 
@@ -89,9 +90,9 @@ md_assemble (char *str)
 
 /* initialises cgen */
 void
-md_begin (void)
+aap_begin (void)
 {
-  printf("md_begin\n");
+  printf("aap_begin\n");
   /* Set the machine number and endian.  */
   gas_cgen_cpu_desc = aap_cgen_cpu_open (CGEN_CPU_OPEN_MACHS,
                                          bfd_mach_aap,
@@ -104,11 +105,158 @@ md_begin (void)
   cgen_set_parse_operand_fn (gas_cgen_cpu_desc, gas_cgen_parse_operand);
 }
 
+/******************************************************************************/
+
+/*********************************/
+/**                             **/
+/** Interface to relax_segment. **/
+/**                             **/
+/*********************************/
+
+const relax_typeS md_relax_table[] =
+{
+/* The fields are:
+   1) most positive reach of this state,
+   2) most negative reach of this state,
+   3) how many bytes this mode will add to the size of the current frag
+   4) which index into the table to try if we can't fit into this one.  */
+
+  /* The first entry must be unused because an `rlx_more' value of zero ends
+     each list.  */
+  {1, 1, 0, 0},
+
+  /* The displacement used by GAS is from the end of the 4 byte insn,
+     so we subtract 4 from the following.  */
+  {(((1 << 25) - 1) << 2) - 4, -(1 << 25) - 4, 0, 0},
+};
+
+/* md_estimate_size_before_relax(), called just before relax().
+   Any symbol that is now undefined will not become defined.
+   Return the correct fr_subtype in the frag and the growth beyond
+   fr_fix.  */
+
+int
+aap_estimate_size_before_relax (fragS *fragP,
+			       segT seg ATTRIBUTE_UNUSED)
+{
+  printf("aap_estimate_size_before_relax");
+
+  return md_relax_table[fragP->fr_subtype].rlx_length;
+}
+
+/* *fragP has been relaxed to its final size, and now needs to have
+   the bytes inside it modified to conform to the new size.
+
+   Called after relaxation is finished.
+   fragP->fr_type == rs_machine_dependent.
+   fragP->fr_subtype is the subtype of what the address relaxed to.  */
+
+void
+aap_convert_frag (bfd *abfd ATTRIBUTE_UNUSED,
+		 segT sec ATTRIBUTE_UNUSED,
+		 fragS *fragP ATTRIBUTE_UNUSED)
+{
+  printf("aap_convert_frag");
+
+  switch (fragP->fr_subtype)
+  {
+    default:
+      break;
+  }
+}
+
+/******************************************************************************/
+
+/**********************************/
+/**                              **/
+/** Functions concerning relocs. **/
+/**                              **/
+/**********************************/
+
+/* The location from which a PC relative jump should be calculated,
+   given a PC relative reloc.  */
+
+long
+md_pcrel_from_section (fixS *fixP,
+		       segT sec)
+{
+  printf("md_pcrel_from_section\n");
+  
+  if (TC_FORCE_RELOCATION (fixP)
+      || (fixP->fx_addsy != (symbolS *) NULL
+	  && S_GET_SEGMENT (fixP->fx_addsy) != sec))
+    {
+      /* If we can't adjust this relocation, or if it references a
+	 local symbol in a different section (which
+	 TC_FORCE_RELOCATION can't check), let the linker figure it
+	 out.  */
+      return 0;
+    }
+
+  return (fixP->fx_frag->fr_address + fixP->fx_where) & ~1;
+}
+
+/* Return the bfd reloc type for OPERAND of INSN at fixup FIXP.
+   Returns BFD_RELOC_NONE if no reloc type can be found.
+   *FIXP may be modified if desired.  */
+
+bfd_reloc_code_real_type
+md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
+		      const CGEN_OPERAND *operand,
+		      fixS *fixP)
+{
+  printf("md_cgen_lookup_reloc");
+
+  if (fixP->fx_cgen.opinfo)
+    return fixP->fx_cgen.opinfo;
+
+  switch (operand->type)    /* Check in aap-ibld.c for a complex errmsg definition */
+  {
+    default: /* avoid -Wall warning */
+      break;
+  }
+  
+  fprintf(stderr, "APB: %s : %d\n", __FILE__, __LINE__);
+  return BFD_RELOC_NONE;
+}
+
+/* Write a value out to the object file, using the appropriate endianness.  */
+
+void
+aap_number_to_chars (char *buf,
+		    valueT val,
+		    int n)
+{
+  printf("aap_number_to_chars");
+  
+  number_to_chars_littleendian (buf, val, n);
+}
+
+/* Turn a string in input_line_pointer into a floating point constant of type
+   type, and store the appropriate bytes in *litP.  The number of LITTLENUMS
+   emitted is stored in *sizeP .  An error message is returned, or NULL on OK.  */
+
+/* Equal to MAX_PRECISION in atof-ieee.c.  */
+#define MAX_LITTLENUMS 6
+
+char *
+aap_atof (int type,
+	 char *litP,
+	 int *sizeP)
+{
+  printf("aap_atof");
+  
+  return  ieee_md_atof (type, litP, sizeP, TRUE);;
+}
+
+#define GOT_NAME "_GLOBAL_OFFSET_TABLE_"
+
 /* Translate internal representation of relocation info to BFD target
    format.  */
 
 arelent *
-tc_gen_reloc (asection *section, fixS *fixp)
+tc_gen_reloc (asection *section,
+	      fixS *fixp)
 {
   printf("tc_gen_reloc\n");
   
@@ -124,7 +272,7 @@ tc_gen_reloc (asection *section, fixS *fixp)
   if (fixp->fx_pcrel)
     {
       if (section->use_rela_p)
-	fixp->fx_offset -= md_pcrel_from (fixp);
+	fixp->fx_offset -= md_pcrel_from_section (fixp, section);
       else
 	fixp->fx_offset = reloc->address;
     }
@@ -165,13 +313,13 @@ tc_gen_reloc (asection *section, fixS *fixp)
   return reloc;
 }
 
-/* Fix up some data or instructions after we find out the value of a symbol
-   that they reference.  */
+/* Fixup some data or instructions after we find out the value of a symbol
+   that they reference. */
 
-void				/* Knows about order of bytes in address.  */
-md_apply_fix (fixS *fixP, valueT *valueP, segT seg)
+void				/* Knows about order of bytes in address. */
+aap_apply_fix (fixS *fixP, valueT *valueP, segT seg)
 {
-  printf("md_apply_fix\n");
+  printf("aap_apply_fix\n");
   
   valueT value = * valueP;
   seg = seg;
@@ -189,64 +337,53 @@ md_apply_fix (fixS *fixP, valueT *valueP, segT seg)
     /* Initialise the part of an instruction frag covered by the
        relocation.  (Many occurrences of frag_more followed by fix_new
        lack any init of the frag.)  Since VAX uses RELA relocs the
-       value we write into this field doesn't really matter.  */
+       value we write into this field doesn't really matter. */
     memset (fixP->fx_where + fixP->fx_frag->fr_literal, 0, fixP->fx_size);
 }
 
-char *
-md_atof (int type ATTRIBUTE_UNUSED,
-	 char *litP ATTRIBUTE_UNUSED,
-	 int *sizeP ATTRIBUTE_UNUSED)
-{
-  printf("md_atof");
-  return NULL;
-}
 
-void
-md_convert_frag (bfd *abfd ATTRIBUTE_UNUSED,
-		 segT sec ATTRIBUTE_UNUSED,
-		 fragS *fragp ATTRIBUTE_UNUSED)
-{
-  printf("md_convert_frag");
-
-  abort();
-}
-
-/* md_estimate_size_before_relax(), called just before relax().
-   Any symbol that is now undefined will not become defined.
-   Return the correct fr_subtype in the frag and the growth beyond
-   fr_fix.  */
+/* See whether we need to force a relocation into the output file.
+   This is used to force out switch and PC relative relocations when
+   relaxing. */
+/* Use FRV as an example, need to change .opc */
 
 int
-md_estimate_size_before_relax (fragS *fragP ATTRIBUTE_UNUSED,
-			       segT seg ATTRIBUTE_UNUSED)
+aap_force_relocation (fixS *fix)
 {
-  printf("md_estimate_size_before_relax");
+  printf("aap_force_relocation\n");
+  
+  switch (fix->fx_r_type < BFD_RELOC_UNUSED
+	  ? (int) fix->fx_r_type
+	  : fix->fx_cgen.opinfo)
+  {
+  case BFD_RELOC_NONE:
+  case BFD_RELOC_8:
+  case BFD_RELOC_16:
+  case BFD_RELOC_32:
+    return 1;
 
-  abort();
+  default:
+    break;
 }
 
-void
-md_number_to_chars (char con[] ATTRIBUTE_UNUSED,
-		    valueT value ATTRIBUTE_UNUSED,
-		    int nbytes ATTRIBUTE_UNUSED)
-{
-  printf("md_number_to_chars");
-  abort();
+  return generic_force_reloc (fix);
 }
+
+/**********************************************************************************/
 
 int
-md_parse_option (int c ATTRIBUTE_UNUSED,
+aap_parse_option (int c ATTRIBUTE_UNUSED,
 		 char *arg ATTRIBUTE_UNUSED)
 {
-  printf("md_parse_option");
-  abort();
+  printf("aap_parse_option");
+
+  return 0;
 }
 
 void
-md_show_usage (FILE *stream)
+aap_show_usage (FILE *stream)
 {
-  printf("md_show_usage");  /*VAX*/
+  printf("aap_show_usage");  /*VAX*/
 
   fprintf (stream, _("\
 AAP options:\n\
@@ -262,67 +399,58 @@ AAP options:\n\
    to permit the CPU backend to adjust the alignment of a section.  */
 
 valueT
-md_section_align (segT segment,
+aap_section_align (segT segment,
 		  valueT size)
 {
-  printf("md_section_align\n");
+  printf("aap_section_align\n");
   
   int align = bfd_get_section_alignment (stdoutput, segment);
   return ((size + (1 << align) - 1) & (-1 << align));
 }
 
 symbolS *
-md_undefined_symbol (char *name ATTRIBUTE_UNUSED)
+aap_undefined_symbol (char *name ATTRIBUTE_UNUSED)
 {
-  printf("md_undefined_symbol\n");
-  return NULL;
-}
-
-long
-md_pcrel_from (fixS *fixP ATTRIBUTE_UNUSED)
-{
-  printf("md_pcrel_from");
+  printf("aap_undefined_symbol\n");
   
-  abort();
+  return NULL;
 }
 
 int md_short_jump_size = 3;
 int md_long_jump_size = 6;
 
 void
-md_create_short_jump (char *ptr ATTRIBUTE_UNUSED,
-		      addressT from_addr ATTRIBUTE_UNUSED,
-		      addressT to_addr ATTRIBUTE_UNUSED,
+aap_create_short_jump (char *ptr,
+		      addressT from_addr,
+		      addressT to_addr,
 		      fragS *frag ATTRIBUTE_UNUSED,
 		      symbolS *to_symbol ATTRIBUTE_UNUSED)
 {
-  printf("md_create_short_jump");
+  printf("aap_create_short_jump");
 
-  abort();
+  valueT offset;
+
+  /* We need to account for the one byte instruction and also its
+     two byte operand. -- VAX */
+  offset = to_addr - (from_addr + 1 + 2);
+  *ptr++ = AAP_BRW;		/* Branch with word (16 bit) offset.  */
+  aap_number_to_chars (ptr, offset, 2);
 }
 
 void
-md_create_long_jump (char *ptr ATTRIBUTE_UNUSED,
+aap_create_long_jump (char *ptr,
 		     addressT from_addr ATTRIBUTE_UNUSED,
-		     addressT to_addr ATTRIBUTE_UNUSED,
-		     fragS *frag ATTRIBUTE_UNUSED,
-		     symbolS *to_symbol ATTRIBUTE_UNUSED)
+		     addressT to_addr,
+		     fragS *frag,
+		     symbolS *to_symbol)
 {
-  printf("md_create_long_jump");
+  printf("aap_create_long_jump");
 
-  abort();
-}
-
-/* Return the bfd reloc type for OPERAND of INSN at fixup FIXP.
-   Returns BFD_RELOC_NONE if no reloc type can be found.
-   *FIXP may be modified if desired.  */
-
-bfd_reloc_code_real_type
-md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
-		      const CGEN_OPERAND *operand ATTRIBUTE_UNUSED,
-		      fixS *fixP ATTRIBUTE_UNUSED)
-{
-  printf("md_cgen_lookup_reloc");
-
-  abort();
+  valueT offset;
+  
+  offset = to_addr - S_GET_VALUE (to_symbol);
+  *ptr++ = AAP_JMP;		/* Arbitrary jump.  */
+  *ptr++ = AAP_ABSOLUTE_MODE;
+  aap_number_to_chars (ptr, offset, 4);
+  fix_new (frag, ptr - frag->fr_literal, 4, to_symbol, (long) 0, 0, NO_RELOC);
 }

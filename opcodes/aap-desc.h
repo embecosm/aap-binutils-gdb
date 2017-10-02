@@ -37,7 +37,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INSN_LSB0_P 1
 
 /* Minimum size of any insn (in bytes).  */
-#define CGEN_MIN_INSN_SIZE 4
+#define CGEN_MIN_INSN_SIZE 2
 
 /* Maximum size of any insn (in bytes).  */
 #define CGEN_MAX_INSN_SIZE 4
@@ -80,12 +80,22 @@ typedef enum opcodes1 {
  , OP1_BLTS = 36, OP1_BLES = 37, OP1_BLTU = 38, OP1_BLEU = 39
  , OP1_JMP = 40, OP1_JAL = 41, OP1_JEQ = 42, OP1_JNE = 43
  , OP1_JLTS = 44, OP1_JLES = 45, OP1_JLTU = 46, OP1_JLEU = 47
- , OP1_RD = 48
 } OPCODES1;
 
 /* Enum declaration for opcodes2.  */
 typedef enum opcodes2 {
-  OP2_NOP, OP2_ADD
+  OP2_NOP = 0, OP2_ADD = 1, OP2_SUB = 2, OP2_AND = 3
+ , OP2_OR = 4, OP2_XOR = 5, OP2_ASR = 6, OP2_LSL = 7
+ , OP2_LSR = 8, OP2_MOV = 9, OP2_ADDI = 10, OP2_SUBI = 11
+ , OP2_ASRI = 12, OP2_LSLI = 13, OP2_LSRI = 14, OP2_MOVI = 15
+ , OP2_LDB = 16, OP2_LDW = 20, OP2_LDBPO = 17, OP2_LDWPO = 21
+ , OP2_LDBPR = 18, OP2_LDWPR = 22, OP2_SDB = 24, OP2_SDW = 28
+ , OP2_SDBPO = 25, OP2_SDWPO = 29, OP2_SDBPR = 26, OP2_SDWPR = 30
+ , OP2_BRA = 32, OP2_BAL = 33, OP2_BEQ = 34, OP2_BNE = 35
+ , OP2_BLTS = 36, OP2_BLES = 37, OP2_BLTU = 38, OP2_BLEU = 39
+ , OP2_JMP = 40, OP2_JAL = 41, OP2_JEQ = 42, OP2_JNE = 43
+ , OP2_JLTS = 44, OP2_JLES = 45, OP2_JLTU = 46, OP2_JLEU = 47
+ , OP2_RD = 48
 } OPCODES2;
 
 /* Enum declaration for xclass.  */
@@ -97,6 +107,11 @@ typedef enum xclass {
 typedef enum blank {
   BLA_00, BLA_ERROR
 } BLANK;
+
+/* Enum declaration for xblank.  */
+typedef enum xblank {
+  XBLA_00, XBLA_ERROR
+} XBLANK;
 
 /* Attributes.  */
 
@@ -142,11 +157,11 @@ typedef enum ifield_type {
   AAP_F_NIL, AAP_F_ANYOF, AAP_F_LENGTH, AAP_F_X_LENGTH
  , AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE, AAP_F_DST_REG
  , AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SRC_REG_1, AAP_F_SRC_REG_2
- , AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_UINT_18_3, AAP_F_UINT_21_6
- , AAP_F_UINT_12_4, AAP_F_UINT_III1, AAP_F_UINT_2_3, AAP_F_UINT_5_6
- , AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3
- , AAP_F_INT_12_4, AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6
- , AAP_F_INT_8_9, AAP_F_MAX
+ , AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_X_BLANK, AAP_F_UINT_18_3
+ , AAP_F_UINT_21_6, AAP_F_UINT_12_4, AAP_F_UINT_III1, AAP_F_UINT_2_3
+ , AAP_F_UINT_5_6, AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6
+ , AAP_F_INT_24_3, AAP_F_INT_12_4, AAP_F_INT_2_3, AAP_F_INT_8_3
+ , AAP_F_INT_8_6, AAP_F_INT_8_9, AAP_F_MAX
 } IFIELD_TYPE;
 
 #define MAX_IFLD ((int) AAP_F_MAX)

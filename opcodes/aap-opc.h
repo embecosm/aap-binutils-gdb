@@ -26,8 +26,15 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define AAP_OPC_H
 
 /* -- opc.h */
+#undef CGEN_DIS_HASH_SIZE
+#define CGEN_DIS_HASH_SIZE 128
+#undef CGEN_DIS_HASH
+#define CGEN_DIS_HASH(buf, value) (((buf [1]) >> 1) & 0x7f)
 
-/* -- opc.c */
+/* Allows reason codes to be output when assembler errors occur. */
+#define CGEN_VERBOSE_ASSEMBLER_ERRORS
+
+/* -- */
 /* Enum declaration for aap instruction types.  */
 typedef enum cgen_insn_type {
   AAP_INSN_INVALID, AAP_INSN_L_ADD, AAP_INSN_L_SUB, AAP_INSN_L_AND
@@ -82,6 +89,7 @@ struct cgen_fields
   long f_src_reg_2;
   long f_x_src_reg_2;
   long f_blank;
+  long f_x_blank;
   long f_uint_18_3;
   long f_uint_21_6;
   long f_uint_12_4;
