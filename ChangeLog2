@@ -1,4 +1,4 @@
-2017-09-26  Mary Bennett  <mary.bennett@embecosm.com>
+2017-09-26  T-J-Teru
 	* aap.cpu: Created basic file.
 	* aap.opc: Created basic file.
 	* tc-aap.c: Created basic file.
