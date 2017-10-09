@@ -3,6 +3,8 @@
  * 2017/09/21: allows a blank page to compile using abort()
  * 2017/09/28: allows a all of instructions to be assembled
  * 2017/10/02: disassembler for 32 bit instructions
+ * TODO: if an odd number of 16bit insn before EOF or a 32bit insn, 
+ *       insn is *unknown* or out of bounds
  */
 
 #include "config.h"
@@ -289,11 +291,6 @@ tc_gen_reloc (asection *section,
     case BFD_RELOC_32:
       if (fixp->fx_pcrel)
 	code = BFD_RELOC_32_PCREL;
-      break;
-
-    case BFD_RELOC_64:
-      if (fixp->fx_pcrel)
-	code = BFD_RELOC_64_PCREL;
       break;
 
     default:

@@ -66,7 +66,7 @@ static int read_insn
 /* The print_insn_aap is a function that is a wrapper around
   default_print_insn that is created by cgen. Your wrapper just sets
   up some default flags in the disassembler_info struct, then calls
-  the cgen generated print routine. */
+  the cgen generated print routine. (used m32r.opc) */
 
 static int
 aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info *info)
@@ -124,6 +124,20 @@ aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info 
 
 print_insn_aap(pc, info);
 
+static void
+print_lo (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
+	  void * dis_info,
+	  long value,
+	  unsigned int attrs ATTRIBUTE_UNUSED,
+	  bfd_vma pc ATTRIBUTE_UNUSED,
+	  int length ATTRIBUTE_UNUSED)
+{
+  disassemble_info *info = (disassemble_info *) dis_info;
+  if (value)
+    (*info->fprintf_func) (info->stream, "0x%lx", value);
+  else
+    (*info->fprintf_func) (info->stream, "lo(0x%lx)", value);
+}
 /* -- */
 
 void aap_cgen_print_operand
@@ -157,8 +171,35 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_dst_reg, 0);
+    case AAP_OPERAND_A6 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_a_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      break;
+    case AAP_OPERAND_B6 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_b_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      break;
+    case AAP_OPERAND_CARRY :
+      print_normal (cd, info, fields->f_carry, 0, pc, length);
+      break;
+    case AAP_OPERAND_D6 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_d_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      break;
+    case AAP_OPERAND_DEST1 :
+      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_dst_1_reg, 0);
+      break;
+    case AAP_OPERAND_I10 :
+      print_normal (cd, info, fields->f_i_10, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_I10I :
+      print_normal (cd, info, fields->f_i_10i, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_I12 :
+      print_normal (cd, info, fields->f_i_12, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_I16 :
+      print_normal (cd, info, fields->f_i_16, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_I6 :
+      print_normal (cd, info, fields->f_i_6, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_INT023 :
       print_normal (cd, info, fields->f_int_2_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
@@ -172,26 +213,17 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_INT089 :
       print_normal (cd, info, fields->f_int_8_9, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
       break;
-    case AAP_OPERAND_INT124 :
-      print_normal (cd, info, fields->f_int_12_4, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+    case AAP_OPERAND_INT1210 :
+      print_normal (cd, info, fields->f_int_12_10, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
       break;
-    case AAP_OPERAND_INT183 :
-      print_normal (cd, info, fields->f_int_18_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+    case AAP_OPERAND_S10 :
+      print_normal (cd, info, fields->f_s_10, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
-    case AAP_OPERAND_INT243 :
-      print_normal (cd, info, fields->f_int_24_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+    case AAP_OPERAND_S16 :
+      print_normal (cd, info, fields->f_s_16, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
-    case AAP_OPERAND_INT246 :
-      print_normal (cd, info, fields->f_int_24_6, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
-      break;
-    case AAP_OPERAND_INT249 :
-      print_normal (cd, info, fields->f_int_24_9, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
-      break;
-    case AAP_OPERAND_SRC1 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_1, 0);
-      break;
-    case AAP_OPERAND_SRC2 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_src_reg_2, 0);
+    case AAP_OPERAND_S22 :
+      print_normal (cd, info, fields->f_s_22, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_UINT023 :
       print_normal (cd, info, fields->f_uint_2_3, 0, pc, length);
@@ -199,17 +231,8 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       print_normal (cd, info, fields->f_uint_5_6, 0, pc, length);
       break;
-    case AAP_OPERAND_UINT124 :
-      print_normal (cd, info, fields->f_uint_12_4, 0, pc, length);
-      break;
-    case AAP_OPERAND_UINT183 :
-      print_normal (cd, info, fields->f_uint_18_3, 0, pc, length);
-      break;
-    case AAP_OPERAND_UINT216 :
-      print_normal (cd, info, fields->f_uint_21_6, 0, pc, length);
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      print_normal (cd, info, fields->f_uint_iii1, 0, pc, length);
+    case AAP_OPERAND_ULO16 :
+      print_lo (cd, info, fields->f_u16, 0, pc, length);
       break;
     case AAP_OPERAND_XDEST :
       print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_dst_reg, 0);

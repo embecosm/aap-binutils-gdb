@@ -26,6 +26,37 @@
 
 /* -- asm.c */
 
+static const char *
+parse_ulo16 (CGEN_CPU_DESC cd,
+	     const char **strp,
+	     int opindex,
+	     unsigned long *valuep)
+{
+  const char *errmsg;
+  enum cgen_parse_operand_result result_type;
+  bfd_vma value;
+ 
+  if (**strp == '#' || **strp == '%')
+    {
+      if (strncasecmp (*strp + 1, "lo(", 3) == 0)
+	{
+	  *strp += 4;
+	  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_FRV_LO16,
+				       & result_type, & value);
+	  if (**strp != ')')
+	    return "missing `)'";
+	  ++*strp;
+	  if (errmsg == NULL
+	      && result_type == CGEN_PARSE_OPERAND_RESULT_NUMBER)
+	    value &= 0xffff;
+	  *valuep = value;
+	  return errmsg;
+	}
+    }
+  return cgen_parse_unsigned_integer (cd, strp, opindex, valuep);
+}
+/* -- */
+
 /* -- dis.c */
 #define CGEN_PRINT_NORMAL(cd, info, value, attrs, pc, length)
 #define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length) 
@@ -93,6 +124,20 @@ aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info 
 
 print_insn_aap(pc, info);
 
+static void
+print_lo (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
+	  void * dis_info,
+	  long value,
+	  unsigned int attrs ATTRIBUTE_UNUSED,
+	  bfd_vma pc ATTRIBUTE_UNUSED,
+	  int length ATTRIBUTE_UNUSED)
+{
+  disassemble_info *info = (disassemble_info *) dis_info;
+  if (value)
+    (*info->fprintf_func) (info->stream, "0x%lx", value);
+  else
+    (*info->fprintf_func) (info->stream, "lo(0x%lx)", value);
+}
 /* -- */
 
 /* -- ibd.h */

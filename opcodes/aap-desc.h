@@ -45,7 +45,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INT_INSN_P 1
 
 /* Maximum number of syntax elements in an instruction.  */
-#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 25
+#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 18
 
 /* CGEN_MNEMONIC_OPERANDS is defined if mnemonics have operands.
    e.g. In "b,a foo" the ",a" is an operand.  If mnemonics have operands
@@ -53,7 +53,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_MNEMONIC_OPERANDS
 
 /* Maximum number of fields in an instruction.  */
-#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 11
+#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 7
 
 /* Enums.  */
 
@@ -103,16 +103,6 @@ typedef enum xclass {
   CLA_NOP, CLA_ERROR
 } XCLASS;
 
-/* Enum declaration for blank.  */
-typedef enum blank {
-  BLA_00, BLA_ERROR
-} BLANK;
-
-/* Enum declaration for xblank.  */
-typedef enum xblank {
-  XBLA_00, XBLA_ERROR
-} XBLANK;
-
 /* Attributes.  */
 
 /* Enum declaration for machine type selection.  */
@@ -157,11 +147,15 @@ typedef enum ifield_type {
   AAP_F_NIL, AAP_F_ANYOF, AAP_F_LENGTH, AAP_F_X_LENGTH
  , AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE, AAP_F_DST_REG
  , AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SRC_REG_1, AAP_F_SRC_REG_2
- , AAP_F_X_SRC_REG_2, AAP_F_BLANK, AAP_F_X_BLANK, AAP_F_UINT_18_3
- , AAP_F_UINT_21_6, AAP_F_UINT_12_4, AAP_F_UINT_III1, AAP_F_UINT_2_3
- , AAP_F_UINT_5_6, AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6
- , AAP_F_INT_24_3, AAP_F_INT_12_4, AAP_F_INT_2_3, AAP_F_INT_8_3
- , AAP_F_INT_8_6, AAP_F_INT_8_9, AAP_F_MAX
+ , AAP_F_X_SRC_REG_2, AAP_F_UINT_18_3, AAP_F_UINT_21_6, AAP_F_UINT_12_4
+ , AAP_F_UINT_III1, AAP_F_UINT_2_3, AAP_F_UINT_5_6, AAP_F_INT_18_3
+ , AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3, AAP_F_INT_12_4
+ , AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6, AAP_F_INT_8_9
+ , AAP_F_INT_12_7, AAP_F_INT_12_10, AAP_F_INT_12_13, AAP_F_U16
+ , AAP_F_CARRY, AAP_F_DST_1_REG, AAP_F_S_22, AAP_F_S_16
+ , AAP_F_S_10, AAP_F_I_12, AAP_F_I_16, AAP_F_I_6
+ , AAP_F_I_10, AAP_F_I_10I, AAP_F_D_6, AAP_F_A_6
+ , AAP_F_B_6, AAP_F_MAX
 } IFIELD_TYPE;
 
 #define MAX_IFLD ((int) AAP_F_MAX)
@@ -187,7 +181,8 @@ typedef enum cgen_hw_attr {
 /* Enum declaration for aap hardware types.  */
 typedef enum cgen_hw_type {
   HW_H_MEMORY, HW_H_SINT, HW_H_UINT, HW_H_ADDR
- , HW_H_IADDR, HW_H_GPR, HW_H_PC, HW_MAX
+ , HW_H_IADDR, HW_H_GPR, HW_H_CF, HW_H_PC
+ , HW_MAX
 } CGEN_HW_TYPE;
 
 #define MAX_HW ((int) HW_MAX)
@@ -217,16 +212,17 @@ typedef enum cgen_operand_attr {
 
 /* Enum declaration for aap operand types.  */
 typedef enum cgen_operand_type {
-  AAP_OPERAND_PC, AAP_OPERAND_DEST, AAP_OPERAND_SRC1, AAP_OPERAND_SRC2
- , AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1, AAP_OPERAND_XSRC2, AAP_OPERAND_UINT216
- , AAP_OPERAND_UINT183, AAP_OPERAND_UINT124, AAP_OPERAND_UINT056, AAP_OPERAND_UINT023
- , AAP_OPERAND_UINTIII1, AAP_OPERAND_INT243, AAP_OPERAND_INT246, AAP_OPERAND_INT249
- , AAP_OPERAND_INT183, AAP_OPERAND_INT124, AAP_OPERAND_INT083, AAP_OPERAND_INT086
- , AAP_OPERAND_INT089, AAP_OPERAND_INT023, AAP_OPERAND_MAX
+  AAP_OPERAND_PC, AAP_OPERAND_CARRY, AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1
+ , AAP_OPERAND_XSRC2, AAP_OPERAND_D6, AAP_OPERAND_A6, AAP_OPERAND_B6
+ , AAP_OPERAND_DEST1, AAP_OPERAND_UINT056, AAP_OPERAND_UINT023, AAP_OPERAND_ULO16
+ , AAP_OPERAND_I12, AAP_OPERAND_I16, AAP_OPERAND_I6, AAP_OPERAND_I10
+ , AAP_OPERAND_I10I, AAP_OPERAND_INT1210, AAP_OPERAND_INT083, AAP_OPERAND_INT086
+ , AAP_OPERAND_INT089, AAP_OPERAND_INT023, AAP_OPERAND_S22, AAP_OPERAND_S16
+ , AAP_OPERAND_S10, AAP_OPERAND_MAX
 } CGEN_OPERAND_TYPE;
 
 /* Number of operands types.  */
-#define MAX_OPERANDS 22
+#define MAX_OPERANDS 25
 
 /* Maximum number of operands referenced by any insn.  */
 #define MAX_OPERAND_INSTANCES 8

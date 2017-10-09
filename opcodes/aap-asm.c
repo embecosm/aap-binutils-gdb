@@ -50,7 +50,36 @@ static const char * parse_insn_normal
 
 /* -- asm.c */
 
-/* -- dis.c */
+static const char *
+parse_ulo16 (CGEN_CPU_DESC cd,
+	     const char **strp,
+	     int opindex,
+	     unsigned long *valuep)
+{
+  const char *errmsg;
+  enum cgen_parse_operand_result result_type;
+  bfd_vma value;
+ 
+  if (**strp == '#' || **strp == '%')
+    {
+      if (strncasecmp (*strp + 1, "lo(", 3) == 0)
+	{
+	  *strp += 4;
+	  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_FRV_LO16,
+				       & result_type, & value);
+	  if (**strp != ')')
+	    return "missing `)'";
+	  ++*strp;
+	  if (errmsg == NULL
+	      && result_type == CGEN_PARSE_OPERAND_RESULT_NUMBER)
+	    value &= 0xffff;
+	  *valuep = value;
+	  return errmsg;
+	}
+    }
+  return cgen_parse_unsigned_integer (cd, strp, opindex, valuep);
+}
+/* -- */
 
 const char * aap_cgen_parse_operand
   (CGEN_CPU_DESC, int, const char **, CGEN_FIELDS *);
@@ -80,8 +109,35 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_dst_reg);
+    case AAP_OPERAND_A6 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_a_6);
+      break;
+    case AAP_OPERAND_B6 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_b_6);
+      break;
+    case AAP_OPERAND_CARRY :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_CARRY, (unsigned long *) (& fields->f_carry));
+      break;
+    case AAP_OPERAND_D6 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_d_6);
+      break;
+    case AAP_OPERAND_DEST1 :
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_dst_1_reg);
+      break;
+    case AAP_OPERAND_I10 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10, (unsigned long *) (& fields->f_i_10));
+      break;
+    case AAP_OPERAND_I10I :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10I, (unsigned long *) (& fields->f_i_10i));
+      break;
+    case AAP_OPERAND_I12 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I12, (unsigned long *) (& fields->f_i_12));
+      break;
+    case AAP_OPERAND_I16 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I16, (unsigned long *) (& fields->f_i_16));
+      break;
+    case AAP_OPERAND_I6 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I6, (unsigned long *) (& fields->f_i_6));
       break;
     case AAP_OPERAND_INT023 :
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
@@ -95,26 +151,17 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_INT089 :
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT089, (long *) (& fields->f_int_8_9));
       break;
-    case AAP_OPERAND_INT124 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT124, (long *) (& fields->f_int_12_4));
+    case AAP_OPERAND_INT1210 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT1210, (long *) (& fields->f_int_12_10));
       break;
-    case AAP_OPERAND_INT183 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT183, (long *) (& fields->f_int_18_3));
+    case AAP_OPERAND_S10 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10));
       break;
-    case AAP_OPERAND_INT243 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT243, (long *) (& fields->f_int_24_3));
+    case AAP_OPERAND_S16 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S16, (long *) (& fields->f_s_16));
       break;
-    case AAP_OPERAND_INT246 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT246, (long *) (& fields->f_int_24_6));
-      break;
-    case AAP_OPERAND_INT249 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT249, (long *) (& fields->f_int_24_9));
-      break;
-    case AAP_OPERAND_SRC1 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_1);
-      break;
-    case AAP_OPERAND_SRC2 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_src_reg_2);
+    case AAP_OPERAND_S22 :
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S22, (long *) (& fields->f_s_22));
       break;
     case AAP_OPERAND_UINT023 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT023, (unsigned long *) (& fields->f_uint_2_3));
@@ -122,17 +169,8 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT056, (unsigned long *) (& fields->f_uint_5_6));
       break;
-    case AAP_OPERAND_UINT124 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT124, (unsigned long *) (& fields->f_uint_12_4));
-      break;
-    case AAP_OPERAND_UINT183 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT183, (unsigned long *) (& fields->f_uint_18_3));
-      break;
-    case AAP_OPERAND_UINT216 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT216, (unsigned long *) (& fields->f_uint_21_6));
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINTIII1, (unsigned long *) (& fields->f_uint_iii1));
+    case AAP_OPERAND_ULO16 :
+      errmsg = parse_ulo16 (cd, strp, AAP_OPERAND_ULO16, (unsigned long *) (& fields->f_u16));
       break;
     case AAP_OPERAND_XDEST :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_dst_reg);

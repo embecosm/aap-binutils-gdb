@@ -565,8 +565,156 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      errmsg = insert_normal (cd, fields->f_dst_reg, 0, 0, 24, 3, 32, total_length, buffer);
+    case AAP_OPERAND_A6 :
+      {
+{
+  FLD (f_src_reg_1) = ((((UINT) (FLD (f_a_6)) >> (3))) & (31));
+  FLD (f_x_src_reg_1) = ((FLD (f_a_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_src_reg_1, 0, 0, 21, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_x_src_reg_1, 0, 0, 5, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_B6 :
+      {
+{
+  FLD (f_src_reg_2) = ((((UINT) (FLD (f_b_6)) >> (3))) & (31));
+  FLD (f_x_src_reg_2) = ((FLD (f_b_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_src_reg_2, 0, 0, 18, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_x_src_reg_2, 0, 0, 2, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_CARRY :
+      errmsg = insert_normal (cd, fields->f_carry, 0, 0, 0, 1, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_D6 :
+      {
+{
+  FLD (f_dst_reg) = ((((UINT) (FLD (f_d_6)) >> (3))) & (31));
+  FLD (f_x_dst_reg) = ((FLD (f_d_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_dst_reg, 0, 0, 24, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_x_dst_reg, 0, 0, 8, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_DEST1 :
+      errmsg = insert_normal (cd, fields->f_dst_1_reg, 0, 0, 24, 6, 32, total_length, buffer);
+      break;
+    case AAP_OPERAND_I10 :
+      {
+{
+  FLD (f_uint_12_4) = ((((UINT) (FLD (f_i_10)) >> (4))) & (31));
+  FLD (f_i_6) = ((FLD (f_i_10)) & (2047));
+}
+        {
+{
+  FLD (f_uint_18_3) = ((((UINT) (FLD (f_i_6)) >> (3))) & (31));
+  FLD (f_uint_2_3) = ((FLD (f_i_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_12_4, 0, 0, 12, 4, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_I10I :
+      {
+{
+  FLD (f_uint_iii1) = ((((UINT) (FLD (f_i_10)) >> (4))) & (31));
+  FLD (f_i_6) = ((FLD (f_i_10)) & (2047));
+}
+        {
+{
+  FLD (f_uint_18_3) = ((((UINT) (FLD (f_i_6)) >> (3))) & (31));
+  FLD (f_uint_2_3) = ((FLD (f_i_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_iii1, 0, 0, 12, 4, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_I12 :
+      {
+{
+  FLD (f_uint_21_6) = ((((UINT) (FLD (f_i_12)) >> (6))) & (31));
+  FLD (f_uint_5_6) = ((FLD (f_i_12)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_21_6, 0, 0, 21, 6, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_I16 :
+      {
+{
+  FLD (f_uint_12_4) = ((((UINT) (FLD (f_i_16)) >> (4))) & (31));
+  FLD (f_i_12) = ((FLD (f_i_16)) & (2047));
+}
+        {
+{
+  FLD (f_uint_21_6) = ((((UINT) (FLD (f_i_12)) >> (6))) & (31));
+  FLD (f_uint_5_6) = ((FLD (f_i_12)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_21_6, 0, 0, 21, 6, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_12_4, 0, 0, 12, 4, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
+      break;
+    case AAP_OPERAND_I6 :
+      {
+{
+  FLD (f_uint_18_3) = ((((UINT) (FLD (f_i_6)) >> (3))) & (31));
+  FLD (f_uint_2_3) = ((FLD (f_i_6)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
       break;
     case AAP_OPERAND_INT023 :
       errmsg = insert_normal (cd, fields->f_int_2_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, buffer);
@@ -580,26 +728,50 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_INT089 :
       errmsg = insert_normal (cd, fields->f_int_8_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, buffer);
       break;
-    case AAP_OPERAND_INT124 :
-      errmsg = insert_normal (cd, fields->f_int_12_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 4, 32, total_length, buffer);
+    case AAP_OPERAND_INT1210 :
+      errmsg = insert_normal (cd, fields->f_int_12_10, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 10, 32, total_length, buffer);
       break;
-    case AAP_OPERAND_INT183 :
-      errmsg = insert_normal (cd, fields->f_int_18_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, buffer);
+    case AAP_OPERAND_S10 :
+      {
+{
+  FLD (f_int_24_3) = ((((UINT) (FLD (f_s_10)) >> (7))) & (31));
+  FLD (f_int_12_7) = ((FLD (f_s_10)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_int_24_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_int_12_7, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 7, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
       break;
-    case AAP_OPERAND_INT243 :
-      errmsg = insert_normal (cd, fields->f_int_24_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, buffer);
+    case AAP_OPERAND_S16 :
+      {
+{
+  FLD (f_int_24_6) = ((((UINT) (FLD (f_s_16)) >> (10))) & (31));
+  FLD (f_int_12_10) = ((FLD (f_s_16)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_int_24_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_int_12_10, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 10, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
       break;
-    case AAP_OPERAND_INT246 :
-      errmsg = insert_normal (cd, fields->f_int_24_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_INT249 :
-      errmsg = insert_normal (cd, fields->f_int_24_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_SRC1 :
-      errmsg = insert_normal (cd, fields->f_src_reg_1, 0, 0, 21, 3, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_SRC2 :
-      errmsg = insert_normal (cd, fields->f_src_reg_2, 0, 0, 18, 3, 32, total_length, buffer);
+    case AAP_OPERAND_S22 :
+      {
+{
+  FLD (f_int_24_9) = ((((UINT) (FLD (f_s_22)) >> (13))) & (31));
+  FLD (f_int_12_13) = ((FLD (f_s_22)) & (2047));
+}
+        errmsg = insert_normal (cd, fields->f_int_24_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, buffer);
+        if (errmsg)
+          break;
+        errmsg = insert_normal (cd, fields->f_int_12_13, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 13, 32, total_length, buffer);
+        if (errmsg)
+          break;
+      }
       break;
     case AAP_OPERAND_UINT023 :
       errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
@@ -607,17 +779,8 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
       break;
-    case AAP_OPERAND_UINT124 :
-      errmsg = insert_normal (cd, fields->f_uint_12_4, 0, 0, 12, 4, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_UINT183 :
-      errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_UINT216 :
-      errmsg = insert_normal (cd, fields->f_uint_21_6, 0, 0, 21, 6, 32, total_length, buffer);
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      errmsg = insert_normal (cd, fields->f_uint_iii1, 0, 0, 12, 4, 32, total_length, buffer);
+    case AAP_OPERAND_ULO16 :
+      errmsg = insert_normal (cd, fields->f_u16, 0, 0, 15, 16, 32, total_length, buffer);
       break;
     case AAP_OPERAND_XDEST :
       errmsg = insert_normal (cd, fields->f_x_dst_reg, 0, 0, 8, 3, 32, total_length, buffer);
@@ -671,8 +834,101 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 24, 3, 32, total_length, pc, & fields->f_dst_reg);
+    case AAP_OPERAND_A6 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 3, 32, total_length, pc, & fields->f_src_reg_1);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 3, 32, total_length, pc, & fields->f_x_src_reg_1);
+        if (length <= 0) break;
+  FLD (f_a_6) = ((HI) (UINT) (((((FLD (f_src_reg_1)) << (3))) | (FLD (f_x_src_reg_1)))));
+      }
+      break;
+    case AAP_OPERAND_B6 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_src_reg_2);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_x_src_reg_2);
+        if (length <= 0) break;
+  FLD (f_b_6) = ((HI) (UINT) (((((FLD (f_src_reg_2)) << (3))) | (FLD (f_x_src_reg_2)))));
+      }
+      break;
+    case AAP_OPERAND_CARRY :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 0, 1, 32, total_length, pc, & fields->f_carry);
+      break;
+    case AAP_OPERAND_D6 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 24, 3, 32, total_length, pc, & fields->f_dst_reg);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 8, 3, 32, total_length, pc, & fields->f_x_dst_reg);
+        if (length <= 0) break;
+  FLD (f_d_6) = ((HI) (UINT) (((((FLD (f_dst_reg)) << (3))) | (FLD (f_x_dst_reg)))));
+      }
+      break;
+    case AAP_OPERAND_DEST1 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 24, 6, 32, total_length, pc, & fields->f_dst_1_reg);
+      break;
+    case AAP_OPERAND_I10 :
+      {
+        {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
+        if (length <= 0) break;
+  FLD (f_i_6) = ((HI) (UINT) (((((FLD (f_uint_18_3)) << (3))) | (FLD (f_uint_2_3)))));
+      }
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_12_4);
+        if (length <= 0) break;
+  FLD (f_i_10) = ((HI) (UINT) (((((FLD (f_uint_12_4)) << (4))) | (FLD (f_i_6)))));
+      }
+      break;
+    case AAP_OPERAND_I10I :
+      {
+        {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
+        if (length <= 0) break;
+  FLD (f_i_6) = ((HI) (UINT) (((((FLD (f_uint_18_3)) << (3))) | (FLD (f_uint_2_3)))));
+      }
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_iii1);
+        if (length <= 0) break;
+  FLD (f_i_10) = ((HI) (UINT) (((((FLD (f_uint_iii1)) << (4))) | (FLD (f_i_6)))));
+      }
+      break;
+    case AAP_OPERAND_I12 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 6, 32, total_length, pc, & fields->f_uint_21_6);
+        if (length <= 0) break;
+  FLD (f_i_12) = ((HI) (UINT) (((((FLD (f_uint_21_6)) << (6))) | (FLD (f_uint_5_6)))));
+      }
+      break;
+    case AAP_OPERAND_I16 :
+      {
+        {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 6, 32, total_length, pc, & fields->f_uint_21_6);
+        if (length <= 0) break;
+  FLD (f_i_12) = ((HI) (UINT) (((((FLD (f_uint_21_6)) << (6))) | (FLD (f_uint_5_6)))));
+      }
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_12_4);
+        if (length <= 0) break;
+  FLD (f_i_16) = ((HI) (UINT) (((((FLD (f_uint_12_4)) << (4))) | (FLD (f_i_12)))));
+      }
+      break;
+    case AAP_OPERAND_I6 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
+        if (length <= 0) break;
+  FLD (f_i_6) = ((HI) (UINT) (((((FLD (f_uint_18_3)) << (3))) | (FLD (f_uint_2_3)))));
+      }
       break;
     case AAP_OPERAND_INT023 :
       length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, pc, & fields->f_int_2_3);
@@ -686,26 +942,35 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_INT089 :
       length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, pc, & fields->f_int_8_9);
       break;
-    case AAP_OPERAND_INT124 :
-      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 4, 32, total_length, pc, & fields->f_int_12_4);
+    case AAP_OPERAND_INT1210 :
+      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 10, 32, total_length, pc, & fields->f_int_12_10);
       break;
-    case AAP_OPERAND_INT183 :
-      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, pc, & fields->f_int_18_3);
+    case AAP_OPERAND_S10 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, pc, & fields->f_int_24_3);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 7, 32, total_length, pc, & fields->f_int_12_7);
+        if (length <= 0) break;
+  FLD (f_s_10) = ((HI) (INT) (((((FLD (f_int_24_3)) << (7))) | (FLD (f_int_12_7)))));
+      }
       break;
-    case AAP_OPERAND_INT243 :
-      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, pc, & fields->f_int_24_3);
+    case AAP_OPERAND_S16 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, pc, & fields->f_int_24_6);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 10, 32, total_length, pc, & fields->f_int_12_10);
+        if (length <= 0) break;
+  FLD (f_s_16) = ((HI) (INT) (((((FLD (f_int_24_6)) << (10))) | (FLD (f_int_12_10)))));
+      }
       break;
-    case AAP_OPERAND_INT246 :
-      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, pc, & fields->f_int_24_6);
-      break;
-    case AAP_OPERAND_INT249 :
-      length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, pc, & fields->f_int_24_9);
-      break;
-    case AAP_OPERAND_SRC1 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 3, 32, total_length, pc, & fields->f_src_reg_1);
-      break;
-    case AAP_OPERAND_SRC2 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_src_reg_2);
+    case AAP_OPERAND_S22 :
+      {
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, pc, & fields->f_int_24_9);
+        if (length <= 0) break;
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 12, 13, 32, total_length, pc, & fields->f_int_12_13);
+        if (length <= 0) break;
+  FLD (f_s_22) = ((HI) (INT) (((((FLD (f_int_24_9)) << (13))) | (FLD (f_int_12_13)))));
+      }
       break;
     case AAP_OPERAND_UINT023 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
@@ -713,17 +978,8 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
       break;
-    case AAP_OPERAND_UINT124 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_12_4);
-      break;
-    case AAP_OPERAND_UINT183 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
-      break;
-    case AAP_OPERAND_UINT216 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 6, 32, total_length, pc, & fields->f_uint_21_6);
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 12, 4, 32, total_length, pc, & fields->f_uint_iii1);
+    case AAP_OPERAND_ULO16 :
+      length = extract_normal (cd, ex_info, insn_value, 0, 0, 15, 16, 32, total_length, pc, & fields->f_u16);
       break;
     case AAP_OPERAND_XDEST :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 8, 3, 32, total_length, pc, & fields->f_x_dst_reg);
@@ -772,8 +1028,35 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      value = fields->f_dst_reg;
+    case AAP_OPERAND_A6 :
+      value = fields->f_a_6;
+      break;
+    case AAP_OPERAND_B6 :
+      value = fields->f_b_6;
+      break;
+    case AAP_OPERAND_CARRY :
+      value = fields->f_carry;
+      break;
+    case AAP_OPERAND_D6 :
+      value = fields->f_d_6;
+      break;
+    case AAP_OPERAND_DEST1 :
+      value = fields->f_dst_1_reg;
+      break;
+    case AAP_OPERAND_I10 :
+      value = fields->f_i_10;
+      break;
+    case AAP_OPERAND_I10I :
+      value = fields->f_i_10i;
+      break;
+    case AAP_OPERAND_I12 :
+      value = fields->f_i_12;
+      break;
+    case AAP_OPERAND_I16 :
+      value = fields->f_i_16;
+      break;
+    case AAP_OPERAND_I6 :
+      value = fields->f_i_6;
       break;
     case AAP_OPERAND_INT023 :
       value = fields->f_int_2_3;
@@ -787,26 +1070,17 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_INT089 :
       value = fields->f_int_8_9;
       break;
-    case AAP_OPERAND_INT124 :
-      value = fields->f_int_12_4;
+    case AAP_OPERAND_INT1210 :
+      value = fields->f_int_12_10;
       break;
-    case AAP_OPERAND_INT183 :
-      value = fields->f_int_18_3;
+    case AAP_OPERAND_S10 :
+      value = fields->f_s_10;
       break;
-    case AAP_OPERAND_INT243 :
-      value = fields->f_int_24_3;
+    case AAP_OPERAND_S16 :
+      value = fields->f_s_16;
       break;
-    case AAP_OPERAND_INT246 :
-      value = fields->f_int_24_6;
-      break;
-    case AAP_OPERAND_INT249 :
-      value = fields->f_int_24_9;
-      break;
-    case AAP_OPERAND_SRC1 :
-      value = fields->f_src_reg_1;
-      break;
-    case AAP_OPERAND_SRC2 :
-      value = fields->f_src_reg_2;
+    case AAP_OPERAND_S22 :
+      value = fields->f_s_22;
       break;
     case AAP_OPERAND_UINT023 :
       value = fields->f_uint_2_3;
@@ -814,17 +1088,8 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       value = fields->f_uint_5_6;
       break;
-    case AAP_OPERAND_UINT124 :
-      value = fields->f_uint_12_4;
-      break;
-    case AAP_OPERAND_UINT183 :
-      value = fields->f_uint_18_3;
-      break;
-    case AAP_OPERAND_UINT216 :
-      value = fields->f_uint_21_6;
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      value = fields->f_uint_iii1;
+    case AAP_OPERAND_ULO16 :
+      value = fields->f_u16;
       break;
     case AAP_OPERAND_XDEST :
       value = fields->f_x_dst_reg;
@@ -855,8 +1120,35 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      value = fields->f_dst_reg;
+    case AAP_OPERAND_A6 :
+      value = fields->f_a_6;
+      break;
+    case AAP_OPERAND_B6 :
+      value = fields->f_b_6;
+      break;
+    case AAP_OPERAND_CARRY :
+      value = fields->f_carry;
+      break;
+    case AAP_OPERAND_D6 :
+      value = fields->f_d_6;
+      break;
+    case AAP_OPERAND_DEST1 :
+      value = fields->f_dst_1_reg;
+      break;
+    case AAP_OPERAND_I10 :
+      value = fields->f_i_10;
+      break;
+    case AAP_OPERAND_I10I :
+      value = fields->f_i_10i;
+      break;
+    case AAP_OPERAND_I12 :
+      value = fields->f_i_12;
+      break;
+    case AAP_OPERAND_I16 :
+      value = fields->f_i_16;
+      break;
+    case AAP_OPERAND_I6 :
+      value = fields->f_i_6;
       break;
     case AAP_OPERAND_INT023 :
       value = fields->f_int_2_3;
@@ -870,26 +1162,17 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_INT089 :
       value = fields->f_int_8_9;
       break;
-    case AAP_OPERAND_INT124 :
-      value = fields->f_int_12_4;
+    case AAP_OPERAND_INT1210 :
+      value = fields->f_int_12_10;
       break;
-    case AAP_OPERAND_INT183 :
-      value = fields->f_int_18_3;
+    case AAP_OPERAND_S10 :
+      value = fields->f_s_10;
       break;
-    case AAP_OPERAND_INT243 :
-      value = fields->f_int_24_3;
+    case AAP_OPERAND_S16 :
+      value = fields->f_s_16;
       break;
-    case AAP_OPERAND_INT246 :
-      value = fields->f_int_24_6;
-      break;
-    case AAP_OPERAND_INT249 :
-      value = fields->f_int_24_9;
-      break;
-    case AAP_OPERAND_SRC1 :
-      value = fields->f_src_reg_1;
-      break;
-    case AAP_OPERAND_SRC2 :
-      value = fields->f_src_reg_2;
+    case AAP_OPERAND_S22 :
+      value = fields->f_s_22;
       break;
     case AAP_OPERAND_UINT023 :
       value = fields->f_uint_2_3;
@@ -897,17 +1180,8 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       value = fields->f_uint_5_6;
       break;
-    case AAP_OPERAND_UINT124 :
-      value = fields->f_uint_12_4;
-      break;
-    case AAP_OPERAND_UINT183 :
-      value = fields->f_uint_18_3;
-      break;
-    case AAP_OPERAND_UINT216 :
-      value = fields->f_uint_21_6;
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      value = fields->f_uint_iii1;
+    case AAP_OPERAND_ULO16 :
+      value = fields->f_u16;
       break;
     case AAP_OPERAND_XDEST :
       value = fields->f_x_dst_reg;
@@ -945,8 +1219,35 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 {
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      fields->f_dst_reg = value;
+    case AAP_OPERAND_A6 :
+      fields->f_a_6 = value;
+      break;
+    case AAP_OPERAND_B6 :
+      fields->f_b_6 = value;
+      break;
+    case AAP_OPERAND_CARRY :
+      fields->f_carry = value;
+      break;
+    case AAP_OPERAND_D6 :
+      fields->f_d_6 = value;
+      break;
+    case AAP_OPERAND_DEST1 :
+      fields->f_dst_1_reg = value;
+      break;
+    case AAP_OPERAND_I10 :
+      fields->f_i_10 = value;
+      break;
+    case AAP_OPERAND_I10I :
+      fields->f_i_10i = value;
+      break;
+    case AAP_OPERAND_I12 :
+      fields->f_i_12 = value;
+      break;
+    case AAP_OPERAND_I16 :
+      fields->f_i_16 = value;
+      break;
+    case AAP_OPERAND_I6 :
+      fields->f_i_6 = value;
       break;
     case AAP_OPERAND_INT023 :
       fields->f_int_2_3 = value;
@@ -960,26 +1261,17 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_INT089 :
       fields->f_int_8_9 = value;
       break;
-    case AAP_OPERAND_INT124 :
-      fields->f_int_12_4 = value;
+    case AAP_OPERAND_INT1210 :
+      fields->f_int_12_10 = value;
       break;
-    case AAP_OPERAND_INT183 :
-      fields->f_int_18_3 = value;
+    case AAP_OPERAND_S10 :
+      fields->f_s_10 = value;
       break;
-    case AAP_OPERAND_INT243 :
-      fields->f_int_24_3 = value;
+    case AAP_OPERAND_S16 :
+      fields->f_s_16 = value;
       break;
-    case AAP_OPERAND_INT246 :
-      fields->f_int_24_6 = value;
-      break;
-    case AAP_OPERAND_INT249 :
-      fields->f_int_24_9 = value;
-      break;
-    case AAP_OPERAND_SRC1 :
-      fields->f_src_reg_1 = value;
-      break;
-    case AAP_OPERAND_SRC2 :
-      fields->f_src_reg_2 = value;
+    case AAP_OPERAND_S22 :
+      fields->f_s_22 = value;
       break;
     case AAP_OPERAND_UINT023 :
       fields->f_uint_2_3 = value;
@@ -987,17 +1279,8 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       fields->f_uint_5_6 = value;
       break;
-    case AAP_OPERAND_UINT124 :
-      fields->f_uint_12_4 = value;
-      break;
-    case AAP_OPERAND_UINT183 :
-      fields->f_uint_18_3 = value;
-      break;
-    case AAP_OPERAND_UINT216 :
-      fields->f_uint_21_6 = value;
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      fields->f_uint_iii1 = value;
+    case AAP_OPERAND_ULO16 :
+      fields->f_u16 = value;
       break;
     case AAP_OPERAND_XDEST :
       fields->f_x_dst_reg = value;
@@ -1025,8 +1308,35 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
 {
   switch (opindex)
     {
-    case AAP_OPERAND_DEST :
-      fields->f_dst_reg = value;
+    case AAP_OPERAND_A6 :
+      fields->f_a_6 = value;
+      break;
+    case AAP_OPERAND_B6 :
+      fields->f_b_6 = value;
+      break;
+    case AAP_OPERAND_CARRY :
+      fields->f_carry = value;
+      break;
+    case AAP_OPERAND_D6 :
+      fields->f_d_6 = value;
+      break;
+    case AAP_OPERAND_DEST1 :
+      fields->f_dst_1_reg = value;
+      break;
+    case AAP_OPERAND_I10 :
+      fields->f_i_10 = value;
+      break;
+    case AAP_OPERAND_I10I :
+      fields->f_i_10i = value;
+      break;
+    case AAP_OPERAND_I12 :
+      fields->f_i_12 = value;
+      break;
+    case AAP_OPERAND_I16 :
+      fields->f_i_16 = value;
+      break;
+    case AAP_OPERAND_I6 :
+      fields->f_i_6 = value;
       break;
     case AAP_OPERAND_INT023 :
       fields->f_int_2_3 = value;
@@ -1040,26 +1350,17 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_INT089 :
       fields->f_int_8_9 = value;
       break;
-    case AAP_OPERAND_INT124 :
-      fields->f_int_12_4 = value;
+    case AAP_OPERAND_INT1210 :
+      fields->f_int_12_10 = value;
       break;
-    case AAP_OPERAND_INT183 :
-      fields->f_int_18_3 = value;
+    case AAP_OPERAND_S10 :
+      fields->f_s_10 = value;
       break;
-    case AAP_OPERAND_INT243 :
-      fields->f_int_24_3 = value;
+    case AAP_OPERAND_S16 :
+      fields->f_s_16 = value;
       break;
-    case AAP_OPERAND_INT246 :
-      fields->f_int_24_6 = value;
-      break;
-    case AAP_OPERAND_INT249 :
-      fields->f_int_24_9 = value;
-      break;
-    case AAP_OPERAND_SRC1 :
-      fields->f_src_reg_1 = value;
-      break;
-    case AAP_OPERAND_SRC2 :
-      fields->f_src_reg_2 = value;
+    case AAP_OPERAND_S22 :
+      fields->f_s_22 = value;
       break;
     case AAP_OPERAND_UINT023 :
       fields->f_uint_2_3 = value;
@@ -1067,17 +1368,8 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       fields->f_uint_5_6 = value;
       break;
-    case AAP_OPERAND_UINT124 :
-      fields->f_uint_12_4 = value;
-      break;
-    case AAP_OPERAND_UINT183 :
-      fields->f_uint_18_3 = value;
-      break;
-    case AAP_OPERAND_UINT216 :
-      fields->f_uint_21_6 = value;
-      break;
-    case AAP_OPERAND_UINTIII1 :
-      fields->f_uint_iii1 = value;
+    case AAP_OPERAND_ULO16 :
+      fields->f_u16 = value;
       break;
     case AAP_OPERAND_XDEST :
       fields->f_x_dst_reg = value;
