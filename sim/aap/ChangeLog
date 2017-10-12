@@ -1,0 +1,8 @@
+See LM32
+**********************
+Changed LM32 to aap -- 11/10
+Configured to build/sim/aap
+
+You'll still need to write the boiler plate code to instantiate an instance of the cpu, create (and attach?) some memory, and probably to drive the decode / execute loop. You should be able to mostly copy from other targets as needed for this stuff
+
+Usually what you'd write when creating a new architecture would be some kind of ISA conformance testsuite, so a set of micro-tests focusing on validating each instruction, trying to cover as many of the edge cases as possible

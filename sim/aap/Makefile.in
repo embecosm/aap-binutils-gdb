@@ -1,0 +1,88 @@
+# Makefile for Lattice Mico32 simulator.
+# Contributed by Jon Beniston <jon@beniston.com>
+
+## COMMON_PRE_CONFIG_FRAG
+
+# List of object files, less common parts.
+SIM_OBJS = \
+	$(SIM_NEW_COMMON_OBJS) \
+	sim-cpu.o \
+	sim-hload.o \
+	sim-model.o \
+	sim-reg.o \
+	sim-signal.o \
+        cgen-utils.o cgen-trace.o cgen-scache.o \
+        cgen-run.o sim-reason.o sim-stop.o \
+        sim-if.o arch.o \
+        cpu.o decode.o sem.o model.o mloop.o \
+        aap.o traps.o user.o 
+
+# List of extra dependencies.
+# Generally this consists of simulator specific files included by sim-main.h.
+SIM_EXTRA_DEPS = $(CGEN_INCLUDE_DEPS) $(srcdir)/../../opcodes/aap-desc.h
+
+# List of flags to always pass to $(CC).
+#SIM_EXTRA_CFLAGS =
+
+SIM_EXTRA_CLEAN = aap-clean
+
+# This selects the aap newlib/libgloss syscall definitions.
+NL_TARGET = -DNL_TARGET_aap
+
+## COMMON_POST_CONFIG_FRAG
+
+arch = aap 
+
+arch.o: arch.c $(SIM_MAIN_DEPS)
+
+traps.o: traps.c targ-vals.h $(SIM_MAIN_DEPS)
+
+sim-if.o: sim-if.c $(SIM_MAIN_DEPS) $(srcdir)/../common/sim-core.h
+
+AAPBF_INCLUDE_DEPS = \
+	$(CGEN_MAIN_CPU_DEPS) \
+	cpu.h decode.h eng.h
+
+aap.o: aap.c $(AAPBF_INCLUDE_DEPS)
+
+# FIXME: Use of `mono' is wip.
+mloop.c eng.h: stamp-mloop
+stamp-mloop: $(srcdir)/../common/genmloop.sh mloop.in Makefile
+	$(SHELL) $(srccom)/genmloop.sh \
+		-mono -fast -pbb -switch sem-switch.c \
+		-cpu aapbf -infile $(srcdir)/mloop.in
+	$(SHELL) $(srcroot)/move-if-change eng.hin eng.h
+	$(SHELL) $(srcroot)/move-if-change mloop.cin mloop.c
+	touch stamp-mloop
+mloop.o: mloop.c sem-switch.c 
+
+cpu.o: cpu.c $(AAPBF_INCLUDE_DEPS)
+decode.o: decode.c $(AAPBF_INCLUDE_DEPS)
+sem.o: sem.c $(AAPBF_INCLUDE_DEPS)
+model.o: model.c $(AAPBF_INCLUDE_DEPS)
+
+aap-clean:
+	rm -f mloop.c eng.h stamp-mloop
+	rm -f stamp-arch stamp-cpu 
+	rm -f tmp-*
+
+# cgen support, enable with --enable-cgen-maint
+CGEN_MAINT = ; @true
+# The following line is commented in or out depending upon --enable-cgen-maint.
+@CGEN_MAINT@CGEN_MAINT =
+
+stamp-arch: $(CGEN_READ_SCM) $(CGEN_ARCH_SCM) $(CPU_DIR)/aap.cpu
+	$(MAKE) cgen-arch $(CGEN_FLAGS_TO_PASS) mach=all \
+	  archfile=$(CPU_DIR)/aap.cpu \
+	  FLAGS="with-scache with-profile=fn"
+	touch stamp-arch
+arch.h arch.c cpuall.h: $(CGEN_MAINT) stamp-arch
+
+stamp-cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu
+	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
+	  cpu=aapbf mach=aap SUFFIX= \
+	  archfile=$(CPU_DIR)/aap.cpu \
+	  FLAGS="with-scache with-profile=fn" \
+	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
+	touch stamp-cpu
+cpu.h sem.c sem-switch.c model.c decode.c decode.h: $(CGEN_MAINT) stamp-cpu

@@ -57,6 +57,28 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
 /* Enums.  */
 
+/* Enum declaration for .  */
+typedef enum gpr_names {
+  H_GPR_GP = 26, H_GPR_FP = 27, H_GPR_SP = 28, H_GPR_RA = 29
+ , H_GPR_EA = 30, H_GPR_BA = 31, H_GPR_GPR0 = 0, H_GPR_GPR1 = 1
+ , H_GPR_GPR2 = 2, H_GPR_GPR3 = 3, H_GPR_GPR4 = 4, H_GPR_GPR5 = 5
+ , H_GPR_GPR6 = 6, H_GPR_GPR7 = 7, H_GPR_GPR8 = 8, H_GPR_GPR9 = 9
+ , H_GPR_GPR10 = 10, H_GPR_GPR11 = 11, H_GPR_GPR12 = 12, H_GPR_GPR13 = 13
+ , H_GPR_GPR14 = 14, H_GPR_GPR15 = 15, H_GPR_GPR16 = 16, H_GPR_GPR17 = 17
+ , H_GPR_GPR18 = 18, H_GPR_GPR19 = 19, H_GPR_GPR20 = 20, H_GPR_GPR21 = 21
+ , H_GPR_GPR22 = 22, H_GPR_GPR23 = 23, H_GPR_GPR24 = 24, H_GPR_GPR25 = 25
+ , H_GPR_GPR26 = 26, H_GPR_GPR27 = 27, H_GPR_GPR28 = 28, H_GPR_GPR29 = 29
+ , H_GPR_GPR30 = 30, H_GPR_GPR31 = 31, H_GPR_GPR32 = 32, H_GPR_GPR33 = 33
+ , H_GPR_GPR34 = 34, H_GPR_GPR35 = 35, H_GPR_GPR36 = 36, H_GPR_GPR37 = 37
+ , H_GPR_GPR38 = 38, H_GPR_GPR39 = 39, H_GPR_GPR40 = 40, H_GPR_GPR41 = 41
+ , H_GPR_GPR42 = 42, H_GPR_GPR43 = 43, H_GPR_GPR44 = 44, H_GPR_GPR45 = 45
+ , H_GPR_GPR46 = 46, H_GPR_GPR47 = 47, H_GPR_GPR48 = 48, H_GPR_GPR49 = 49
+ , H_GPR_GPR50 = 50, H_GPR_GPR51 = 51, H_GPR_GPR52 = 52, H_GPR_GPR53 = 53
+ , H_GPR_GPR54 = 54, H_GPR_GPR55 = 55, H_GPR_GPR56 = 56, H_GPR_GPR57 = 57
+ , H_GPR_GPR58 = 58, H_GPR_GPR59 = 59, H_GPR_GPR60 = 60, H_GPR_GPR61 = 61
+ , H_GPR_GPR62 = 62, H_GPR_GPR63 = 63
+} GPR_NAMES;
+
 /* Enum declaration for length.  */
 typedef enum length1 {
   LEN1_16, LEN1_32
@@ -181,8 +203,8 @@ typedef enum cgen_hw_attr {
 /* Enum declaration for aap hardware types.  */
 typedef enum cgen_hw_type {
   HW_H_MEMORY, HW_H_SINT, HW_H_UINT, HW_H_ADDR
- , HW_H_IADDR, HW_H_GPR, HW_H_CF, HW_H_PC
- , HW_MAX
+ , HW_H_IADDR, HW_H_GPR, HW_H_CSR, HW_H_CF
+ , HW_H_PC, HW_MAX
 } CGEN_HW_TYPE;
 
 #define MAX_HW ((int) HW_MAX)
@@ -266,7 +288,8 @@ extern const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[];
 
 /* Hardware decls.  */
 
-extern CGEN_KEYWORD aap_cgen_opval_h_gpr;
+extern CGEN_KEYWORD aap_cgen_opval_gpr_names;
+extern CGEN_KEYWORD aap_cgen_opval_h_csr;
 
 extern const CGEN_HW_ENTRY aap_cgen_hw_table[];
 

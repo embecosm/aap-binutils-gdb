@@ -172,19 +172,19 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
   switch (opindex)
     {
     case AAP_OPERAND_A6 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_a_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_a_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
       break;
     case AAP_OPERAND_B6 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_b_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_b_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
       break;
     case AAP_OPERAND_CARRY :
       print_normal (cd, info, fields->f_carry, 0, pc, length);
       break;
     case AAP_OPERAND_D6 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_d_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_d_6, 0|(1<<CGEN_OPERAND_VIRTUAL));
       break;
     case AAP_OPERAND_DEST1 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_dst_1_reg, 0);
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_dst_1_reg, 0);
       break;
     case AAP_OPERAND_I10 :
       print_normal (cd, info, fields->f_i_10, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
@@ -235,13 +235,13 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
       print_lo (cd, info, fields->f_u16, 0, pc, length);
       break;
     case AAP_OPERAND_XDEST :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_dst_reg, 0);
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_x_dst_reg, 0);
       break;
     case AAP_OPERAND_XSRC1 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_src_reg_1, 0);
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_x_src_reg_1, 0);
       break;
     case AAP_OPERAND_XSRC2 :
-      print_keyword (cd, info, & aap_cgen_opval_h_gpr, fields->f_x_src_reg_2, 0);
+      print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_x_src_reg_2, 0);
       break;
 
     default :

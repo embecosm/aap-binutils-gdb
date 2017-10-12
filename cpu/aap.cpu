@@ -22,6 +22,7 @@
   (default-insn-word-bitsize 32)
   (default-insn-bitsize 32)
   (base-insn-bitsize 32)
+  (decode-assist (31 30 29 28 27 26))
 )
 
 ;;
@@ -66,26 +67,62 @@
 (define-pmacro all-aap-isas () (ISA aap))
 
 ;;
-;; Hardware (copied Andrew)
+;; General Purpose Registers (copied frv)
 ;;
-(dnh h-gpr "General Purpose Registers"
-  (all-aap-isas CACHE-ADDR)
-  (register SI (64))	;; (regiser mode [(number)])
-  (keyword ""(
-    ($r0  0) ($r1  1) ($r2  2) ($r3  3) ($r4  4) ($r5  5) ($r6  6) ($r7  7)
-    ($r8  8) ($r9  9) ($r10  10) ($r11  11) ($r12  12) ($r13  13) ($r14  14)
-    ($r15  15) ($r16  16) ($r17  17) ($r18  18) ($r19  19) ($r20  20) ($r21  21)
-    ($r22  22) ($r23  23) ($r24  24) ($r25  25) ($r26  26) ($r27  27) ($r28  28)
-    ($r29  29) ($r30  30) ($r31  31) ($r32  32) ($r33  33) ($r34  34) ($r35  35)
-    ($r36  36) ($r37  37) ($r38  38) ($r39  39) ($r40  40) ($r41  41) ($r42  42)
-    ($r43  43) ($r44  44) ($r45  45) ($r46  46) ($r47  47) ($r48  48) ($r49  49)
-    ($r50  50) ($r51  51) ($r52  52) ($r53  53) ($r54  54) ($r55  55) ($r56  56)
-    ($r57  57) ($r58  58) ($r59  59) ($r60  60) ($r61  61) ($r62  62) ($r63  63)
-    )
+;; AAP has between 4 and 64 16bit general purpose registers
+
+(define-keyword
+  (name gpr-names)
+  (print-name h-gpr)
+  (prefix "")
+  (values
+   (gp    26)(fp    27)(sp    28)(ra    29)(ea    30)(ba    31)
+   (gpr0   0)(gpr1   1)(gpr2   2)(gpr3   3)(gpr4   4)(gpr5   5)(gpr6   6)(gpr7   7)
+   (gpr8   8)(gpr9   9)(gpr10 10)(gpr11 11)(gpr12 12)(gpr13 13)(gpr14 14)(gpr15 15)
+   (gpr16 16)(gpr17 17)(gpr18 18)(gpr19 19)(gpr20 20)(gpr21 21)(gpr22 22)(gpr23 23)
+   (gpr24 24)(gpr25 25)(gpr26 26)(gpr27 27)(gpr28 28)(gpr29 29)(gpr30 30)(gpr31 31)
+   (gpr32 32)(gpr33 33)(gpr34 34)(gpr35 35)(gpr36 36)(gpr37 37)(gpr38 38)(gpr39 39)
+   (gpr40 40)(gpr41 41)(gpr42 42)(gpr43 43)(gpr44 44)(gpr45 45)(gpr46 46)(gpr47 47)
+   (gpr48 48)(gpr49 49)(gpr50 50)(gpr51 51)(gpr52 52)(gpr53 53)(gpr54 54)(gpr55 55)
+   (gpr56 56)(gpr57 57)(gpr58 58)(gpr59 59)(gpr60 60)(gpr61 61)(gpr62 62)(gpr63 63)
+  )
+)
+
+(define-hardware
+  (name h-gpr)
+  (comment "General Purpose Registers")
+  (attrs all-aap-isas CACHE-ADDR)
+  (type register USI (64))
+  (indices extern-keyword gpr-names)
+)
+
+
+;; From LM32  
+(dnh h-csr "Control and status registers"
+  ()
+  (register SI (32))
+  (keyword "" (
+               (IE 0) (IM 1) (IP 2) 
+               (ICC 3) (DCC 4)
+               (CC 5)
+               (CFG 6)
+               (EBA 7)
+               (DC 8)
+               (DEBA 9)
+	       (CFG2 10)
+               (JTX 14) (JRX 15)          
+               (BP0 16) (BP1 17) (BP2 18) (BP3 19)
+               (WP0 24) (WP1 25) (WP2 26) (WP3 27)     
+               (PSW 29) (TLBVADDR 30) (TLBPADDR 31) (TLBBADVADDR 31)
+              )
   )
   () ()
-)	
+)  
 
+;; Can allow special registers and flash
+;; No delay slots
+
+;; 32bit register, top 8 bits is status, rest is PC
 (dnh h-cf "carry flag" () (register BI) () () ())
 (dnh h-pc "program couner" (PC PROFILE) (pc) () () ())
 
@@ -976,33 +1013,66 @@
 ;; Instructions
 ;;
 ;; Format 1
-(aap-format-1 "l.add" OP2_ADD (set xdest (add xsrc1 xsrc2))(set carry (ge (add xsrc1 xsrc2) 0x10000)))
+(aap-format-1 "l.add" OP2_ADD (set xdest (add xsrc1 xsrc2))
+	      	      	      (set carry (ge (add xsrc1 xsrc2) 0x10000)))
+
 (aap-format-1 "l.sub" OP2_SUB (set xdest (sub xsrc1 xsrc2))(set carry (lt xsrc1 xsrc2)))
+
 (aap-format-1 "l.and" OP2_AND (set xdest (and xsrc1 xsrc2))(nop))
+
 (aap-format-1 "l.or"  OP2_OR (set xdest (or xsrc1 xsrc2))(nop))
+
 (aap-format-1 "l.xor" OP2_XOR (set xdest (xor xsrc1 xsrc2))(nop))
 
 (aap-format-1 "l.asr" OP2_ASR (set xdest (srl (or xsrc1 (sll carry 16)) xsrc2))(set carry 0))
+
 (aap-format-1 "l.lsl" OP2_LSL (set xdest (sll xsrc1 xsrc2))(nop))
+
 (aap-format-1 "l.lsr" OP2_LSR (set xdest (srl xsrc1 xsrc2))(nop))
+
 (aap-format-1 "l.mov" OP2_MOV (set xdest xsrc1)(nop))
+
 (aap-format-1 "l.jmp" OP2_JMP (set pc xdest)(sub pc 1)) ;;pc + 1 in format 1
 	      
 (aap-format-1 "l.jal" OP2_JAL (set xsrc2 (add pc 1))(set pc (sub xdest 1)))
-(aap-format-1 "l.jeq" OP2_JEQ (if (eq xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
-(aap-format-1 "l.jne" OP2_JNE (if (ne xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
-(aap-format-1 "l.jlts" OP2_JLTS (if (lt xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
-(aap-format-1 "l.jles" OP2_JLES (if (le xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
+
+(aap-format-1 "l.jeq" OP2_JEQ (if (eq xsrc1 xsrc2)
+	      	      	      	  (set pc xdest)
+	      	      	      	  (set pc (add pc 1)))
+			      (set pc (sub pc 1)))
+			      
+(aap-format-1 "l.jne" OP2_JNE (if (ne xsrc1 xsrc2) (set pc xdest)
+	      	      	      	      	    	   (set pc (add pc 1)))
+			      (set pc (sub pc 1)))
+						   
+(aap-format-1 "l.jlts" OP2_JLTS (if (lt xsrc1 xsrc2) (set pc xdest)
+	      	       		    	      	     (set pc (add pc 1)))
+				(set pc (sub pc 1)))
+						     
+(aap-format-1 "l.jles" OP2_JLES (if (le xsrc1 xsrc2) (set pc xdest)
+	      	       		    	      	     (set pc (add pc 1)))
+				(set pc (sub pc 1)))
 	      
-(aap-format-1 "l.jltu" OP2_JLTU (if (ltu xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
-(aap-format-1 "l.jleu" OP2_JLEU (if (leu xsrc1 xsrc2) (set pc xdest)(set pc (add pc 1)))(set pc (sub pc 1)))
+(aap-format-1 "l.jltu" OP2_JLTU (if (ltu xsrc1 xsrc2) (set pc xdest)
+	      	       		    	       	      (set pc (add pc 1)))
+				(set pc (sub pc 1)))
+
+(aap-format-1 "l.jleu" OP2_JLEU (if (leu xsrc1 xsrc2) (set pc xdest)
+	      	       		    	       	      (set pc (add pc 1)))
+				(set pc (sub pc 1)))
+
 (aap-format-1 "l.rte"  OP2_RD (set pc xdest)(set pc (sub pc 1)))
 
 ;; Format 2
-(aap-format-2 "l.addi" OP2_ADDI (set xdest (add xsrc1 uint023))(set carry (ge (add xsrc1 uint023) 0x10000)))
+(aap-format-2 "l.addi" OP2_ADDI (set xdest (add xsrc1 uint023))
+	      	       		(set carry (ge (add xsrc1 uint023) 0x10000)))
+
 (aap-format-2 "l.subi" OP2_SUBI (set xdest (sub xsrc1 uint023))(set carry (gt xsrc1 uint023)))
+
 (aap-format-2 "l.asri" OP2_ASRI (set xdest (srl (or xsrc1 (sll carry 16)) uint023))(set carry 0))
+
 (aap-format-2 "l.lsli" OP2_LSLI (set xdest (sll xsrc1 xsrc2))(nop))
+
 (aap-format-2 "l.lsri" OP2_LSRI (set xdest (srl xsrc1 xsrc2))(nop))
 
 ;; Format 3
@@ -1053,9 +1123,11 @@
 				    (sll (ext DI (mem QI (add xsrc1 1))) 8)))
 				  (nop))
 
-(aap-format-4 "l.sdb (${xdest},${int023}),${xsrc1}" OP2_SDB (set (mem QI (add xdest (ext SI (trunc HI int023))))
-	      	      	        (and xsrc1 255))
-			      (nop)(nop))
+(aap-format-4 "l.sdb (${xdest},${int023}),${xsrc1}" OP2_SDB (set
+	      	     				    	    (mem QI (add xdest (ext SI
+							    	    (trunc HI int023))))
+	      	      	   				    (and xsrc1 255))
+			      				    (nop)(nop))
 			      
 (aap-format-4 "l.sdw (${xdest},${int023}),${xsrc1}" OP2_SDW (set (mem QI (add xdest (ext SI (trunc HI int023))))
 	      	      	        (and xsrc1 255))
@@ -1096,38 +1168,89 @@
 (aap-format-7 "l.bra" OP2_BRA)
 
 ;; Format 8
-(aap-format-8 "l.add32" OP1_ADD OP2_NOP (set d6 (add a6 b6))(set carry (ge (add a6 b6) 0x10000))(set pc (add pc 2)))
-(aap-format-8 "l.sub32" OP1_SUB OP2_NOP (set d6 (sub a6 b6))(set carry (gt a6 b6))(set pc (add pc 2)))
-(aap-format-8 "l.and32" OP1_AND OP2_NOP (set d6 (and a6 b6))(set pc (add pc 2))(nop))
-(aap-format-8 "l.or32"  OP1_OR  OP2_NOP (set d6 (or a6 b6))(set pc (add pc 2))(nop))
-(aap-format-8 "l.xor32" OP1_XOR OP2_NOP (set d6 (xor a6 b6))(set pc (add pc 2))(nop))
+(aap-format-8 "l.add32" OP1_ADD OP2_NOP (set d6 (add a6 b6))
+	      				(set carry (ge (add a6 b6) 0x10000))
+					(set pc (add pc 2)))
+					
+(aap-format-8 "l.sub32" OP1_SUB OP2_NOP (set d6 (sub a6 b6))
+	      				(set carry (gt a6 b6))
+					(set pc (add pc 2)))
+					
+(aap-format-8 "l.and32" OP1_AND OP2_NOP (set d6 (and a6 b6))
+	      				(set pc (add pc 2))
+					(nop))
+					
+(aap-format-8 "l.or32"  OP1_OR  OP2_NOP (set d6 (or a6 b6))
+	      				(set pc (add pc 2))
+					(nop))
 
-(aap-format-8 "l.asr32" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll carry 16)) b6))(set carry 0)(set pc (add pc 2)))
+(aap-format-8 "l.xor32" OP1_XOR OP2_NOP (set d6 (xor a6 b6))
+	      				(set pc (add pc 2))
+					(nop))
+
+(aap-format-8 "l.asr32" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll carry 16)) b6))
+	      				(set carry 0)
+					(set pc (add pc 2)))
+					
 (aap-format-8 "l.lsl32" OP1_LSL OP2_NOP (set d6 (sll a6 b6))(set pc (add pc 2))(nop))
-(aap-format-8 "l.lsr32" OP1_LSR OP2_NOP (set d6 (srl a6 b6))(set pc (add pc 2))(nop))
-(aap-format-8 "l.mov32" OP1_MOV OP2_NOP (set d6 a6)(set pc (add pc 2))(nop))
-(aap-format-8 "l.addc32" OP1_ADD OP2_ADD (set d6 (addc a6 b6 carry))(set carry (ge (addc a6 b6 carry) 0x10000))(set pc (add pc 2)))
 
-(aap-format-8 "l.subc32" OP1_SUB OP2_ADD (set d6 (subc a6 b6 carry))(set carry (gt (add b6 carry) a6))(set pc (add pc 2)))
+(aap-format-8 "l.lsr32" OP1_LSR OP2_NOP (set d6 (srl a6 b6))(set pc (add pc 2))(nop))
+
+(aap-format-8 "l.mov32" OP1_MOV OP2_NOP (set d6 a6)(set pc (add pc 2))(nop))
+
+(aap-format-8 "l.addc32" OP1_ADD OP2_ADD (set d6 (addc a6 b6 carry))
+	      		 	 	 (set carry (ge (addc a6 b6 carry) 0x10000))
+					 (set pc (add pc 2)))
+
+(aap-format-8 "l.subc32" OP1_SUB OP2_ADD (set d6 (subc a6 b6 carry))
+	      		 	 	 (set carry (gt (add b6 carry) a6))
+					 (set pc (add pc 2)))
+					 
 (aap-format-8 "l.jmp32" OP1_JMP OP2_NOP (set pc d6)(nop)(nop))
+
 (aap-format-8 "l.jal32" OP1_JAL OP2_NOP (set b6 (add pc 2))(set pc d6)(nop))
+
 (aap-format-8 "l.jeq32" OP1_JEQ OP2_NOP (if (eq a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+
 (aap-format-8 "l.jne32" OP1_JNE OP2_NOP (if (ne a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
 (aap-format-8 "l.jlts32" OP1_JLTS OP2_NOP (if (lt a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+
 (aap-format-8 "l.jles32" OP1_JLES OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+
 (aap-format-8 "l.jltu32" OP1_JLTU OP2_NOP (if (ltu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+
 (aap-format-8 "l.jleu32" OP1_JLEU OP2_NOP (if (leu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+
 (aap-format-8 "l.jmpl32" OP1_JMP OP2_ADD (set dest1 (add d6 1))(set pc (or (sll dest1 16) d6))(nop))
 
-(aap-format-8 "l.jall32" OP1_JAL OP2_ADD (set b6 (add pc 2))(set dest1 (add d6 1))(set pc (or (sll dest1 16) d6)))
-(aap-format-8 "l.jeql32" OP1_JEQ OP2_ADD (set dest1 (add d6 1))(if (eq a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
-(aap-format-8 "l.jnel32" OP1_JNE OP2_ADD (set dest1 (add d6 1))(if (ne a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
-(aap-format-8 "l.jltsl32" OP1_JLTS OP2_ADD (set dest1 (add d6 1))(if (lt a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
-(aap-format-8 "l.jlesl32" OP1_JLES OP2_ADD (set dest1 (add d6 1))(if (le a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
+(aap-format-8 "l.jall32" OP1_JAL OP2_ADD (set b6 (add pc 2))
+	      		 	 	 (set dest1 (add d6 1))
+					 (set pc (or (sll dest1 16) d6)))
 
-(aap-format-8 "l.jltul32" OP1_JLTU OP2_ADD (set dest1 (add d6 1))(if (ltu a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
-(aap-format-8 "l.jleul32" OP1_JLEU OP2_ADD (set dest1 (add d6 1))(if (leu a6 b6) (set pc (or (sll dest1 16) d6)) (set pc (add pc 2)))(nop))
+(aap-format-8 "l.jeql32" OP1_JEQ OP2_ADD (set dest1 (add d6 1))
+	      		 	 	 (if (eq a6 b6) (set pc (or (sll dest1 16) d6))
+					     	    	(set pc (add pc 2)))(nop))
+
+(aap-format-8 "l.jnel32" OP1_JNE OP2_ADD (set dest1 (add d6 1))
+	      		 	 	 (if (ne a6 b6) (set pc (or (sll dest1 16) d6))
+					     	    	(set pc (add pc 2)))(nop))
+
+(aap-format-8 "l.jltsl32" OP1_JLTS OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (lt a6 b6) (set pc (or (sll dest1 16) d6))
+					       	      	  (set pc (add pc 2)))(nop))
+
+(aap-format-8 "l.jlesl32" OP1_JLES OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (le a6 b6) (set pc (or (sll dest1 16) d6))
+					       	      	  (set pc (add pc 2)))(nop))
+
+(aap-format-8 "l.jltul32" OP1_JLTU OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (ltu a6 b6) (set pc (or (sll dest1 16) d6))
+					       	       	   (set pc (add pc 2)))(nop))
+							   
+(aap-format-8 "l.jleul32" OP1_JLEU OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (leu a6 b6) (set pc (or (sll dest1 16) d6))
+					       	       	   (set pc (add pc 2)))(nop))
 
 ;; Format 9
 (aap-format-9 "l.asri32" OP1_ASRI (set d6 (srl (or a6 (sll carry 16)) i6))(set carry 0))

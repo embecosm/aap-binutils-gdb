@@ -110,19 +110,19 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
   switch (opindex)
     {
     case AAP_OPERAND_A6 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_a_6);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_a_6);
       break;
     case AAP_OPERAND_B6 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_b_6);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_b_6);
       break;
     case AAP_OPERAND_CARRY :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_CARRY, (unsigned long *) (& fields->f_carry));
       break;
     case AAP_OPERAND_D6 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_d_6);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_d_6);
       break;
     case AAP_OPERAND_DEST1 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_dst_1_reg);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_dst_1_reg);
       break;
     case AAP_OPERAND_I10 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10, (unsigned long *) (& fields->f_i_10));
@@ -173,13 +173,13 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = parse_ulo16 (cd, strp, AAP_OPERAND_ULO16, (unsigned long *) (& fields->f_u16));
       break;
     case AAP_OPERAND_XDEST :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_dst_reg);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_x_dst_reg);
       break;
     case AAP_OPERAND_XSRC1 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_src_reg_1);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_x_src_reg_1);
       break;
     case AAP_OPERAND_XSRC2 :
-      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_h_gpr, & fields->f_x_src_reg_2);
+      errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_x_src_reg_2);
       break;
 
     default :

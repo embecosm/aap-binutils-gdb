@@ -15,6 +15,9 @@ sim_common=yes
 sim_igen=no
 sim_arch=
 case "${target}" in
+   aap*-*-*)
+       SIM_ARCH(aap)
+       ;;
    arm*-*-*)
        SIM_ARCH(arm)
        ;;
