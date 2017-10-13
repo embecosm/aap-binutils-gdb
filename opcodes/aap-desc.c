@@ -46,7 +46,8 @@ static const CGEN_ATTR_ENTRY bool_attr[] =
 static const CGEN_ATTR_ENTRY MACH_attr[] ATTRIBUTE_UNUSED =
 {
   { "base", MACH_BASE },
-  { "aap", MACH_AAP },
+  { "aap16", MACH_AAP16 },
+  { "aap32", MACH_AAP32 },
   { "max", MACH_MAX },
   { 0, 0 }
 };
@@ -120,7 +121,8 @@ static const CGEN_ISA aap_cgen_isa_table[] = {
 /* Machine variants.  */
 
 static const CGEN_MACH aap_cgen_mach_table[] = {
-  { "aap", "aap", MACH_AAP, 0 },
+  { "aap32", "aap32", MACH_AAP32, 0 },
+  { "aap16", "aap16", MACH_AAP16, 0 },
   { 0, 0, 0, 0 }
 };
 
@@ -205,39 +207,38 @@ CGEN_KEYWORD aap_cgen_opval_gpr_names =
   0, 0, 0, 0, ""
 };
 
-static CGEN_KEYWORD_ENTRY aap_cgen_opval_h_csr_entries[] =
+static CGEN_KEYWORD_ENTRY aap_cgen_opval_cr_names_entries[] =
 {
-  { "IE", 0, {0, {{{0, 0}}}}, 0, 0 },
-  { "IM", 1, {0, {{{0, 0}}}}, 0, 0 },
-  { "IP", 2, {0, {{{0, 0}}}}, 0, 0 },
-  { "ICC", 3, {0, {{{0, 0}}}}, 0, 0 },
-  { "DCC", 4, {0, {{{0, 0}}}}, 0, 0 },
-  { "CC", 5, {0, {{{0, 0}}}}, 0, 0 },
-  { "CFG", 6, {0, {{{0, 0}}}}, 0, 0 },
-  { "EBA", 7, {0, {{{0, 0}}}}, 0, 0 },
-  { "DC", 8, {0, {{{0, 0}}}}, 0, 0 },
-  { "DEBA", 9, {0, {{{0, 0}}}}, 0, 0 },
-  { "CFG2", 10, {0, {{{0, 0}}}}, 0, 0 },
-  { "JTX", 14, {0, {{{0, 0}}}}, 0, 0 },
-  { "JRX", 15, {0, {{{0, 0}}}}, 0, 0 },
-  { "BP0", 16, {0, {{{0, 0}}}}, 0, 0 },
-  { "BP1", 17, {0, {{{0, 0}}}}, 0, 0 },
-  { "BP2", 18, {0, {{{0, 0}}}}, 0, 0 },
-  { "BP3", 19, {0, {{{0, 0}}}}, 0, 0 },
-  { "WP0", 24, {0, {{{0, 0}}}}, 0, 0 },
-  { "WP1", 25, {0, {{{0, 0}}}}, 0, 0 },
-  { "WP2", 26, {0, {{{0, 0}}}}, 0, 0 },
-  { "WP3", 27, {0, {{{0, 0}}}}, 0, 0 },
-  { "PSW", 29, {0, {{{0, 0}}}}, 0, 0 },
-  { "TLBVADDR", 30, {0, {{{0, 0}}}}, 0, 0 },
-  { "TLBPADDR", 31, {0, {{{0, 0}}}}, 0, 0 },
-  { "TLBBADVADDR", 31, {0, {{{0, 0}}}}, 0, 0 }
+  { "psw", 0, {0, {{{0, 0}}}}, 0, 0 },
+  { "cbr", 1, {0, {{{0, 0}}}}, 0, 0 },
+  { "spi", 2, {0, {{{0, 0}}}}, 0, 0 },
+  { "spu", 3, {0, {{{0, 0}}}}, 0, 0 },
+  { "bpc", 6, {0, {{{0, 0}}}}, 0, 0 },
+  { "bbpsw", 8, {0, {{{0, 0}}}}, 0, 0 },
+  { "bbpc", 14, {0, {{{0, 0}}}}, 0, 0 },
+  { "evb", 5, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr0", 0, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr1", 1, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr2", 2, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr3", 3, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr4", 4, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr5", 5, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr6", 6, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr7", 7, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr8", 8, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr9", 9, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr10", 10, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr11", 11, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr12", 12, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr13", 13, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr14", 14, {0, {{{0, 0}}}}, 0, 0 },
+  { "cr15", 15, {0, {{{0, 0}}}}, 0, 0 }
 };
 
-CGEN_KEYWORD aap_cgen_opval_h_csr =
+CGEN_KEYWORD aap_cgen_opval_cr_names =
 {
-  & aap_cgen_opval_h_csr_entries[0],
-  25,
+  & aap_cgen_opval_cr_names_entries[0],
+  24,
   0, 0, 0, 0, ""
 };
 
@@ -254,7 +255,7 @@ const CGEN_HW_ENTRY aap_cgen_hw_table[] =
   { "h-addr", HW_H_ADDR, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-iaddr", HW_H_IADDR, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-gpr", HW_H_GPR, CGEN_ASM_KEYWORD, (PTR) & aap_cgen_opval_gpr_names, { 0|A(CACHE_ADDR), { { { (1<<MACH_BASE), 0 } } } } },
-  { "h-csr", HW_H_CSR, CGEN_ASM_KEYWORD, (PTR) & aap_cgen_opval_h_csr, { 0, { { { (1<<MACH_BASE), 0 } } } } },
+  { "h-cr", HW_H_CR, CGEN_ASM_KEYWORD, (PTR) & aap_cgen_opval_cr_names, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-cf", HW_H_CF, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } },
   { "h-pc", HW_H_PC, CGEN_ASM_NONE, 0, { 0|A(PROFILE)|A(PC), { { { (1<<MACH_BASE), 0 } } } } },
   { 0, 0, CGEN_ASM_NONE, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } }
@@ -535,512 +536,512 @@ static const CGEN_IBASE aap_cgen_insn_table[MAX_INSNS] =
 /* l.add ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_ADD, "l.add", "l.add", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sub ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_SUB, "l.sub", "l.sub", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.and ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_AND, "l.and", "l.and", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.or ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_OR, "l.or", "l.or", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.xor ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_XOR, "l.xor", "l.xor", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.asr ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_ASR, "l.asr", "l.asr", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.lsl ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_LSL, "l.lsl", "l.lsl", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.lsr ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_LSR, "l.lsr", "l.lsr", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.mov ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_MOV, "l.mov", "l.mov", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jmp ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JMP, "l.jmp", "l.jmp", 16,
-    { 0|A(UNCOND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(UNCOND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jal ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JAL, "l.jal", "l.jal", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jeq ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JEQ, "l.jeq", "l.jeq", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jne ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JNE, "l.jne", "l.jne", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jlts ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JLTS, "l.jlts", "l.jlts", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jles ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JLES, "l.jles", "l.jles", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jltu ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JLTU, "l.jltu", "l.jltu", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.jleu ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_JLEU, "l.jleu", "l.jleu", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.rte ${xdest},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_RTE, "l.rte", "l.rte", 16,
-    { 0|A(UNCOND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(UNCOND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.addi ${xdest},${xsrc1},${uint023} */
   {
     AAP_INSN_L_ADDI, "l.addi", "l.addi", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.subi ${xdest},${xsrc1},${uint023} */
   {
     AAP_INSN_L_SUBI, "l.subi", "l.subi", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.asri ${xdest},${xsrc1},${uint023} */
   {
     AAP_INSN_L_ASRI, "l.asri", "l.asri", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.lsli ${xdest},${xsrc1},${uint023} */
   {
     AAP_INSN_L_LSLI, "l.lsli", "l.lsli", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.lsri ${xdest},${xsrc1},${uint023} */
   {
     AAP_INSN_L_LSRI, "l.lsri", "l.lsri", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.beq ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BEQ, "l.beq", "l.beq", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bne ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BNE, "l.bne", "l.bne", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.blts ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BLTS, "l.blts", "l.blts", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bles ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BLES, "l.bles", "l.bles", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bltu ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BLTU, "l.bltu", "l.bltu", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bleu ${int083},${xsrc1},${xsrc2} */
   {
     AAP_INSN_L_BLEU, "l.bleu", "l.bleu", 16,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldb ${xdest},(${xsrc1},${int023}) */
   {
     AAP_INSN_L_LDB___XDEST_____XSRC1____INT023__, "l.ldb ${xdest},(${xsrc1},${int023})", "l.ldb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldw ${xdest},(${xsrc1},${int023}) */
   {
     AAP_INSN_L_LDW___XDEST_____XSRC1____INT023__, "l.ldw ${xdest},(${xsrc1},${int023})", "l.ldw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldb ${xdest},(${xsrc1}+,${int023}) */
   {
     AAP_INSN_L_LDB___XDEST_____XSRC1_____INT023__, "l.ldb ${xdest},(${xsrc1}+,${int023})", "l.ldb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldw ${xdest},(${xsrc1}+,${int023}) */
   {
     AAP_INSN_L_LDW___XDEST_____XSRC1_____INT023__, "l.ldw ${xdest},(${xsrc1}+,${int023})", "l.ldw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldb ${xdest},(-${xsrc1},${int023}) */
   {
     AAP_INSN_L_LDB___XDEST______XSRC1____INT023__, "l.ldb ${xdest},(-${xsrc1},${int023})", "l.ldb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.ldw ${xdest},(-${xsrc1},${int023}) */
   {
     AAP_INSN_L_LDW___XDEST______XSRC1____INT023__, "l.ldw ${xdest},(-${xsrc1},${int023})", "l.ldw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdb (${xdest},${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDB____XDEST____INT023_____XSRC1_, "l.sdb (${xdest},${int023}),${xsrc1}", "l.sdb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdw (${xdest},${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDW____XDEST____INT023_____XSRC1_, "l.sdw (${xdest},${int023}),${xsrc1}", "l.sdw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdb (${xdest}+,${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDB____XDEST_____INT023_____XSRC1_, "l.sdb (${xdest}+,${int023}),${xsrc1}", "l.sdb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdw (${xdest}+,${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDW____XDEST_____INT023_____XSRC1_, "l.sdw (${xdest}+,${int023}),${xsrc1}", "l.sdw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdb (-${xdest},${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDB_____XDEST____INT023_____XSRC1_, "l.sdb (-${xdest},${int023}),${xsrc1}", "l.sdb", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.sdw (-${xdest},${int023}),${xsrc1} */
   {
     AAP_INSN_L_SDW_____XDEST____INT023_____XSRC1_, "l.sdw (-${xdest},${int023}),${xsrc1}", "l.sdw", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.nop ${xdest},${uint056} */
   {
     AAP_INSN_L_NOP, "l.nop", "l.nop", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.movi ${xdest},${uint056} */
   {
     AAP_INSN_L_MOVI, "l.movi", "l.movi", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bal ${int086},${xsrc2} */
   {
     AAP_INSN_L_BAL, "l.bal", "l.bal", 16,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.bra ${int089} */
   {
     AAP_INSN_L_BRA, "l.bra", "l.bra", 16,
-    { 0|A(UNCOND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(UNCOND_CTI), { { { (1<<MACH_AAP16), 0 } } } }
   },
 /* l.add32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_ADD32, "l.add32", "l.add32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sub32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_SUB32, "l.sub32", "l.sub32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.and32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_AND32, "l.and32", "l.and32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.or32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_OR32, "l.or32", "l.or32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.xor32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_XOR32, "l.xor32", "l.xor32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.asr32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_ASR32, "l.asr32", "l.asr32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.lsl32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_LSL32, "l.lsl32", "l.lsl32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.lsr32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_LSR32, "l.lsr32", "l.lsr32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.mov32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_MOV32, "l.mov32", "l.mov32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.addc32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_ADDC32, "l.addc32", "l.addc32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.subc32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_SUBC32, "l.subc32", "l.subc32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jmp32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JMP32, "l.jmp32", "l.jmp32", 32,
-    { 0|A(UNCOND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(UNCOND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jal32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JAL32, "l.jal32", "l.jal32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jeq32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JEQ32, "l.jeq32", "l.jeq32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jne32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JNE32, "l.jne32", "l.jne32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jlts32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLTS32, "l.jlts32", "l.jlts32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jles32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLES32, "l.jles32", "l.jles32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jltu32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLTU32, "l.jltu32", "l.jltu32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jleu32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLEU32, "l.jleu32", "l.jleu32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jmpl32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JMPL32, "l.jmpl32", "l.jmpl32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jall32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JALL32, "l.jall32", "l.jall32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jeql32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JEQL32, "l.jeql32", "l.jeql32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jnel32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JNEL32, "l.jnel32", "l.jnel32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jltsl32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLTSL32, "l.jltsl32", "l.jltsl32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jlesl32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLESL32, "l.jlesl32", "l.jlesl32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jltul32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLTUL32, "l.jltul32", "l.jltul32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.jleul32 ${d6},${a6},${b6} */
   {
     AAP_INSN_L_JLEUL32, "l.jleul32", "l.jleul32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.asri32 ${d6},${a6},${i6} */
   {
     AAP_INSN_L_ASRI32, "l.asri32", "l.asri32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.lsli32 ${d6},${a6},${i6} */
   {
     AAP_INSN_L_LSLI32, "l.lsli32", "l.lsli32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.lsri32 ${d6},${a6},${i6} */
   {
     AAP_INSN_L_LSRI32, "l.lsri32", "l.lsri32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.andi32 ${d6},${a6},${i10i} */
   {
     AAP_INSN_L_ANDI32, "l.andi32", "l.andi32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ori32 ${d6},${a6},${i10i} */
   {
     AAP_INSN_L_ORI32, "l.ori32", "l.ori32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.xori32 ${d6},${a6},${i10i} */
   {
     AAP_INSN_L_XORI32, "l.xori32", "l.xori32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.addi32 ${d6},${a6},${i10} */
   {
     AAP_INSN_L_ADDI32, "l.addi32", "l.addi32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.subi32 ${d6},${a6},${i10} */
   {
     AAP_INSN_L_SUBI32, "l.subi32", "l.subi32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.beq32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BEQ32, "l.beq32", "l.beq32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bne32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BNE32, "l.bne32", "l.bne32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.blts32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BLTS32, "l.blts32", "l.blts32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bles32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BLES32, "l.bles32", "l.bles32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bltu32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BLTU32, "l.bltu32", "l.bltu32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bleu32 ${s10},${a6},${b6} */
   {
     AAP_INSN_L_BLEU32, "l.bleu32", "l.bleu32", 32,
-    { 0|A(COND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(COND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldb32 ${d6},(${a6},${i10}) */
   {
     AAP_INSN_L_LDB32___D6_____A6____I10__, "l.ldb32 ${d6},(${a6},${i10})", "l.ldb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldw32 ${d6},(${a6},${i10}) */
   {
     AAP_INSN_L_LDW32___D6_____A6____I10__, "l.ldw32 ${d6},(${a6},${i10})", "l.ldw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldb32 ${d6},(${a6}+,${i10}) */
   {
     AAP_INSN_L_LDB32___D6_____A6_____I10__, "l.ldb32 ${d6},(${a6}+,${i10})", "l.ldb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldw32 ${d6},(${a6}+,${i10}) */
   {
     AAP_INSN_L_LDW32___D6_____A6_____I10__, "l.ldw32 ${d6},(${a6}+,${i10})", "l.ldw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldb32 ${d6},(-${a6},${i10}) */
   {
     AAP_INSN_L_LDB32___D6______A6____I10__, "l.ldb32 ${d6},(-${a6},${i10})", "l.ldb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.ldw32 ${d6},(-${a6},${i10}) */
   {
     AAP_INSN_L_LDW32___D6______A6____I10__, "l.ldw32 ${d6},(-${a6},${i10})", "l.ldw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdb32 (${d6},${i10}),${a6} */
   {
     AAP_INSN_L_SDB32____D6____I10_____A6_, "l.sdb32 (${d6},${i10}),${a6}", "l.sdb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdw32 (${d6},${i10}),${a6} */
   {
     AAP_INSN_L_SDW32____D6____I10_____A6_, "l.sdw32 (${d6},${i10}),${a6}", "l.sdw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdb32 (${d6}+,${i10}),${a6} */
   {
     AAP_INSN_L_SDB32____D6_____I10_____A6_, "l.sdb32 (${d6}+,${i10}),${a6}", "l.sdb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdw32 (${d6}+,${i10}),${a6} */
   {
     AAP_INSN_L_SDW32____D6_____I10_____A6_, "l.sdw32 (${d6}+,${i10}),${a6}", "l.sdw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdb32 (-${d6},${i10}),${a6} */
   {
     AAP_INSN_L_SDB32_____D6____I10_____A6_, "l.sdb32 (-${d6},${i10}),${a6}", "l.sdb32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.sdw32 (-${d6},${i10}),${a6} */
   {
     AAP_INSN_L_SDW32_____D6____I10_____A6_, "l.sdw32 (-${d6},${i10}),${a6}", "l.sdw32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.nop32 ${d6},${i12} */
   {
     AAP_INSN_L_NOP32, "l.nop32", "l.nop32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.movi32 ${d6},${i16} */
   {
     AAP_INSN_L_MOVI32, "l.movi32", "l.movi32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bal32 ${s16},${b6} */
   {
     AAP_INSN_L_BAL32, "l.bal32", "l.bal32", 32,
-    { 0, { { { (1<<MACH_BASE), 0 } } } }
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }
   },
 /* l.bra32 ${s22} */
   {
     AAP_INSN_L_BRA32, "l.bra32", "l.bra32", 32,
-    { 0|A(UNCOND_CTI), { { { (1<<MACH_BASE), 0 } } } }
+    { 0|A(UNCOND_CTI), { { { (1<<MACH_AAP32), 0 } } } }
   },
 };
 

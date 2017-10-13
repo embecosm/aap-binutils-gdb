@@ -1,13 +1,11 @@
-/* aap simulator support code -- see LM32  */
-
-/* Main header for the AAP simulator.  */
+/* Main header for the aap.  */
 
 #ifndef SIM_MAIN_H
 #define SIM_MAIN_H
 
-#define USING_SIM_BASE_H	/* FIXME: quick hack */
+#define USING_SIM_BASE_H /* FIXME: quick hack */
 
-struct _sim_cpu;		/* FIXME: should be in sim-basics.h */
+struct _sim_cpu; /* FIXME: should be in sim-basics.h */
 typedef struct _sim_cpu SIM_CPU;
 
 #include "symcat.h"
@@ -40,13 +38,15 @@ do { \
 
 /* The _sim_cpu struct.  */
 
-struct _sim_cpu
-{
+struct _sim_cpu {
   /* sim/common cpu base.  */
   sim_cpu_base base;
 
   /* Static parts of cgen.  */
   CGEN_CPU cgen_cpu;
+
+  AAP_MISC_PROFILE aap_misc_profile;
+#define CPU_AAP_MISC_PROFILE(cpu) (& (cpu)->aap_misc_profile)
 
   /* CPU specific parts go here.
      Note that in files that don't need to access these pieces WANT_CPU_FOO
@@ -58,13 +58,14 @@ struct _sim_cpu
 #if defined (WANT_CPU_AAPBF)
   AAPBF_CPU_DATA cpu_data;
 #endif
-
+#if defined (WANT_CPU_AAP16BF)
+  AAP16BF_CPU_DATA cpu_data;
+#endif
 };
 
 /* The sim_state struct.  */
 
-struct sim_state
-{
+struct sim_state {
   sim_cpu *cpu;
 #define STATE_CPU(sd, n) (/*&*/ (sd)->cpu)
 
@@ -80,5 +81,12 @@ extern SIM_CORE_SIGNAL_FN aap_core_signal;
 #define SIM_CORE_SIGNAL(SD,CPU,CIA,MAP,NR_BYTES,ADDR,TRANSFER,ERROR) \
 aap_core_signal ((SD), (CPU), (CIA), (MAP), (NR_BYTES), (ADDR), \
 		  (TRANSFER), (ERROR))
+
+/* Default memory size.  */
+#ifdef AAP_LINUX
+#define AAP_DEFAULT_MEM_SIZE 0x2000000 /* 32M */
+#else
+#define AAP_DEFAULT_MEM_SIZE 0x800000 /* 8M */
+#endif
 
 #endif /* SIM_MAIN_H */

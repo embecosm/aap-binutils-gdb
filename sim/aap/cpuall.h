@@ -33,7 +33,14 @@ This file is part of the GNU simulators.
 #include "decode.h"
 #endif
 
-extern const MACH aap_mach;
+#ifdef WANT_CPU_AAP16BF
+#include "eng.h"
+#include "cpu.h"
+#include "decode.h"
+#endif
+
+extern const MACH aap32_mach;
+extern const MACH aap16_mach;
 
 #ifndef WANT_CPU
 /* The ARGBUF struct.  */

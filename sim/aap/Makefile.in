@@ -1,28 +1,48 @@
-# Makefile for Lattice Mico32 simulator.
-# Contributed by Jon Beniston <jon@beniston.com>
+# Makefile template for Configure for the aap simulator
+# Copyright (C) 1996-2015 Free Software Foundation, Inc.
+# Contributed by Cygnus Support.
+#
+# This file is part of GDB, the GNU debugger.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## COMMON_PRE_CONFIG_FRAG
 
-# List of object files, less common parts.
+AAP32_OBJS = aap32.o cpu.o decode.o sem.o model.o mloop.o
+AAP16_OBJS = aap16.o cpu2.o decode2.o model2.o mloop2.o
+TRAPS_OBJ = @traps_obj@
+
 SIM_OBJS = \
 	$(SIM_NEW_COMMON_OBJS) \
 	sim-cpu.o \
 	sim-hload.o \
 	sim-model.o \
 	sim-reg.o \
-	sim-signal.o \
-        cgen-utils.o cgen-trace.o cgen-scache.o \
-        cgen-run.o sim-reason.o sim-stop.o \
-        sim-if.o arch.o \
-        cpu.o decode.o sem.o model.o mloop.o \
-        aap.o traps.o user.o 
+	cgen-utils.o cgen-trace.o cgen-scache.o \
+	cgen-run.o sim-reason.o sim-stop.o \
+	sim-if.o arch.o \
+	$(AAP32_OBJS) \
+	$(AAP16_OBJS) \
+	$(TRAPS_OBJ) \
+	devices.o
 
-# List of extra dependencies.
-# Generally this consists of simulator specific files included by sim-main.h.
-SIM_EXTRA_DEPS = $(CGEN_INCLUDE_DEPS) $(srcdir)/../../opcodes/aap-desc.h
+# Extra headers included by sim-main.h.
+SIM_EXTRA_DEPS = \
+	$(CGEN_INCLUDE_DEPS) \
+	arch.h cpuall.h aap-sim.h $(srcdir)/../../opcodes/aap-desc.h
 
-# List of flags to always pass to $(CC).
-#SIM_EXTRA_CFLAGS =
+SIM_EXTRA_CFLAGS = @sim_extra_cflags@
 
 SIM_EXTRA_CLEAN = aap-clean
 
@@ -31,13 +51,17 @@ NL_TARGET = -DNL_TARGET_aap
 
 ## COMMON_POST_CONFIG_FRAG
 
-arch = aap 
+arch = aap
+
+sim-if.o: sim-if.c $(SIM_MAIN_DEPS) $(srcdir)/../common/sim-core.h
 
 arch.o: arch.c $(SIM_MAIN_DEPS)
 
 traps.o: traps.c targ-vals.h $(SIM_MAIN_DEPS)
+traps-linux.o: traps.c syscall.h targ-vals.h $(SIM_MAIN_DEPS)
+devices.o: devices.c $(SIM_MAIN_DEPS)
 
-sim-if.o: sim-if.c $(SIM_MAIN_DEPS) $(srcdir)/../common/sim-core.h
+# AAP32 objs
 
 AAPBF_INCLUDE_DEPS = \
 	$(CGEN_MAIN_CPU_DEPS) \
@@ -46,24 +70,51 @@ AAPBF_INCLUDE_DEPS = \
 aap.o: aap.c $(AAPBF_INCLUDE_DEPS)
 
 # FIXME: Use of `mono' is wip.
-mloop.c eng.h: stamp-mloop
+mloop.c eng.h: stamp-mloop ; @true
 stamp-mloop: $(srcdir)/../common/genmloop.sh mloop.in Makefile
-	$(SHELL) $(srccom)/genmloop.sh \
+	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
 		-mono -fast -pbb -switch sem-switch.c \
 		-cpu aapbf -infile $(srcdir)/mloop.in
 	$(SHELL) $(srcroot)/move-if-change eng.hin eng.h
 	$(SHELL) $(srcroot)/move-if-change mloop.cin mloop.c
 	touch stamp-mloop
-mloop.o: mloop.c sem-switch.c 
+mloop.o: mloop.c sem-switch.c $(AAPBF_INCLUDE_DEPS)
 
 cpu.o: cpu.c $(AAPBF_INCLUDE_DEPS)
 decode.o: decode.c $(AAPBF_INCLUDE_DEPS)
 sem.o: sem.c $(AAPBF_INCLUDE_DEPS)
 model.o: model.c $(AAPBF_INCLUDE_DEPS)
 
+# AAP16 objs
+
+AAP16BF_INCLUDE_DEPS = \
+	$(CGEN_MAIN_CPU_DEPS) \
+	cpu2.h decode2.h eng2.h
+
+aap16.o: aap16.c $(AAP16BF_INCLUDE_DEPS)
+
+# FIXME: Use of `mono' is wip.
+mloop2.c eng2.h: stamp-2mloop ; @true
+stamp-2mloop: $(srcdir)/../common/genmloop.sh mloop2.in Makefile
+	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
+		-mono -no-fast -pbb -parallel-write -switch sem2-switch.c \
+		-cpu aap16bf -infile $(srcdir)/mloop2.in \
+		-outfile-suffix 2
+	$(SHELL) $(srcroot)/move-if-change eng2.hin eng2.h
+	$(SHELL) $(srcroot)/move-if-change mloop2.cin mloop2.c
+	touch stamp-2mloop
+
+mloop2.o: mloop2.c $(srcdir)/sem2-switch.c $(AAP16BF_INCLUDE_DEPS)
+cpu2.o: cpu2.c $(AAP16BF_INCLUDE_DEPS)
+decode2.o: decode2.c $(AAP16BF_INCLUDE_DEPS)
+sem2.o: sem2.c $(AAP16BF_INCLUDE_DEPS)
+model2.o: model2.c $(AAP16BF_INCLUDE_DEPS)
+
 aap-clean:
 	rm -f mloop.c eng.h stamp-mloop
-	rm -f stamp-arch stamp-cpu 
+	rm -f mloopx.c engx.h stamp-xmloop
+	rm -f mloop2.c eng2.h stamp-2mloop
+	rm -f stamp-arch stamp-cpu stamp-xcpu stamp-2cpu
 	rm -f tmp-*
 
 # cgen support, enable with --enable-cgen-maint
@@ -71,18 +122,34 @@ CGEN_MAINT = ; @true
 # The following line is commented in or out depending upon --enable-cgen-maint.
 @CGEN_MAINT@CGEN_MAINT =
 
-stamp-arch: $(CGEN_READ_SCM) $(CGEN_ARCH_SCM) $(CPU_DIR)/aap.cpu
+# NOTE: Generated source files are specified as full paths,
+# e.g. $(srcdir)/arch.c, because make may decide the files live
+# in objdir otherwise.
+
+stamp-arch: $(CGEN_READ_SCM) $(CGEN_ARCH_SCM) $(CPU_DIR)/aap.cpu Makefile
 	$(MAKE) cgen-arch $(CGEN_FLAGS_TO_PASS) mach=all \
 	  archfile=$(CPU_DIR)/aap.cpu \
 	  FLAGS="with-scache with-profile=fn"
 	touch stamp-arch
-arch.h arch.c cpuall.h: $(CGEN_MAINT) stamp-arch
+$(srcdir)/arch.h $(srcdir)/arch.c $(srcdir)/cpuall.h: $(CGEN_MAINT) stamp-arch
+	@true
 
-stamp-cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu
+stamp-cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
 	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
-	  cpu=aapbf mach=aap SUFFIX= \
+	  cpu=aapbf mach=aap32 SUFFIX= \
 	  archfile=$(CPU_DIR)/aap.cpu \
 	  FLAGS="with-scache with-profile=fn" \
 	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
 	touch stamp-cpu
-cpu.h sem.c sem-switch.c model.c decode.c decode.h: $(CGEN_MAINT) stamp-cpu
+$(srcdir)/cpu.h $(srcdir)/sem.c $(srcdir)/sem-switch.c $(srcdir)/model.c $(srcdir)/decode.c $(srcdir)/decode.h: $(CGEN_MAINT) stamp-cpu
+	@true
+
+stamp-2cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
+	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
+	  cpu=aap16bf mach=aap16 SUFFIX=2 \
+	  archfile=$(CPU_DIR)/aap.cpu \
+	  FLAGS="with-scache with-profile=fn" \
+	  EXTRAFILES="$(CGEN_CPU_SEMSW)"
+	touch stamp-2cpu
+$(srcdir)/cpu2.h $(srcdir)/sem2-switch.c $(srcdir)/model2.c $(srcdir)/decode2.c $(srcdir)/decode2.h: $(CGEN_MAINT) stamp-2cpu
+	@true

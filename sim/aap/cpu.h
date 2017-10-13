@@ -1,4 +1,4 @@
-/* CPU family header for @cpu@.
+/* CPU family header for aapbf.
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
@@ -22,8 +22,8 @@ This file is part of the GNU simulators.
 
 */
 
-#ifndef CPU_@CPU@_H
-#define CPU_@CPU@_H
+#ifndef CPU_AAPBF_H
+#define CPU_AAPBF_H
 
 /* Maximum number of instructions that are fetched at a time.
    This is for LIW type instructions sets (e.g. m32r).  */
@@ -46,10 +46,13 @@ typedef struct {
   USI h_gpr[64];
 #define GET_H_GPR(a1) CPU (h_gpr)[a1]
 #define SET_H_GPR(a1, x) (CPU (h_gpr)[a1] = (x))
-  /* Control and status registers */
-  SI h_csr[32];
-#define GET_H_CSR(a1) CPU (h_csr)[a1]
-#define SET_H_CSR(a1, x) (CPU (h_csr)[a1] = (x))
+  /* control registers */
+  USI h_cr[16];
+#define GET_H_CR(index) aapbf_h_cr_get_handler (current_cpu, index)
+#define SET_H_CR(index, x) \
+do { \
+aapbf_h_cr_set_handler (current_cpu, (index), (x));\
+;} while (0)
   /* carry flag */
   BI h_cf;
 #define GET_H_CF() CPU (h_cf)
@@ -60,25 +63,25 @@ typedef struct {
 #define SET_H_PC(x) (CPU (h_pc) = (x))
   } hardware;
 #define CPU_CGEN_HW(cpu) (& (cpu)->cpu_data.hardware)
-} @CPU@_CPU_DATA;
+} AAPBF_CPU_DATA;
 
 /* Cover fns for register access.  */
-USI @cpu@_h_gpr_get (SIM_CPU *, UINT);
-void @cpu@_h_gpr_set (SIM_CPU *, UINT, USI);
-SI @cpu@_h_csr_get (SIM_CPU *, UINT);
-void @cpu@_h_csr_set (SIM_CPU *, UINT, SI);
-BI @cpu@_h_cf_get (SIM_CPU *);
-void @cpu@_h_cf_set (SIM_CPU *, BI);
-USI @cpu@_h_pc_get (SIM_CPU *);
-void @cpu@_h_pc_set (SIM_CPU *, USI);
+USI aapbf_h_gpr_get (SIM_CPU *, UINT);
+void aapbf_h_gpr_set (SIM_CPU *, UINT, USI);
+USI aapbf_h_cr_get (SIM_CPU *, UINT);
+void aapbf_h_cr_set (SIM_CPU *, UINT, USI);
+BI aapbf_h_cf_get (SIM_CPU *);
+void aapbf_h_cf_set (SIM_CPU *, BI);
+USI aapbf_h_pc_get (SIM_CPU *);
+void aapbf_h_pc_set (SIM_CPU *, USI);
 
 /* These must be hand-written.  */
-extern CPUREG_FETCH_FN @cpu@_fetch_register;
-extern CPUREG_STORE_FN @cpu@_store_register;
+extern CPUREG_FETCH_FN aapbf_fetch_register;
+extern CPUREG_STORE_FN aapbf_store_register;
 
 typedef struct {
   int empty;
-} MODEL_AAP_DATA;
+} MODEL_AAP32_DATA;
 
 /* Instruction argument buffer.  */
 
@@ -90,23 +93,10 @@ union sem_fields {
     INT f_s_22;
   } sfmt_l_bra32;
   struct { /*  */
-    INT f_int_8_9;
-  } sfmt_l_bra;
-  struct { /*  */
     USI* i_d6;
     UINT f_d_6;
     UINT f_i_16;
   } sfmt_l_movi32;
-  struct { /*  */
-    USI* i_xdest;
-    UINT f_uint_5_6;
-    UINT f_x_dst_reg;
-  } sfmt_l_movi;
-  struct { /*  */
-    USI* i_d6;
-    INT f_int_2_3;
-    UINT f_d_6;
-  } sfmt_l_sdb_____xdest____int023_____xsrc1_;
   struct { /*  */
     USI* i_d6;
     USI* i_dest1;
@@ -135,20 +125,6 @@ union sem_fields {
     UINT f_i_10i;
   } sfmt_l_andi32;
   struct { /*  */
-    USI* i_xdest;
-    USI* i_xsrc1;
-    INT f_int_2_3;
-    UINT f_x_dst_reg;
-    UINT f_x_src_reg_1;
-  } sfmt_l_ldb___xdest_____xsrc1____int023__;
-  struct { /*  */
-    USI* i_xsrc1;
-    USI* i_xsrc2;
-    INT f_int_8_3;
-    UINT f_x_src_reg_1;
-    UINT f_x_src_reg_2;
-  } sfmt_l_beq;
-  struct { /*  */
     USI* i_a6;
     USI* i_d6;
     UINT f_a_6;
@@ -156,14 +132,6 @@ union sem_fields {
     UINT f_d_6;
     UINT f_i_6;
   } sfmt_l_asri32;
-  struct { /*  */
-    USI* i_xdest;
-    USI* i_xsrc1;
-    UINT f_carry;
-    UINT f_uint_2_3;
-    UINT f_x_dst_reg;
-    UINT f_x_src_reg_1;
-  } sfmt_l_asri;
   struct { /*  */
     USI* i_a6;
     USI* i_b6;
@@ -173,15 +141,6 @@ union sem_fields {
     UINT f_carry;
     UINT f_d_6;
   } sfmt_l_asr32;
-  struct { /*  */
-    USI* i_xdest;
-    USI* i_xsrc1;
-    USI* i_xsrc2;
-    UINT f_carry;
-    UINT f_x_dst_reg;
-    UINT f_x_src_reg_1;
-    UINT f_x_src_reg_2;
-  } sfmt_l_asr;
 #if WITH_SCACHE_PBB
   /* Writeback handler.  */
   struct {
@@ -241,103 +200,6 @@ struct scache {
   unsigned int length;
 #define EXTRACT_IFMT_EMPTY_CODE \
   length = 0; \
-
-#define EXTRACT_IFMT_L_ADD_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  UINT f_x_dst_reg; \
-  UINT f_x_src_reg_1; \
-  UINT f_x_src_reg_2; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_ADD_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
-
-#define EXTRACT_IFMT_L_ADDI_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  UINT f_x_dst_reg; \
-  UINT f_x_src_reg_1; \
-  UINT f_uint_2_3; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_ADDI_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
-  f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
-
-#define EXTRACT_IFMT_L_BEQ_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  INT f_int_8_3; \
-  UINT f_x_src_reg_1; \
-  UINT f_x_src_reg_2; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_BEQ_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_int_8_3 = EXTRACT_LSB0_SINT (insn, 16, 8, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
-
-#define EXTRACT_IFMT_L_LDB___XDEST_____XSRC1____INT023___VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  UINT f_x_dst_reg; \
-  UINT f_x_src_reg_1; \
-  INT f_int_2_3; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_LDB___XDEST_____XSRC1____INT023___CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
-  f_int_2_3 = EXTRACT_LSB0_SINT (insn, 16, 2, 3); \
-
-#define EXTRACT_IFMT_L_NOP_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  UINT f_x_dst_reg; \
-  UINT f_uint_5_6; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_NOP_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
-  f_uint_5_6 = EXTRACT_LSB0_UINT (insn, 16, 5, 6); \
-
-#define EXTRACT_IFMT_L_BAL_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  INT f_int_8_6; \
-  UINT f_x_src_reg_2; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_BAL_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_int_8_6 = EXTRACT_LSB0_SINT (insn, 16, 8, 6); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
-
-#define EXTRACT_IFMT_L_BRA_VARS \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  INT f_int_8_9; \
-  unsigned int length;
-#define EXTRACT_IFMT_L_BRA_CODE \
-  length = 2; \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
-  f_int_8_9 = EXTRACT_LSB0_SINT (insn, 16, 8, 9); \
 
 #define EXTRACT_IFMT_L_ADD32_VARS \
   UINT f_length; \
@@ -595,4 +457,4 @@ typedef struct trace_record {
   /* FIXME:wip */
 } TRACE_RECORD;
 
-#endif /* CPU_@CPU@_H */
+#endif /* CPU_AAPBF_H */

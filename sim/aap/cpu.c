@@ -1,4 +1,4 @@
-/* Misc. support for CPU family @cpu@.
+/* Misc. support for CPU family aapbf.
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
@@ -22,8 +22,8 @@ This file is part of the GNU simulators.
 
 */
 
-#define WANT_CPU @cpu@
-#define WANT_CPU_@CPU@
+#define WANT_CPU aapbf
+#define WANT_CPU_AAPBF
 
 #include "sim-main.h"
 #include "cgen-ops.h"
@@ -31,7 +31,7 @@ This file is part of the GNU simulators.
 /* Get the value of h-gpr.  */
 
 USI
-@cpu@_h_gpr_get (SIM_CPU *current_cpu, UINT regno)
+aapbf_h_gpr_get (SIM_CPU *current_cpu, UINT regno)
 {
   return CPU (h_gpr[regno]);
 }
@@ -39,31 +39,31 @@ USI
 /* Set a value for h-gpr.  */
 
 void
-@cpu@_h_gpr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
+aapbf_h_gpr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
 {
   CPU (h_gpr[regno]) = newval;
 }
 
-/* Get the value of h-csr.  */
+/* Get the value of h-cr.  */
 
-SI
-@cpu@_h_csr_get (SIM_CPU *current_cpu, UINT regno)
+USI
+aapbf_h_cr_get (SIM_CPU *current_cpu, UINT regno)
 {
-  return CPU (h_csr[regno]);
+  return GET_H_CR (regno);
 }
 
-/* Set a value for h-csr.  */
+/* Set a value for h-cr.  */
 
 void
-@cpu@_h_csr_set (SIM_CPU *current_cpu, UINT regno, SI newval)
+aapbf_h_cr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
 {
-  CPU (h_csr[regno]) = newval;
+  SET_H_CR (regno, newval);
 }
 
 /* Get the value of h-cf.  */
 
 BI
-@cpu@_h_cf_get (SIM_CPU *current_cpu)
+aapbf_h_cf_get (SIM_CPU *current_cpu)
 {
   return CPU (h_cf);
 }
@@ -71,7 +71,7 @@ BI
 /* Set a value for h-cf.  */
 
 void
-@cpu@_h_cf_set (SIM_CPU *current_cpu, BI newval)
+aapbf_h_cf_set (SIM_CPU *current_cpu, BI newval)
 {
   CPU (h_cf) = newval;
 }
@@ -79,7 +79,7 @@ void
 /* Get the value of h-pc.  */
 
 USI
-@cpu@_h_pc_get (SIM_CPU *current_cpu)
+aapbf_h_pc_get (SIM_CPU *current_cpu)
 {
   return CPU (h_pc);
 }
@@ -87,7 +87,7 @@ USI
 /* Set a value for h-pc.  */
 
 void
-@cpu@_h_pc_set (SIM_CPU *current_cpu, USI newval)
+aapbf_h_pc_set (SIM_CPU *current_cpu, USI newval)
 {
   CPU (h_pc) = newval;
 }
@@ -95,7 +95,7 @@ void
 /* Record trace results for INSN.  */
 
 void
-@cpu@_record_trace_results (SIM_CPU *current_cpu, CGEN_INSN *insn,
+aapbf_record_trace_results (SIM_CPU *current_cpu, CGEN_INSN *insn,
 			    int *indices, TRACE_RECORD *tr)
 {
 }

@@ -1,7 +1,7 @@
-;;
 ;; AAP cpu thing: need to tell cgen the registers and ISA
 ;;
-;; Set up GDB first
+;; -*- Scheme -*-
+;;
 
 (include "simplify.inc")
 
@@ -9,12 +9,12 @@
 ;; define-architure must appear first
 ;;
 (define-arch
-  (name aap)	;; name of cpu architecture
+  (name aap)		;; name of cpu architecture
   (comment "AAP")
   (default-alignment aligned)
-  (insn-lsb0? #t)    ;; is bit 0 the msb or lsb? It is lsb true.
-  (machs aap)	;; list of machines
-  (isas aap)  	;; isa name
+  (insn-lsb0? #t)	;; is bit 0 the msb or lsb? It is lsb true.
+  (machs aap16 aap32)	;; list of machines
+  (isas aap)  		;; isa name
 )
 
 (define-isa	;;fetches 1 insn at a time & does not execute in parallel. 
@@ -28,28 +28,67 @@
 ;;
 ;; Cpu family definitions.
 ;;
+;; 32 bit
 (define-cpu
   ;; cpu names must be distinct from the architecture name and machine names.
   ;; The "b" suffix stands for "base" and is the convention.
   ;; The "f" suffix stands for "family" and is the convention.
   (name aapbf)
-  (comment "AAP base family")
+  (comment "AAP 32 bit base family")
   (endian little)
   (word-bitsize 32)
 )
+;; 16 bit
+(define-cpu
+  ;; cpu names must be distinct from the architecture name and machine names.
+  ;; The "b" suffix stands for "base" and is the convention.
+  ;; The "f" suffix stands for "family" and is the convention.
+  (name aap16bf)
+  (comment "AAP 16 bit base family")
+  (endian little)
+  (word-bitsize 32)
+)
+
 ;;
-;; Generic AAP machine. Supports the entire architecture
+;; Machines
 ;;
+;; 32 bit AAP machine
 (define-mach	;;bfd name = bfd-aap
-  (name aap)
-  (comment "Generic AAP machine")
+  (name aap32)
+  (comment "32 bit AAP machine")
   (cpu aapbf)
   (isas aap)
 )
+;; 16 bit mach
+(define-mach	;;bfd name = bfd-aap
+  (name aap16)
+  (comment "16 bit AAP machine")
+  (cpu aap16bf)
+  (isas aap)
+)
+
+;;
+;; Models
+;;
+;; 32 bit
 (define-model
-  (name aap)
-  (comment "Generic AAP model")
-  (mach aap)
+  (name aap32)
+  (comment "32 bit AAP model")
+  (mach aap32)
+  
+  (unit u-exec "Execution Unit" ()
+    1 1 ;; issue done
+    () ;; state
+    () ;; inputs
+    () ;; outputs
+    () ;; profile action (default)
+    )
+)
+;; 16 bit
+(define-model
+  (name aap16)
+  (comment "16 bit AAP model")
+  (mach aap16)
   
   (unit u-exec "Execution Unit" ()
     1 1 ;; issue done
@@ -60,11 +99,13 @@
     )
 )
 
-;;
-;; Helper Macros (copied Andrew)
-;;
 
+;;
+;; Attributes
+;;
 (define-pmacro all-aap-isas () (ISA aap))
+(define-pmacro MACH-16 (MACH aap16))
+(define-pmacro MACH-32 (MACH aap32))
 
 ;;
 ;; General Purpose Registers (copied frv)
@@ -97,32 +138,32 @@
 )
 
 
-;; From LM32  
-(dnh h-csr "Control and status registers"
-  ()
-  (register SI (32))
-  (keyword "" (
-               (IE 0) (IM 1) (IP 2) 
-               (ICC 3) (DCC 4)
-               (CC 5)
-               (CFG 6)
-               (EBA 7)
-               (DC 8)
-               (DEBA 9)
-	       (CFG2 10)
-               (JTX 14) (JRX 15)          
-               (BP0 16) (BP1 17) (BP2 18) (BP3 19)
-               (WP0 24) (WP1 25) (WP2 26) (WP3 27)     
-               (PSW 29) (TLBVADDR 30) (TLBPADDR 31) (TLBBADVADDR 31)
-              )
-  )
-  () ()
-)  
+;; Control registers  
+(define-keyword
+  (name cr-names)
+  (print-name h-cr)
+  (prefix "")
+  (values (psw 0)   (cbr 1)   (spi 2)   (spu 3)
+	  (bpc 6)   (bbpsw 8) (bbpc 14) (evb 5)
+	  (cr0 0)   (cr1 1)   (cr2 2)   (cr3 3)
+	  (cr4 4)   (cr5 5)   (cr6 6)   (cr7 7)
+	  (cr8 8)   (cr9 9)   (cr10 10) (cr11 11)
+	  (cr12 12) (cr13 13) (cr14 14) (cr15 15))
+)
+
+(define-hardware
+  (name h-cr)
+  (comment "control registers")
+  (type register UWI (16))
+  (indices extern-keyword cr-names)
+  (get (index) (c-call UWI "@cpu@_h_cr_get_handler" index))
+  (set (index newval) (c-call VOID "@cpu@_h_cr_set_handler" index newval))
+) 
 
 ;; Can allow special registers and flash
 ;; No delay slots
 
-;; 32bit register, top 8 bits is status, rest is PC
+;; 32 bit register, top 8 bits is status, rest is PC
 (dnh h-cf "carry flag" () (register BI) () () ())
 (dnh h-pc "program couner" (PC PROFILE) (pc) () () ())
 
@@ -772,7 +813,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${xdest},${xsrc1},${xsrc2}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 xsrc2))
       (semantics semantic1 semantic2 (set pc (add pc 1)))
@@ -785,7 +826,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${xdest},${xsrc1},${uint023}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 uint023))
       (semantics semantic1 semantic2 (set pc (add pc 1)))
@@ -798,7 +839,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${int083},${xsrc1},${xsrc2}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) int083 xsrc1 xsrc2))
       (semantics (if (semantic xsrc1 xsrc2)
@@ -814,7 +855,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic))
       (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 int023))
       (semantics semantic1 semantic2 semantic3 (set pc (add pc 1)))
@@ -827,7 +868,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${xdest},${uint056}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) xdest uint056))
       (semantics semantic (set pc (add pc 1)))
@@ -840,7 +881,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${int086},${xsrc2}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) int086 xsrc2))
       (semantics (set xsrc2 (add pc 1))
@@ -855,7 +896,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-16)
       (syntax (.str mnemonic " ${int089}"))
       (format (.splice + LEN2_0 (f-x-opcode opcode) int089))
       (semantics (set pc (add pc (ext SI (trunc HI int089)))))	 ;;PC <- PC + SignExt(S)
@@ -868,7 +909,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH MACH-32)
       (syntax (.str mnemonic " ${d6},${a6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))
@@ -882,7 +923,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${a6},${i6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i6
       	      	       	 LEN2_0 OP2_NOP))
@@ -896,7 +937,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${a6},${i10i}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10i
       	      	       	 LEN2_0 CLA_NOP))
@@ -910,7 +951,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${a6},${i10}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10
       	      	       	 LEN2_0 CLA_NOP))
@@ -924,7 +965,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${s10},${a6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s10 a6 b6
       	      	       	 LEN2_0 CLA_NOP))
@@ -941,7 +982,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10
       	      	       	 LEN2_0 CLA_NOP))
@@ -955,7 +996,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${i12}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 i12
       	      	       	 LEN2_0 OP2_NOP))
@@ -969,7 +1010,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${i16}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 i16
       	      	       	 LEN2_0 CLA_NOP))
@@ -983,7 +1024,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${s16},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s16 b6
       	      	       	 LEN2_0 CLA_NOP))
@@ -999,7 +1040,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs all-aap-isas)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${s22}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s22
       	      	       	 LEN2_0 CLA_NOP))

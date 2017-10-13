@@ -33,6 +33,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
 /* Selected cpu families.  */
 #define HAVE_CPU_AAPBF
+#define HAVE_CPU_AAP16BF
 
 #define CGEN_INSN_LSB0_P 1
 
@@ -78,6 +79,16 @@ typedef enum gpr_names {
  , H_GPR_GPR58 = 58, H_GPR_GPR59 = 59, H_GPR_GPR60 = 60, H_GPR_GPR61 = 61
  , H_GPR_GPR62 = 62, H_GPR_GPR63 = 63
 } GPR_NAMES;
+
+/* Enum declaration for .  */
+typedef enum cr_names {
+  H_CR_PSW = 0, H_CR_CBR = 1, H_CR_SPI = 2, H_CR_SPU = 3
+ , H_CR_BPC = 6, H_CR_BBPSW = 8, H_CR_BBPC = 14, H_CR_EVB = 5
+ , H_CR_CR0 = 0, H_CR_CR1 = 1, H_CR_CR2 = 2, H_CR_CR3 = 3
+ , H_CR_CR4 = 4, H_CR_CR5 = 5, H_CR_CR6 = 6, H_CR_CR7 = 7
+ , H_CR_CR8 = 8, H_CR_CR9 = 9, H_CR_CR10 = 10, H_CR_CR11 = 11
+ , H_CR_CR12 = 12, H_CR_CR13 = 13, H_CR_CR14 = 14, H_CR_CR15 = 15
+} CR_NAMES;
 
 /* Enum declaration for length.  */
 typedef enum length1 {
@@ -129,7 +140,7 @@ typedef enum xclass {
 
 /* Enum declaration for machine type selection.  */
 typedef enum mach_attr {
-  MACH_BASE, MACH_AAP, MACH_MAX
+  MACH_BASE, MACH_AAP16, MACH_AAP32, MACH_MAX
 } MACH_ATTR;
 
 /* Enum declaration for instruction set selection.  */
@@ -203,7 +214,7 @@ typedef enum cgen_hw_attr {
 /* Enum declaration for aap hardware types.  */
 typedef enum cgen_hw_type {
   HW_H_MEMORY, HW_H_SINT, HW_H_UINT, HW_H_ADDR
- , HW_H_IADDR, HW_H_GPR, HW_H_CSR, HW_H_CF
+ , HW_H_IADDR, HW_H_GPR, HW_H_CR, HW_H_CF
  , HW_H_PC, HW_MAX
 } CGEN_HW_TYPE;
 
@@ -289,7 +300,7 @@ extern const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[];
 /* Hardware decls.  */
 
 extern CGEN_KEYWORD aap_cgen_opval_gpr_names;
-extern CGEN_KEYWORD aap_cgen_opval_h_csr;
+extern CGEN_KEYWORD aap_cgen_opval_cr_names;
 
 extern const CGEN_HW_ENTRY aap_cgen_hw_table[];
 

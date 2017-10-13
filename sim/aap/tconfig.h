@@ -1,27 +1,38 @@
-/* Lattice Mico32 simulator configuration.
-   Contributed by Jon Beniston <jon@beniston.com>
+/* AAP target configuration file.  -*- C -*- */
 
-   This file is part of GDB.
+#ifndef AAP_TCONFIG_H
+#define AAP_TCONFIG_H
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
-
-#ifndef LM32_TCONFIG_H
-#define LM32_TCONFIG_H
+/* Define this if the simulator can vary the size of memory.
+   See the xxx simulator for an example.
+   This enables the `-m size' option.
+   The memory size is stored in STATE_MEM_SIZE.  */
+/* Not used for AAP since we use the memory module.  */
+/* #define SIM_HAVE_MEM_SIZE */
 
 /* See sim-hload.c.  We properly handle LMA.  */
 #define SIM_HANDLES_LMA 1
 
+/* For MSPR support.  FIXME: revisit.  */
+#define WITH_DEVICES 1
+
+#if 0
+/* Enable watchpoints.  */
+#define WITH_WATCHPOINTS 1
+#endif
+
+/* Define this to enable the intrinsic breakpoint mechanism. */
+/* FIXME: may be able to remove SIM_HAVE_BREAKPOINT since it essentially
+   duplicates ifdef SIM_BREAKPOINT (right?) */
+#if 0
+#define SIM_HAVE_BREAKPOINTS
+#define SIM_BREAKPOINT { 0x10, 0xf1 }
+#define SIM_BREAKPOINT_SIZE 2
+#endif
+
+/* This is a global setting.  Different cpu families can't mix-n-match -scache
+   and -pbb.  However some cpu families may use -simple while others use
+   one of -scache/-pbb.  */
 #define WITH_SCACHE_PBB 1
 
-#endif /* LM32_TCONFIG_H */
+#endif /* AAP_TCONFIG_H */

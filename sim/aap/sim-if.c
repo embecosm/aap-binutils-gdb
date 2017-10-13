@@ -1,30 +1,23 @@
-/* Main simulator entry points specific to aap -- see LM32  */
+/* Main simulator entry points specific to the AAP.  */
 
 #include "sim-main.h"
 #include "sim-options.h"
 #include "libiberty.h"
 #include "bfd.h"
 
+#ifdef HAVE_STRING_H
+#include <string.h>
+#else
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif
+#endif
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
 
 static void free_state (SIM_DESC);
-static void print_aap_misc_cpu (SIM_CPU * cpu, int verbose);
-static DECLARE_OPTION_HANDLER (aap_option_handler);
-
-enum
-{
-  OPTION_ENDIAN = OPTION_START,
-};
-
-/* GDB passes -E, even though it's fixed, so we have to handle it here. common code only handles it if SIM_HAVE_BIENDIAN is defined, which it isn't for aap.  */
-static const OPTION aap_options[] = {
-  {{"endian", required_argument, NULL, OPTION_ENDIAN},
-   'E', "big", "Set endianness",
-   aap_option_handler},
-  {{NULL, no_argument, NULL, 0}, '\0', NULL, NULL, NULL}
-};
+static void print_aap_misc_cpu (SIM_CPU *cpu, int verbose);
 
 /* Records simulator descriptor so utilities like aap_dump_regs can be
    called from gdb.  */
@@ -41,75 +34,6 @@ free_state (SIM_DESC sd)
   sim_state_free (sd);
 }
 
-/* Find memory range used by program.  */
-
-static unsigned long
-find_base (bfd *prog_bfd)
-{
-  int found;
-  unsigned long base = ~(0UL);
-  asection *s;
-
-  found = 0;
-  for (s = prog_bfd->sections; s; s = s->next)
-    {
-      if ((strcmp (bfd_get_section_name (prog_bfd, s), ".boot") == 0)
-	  || (strcmp (bfd_get_section_name (prog_bfd, s), ".text") == 0)
-	  || (strcmp (bfd_get_section_name (prog_bfd, s), ".data") == 0)
-	  || (strcmp (bfd_get_section_name (prog_bfd, s), ".bss") == 0))
-	{
-	  if (!found)
-	    {
-	      base = bfd_get_section_vma (prog_bfd, s);
-	      found = 1;
-	    }
-	  else
-	    base =
-	      bfd_get_section_vma (prog_bfd,
-				   s) < base ? bfd_get_section_vma (prog_bfd,
-								    s) : base;
-	}
-    }
-  return base & ~(0xffffUL);
-}
-
-static unsigned long
-find_limit (bfd *prog_bfd)
-{
-  struct bfd_symbol **asymbols;
-  long symsize;
-  long symbol_count;
-  long s;
-
-  symsize = bfd_get_symtab_upper_bound (prog_bfd);
-  if (symsize < 0)
-    return 0;
-  asymbols = (asymbol **) xmalloc (symsize);
-  symbol_count = bfd_canonicalize_symtab (prog_bfd, asymbols);
-  if (symbol_count < 0)
-    return 0;
-
-  for (s = 0; s < symbol_count; s++)
-    {
-      if (!strcmp (asymbols[s]->name, "_fstack"))
-	return (asymbols[s]->value + 65536) & ~(0xffffUL);
-    }
-  return 0;
-}
-
-/* Handle aap specific options.  */
-
-static SIM_RC
-aap_option_handler (sd, cpu, opt, arg, is_command)
-     SIM_DESC sd;
-     sim_cpu *cpu;
-     int opt;
-     char *arg;
-     int is_command;
-{
-  return SIM_RC_OK;
-}
-
 /* Create an instance of the simulator.  */
 
 SIM_DESC
@@ -122,7 +46,6 @@ sim_open (kind, callback, abfd, argv)
   SIM_DESC sd = sim_state_alloc (kind, callback);
   char c;
   int i;
-  unsigned long base, limit;
 
   /* The cpu data is kept in a separately allocated chunk of memory.  */
   if (sim_cpu_alloc_all (sd, 1, cgen_cpu_max_extra_bytes ()) != SIM_RC_OK)
@@ -131,12 +54,28 @@ sim_open (kind, callback, abfd, argv)
       return 0;
     }
 
+#if 0 /* FIXME: pc is in mach-specific struct */
+  /* FIXME: watchpoints code shouldn't need this */
+  {
+    SIM_CPU *current_cpu = STATE_CPU (sd, 0);
+    STATE_WATCHPOINTS (sd)->pc = &(PC);
+    STATE_WATCHPOINTS (sd)->sizeof_pc = sizeof (PC);
+  }
+#endif
+
   if (sim_pre_argv_init (sd, argv[0]) != SIM_RC_OK)
     {
       free_state (sd);
       return 0;
     }
-  sim_add_option_table (sd, NULL, aap_options);
+
+#if 0 /* FIXME: 'twould be nice if we could do this */
+  /* These options override any module options.
+     Obviously ambiguity should be avoided, however the caller may wish to
+     augment the meaning of an option.  */
+  if (extra_options != NULL)
+    sim_add_option_table (sd, extra_options);
+#endif
 
   /* getopt will print the error message so we just have to exit if this fails.
      FIXME: Hmmm...  in the case of gdb we need getopt to call
@@ -147,48 +86,34 @@ sim_open (kind, callback, abfd, argv)
       return 0;
     }
 
-#if 0
-  /* Allocate a handler for I/O devices
+  /* Allocate a handler for the control registers and other devices
      if no memory for that range has been allocated by the user.
      All are allocated in one chunk to keep things from being
      unnecessarily complicated.  */
   if (sim_core_read_buffer (sd, NULL, read_map, &c, AAP_DEVICE_ADDR, 1) == 0)
-    sim_core_attach (sd, NULL, 0 /*level */ ,
-		     access_read_write, 0 /*space ??? */ ,
-		     AAP_DEVICE_ADDR, AAP_DEVICE_LEN /*nr_bytes */ ,
-		     0 /*modulo */ ,
-		     &aap_devices, NULL /*buffer */ );
-#endif
+    sim_core_attach (sd, NULL,
+		     0 /*level*/,
+		     access_read_write,
+		     0 /*space ???*/,
+		     AAP_DEVICE_ADDR, AAP_DEVICE_LEN /*nr_bytes*/,
+		     0 /*modulo*/,
+		     &aap_devices,
+		     NULL /*buffer*/);
 
-  /* check for/establish the reference program image.  */
+  /* Allocate core managed memory if none specified by user.
+     Use address 4 here in case the user wanted address 0 unmapped.  */
+  if (sim_core_read_buffer (sd, NULL, read_map, &c, 4, 1) == 0)
+    sim_do_commandf (sd, "memory region 0,0x%x", AAP_DEFAULT_MEM_SIZE);
+
+  /* check for/establish the reference program image */
   if (sim_analyze_program (sd,
 			   (STATE_PROG_ARGV (sd) != NULL
 			    ? *STATE_PROG_ARGV (sd)
-			    : NULL), abfd) != SIM_RC_OK)
+			    : NULL),
+			   abfd) != SIM_RC_OK)
     {
       free_state (sd);
       return 0;
-    }
-
-  /* Check to see if memory exists at programs start address.  */
-  if (sim_core_read_buffer (sd, NULL, read_map, &c, STATE_START_ADDR (sd), 1)
-      == 0)
-    {
-      if (STATE_PROG_BFD (sd) != NULL)
-	{
-	  /* It doesn't, so we should try to allocate enough memory to hold program.  */
-	  base = find_base (STATE_PROG_BFD (sd));
-	  limit = find_limit (STATE_PROG_BFD (sd));
-	  if (limit == 0)
-	    {
-	      sim_io_eprintf (sd,
-			      "Failed to find symbol _fstack in program. You must specify memory regions with --memory-region.\n");
-	      free_state (sd);
-	      return 0;
-	    }
-	  /*sim_io_printf (sd, "Allocating memory at 0x%x size 0x%x\n", base, limit); */
-	  sim_do_commandf (sd, "memory region 0x%x,0x%x", base, limit);
-	}
     }
 
   /* Establish any remaining configuration options.  */
@@ -206,9 +131,8 @@ sim_open (kind, callback, abfd, argv)
 
   /* Open a copy of the cpu descriptor table.  */
   {
-    CGEN_CPU_DESC cd =
-      aap_cgen_cpu_open_1 (STATE_ARCHITECTURE (sd)->printable_name,
-			    CGEN_ENDIAN_BIG);
+    CGEN_CPU_DESC cd = aap_cgen_cpu_open_1 (STATE_ARCHITECTURE (sd)->printable_name,
+					     CGEN_ENDIAN_BIG);
     for (i = 0; i < MAX_NR_PROCESSORS; ++i)
       {
 	SIM_CPU *cpu = STATE_CPU (sd, i);
@@ -222,7 +146,17 @@ sim_open (kind, callback, abfd, argv)
      Must be done after aap_cgen_cpu_open.  */
   cgen_init (sd);
 
-  /* Store in a global so things like aap_dump_regs can be invoked
+  for (c = 0; c < MAX_NR_PROCESSORS; ++c)
+    {
+      /* Only needed for profiling, but the structure member is small.  */
+      memset (CPU_AAP_MISC_PROFILE (STATE_CPU (sd, i)), 0,
+	      sizeof (* CPU_AAP_MISC_PROFILE (STATE_CPU (sd, i))));
+      /* Hook in callback for reporting these stats */
+      PROFILE_INFO_CPU_CALLBACK (CPU_PROFILE_DATA (STATE_CPU (sd, i)))
+	= print_aap_misc_cpu;
+    }
+
+  /* Store in a global so things like sparc32_dump_regs can be invoked
      from the gdb command line.  */
   current_state = sd;
 
@@ -254,10 +188,40 @@ sim_create_inferior (sd, abfd, argv, envp)
     addr = 0;
   sim_pc_set (current_cpu, addr);
 
+#ifdef AAP_LINUX
+  aapbf_h_cr_set (current_cpu,
+                    aap_decode_gdb_ctrl_regnum(SPI_REGNUM), 0x1f00000);
+  aapbf_h_cr_set (current_cpu,
+                    aap_decode_gdb_ctrl_regnum(SPU_REGNUM), 0x1f00000);
+#endif
+
 #if 0
   STATE_ARGV (sd) = sim_copy_argv (argv);
   STATE_ENVP (sd) = sim_copy_argv (envp);
 #endif
 
   return SIM_RC_OK;
+}
+
+/* PROFILE_CPU_CALLBACK */
+
+static void
+print_aap_misc_cpu (SIM_CPU *cpu, int verbose)
+{
+  SIM_DESC sd = CPU_STATE (cpu);
+  char buf[20];
+
+  if (CPU_PROFILE_FLAGS (cpu) [PROFILE_INSN_IDX])
+    {
+      sim_io_printf (sd, "Miscellaneous Statistics\n\n");
+      sim_io_printf (sd, "  %-*s %s\n\n",
+		     PROFILE_LABEL_WIDTH, "Fill nops:",
+		     sim_add_commas (buf, sizeof (buf),
+				     CPU_AAP_MISC_PROFILE (cpu)->fillnop_count));
+      if (STATE_ARCHITECTURE (sd)->mach == bfd_mach_aap16)
+	sim_io_printf (sd, "  %-*s %s\n\n",
+		       PROFILE_LABEL_WIDTH, "Parallel insns:",
+		       sim_add_commas (buf, sizeof (buf),
+				       CPU_AAP_MISC_PROFILE (cpu)->parallel_count));
+    }
 }

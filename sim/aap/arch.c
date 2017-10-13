@@ -28,7 +28,10 @@ This file is part of the GNU simulators.
 const MACH *sim_machs[] =
 {
 #ifdef HAVE_CPU_AAPBF
-  & aap_mach,
+  & aap32_mach,
+#endif
+#ifdef HAVE_CPU_AAP16BF
+  & aap16_mach,
 #endif
   0
 };

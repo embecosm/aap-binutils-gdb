@@ -35,14 +35,14 @@ This file is part of the GNU simulators.
 
 /* Enum declaration for model types.  */
 typedef enum model_type {
-  MODEL_AAP, MODEL_MAX
+  MODEL_AAP32, MODEL_AAP16, MODEL_MAX
 } MODEL_TYPE;
 
 #define MAX_MODELS ((int) MODEL_MAX)
 
 /* Enum declaration for unit types.  */
 typedef enum unit_type {
-  UNIT_NONE, UNIT_AAP_U_EXEC, UNIT_MAX
+  UNIT_NONE, UNIT_AAP32_U_EXEC, UNIT_AAP16_U_EXEC, UNIT_MAX
 } UNIT_TYPE;
 
 #define MAX_UNITS (1)

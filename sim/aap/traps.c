@@ -1,16 +1,96 @@
-/* aap exception and system call support -- see lm32 */
+/* aap exception, interrupt, and trap (EIT) support
+   Copyright (C) 1998-2015 Free Software Foundation, Inc.
+   Contributed by Cygnus Solutions.
 
-#define WANT_CPU aapbf
-#define WANT_CPU_AAPBF
+   This file is part of GDB, the GNU debugger.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 #include "sim-main.h"
-#include "aap-sim.h"
 #include "targ-vals.h"
 
-/* Read memory function for system call interface.  */
+#define TRAP_FLUSH_CACHE 12
+/* The semantic code invokes this for invalid (unrecognized) instructions.  */
+
+SEM_PC
+sim_engine_invalid_insn (SIM_CPU *current_cpu, IADDR cia, SEM_PC pc)
+{
+  SIM_DESC sd = CPU_STATE (current_cpu);
+
+#if 0
+  if (STATE_ENVIRONMENT (sd) == OPERATING_ENVIRONMENT)
+    {
+      h_bsm_set (current_cpu, h_sm_get (current_cpu));
+      h_bie_set (current_cpu, h_ie_get (current_cpu));
+      h_bcond_set (current_cpu, h_cond_get (current_cpu));
+      /* sm not changed */
+      h_ie_set (current_cpu, 0);
+      h_cond_set (current_cpu, 0);
+
+      h_bpc_set (current_cpu, cia);
+
+      sim_engine_restart (CPU_STATE (current_cpu), current_cpu, NULL,
+			  EIT_RSVD_INSN_ADDR);
+    }
+  else
+#endif
+    sim_engine_halt (sd, current_cpu, NULL, cia, sim_stopped, SIM_SIGILL);
+
+  return pc;
+}
+
+/* Process an address exception.  */
+
+void
+aap_core_signal (SIM_DESC sd, SIM_CPU *current_cpu, sim_cia cia,
+		  unsigned int map, int nr_bytes, address_word addr,
+		  transfer_type transfer, sim_core_signals sig)
+{
+  if (STATE_ENVIRONMENT (sd) == OPERATING_ENVIRONMENT)
+    {
+      aapbf_h_cr_set (current_cpu, H_CR_BBPC,
+		       aapbf_h_cr_get (current_cpu, H_CR_BPC));
+      switch (MACH_NUM (CPU_MACH (current_cpu)))
+	{
+	case MACH-32:
+	  aapbf_h_bpsw_set (current_cpu, aapbf_h_psw_get (current_cpu));
+	  /* sm not changed.  */
+	  aapbf_h_psw_set (current_cpu, aapbf_h_psw_get (current_cpu) & 0x80);
+	  break;
+	case MACH-16:
+	  aap16bf_h_bpsw_set (current_cpu, aap16bf_h_psw_get (current_cpu));
+	  /* sm not changed.  */
+	  aap16bf_h_psw_set (current_cpu, aap16bf_h_psw_get (current_cpu) & 0x80);
+	  break;
+	default:
+	  abort ();
+	}
+	    
+      aapbf_h_cr_set (current_cpu, H_CR_BPC, cia);
+
+      sim_engine_restart (CPU_STATE (current_cpu), current_cpu, NULL,
+			  EIT_ADDR_EXCP_ADDR);
+    }
+  else
+    sim_core_signal (sd, current_cpu, cia, map, nr_bytes, addr,
+		     transfer, sig);
+}
+
+/* Read/write functions for system call interface.  */
 
 static int
-syscall_read_mem (host_callback * cb, struct cb_syscall *sc,
+syscall_read_mem (host_callback *cb, struct cb_syscall *sc,
 		  unsigned long taddr, char *buf, int bytes)
 {
   SIM_DESC sd = (SIM_DESC) sc->p1;
@@ -19,10 +99,8 @@ syscall_read_mem (host_callback * cb, struct cb_syscall *sc,
   return sim_core_read_buffer (sd, cpu, read_map, buf, taddr, bytes);
 }
 
-/* Write memory function for system call interface.  */
-
 static int
-syscall_write_mem (host_callback * cb, struct cb_syscall *sc,
+syscall_write_mem (host_callback *cb, struct cb_syscall *sc,
 		   unsigned long taddr, const char *buf, int bytes)
 {
   SIM_DESC sd = (SIM_DESC) sc->p1;
@@ -31,220 +109,85 @@ syscall_write_mem (host_callback * cb, struct cb_syscall *sc,
   return sim_core_write_buffer (sd, cpu, write_map, buf, taddr, bytes);
 }
 
-/* Handle invalid instructions.  */
-
-SEM_PC
-sim_engine_invalid_insn (SIM_CPU * current_cpu, IADDR cia, SEM_PC pc)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-
-  sim_engine_halt (sd, current_cpu, NULL, cia, sim_stopped, SIM_SIGILL);
-
-  return pc;
-}
-
-/* Handle divide instructions. */
+/* Trap support.
+   The result is the pc address to continue at.
+   Preprocessing like saving the various registers has already been done.  */
 
 USI
-aapbf_divu_insn (SIM_CPU * current_cpu, IADDR pc, USI r0, USI r1, USI r2)
+aap_trap (SIM_CPU *current_cpu, PCADDR pc, int num)
 {
   SIM_DESC sd = CPU_STATE (current_cpu);
   host_callback *cb = STATE_CALLBACK (sd);
 
-  /* Check for divide by zero */
-  if (GET_H_GR (r1) == 0)
+#ifdef SIM_HAVE_BREAKPOINTS
+  /* Check for breakpoints "owned" by the simulator first, regardless
+     of --environment.  */
+  if (num == TRAP_BREAKPOINT)
     {
-      if (STATE_ENVIRONMENT (sd) != OPERATING_ENVIRONMENT)
-	sim_engine_halt (sd, current_cpu, NULL, pc, sim_stopped, SIM_SIGFPE);
-      else
-	{
-	  /* Save PC in exception address register.  */
-	  SET_H_GR (30, pc);
-	  /* Save and clear interrupt enable.  */
-	  SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 1);
-	  /* Branch to divide by zero exception handler.  */
-	  return GET_H_CSR (AAP_CSR_EBA) + AAP_EID_DIVIDE_BY_ZERO * 32;
-	}
+      /* First try sim-break.c.  If it's a breakpoint the simulator "owns"
+	 it doesn't return.  Otherwise it returns and let's us try.  */
+      sim_handle_breakpoint (sd, current_cpu, pc);
+      /* Fall through.  */
     }
-  else
+#endif
+
+  if (STATE_ENVIRONMENT (sd) == OPERATING_ENVIRONMENT)
     {
-      SET_H_GR (r2, (USI) GET_H_GR (r0) / (USI) GET_H_GR (r1));
-      return pc + 4;
+      /* The new pc is the trap vector entry.
+	 We assume there's a branch there to some handler.
+         Use cr5 as EVB (EIT Vector Base) register.  */
+      /* USI new_pc = EIT_TRAP_BASE_ADDR + num * 4; */
+      USI new_pc = aapbf_h_cr_get (current_cpu, 5) + 0x40 + num * 4;
+      return new_pc;
     }
-}
 
-USI
-aapbf_modu_insn (SIM_CPU * current_cpu, IADDR pc, USI r0, USI r1, USI r2)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  host_callback *cb = STATE_CALLBACK (sd);
-
-  /* Check for divide by zero.  */
-  if (GET_H_GR (r1) == 0)
+  switch (num)
     {
-      if (STATE_ENVIRONMENT (sd) != OPERATING_ENVIRONMENT)
-	sim_engine_halt (sd, current_cpu, NULL, pc, sim_stopped, SIM_SIGFPE);
-      else
-	{
-	  /* Save PC in exception address register.  */
-	  SET_H_GR (30, pc);
-	  /* Save and clear interrupt enable.  */
-	  SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 1);
-	  /* Branch to divide by zero exception handler.  */
-	  return GET_H_CSR (AAP_CSR_EBA) + AAP_EID_DIVIDE_BY_ZERO * 32;
-	}
-    }
-  else
-    {
-      SET_H_GR (r2, (USI) GET_H_GR (r0) % (USI) GET_H_GR (r1));
-      return pc + 4;
-    }
-}
+    case TRAP_SYSCALL :
+      {
+	CB_SYSCALL s;
 
-/* Handle break instructions.  */
+	CB_SYSCALL_INIT (&s);
+	s.func = aapbf_h_gr_get (current_cpu, 0);
+	s.arg1 = aapbf_h_gr_get (current_cpu, 1);
+	s.arg2 = aapbf_h_gr_get (current_cpu, 2);
+	s.arg3 = aapbf_h_gr_get (current_cpu, 3);
 
-USI
-aapbf_break_insn (SIM_CPU * current_cpu, IADDR pc)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  host_callback *cb = STATE_CALLBACK (sd);
-  /* Breakpoint.  */
-  if (STATE_ENVIRONMENT (sd) != OPERATING_ENVIRONMENT)
-    {
-      sim_engine_halt (sd, current_cpu, NULL, pc, sim_stopped, SIM_SIGTRAP);
-      return pc;
-    }
-  else
-    {
-      /* Save PC in breakpoint address register.  */
-      SET_H_GR (31, pc);
-      /* Save and clear interrupt enable.  */
-      SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 2);
-      /* Branch to breakpoint exception handler.  */
-      return GET_H_CSR (AAP_CSR_DEBA) + AAP_EID_BREAKPOINT * 32;
-    }
-}
+	if (s.func == TARGET_SYS_exit)
+	  {
+	    sim_engine_halt (sd, current_cpu, NULL, pc, sim_exited, s.arg1);
+	  }
 
-/* Handle scall instructions.  */
+	s.p1 = (PTR) sd;
+	s.p2 = (PTR) current_cpu;
+	s.read_mem = syscall_read_mem;
+	s.write_mem = syscall_write_mem;
+	cb_syscall (cb, &s);
+	aapbf_h_gr_set (current_cpu, 2, s.errcode);
+	aapbf_h_gr_set (current_cpu, 0, s.result);
+	aapbf_h_gr_set (current_cpu, 1, s.result2);
+	break;
+      }
 
-USI
-aapbf_scall_insn (SIM_CPU * current_cpu, IADDR pc)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  host_callback *cb = STATE_CALLBACK (sd);
-
-  if ((STATE_ENVIRONMENT (sd) != OPERATING_ENVIRONMENT)
-      || (GET_H_GR (8) == TARGET_SYS_exit))
-    {
-      /* Delegate system call to host O/S.  */
-      CB_SYSCALL s;
-      CB_SYSCALL_INIT (&s);
-      s.p1 = (PTR) sd;
-      s.p2 = (PTR) current_cpu;
-      s.read_mem = syscall_read_mem;
-      s.write_mem = syscall_write_mem;
-      /* Extract parameters.  */
-      s.func = GET_H_GR (8);
-      s.arg1 = GET_H_GR (1);
-      s.arg2 = GET_H_GR (2);
-      s.arg3 = GET_H_GR (3);
-      /* Halt the simulator if the requested system call is _exit.  */
-      if (s.func == TARGET_SYS_exit)
-	sim_engine_halt (sd, current_cpu, NULL, pc, sim_exited, s.arg1);
-      /* Perform the system call.  */
-      cb_syscall (cb, &s);
-      /* Store the return value in the CPU's registers.  */
-      SET_H_GR (1, s.result);
-      SET_H_GR (2, s.result2);
-      SET_H_GR (3, s.errcode);
-      /* Skip over scall instruction.  */
-      return pc + 4;
-    }
-  else
-    {
-      /* Save PC in exception address register.  */
-      SET_H_GR (30, pc);
-      /* Save and clear interrupt enable */
-      SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 1);
-      /* Branch to system call exception handler.  */
-      return GET_H_CSR (AAP_CSR_EBA) + AAP_EID_SYSTEM_CALL * 32;
-    }
-}
-
-/* Handle b instructions.  */
-
-USI
-aapbf_b_insn (SIM_CPU * current_cpu, USI r0, USI f_r0)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  host_callback *cb = STATE_CALLBACK (sd);
-
-  /* Restore interrupt enable.  */
-  if (f_r0 == 30)
-    SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 2) >> 1);
-  else if (f_r0 == 31)
-    SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 4) >> 2);
-  return r0;
-}
-
-/* Handle wcsr instructions.  */
-
-void
-aapbf_wcsr_insn (SIM_CPU * current_cpu, USI f_csr, USI r1)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  host_callback *cb = STATE_CALLBACK (sd);
-
-  /* Writing a 1 to IP CSR clears a bit, writing 0 has no effect.  */
-  if (f_csr == AAP_CSR_IP)
-    SET_H_CSR (f_csr, GET_H_CSR (f_csr) & ~r1);
-  else
-    SET_H_CSR (f_csr, r1);
-}
-
-/* Handle signals.  */
-
-void
-aap_core_signal (SIM_DESC sd,
-		  sim_cpu * cpu,
-		  sim_cia cia,
-		  unsigned map,
-		  int nr_bytes,
-		  address_word addr,
-		  transfer_type transfer, sim_core_signals sig)
-{
-  const char *copy = (transfer == read_transfer ? "read" : "write");
-  address_word ip = CIA_ADDR (cia);
-  SIM_CPU *current_cpu = cpu;
-
-  switch (sig)
-    {
-    case sim_core_unmapped_signal:
-      sim_io_eprintf (sd,
-		      "core: %d byte %s to unmapped address 0x%lx at 0x%lx\n",
-		      nr_bytes, copy, (unsigned long) addr,
-		      (unsigned long) ip);
-      SET_H_GR (30, ip);
-      /* Save and clear interrupt enable.  */
-      SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 1);
-      CIA_SET (cpu, GET_H_CSR (AAP_CSR_EBA) + AAP_EID_DATA_BUS_ERROR * 32);
-      sim_engine_halt (sd, cpu, NULL, AAP_EID_DATA_BUS_ERROR * 32,
-		       sim_stopped, SIM_SIGSEGV);
+    case TRAP_BREAKPOINT:
+      sim_engine_halt (sd, current_cpu, NULL, pc,
+		       sim_stopped, SIM_SIGTRAP);
       break;
-    case sim_core_unaligned_signal:
-      sim_io_eprintf (sd,
-		      "core: %d byte misaligned %s to address 0x%lx at 0x%lx\n",
-		      nr_bytes, copy, (unsigned long) addr,
-		      (unsigned long) ip);
-      SET_H_GR (30, ip);
-      /* Save and clear interrupt enable.  */
-      SET_H_CSR (AAP_CSR_IE, (GET_H_CSR (AAP_CSR_IE) & 1) << 1);
-      CIA_SET (cpu, GET_H_CSR (AAP_CSR_EBA) + AAP_EID_DATA_BUS_ERROR * 32);
-      sim_engine_halt (sd, cpu, NULL, AAP_EID_DATA_BUS_ERROR * 32,
-		       sim_stopped, SIM_SIGBUS);
+
+    case TRAP_FLUSH_CACHE:
+      /* Do nothing.  */
       break;
-    default:
-      sim_engine_abort (sd, cpu, cia,
-			"sim_core_signal - internal error - bad switch");
+
+    default :
+      {
+	/* USI new_pc = EIT_TRAP_BASE_ADDR + num * 4; */
+        /* Use cr5 as EVB (EIT Vector Base) register.  */
+        USI new_pc = aapbf_h_cr_get (current_cpu, 5) + 0x40 + num * 4;
+	return new_pc;
+      }
     }
+
+  /* Fake an "rte" insn.  */
+  /* FIXME: Should duplicate all of rte processing.  */
+  return (pc & -4) + 4;
 }
