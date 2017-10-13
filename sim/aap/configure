@@ -12909,7 +12909,7 @@ sim_link_links="${sim_link_links} targ-vals.def"
 
 
 
-wire_endian="BIG_ENDIAN"
+wire_endian="LITTLE_ENDIAN"
 default_endian=""
 # Check whether --enable-sim-endian was given.
 if test "${enable_sim_endian+set}" = set; then :
@@ -13268,7 +13268,7 @@ fi
 
 
 
-default_sim_default_model="m32r/d"
+default_sim_default_model="aap32"
 # Check whether --enable-sim-default-model was given.
 if test "${enable_sim_default_model+set}" = set; then :
   enableval=$enable_sim_default_model; case "${enableval}" in
@@ -13374,13 +13374,13 @@ fi
 
 
   case "${target_alias}" in
-  m32r*-linux*)
+  aap*-linux*)
     traps_obj=traps-linux.o
-    sim_extra_cflags="-DM32R_LINUX"
+    sim_extra_cflags="-DAAP_LINUX"
     ;;
   *)
     traps_obj=traps.o
-    sim_extra_cflags="-DM32R_ELF"
+    sim_extra_cflags="-DAAP_ELF"
     ;;
   esac
 
