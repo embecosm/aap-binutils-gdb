@@ -1,23 +1,41 @@
-/* Main simulator entry points specific to the AAP.  */
+/* Main simulator entry points specific to the AAP.
+   Copyright (C) 2000-2015 Free Software Foundation, Inc.
+   Contributed by Cygnus Solutions.
 
-#include "sim-main.h"
-#include "sim-options.h"
+This file is part of the GNU simulators.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+
+#include "config.h"
 #include "libiberty.h"
 #include "bfd.h"
-
-#ifdef HAVE_STRING_H
-#include <string.h>
-#else
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
-#endif
+#include "sim-main.h"
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
+#include "sim-options.h"
+#include "dis-asm.h"
+
+
+extern IDESC * aap_idesc;
+
 
 static void free_state (SIM_DESC);
-static void print_aap_misc_cpu (SIM_CPU *cpu, int verbose);
+
+/* Since we don't build the cgen-opcode table, we use a wrapper around
+   the existing disassembler from libopcodes. */
+static CGEN_DISASSEMBLER aap_disassemble_insn;
 
 /* Records simulator descriptor so utilities like aap_dump_regs can be
    called from gdb.  */
@@ -43,9 +61,9 @@ sim_open (kind, callback, abfd, argv)
      struct bfd *abfd;
      char **argv;
 {
-  SIM_DESC sd = sim_state_alloc (kind, callback);
   char c;
   int i;
+  SIM_DESC sd = sim_state_alloc (kind, callback);
 
   /* The cpu data is kept in a separately allocated chunk of memory.  */
   if (sim_cpu_alloc_all (sd, 1, cgen_cpu_max_extra_bytes ()) != SIM_RC_OK)
@@ -86,24 +104,16 @@ sim_open (kind, callback, abfd, argv)
       return 0;
     }
 
-  /* Allocate a handler for the control registers and other devices
-     if no memory for that range has been allocated by the user.
-     All are allocated in one chunk to keep things from being
-     unnecessarily complicated.  */
-  if (sim_core_read_buffer (sd, NULL, read_map, &c, AAP_DEVICE_ADDR, 1) == 0)
-    sim_core_attach (sd, NULL,
-		     0 /*level*/,
-		     access_read_write,
-		     0 /*space ???*/,
-		     AAP_DEVICE_ADDR, AAP_DEVICE_LEN /*nr_bytes*/,
-		     0 /*modulo*/,
-		     &aap_devices,
-		     NULL /*buffer*/);
-
   /* Allocate core managed memory if none specified by user.
      Use address 4 here in case the user wanted address 0 unmapped.  */
   if (sim_core_read_buffer (sd, NULL, read_map, &c, 4, 1) == 0)
     sim_do_commandf (sd, "memory region 0,0x%x", AAP_DEFAULT_MEM_SIZE);
+
+  /* Add a small memory region way up in the address space to handle
+     writes to invalidate an instruction cache line.  This is used for
+     trampolines.  Since we don't simulate the cache, this memory just
+     avoids bus errors.  64K ought to do. */
+  sim_do_command (sd," memory region 0xf0000000,0x10000");
 
   /* check for/establish the reference program image */
   if (sim_analyze_program (sd,
@@ -132,29 +142,22 @@ sim_open (kind, callback, abfd, argv)
   /* Open a copy of the cpu descriptor table.  */
   {
     CGEN_CPU_DESC cd = aap_cgen_cpu_open_1 (STATE_ARCHITECTURE (sd)->printable_name,
-					     CGEN_ENDIAN_BIG);
+					      CGEN_ENDIAN_BIG);
+
     for (i = 0; i < MAX_NR_PROCESSORS; ++i)
       {
 	SIM_CPU *cpu = STATE_CPU (sd, i);
 	CPU_CPU_DESC (cpu) = cd;
-	CPU_DISASSEMBLER (cpu) = sim_cgen_disassemble_insn;
+	CPU_DISASSEMBLER (cpu) = aap_disassemble_insn;
       }
-    aap_cgen_init_dis (cd);
   }
+
+  /* Clear idesc table pointers for good measure. */
+  aap_idesc = NULL;
 
   /* Initialize various cgen things not done by common framework.
      Must be done after aap_cgen_cpu_open.  */
   cgen_init (sd);
-
-  for (c = 0; c < MAX_NR_PROCESSORS; ++c)
-    {
-      /* Only needed for profiling, but the structure member is small.  */
-      memset (CPU_AAP_MISC_PROFILE (STATE_CPU (sd, i)), 0,
-	      sizeof (* CPU_AAP_MISC_PROFILE (STATE_CPU (sd, i))));
-      /* Hook in callback for reporting these stats */
-      PROFILE_INFO_CPU_CALLBACK (CPU_PROFILE_DATA (STATE_CPU (sd, i)))
-	= print_aap_misc_cpu;
-    }
 
   /* Store in a global so things like sparc32_dump_regs can be invoked
      from the gdb command line.  */
@@ -188,13 +191,6 @@ sim_create_inferior (sd, abfd, argv, envp)
     addr = 0;
   sim_pc_set (current_cpu, addr);
 
-#ifdef AAP_LINUX
-  aapbf_h_cr_set (current_cpu,
-                    aap_decode_gdb_ctrl_regnum(SPI_REGNUM), 0x1f00000);
-  aapbf_h_cr_set (current_cpu,
-                    aap_decode_gdb_ctrl_regnum(SPU_REGNUM), 0x1f00000);
-#endif
-
 #if 0
   STATE_ARGV (sd) = sim_copy_argv (argv);
   STATE_ENVP (sd) = sim_copy_argv (envp);
@@ -202,26 +198,30 @@ sim_create_inferior (sd, abfd, argv, envp)
 
   return SIM_RC_OK;
 }
-
-/* PROFILE_CPU_CALLBACK */
+
+/* Disassemble an instruction.  */
 
 static void
-print_aap_misc_cpu (SIM_CPU *cpu, int verbose)
+aap_disassemble_insn (SIM_CPU *cpu, const CGEN_INSN *insn,
+                      const ARGBUF *abuf, IADDR pc, char *buf)
 {
+  struct disassemble_info disasm_info;
+  SFILE sfile;
   SIM_DESC sd = CPU_STATE (cpu);
-  char buf[20];
 
-  if (CPU_PROFILE_FLAGS (cpu) [PROFILE_INSN_IDX])
-    {
-      sim_io_printf (sd, "Miscellaneous Statistics\n\n");
-      sim_io_printf (sd, "  %-*s %s\n\n",
-		     PROFILE_LABEL_WIDTH, "Fill nops:",
-		     sim_add_commas (buf, sizeof (buf),
-				     CPU_AAP_MISC_PROFILE (cpu)->fillnop_count));
-      if (STATE_ARCHITECTURE (sd)->mach == bfd_mach_aap16)
-	sim_io_printf (sd, "  %-*s %s\n\n",
-		       PROFILE_LABEL_WIDTH, "Parallel insns:",
-		       sim_add_commas (buf, sizeof (buf),
-				       CPU_AAP_MISC_PROFILE (cpu)->parallel_count));
-    }
+  sfile.buffer = sfile.current = buf;
+  INIT_DISASSEMBLE_INFO (disasm_info, (FILE *) &sfile,
+                         (fprintf_ftype) sim_disasm_sprintf);
+
+  disasm_info.arch = bfd_get_arch (STATE_PROG_BFD (sd));
+  disasm_info.mach = bfd_get_mach (STATE_PROG_BFD (sd));
+  disasm_info.endian =
+    (bfd_big_endian (STATE_PROG_BFD (sd)) ? BFD_ENDIAN_BIG
+     : bfd_little_endian (STATE_PROG_BFD (sd)) ? BFD_ENDIAN_LITTLE
+     : BFD_ENDIAN_UNKNOWN);
+  disasm_info.read_memory_func = sim_disasm_read_memory;
+  disasm_info.memory_error_func = sim_disasm_perror_memory;
+  disasm_info.application_data = (PTR) cpu;
+
+  print_insn_aap (pc, &disasm_info);
 }

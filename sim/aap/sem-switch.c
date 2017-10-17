@@ -32,69 +32,69 @@ This file is part of the GNU simulators.
     int index;
     void *label;
   } labels[] = {
-    { AAPBF_INSN_X_INVALID, && case_sem_INSN_X_INVALID },
-    { AAPBF_INSN_X_AFTER, && case_sem_INSN_X_AFTER },
-    { AAPBF_INSN_X_BEFORE, && case_sem_INSN_X_BEFORE },
-    { AAPBF_INSN_X_CTI_CHAIN, && case_sem_INSN_X_CTI_CHAIN },
-    { AAPBF_INSN_X_CHAIN, && case_sem_INSN_X_CHAIN },
-    { AAPBF_INSN_X_BEGIN, && case_sem_INSN_X_BEGIN },
-    { AAPBF_INSN_L_ADD32, && case_sem_INSN_L_ADD32 },
-    { AAPBF_INSN_L_SUB32, && case_sem_INSN_L_SUB32 },
-    { AAPBF_INSN_L_AND32, && case_sem_INSN_L_AND32 },
-    { AAPBF_INSN_L_OR32, && case_sem_INSN_L_OR32 },
-    { AAPBF_INSN_L_XOR32, && case_sem_INSN_L_XOR32 },
-    { AAPBF_INSN_L_ASR32, && case_sem_INSN_L_ASR32 },
-    { AAPBF_INSN_L_LSL32, && case_sem_INSN_L_LSL32 },
-    { AAPBF_INSN_L_LSR32, && case_sem_INSN_L_LSR32 },
-    { AAPBF_INSN_L_MOV32, && case_sem_INSN_L_MOV32 },
-    { AAPBF_INSN_L_ADDC32, && case_sem_INSN_L_ADDC32 },
-    { AAPBF_INSN_L_SUBC32, && case_sem_INSN_L_SUBC32 },
-    { AAPBF_INSN_L_JMP32, && case_sem_INSN_L_JMP32 },
-    { AAPBF_INSN_L_JAL32, && case_sem_INSN_L_JAL32 },
-    { AAPBF_INSN_L_JEQ32, && case_sem_INSN_L_JEQ32 },
-    { AAPBF_INSN_L_JNE32, && case_sem_INSN_L_JNE32 },
-    { AAPBF_INSN_L_JLTS32, && case_sem_INSN_L_JLTS32 },
-    { AAPBF_INSN_L_JLES32, && case_sem_INSN_L_JLES32 },
-    { AAPBF_INSN_L_JLTU32, && case_sem_INSN_L_JLTU32 },
-    { AAPBF_INSN_L_JLEU32, && case_sem_INSN_L_JLEU32 },
-    { AAPBF_INSN_L_JMPL32, && case_sem_INSN_L_JMPL32 },
-    { AAPBF_INSN_L_JALL32, && case_sem_INSN_L_JALL32 },
-    { AAPBF_INSN_L_JEQL32, && case_sem_INSN_L_JEQL32 },
-    { AAPBF_INSN_L_JNEL32, && case_sem_INSN_L_JNEL32 },
-    { AAPBF_INSN_L_JLTSL32, && case_sem_INSN_L_JLTSL32 },
-    { AAPBF_INSN_L_JLESL32, && case_sem_INSN_L_JLESL32 },
-    { AAPBF_INSN_L_JLTUL32, && case_sem_INSN_L_JLTUL32 },
-    { AAPBF_INSN_L_JLEUL32, && case_sem_INSN_L_JLEUL32 },
-    { AAPBF_INSN_L_ASRI32, && case_sem_INSN_L_ASRI32 },
-    { AAPBF_INSN_L_LSLI32, && case_sem_INSN_L_LSLI32 },
-    { AAPBF_INSN_L_LSRI32, && case_sem_INSN_L_LSRI32 },
-    { AAPBF_INSN_L_ANDI32, && case_sem_INSN_L_ANDI32 },
-    { AAPBF_INSN_L_ORI32, && case_sem_INSN_L_ORI32 },
-    { AAPBF_INSN_L_XORI32, && case_sem_INSN_L_XORI32 },
-    { AAPBF_INSN_L_ADDI32, && case_sem_INSN_L_ADDI32 },
-    { AAPBF_INSN_L_SUBI32, && case_sem_INSN_L_SUBI32 },
-    { AAPBF_INSN_L_BEQ32, && case_sem_INSN_L_BEQ32 },
-    { AAPBF_INSN_L_BNE32, && case_sem_INSN_L_BNE32 },
-    { AAPBF_INSN_L_BLTS32, && case_sem_INSN_L_BLTS32 },
-    { AAPBF_INSN_L_BLES32, && case_sem_INSN_L_BLES32 },
-    { AAPBF_INSN_L_BLTU32, && case_sem_INSN_L_BLTU32 },
-    { AAPBF_INSN_L_BLEU32, && case_sem_INSN_L_BLEU32 },
-    { AAPBF_INSN_L_LDB32___D6_____A6____I10__, && case_sem_INSN_L_LDB32___D6_____A6____I10__ },
-    { AAPBF_INSN_L_LDW32___D6_____A6____I10__, && case_sem_INSN_L_LDW32___D6_____A6____I10__ },
-    { AAPBF_INSN_L_LDB32___D6_____A6_____I10__, && case_sem_INSN_L_LDB32___D6_____A6_____I10__ },
-    { AAPBF_INSN_L_LDW32___D6_____A6_____I10__, && case_sem_INSN_L_LDW32___D6_____A6_____I10__ },
-    { AAPBF_INSN_L_LDB32___D6______A6____I10__, && case_sem_INSN_L_LDB32___D6______A6____I10__ },
-    { AAPBF_INSN_L_LDW32___D6______A6____I10__, && case_sem_INSN_L_LDW32___D6______A6____I10__ },
-    { AAPBF_INSN_L_SDB32____D6____I10_____A6_, && case_sem_INSN_L_SDB32____D6____I10_____A6_ },
-    { AAPBF_INSN_L_SDW32____D6____I10_____A6_, && case_sem_INSN_L_SDW32____D6____I10_____A6_ },
-    { AAPBF_INSN_L_SDB32____D6_____I10_____A6_, && case_sem_INSN_L_SDB32____D6_____I10_____A6_ },
-    { AAPBF_INSN_L_SDW32____D6_____I10_____A6_, && case_sem_INSN_L_SDW32____D6_____I10_____A6_ },
-    { AAPBF_INSN_L_SDB32_____D6____I10_____A6_, && case_sem_INSN_L_SDB32_____D6____I10_____A6_ },
-    { AAPBF_INSN_L_SDW32_____D6____I10_____A6_, && case_sem_INSN_L_SDW32_____D6____I10_____A6_ },
-    { AAPBF_INSN_L_NOP32, && case_sem_INSN_L_NOP32 },
-    { AAPBF_INSN_L_MOVI32, && case_sem_INSN_L_MOVI32 },
-    { AAPBF_INSN_L_BAL32, && case_sem_INSN_L_BAL32 },
-    { AAPBF_INSN_L_BRA32, && case_sem_INSN_L_BRA32 },
+    { AAPBF_AAP_INSN_X_INVALID, && case_sem_INSN_X_INVALID },
+    { AAPBF_AAP_INSN_X_AFTER, && case_sem_INSN_X_AFTER },
+    { AAPBF_AAP_INSN_X_BEFORE, && case_sem_INSN_X_BEFORE },
+    { AAPBF_AAP_INSN_X_CTI_CHAIN, && case_sem_INSN_X_CTI_CHAIN },
+    { AAPBF_AAP_INSN_X_CHAIN, && case_sem_INSN_X_CHAIN },
+    { AAPBF_AAP_INSN_X_BEGIN, && case_sem_INSN_X_BEGIN },
+    { AAPBF_AAP_INSN_L_ADD32, && case_sem_INSN_L_ADD32 },
+    { AAPBF_AAP_INSN_L_SUB32, && case_sem_INSN_L_SUB32 },
+    { AAPBF_AAP_INSN_L_AND32, && case_sem_INSN_L_AND32 },
+    { AAPBF_AAP_INSN_L_OR32, && case_sem_INSN_L_OR32 },
+    { AAPBF_AAP_INSN_L_XOR32, && case_sem_INSN_L_XOR32 },
+    { AAPBF_AAP_INSN_L_ASR32, && case_sem_INSN_L_ASR32 },
+    { AAPBF_AAP_INSN_L_LSL32, && case_sem_INSN_L_LSL32 },
+    { AAPBF_AAP_INSN_L_LSR32, && case_sem_INSN_L_LSR32 },
+    { AAPBF_AAP_INSN_L_MOV32, && case_sem_INSN_L_MOV32 },
+    { AAPBF_AAP_INSN_L_ADDC32, && case_sem_INSN_L_ADDC32 },
+    { AAPBF_AAP_INSN_L_SUBC32, && case_sem_INSN_L_SUBC32 },
+    { AAPBF_AAP_INSN_L_JMP32, && case_sem_INSN_L_JMP32 },
+    { AAPBF_AAP_INSN_L_JAL32, && case_sem_INSN_L_JAL32 },
+    { AAPBF_AAP_INSN_L_JEQ32, && case_sem_INSN_L_JEQ32 },
+    { AAPBF_AAP_INSN_L_JNE32, && case_sem_INSN_L_JNE32 },
+    { AAPBF_AAP_INSN_L_JLTS32, && case_sem_INSN_L_JLTS32 },
+    { AAPBF_AAP_INSN_L_JLES32, && case_sem_INSN_L_JLES32 },
+    { AAPBF_AAP_INSN_L_JLTU32, && case_sem_INSN_L_JLTU32 },
+    { AAPBF_AAP_INSN_L_JLEU32, && case_sem_INSN_L_JLEU32 },
+    { AAPBF_AAP_INSN_L_JMPL32, && case_sem_INSN_L_JMPL32 },
+    { AAPBF_AAP_INSN_L_JALL32, && case_sem_INSN_L_JALL32 },
+    { AAPBF_AAP_INSN_L_JEQL32, && case_sem_INSN_L_JEQL32 },
+    { AAPBF_AAP_INSN_L_JNEL32, && case_sem_INSN_L_JNEL32 },
+    { AAPBF_AAP_INSN_L_JLTSL32, && case_sem_INSN_L_JLTSL32 },
+    { AAPBF_AAP_INSN_L_JLESL32, && case_sem_INSN_L_JLESL32 },
+    { AAPBF_AAP_INSN_L_JLTUL32, && case_sem_INSN_L_JLTUL32 },
+    { AAPBF_AAP_INSN_L_JLEUL32, && case_sem_INSN_L_JLEUL32 },
+    { AAPBF_AAP_INSN_L_ASRI32, && case_sem_INSN_L_ASRI32 },
+    { AAPBF_AAP_INSN_L_LSLI32, && case_sem_INSN_L_LSLI32 },
+    { AAPBF_AAP_INSN_L_LSRI32, && case_sem_INSN_L_LSRI32 },
+    { AAPBF_AAP_INSN_L_ANDI32, && case_sem_INSN_L_ANDI32 },
+    { AAPBF_AAP_INSN_L_ORI32, && case_sem_INSN_L_ORI32 },
+    { AAPBF_AAP_INSN_L_XORI32, && case_sem_INSN_L_XORI32 },
+    { AAPBF_AAP_INSN_L_ADDI32, && case_sem_INSN_L_ADDI32 },
+    { AAPBF_AAP_INSN_L_SUBI32, && case_sem_INSN_L_SUBI32 },
+    { AAPBF_AAP_INSN_L_BEQ32, && case_sem_INSN_L_BEQ32 },
+    { AAPBF_AAP_INSN_L_BNE32, && case_sem_INSN_L_BNE32 },
+    { AAPBF_AAP_INSN_L_BLTS32, && case_sem_INSN_L_BLTS32 },
+    { AAPBF_AAP_INSN_L_BLES32, && case_sem_INSN_L_BLES32 },
+    { AAPBF_AAP_INSN_L_BLTU32, && case_sem_INSN_L_BLTU32 },
+    { AAPBF_AAP_INSN_L_BLEU32, && case_sem_INSN_L_BLEU32 },
+    { AAPBF_AAP_INSN_L_LDB32___D6_____A6____I10__, && case_sem_INSN_L_LDB32___D6_____A6____I10__ },
+    { AAPBF_AAP_INSN_L_LDW32___D6_____A6____I10__, && case_sem_INSN_L_LDW32___D6_____A6____I10__ },
+    { AAPBF_AAP_INSN_L_LDB32___D6_____A6_____I10__, && case_sem_INSN_L_LDB32___D6_____A6_____I10__ },
+    { AAPBF_AAP_INSN_L_LDW32___D6_____A6_____I10__, && case_sem_INSN_L_LDW32___D6_____A6_____I10__ },
+    { AAPBF_AAP_INSN_L_LDB32___D6______A6____I10__, && case_sem_INSN_L_LDB32___D6______A6____I10__ },
+    { AAPBF_AAP_INSN_L_LDW32___D6______A6____I10__, && case_sem_INSN_L_LDW32___D6______A6____I10__ },
+    { AAPBF_AAP_INSN_L_SDB32____D6____I10_____A6_, && case_sem_INSN_L_SDB32____D6____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_SDW32____D6____I10_____A6_, && case_sem_INSN_L_SDW32____D6____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_SDB32____D6_____I10_____A6_, && case_sem_INSN_L_SDB32____D6_____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_SDW32____D6_____I10_____A6_, && case_sem_INSN_L_SDW32____D6_____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_SDB32_____D6____I10_____A6_, && case_sem_INSN_L_SDB32_____D6____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_SDW32_____D6____I10_____A6_, && case_sem_INSN_L_SDW32_____D6____I10_____A6_ },
+    { AAPBF_AAP_INSN_L_NOP32, && case_sem_INSN_L_NOP32 },
+    { AAPBF_AAP_INSN_L_MOVI32, && case_sem_INSN_L_MOVI32 },
+    { AAPBF_AAP_INSN_L_BAL32, && case_sem_INSN_L_BAL32 },
+    { AAPBF_AAP_INSN_L_BRA32, && case_sem_INSN_L_BRA32 },
     { 0, 0 }
   };
   int i;
@@ -187,8 +187,8 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
   vpc = SEM_NEXT_VPC (sem_arg, pc, 0);
 
   {
-#if WITH_SCACHE_PBB_AAPBF
-    aapbf_pbb_after (current_cpu, sem_arg);
+#if WITH_SCACHE_PBB_AAPBF_AAP
+    aapbf_aap_pbb_after (current_cpu, sem_arg);
 #endif
   }
 
@@ -206,8 +206,8 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
   vpc = SEM_NEXT_VPC (sem_arg, pc, 0);
 
   {
-#if WITH_SCACHE_PBB_AAPBF
-    aapbf_pbb_before (current_cpu, sem_arg);
+#if WITH_SCACHE_PBB_AAPBF_AAP
+    aapbf_aap_pbb_before (current_cpu, sem_arg);
 #endif
   }
 
@@ -225,14 +225,14 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
   vpc = SEM_NEXT_VPC (sem_arg, pc, 0);
 
   {
-#if WITH_SCACHE_PBB_AAPBF
+#if WITH_SCACHE_PBB_AAPBF_AAP
 #ifdef DEFINE_SWITCH
-    vpc = aapbf_pbb_cti_chain (current_cpu, sem_arg,
+    vpc = aapbf_aap_pbb_cti_chain (current_cpu, sem_arg,
 			       pbb_br_type, pbb_br_npc);
     BREAK (sem);
 #else
     /* FIXME: Allow provision of explicit ifmt spec in insn spec.  */
-    vpc = aapbf_pbb_cti_chain (current_cpu, sem_arg,
+    vpc = aapbf_aap_pbb_cti_chain (current_cpu, sem_arg,
 			       CPU_PBB_BR_TYPE (current_cpu),
 			       CPU_PBB_BR_NPC (current_cpu));
 #endif
@@ -253,8 +253,8 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
   vpc = SEM_NEXT_VPC (sem_arg, pc, 0);
 
   {
-#if WITH_SCACHE_PBB_AAPBF
-    vpc = aapbf_pbb_chain (current_cpu, sem_arg);
+#if WITH_SCACHE_PBB_AAPBF_AAP
+    vpc = aapbf_aap_pbb_chain (current_cpu, sem_arg);
 #ifdef DEFINE_SWITCH
     BREAK (sem);
 #endif
@@ -275,16 +275,16 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
   vpc = SEM_NEXT_VPC (sem_arg, pc, 0);
 
   {
-#if WITH_SCACHE_PBB_AAPBF
+#if WITH_SCACHE_PBB_AAPBF_AAP
 #if defined DEFINE_SWITCH || defined FAST_P
     /* In the switch case FAST_P is a constant, allowing several optimizations
        in any called inline functions.  */
-    vpc = aapbf_pbb_begin (current_cpu, FAST_P);
+    vpc = aapbf_aap_pbb_begin (current_cpu, FAST_P);
 #else
 #if 0 /* cgen engine can't handle dynamic fast/full switching yet.  */
-    vpc = aapbf_pbb_begin (current_cpu, STATE_RUN_FAST_P (CPU_STATE (current_cpu)));
+    vpc = aapbf_aap_pbb_begin (current_cpu, STATE_RUN_FAST_P (CPU_STATE (current_cpu)));
 #else
-    vpc = aapbf_pbb_begin (current_cpu, 0);
+    vpc = aapbf_aap_pbb_begin (current_cpu, 0);
 #endif
 #endif
 #endif

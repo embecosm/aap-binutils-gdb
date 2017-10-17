@@ -1,4 +1,4 @@
-/* Main header for the aap.  */
+/* Main header for the AAP architecture.  */
 
 #ifndef SIM_MAIN_H
 #define SIM_MAIN_H
@@ -8,6 +8,10 @@
 struct _sim_cpu; /* FIXME: should be in sim-basics.h */
 typedef struct _sim_cpu SIM_CPU;
 
+/* sim-basics.h includes config.h but cgen-types.h must be included before
+   sim-basics.h and cgen-types.h needs config.h.  */
+#include "config.h"
+
 #include "symcat.h"
 #include "sim-basics.h"
 #include "cgen-types.h"
@@ -16,25 +20,13 @@ typedef struct _sim_cpu SIM_CPU;
 #include "arch.h"
 
 /* These must be defined before sim-base.h.  */
-typedef USI sim_cia;
+typedef UDI sim_cia;
 
 #define CIA_GET(cpu)     CPU_PC_GET (cpu)
 #define CIA_SET(cpu,val) CPU_PC_SET ((cpu), (val))
 
-#define SIM_ENGINE_HALT_HOOK(sd, cpu, cia) \
-do { \
-  if (cpu) /* null if ctrl-c */ \
-    sim_pc_set ((cpu), (cia)); \
-} while (0)
-#define SIM_ENGINE_RESTART_HOOK(sd, cpu, cia) \
-do { \
-  sim_pc_set ((cpu), (cia)); \
-} while (0)
-
 #include "sim-base.h"
 #include "cgen-sim.h"
-#include "aap-sim.h"
-#include "opcode/cgen.h"
 
 /* The _sim_cpu struct.  */
 
@@ -45,9 +37,6 @@ struct _sim_cpu {
   /* Static parts of cgen.  */
   CGEN_CPU cgen_cpu;
 
-  AAP_MISC_PROFILE aap_misc_profile;
-#define CPU_AAP_MISC_PROFILE(cpu) (& (cpu)->aap_misc_profile)
-
   /* CPU specific parts go here.
      Note that in files that don't need to access these pieces WANT_CPU_FOO
      won't be defined and thus these parts won't appear.  This is ok in the
@@ -57,9 +46,6 @@ struct _sim_cpu {
      go after here.  Oh for a better language.  */
 #if defined (WANT_CPU_AAPBF)
   AAPBF_CPU_DATA cpu_data;
-#endif
-#if defined (WANT_CPU_AAP16BF)
-  AAP16BF_CPU_DATA cpu_data;
 #endif
 };
 
@@ -83,10 +69,6 @@ aap_core_signal ((SD), (CPU), (CIA), (MAP), (NR_BYTES), (ADDR), \
 		  (TRANSFER), (ERROR))
 
 /* Default memory size.  */
-#ifdef AAP_LINUX
-#define AAP_DEFAULT_MEM_SIZE 0x2000000 /* 32M */
-#else
 #define AAP_DEFAULT_MEM_SIZE 0x800000 /* 8M */
-#endif
 
 #endif /* SIM_MAIN_H */

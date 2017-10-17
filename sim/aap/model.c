@@ -165,7 +165,7 @@ model_aap32_l_lsr32 (SIM_CPU *current_cpu, void *sem_arg)
 static int
 model_aap32_l_mov32 (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
+#define FLD(f) abuf->fields.sfmt_l_asri32.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -213,7 +213,7 @@ model_aap32_l_subc32 (SIM_CPU *current_cpu, void *sem_arg)
 static int
 model_aap32_l_jmp32 (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi32.f
+#define FLD(f) abuf->fields.sfmt_l_jmpl32.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -515,86 +515,6 @@ model_aap32_l_lsri32 (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap32_l_andi32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_andi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ori32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_andi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_xori32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_andi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_addi32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_subi32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
 model_aap32_l_beq32 (SIM_CPU *current_cpu, void *sem_arg)
 {
 #define FLD(f) abuf->fields.sfmt_l_beq32.f
@@ -691,217 +611,9 @@ model_aap32_l_bleu32 (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap32_l_ldb32___d6_____a6____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ldw32___d6_____a6____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ldb32___d6_____a6_____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ldw32___d6_____a6_____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ldb32___d6______a6____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_ldw32___d6______a6____i10__ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdb32____d6____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdw32____d6____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdb32____d6_____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdw32____d6_____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdb32_____d6____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_sdw32_____d6____i10_____a6_ (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_addi32.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
 model_aap32_l_nop32 (SIM_CPU *current_cpu, void *sem_arg)
 {
 #define FLD(f) abuf->fields.sfmt_empty.f
-  const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
-  const IDESC * UNUSED idesc = abuf->idesc;
-  int cycles = 0;
-  {
-    int referenced = 0;
-    int UNUSED insn_referenced = abuf->written;
-    cycles += aapbf_model_aap32_u_exec (current_cpu, idesc, 0, referenced);
-  }
-  return cycles;
-#undef FLD
-}
-
-static int
-model_aap32_l_movi32 (SIM_CPU *current_cpu, void *sem_arg)
-{
-#define FLD(f) abuf->fields.sfmt_l_movi32.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -952,69 +664,51 @@ model_aap32_l_bra32 (SIM_CPU *current_cpu, void *sem_arg)
 /* Model timing data for `aap32'.  */
 
 static const INSN_TIMING aap32_timing[] = {
-  { AAPBF_INSN_X_INVALID, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_X_AFTER, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_X_BEFORE, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_X_CTI_CHAIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_X_CHAIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_X_BEGIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ADD32, model_aap32_l_add32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SUB32, model_aap32_l_sub32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_AND32, model_aap32_l_and32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_OR32, model_aap32_l_or32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_XOR32, model_aap32_l_xor32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ASR32, model_aap32_l_asr32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LSL32, model_aap32_l_lsl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LSR32, model_aap32_l_lsr32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_MOV32, model_aap32_l_mov32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ADDC32, model_aap32_l_addc32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SUBC32, model_aap32_l_subc32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JMP32, model_aap32_l_jmp32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JAL32, model_aap32_l_jal32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JEQ32, model_aap32_l_jeq32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JNE32, model_aap32_l_jne32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLTS32, model_aap32_l_jlts32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLES32, model_aap32_l_jles32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLTU32, model_aap32_l_jltu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLEU32, model_aap32_l_jleu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JMPL32, model_aap32_l_jmpl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JALL32, model_aap32_l_jall32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JEQL32, model_aap32_l_jeql32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JNEL32, model_aap32_l_jnel32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLTSL32, model_aap32_l_jltsl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLESL32, model_aap32_l_jlesl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLTUL32, model_aap32_l_jltul32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_JLEUL32, model_aap32_l_jleul32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ASRI32, model_aap32_l_asri32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LSLI32, model_aap32_l_lsli32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LSRI32, model_aap32_l_lsri32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ANDI32, model_aap32_l_andi32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ORI32, model_aap32_l_ori32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_XORI32, model_aap32_l_xori32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_ADDI32, model_aap32_l_addi32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SUBI32, model_aap32_l_subi32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BEQ32, model_aap32_l_beq32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BNE32, model_aap32_l_bne32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BLTS32, model_aap32_l_blts32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BLES32, model_aap32_l_bles32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BLTU32, model_aap32_l_bltu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BLEU32, model_aap32_l_bleu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDB32___D6_____A6____I10__, model_aap32_l_ldb32___d6_____a6____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDW32___D6_____A6____I10__, model_aap32_l_ldw32___d6_____a6____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDB32___D6_____A6_____I10__, model_aap32_l_ldb32___d6_____a6_____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDW32___D6_____A6_____I10__, model_aap32_l_ldw32___d6_____a6_____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDB32___D6______A6____I10__, model_aap32_l_ldb32___d6______a6____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_LDW32___D6______A6____I10__, model_aap32_l_ldw32___d6______a6____i10__, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDB32____D6____I10_____A6_, model_aap32_l_sdb32____d6____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDW32____D6____I10_____A6_, model_aap32_l_sdw32____d6____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDB32____D6_____I10_____A6_, model_aap32_l_sdb32____d6_____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDW32____D6_____I10_____A6_, model_aap32_l_sdw32____d6_____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDB32_____D6____I10_____A6_, model_aap32_l_sdb32_____d6____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_SDW32_____D6____I10_____A6_, model_aap32_l_sdw32_____d6____i10_____a6_, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_NOP32, model_aap32_l_nop32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_MOVI32, model_aap32_l_movi32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BAL32, model_aap32_l_bal32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
-  { AAPBF_INSN_L_BRA32, model_aap32_l_bra32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_INVALID, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_AFTER, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_BEFORE, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_CTI_CHAIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_CHAIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_X_BEGIN, 0, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_ADD32, model_aap32_l_add32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_SUB32, model_aap32_l_sub32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_AND32, model_aap32_l_and32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_OR32, model_aap32_l_or32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_XOR32, model_aap32_l_xor32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_ASR32, model_aap32_l_asr32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_LSL32, model_aap32_l_lsl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_LSR32, model_aap32_l_lsr32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_MOV32, model_aap32_l_mov32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_ADDC32, model_aap32_l_addc32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_SUBC32, model_aap32_l_subc32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JMP32, model_aap32_l_jmp32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JAL32, model_aap32_l_jal32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JEQ32, model_aap32_l_jeq32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JNE32, model_aap32_l_jne32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLTS32, model_aap32_l_jlts32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLES32, model_aap32_l_jles32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLTU32, model_aap32_l_jltu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLEU32, model_aap32_l_jleu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JMPL32, model_aap32_l_jmpl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JALL32, model_aap32_l_jall32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JEQL32, model_aap32_l_jeql32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JNEL32, model_aap32_l_jnel32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLTSL32, model_aap32_l_jltsl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLESL32, model_aap32_l_jlesl32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLTUL32, model_aap32_l_jltul32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_JLEUL32, model_aap32_l_jleul32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_ASRI32, model_aap32_l_asri32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_LSLI32, model_aap32_l_lsli32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_LSRI32, model_aap32_l_lsri32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BEQ32, model_aap32_l_beq32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BNE32, model_aap32_l_bne32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BLTS32, model_aap32_l_blts32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BLES32, model_aap32_l_bles32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BLTU32, model_aap32_l_bltu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BLEU32, model_aap32_l_bleu32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_NOP32, model_aap32_l_nop32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BAL32, model_aap32_l_bal32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
+  { AAPBF_AAP_INSN_L_BRA32, model_aap32_l_bra32, { { (int) UNIT_AAP32_U_EXEC, 1, 1 } } },
 };
 
 #endif /* WITH_PROFILE_MODEL_P */
@@ -1054,7 +748,7 @@ static void
 aapbf_prepare_run (SIM_CPU *cpu)
 {
   if (CPU_IDESC (cpu) == NULL)
-    aapbf_init_idesc_table (cpu);
+    aapbf_aap_init_idesc_table (cpu);
 }
 
 static const CGEN_INSN *
@@ -1071,13 +765,13 @@ aap32_init_cpu (SIM_CPU *cpu)
   CPU_PC_FETCH (cpu) = aapbf_h_pc_get;
   CPU_PC_STORE (cpu) = aapbf_h_pc_set;
   CPU_GET_IDATA (cpu) = aapbf_get_idata;
-  CPU_MAX_INSNS (cpu) = AAPBF_INSN__MAX;
+  CPU_MAX_INSNS (cpu) = AAPBF_AAP_INSN__MAX;
   CPU_INSN_NAME (cpu) = cgen_insn_name;
-  CPU_FULL_ENGINE_FN (cpu) = aapbf_engine_run_full;
+  CPU_FULL_ENGINE_FN (cpu) = aapbf_aap_engine_run_full;
 #if WITH_FAST
-  CPU_FAST_ENGINE_FN (cpu) = aapbf_engine_run_fast;
+  CPU_FAST_ENGINE_FN (cpu) = aapbf_aap_engine_run_fast;
 #else
-  CPU_FAST_ENGINE_FN (cpu) = aapbf_engine_run_full;
+  CPU_FAST_ENGINE_FN (cpu) = aapbf_aap_engine_run_full;
 #endif
 }
 

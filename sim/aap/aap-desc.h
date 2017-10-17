@@ -38,7 +38,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INSN_LSB0_P 1
 
 /* Minimum size of any insn (in bytes).  */
-#define CGEN_MIN_INSN_SIZE 2
+#define CGEN_MIN_INSN_SIZE 4
 
 /* Maximum size of any insn (in bytes).  */
 #define CGEN_MAX_INSN_SIZE 4

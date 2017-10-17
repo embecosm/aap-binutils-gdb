@@ -83,24 +83,12 @@ static const CGEN_IFMT ifmt_l_asri32 ATTRIBUTE_UNUSED = {
   32, 32, 0xfe00fe00, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_D_6) }, { F (F_A_6) }, { F (F_I_6) }, { 0 } }
 };
 
-static const CGEN_IFMT ifmt_l_andi32 ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00e000, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_CLASS) }, { F (F_D_6) }, { F (F_A_6) }, { F (F_I_10I) }, { 0 } }
-};
-
-static const CGEN_IFMT ifmt_l_addi32 ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00e000, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_CLASS) }, { F (F_D_6) }, { F (F_A_6) }, { F (F_I_10) }, { 0 } }
-};
-
 static const CGEN_IFMT ifmt_l_beq32 ATTRIBUTE_UNUSED = {
   32, 32, 0xfe00e000, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_CLASS) }, { F (F_S_10) }, { F (F_A_6) }, { F (F_B_6) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_nop32 ATTRIBUTE_UNUSED = {
   32, 32, 0xfe00fe00, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_OPCODE) }, { F (F_D_6) }, { F (F_I_12) }, { 0 } }
-};
-
-static const CGEN_IFMT ifmt_l_movi32 ATTRIBUTE_UNUSED = {
-  32, 32, 0xfe00e000, { { F (F_LENGTH) }, { F (F_OPCODE) }, { F (F_X_LENGTH) }, { F (F_X_CLASS) }, { F (F_D_6) }, { F (F_I_16) }, { 0 } }
 };
 
 static const CGEN_IFMT ifmt_l_bal32 ATTRIBUTE_UNUSED = {
@@ -576,36 +564,6 @@ static const CGEN_OPCODE aap_cgen_insn_opcode_table[MAX_INSNS] =
     { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I6), 0 } },
     & ifmt_l_asri32, { 0x9c000000 }
   },
-/* l.andi32 ${d6},${a6},${i10i} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I10I), 0 } },
-    & ifmt_l_andi32, { 0x86000000 }
-  },
-/* l.ori32 ${d6},${a6},${i10i} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I10I), 0 } },
-    & ifmt_l_andi32, { 0x88000000 }
-  },
-/* l.xori32 ${d6},${a6},${i10i} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I10I), 0 } },
-    & ifmt_l_andi32, { 0x8a000000 }
-  },
-/* l.addi32 ${d6},${a6},${i10} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I10), 0 } },
-    & ifmt_l_addi32, { 0x94000000 }
-  },
-/* l.subi32 ${d6},${a6},${i10} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (A6), ',', OP (I10), 0 } },
-    & ifmt_l_addi32, { 0x96000000 }
-  },
 /* l.beq32 ${s10},${a6},${b6} */
   {
     { 0, 0, 0, 0 },
@@ -642,89 +600,11 @@ static const CGEN_OPCODE aap_cgen_insn_opcode_table[MAX_INSNS] =
     { { MNEM, ' ', OP (S10), ',', OP (A6), ',', OP (B6), 0 } },
     & ifmt_l_beq32, { 0xce000000 }
   },
-/* l.ldb32 ${d6},(${a6},${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', OP (A6), ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xa0000000 }
-  },
-/* l.ldw32 ${d6},(${a6},${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', OP (A6), ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xa8000000 }
-  },
-/* l.ldb32 ${d6},(${a6}+,${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', OP (A6), '+', ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xa2000000 }
-  },
-/* l.ldw32 ${d6},(${a6}+,${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', OP (A6), '+', ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xaa000000 }
-  },
-/* l.ldb32 ${d6},(-${a6},${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', '-', OP (A6), ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xa4000000 }
-  },
-/* l.ldw32 ${d6},(-${a6},${i10}) */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', '(', '-', OP (A6), ',', OP (I10), ')', 0 } },
-    & ifmt_l_addi32, { 0xac000000 }
-  },
-/* l.sdb32 (${d6},${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', OP (D6), ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xb0000000 }
-  },
-/* l.sdw32 (${d6},${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', OP (D6), ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xb8000000 }
-  },
-/* l.sdb32 (${d6}+,${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', OP (D6), '+', ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xb2000000 }
-  },
-/* l.sdw32 (${d6}+,${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', OP (D6), '+', ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xba000000 }
-  },
-/* l.sdb32 (-${d6},${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', '-', OP (D6), ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xb4000000 }
-  },
-/* l.sdw32 (-${d6},${i10}),${a6} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', '(', '-', OP (D6), ',', OP (I10), ')', ',', OP (A6), 0 } },
-    & ifmt_l_addi32, { 0xbc000000 }
-  },
 /* l.nop32 ${d6},${i12} */
   {
     { 0, 0, 0, 0 },
     { { MNEM, ' ', OP (D6), ',', OP (I12), 0 } },
     & ifmt_l_nop32, { 0x80000000 }
-  },
-/* l.movi32 ${d6},${i16} */
-  {
-    { 0, 0, 0, 0 },
-    { { MNEM, ' ', OP (D6), ',', OP (I16), 0 } },
-    & ifmt_l_movi32, { 0x9e000000 }
   },
 /* l.bal32 ${s16},${b6} */
   {

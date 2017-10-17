@@ -1299,13 +1299,13 @@
 (aap-format-9 "l.lsri32" OP1_LSRI (set d6 (srl a6 i6))(nop))
 
 ;; Format 10
-(aap-format-10 "l.andi32" OP1_AND (set d6 (and a6 i10i)))
-(aap-format-10 "l.ori32"  OP1_OR (set d6 (or a6 i10i)))
-(aap-format-10 "l.xori32" OP1_XOR (set d6 (xor a6 i10i)))
+;(aap-format-10 "l.andi32" OP1_AND (set d6 (and a6 i10i)))
+;(aap-format-10 "l.ori32"  OP1_OR (set d6 (or a6 i10i)))
+;(aap-format-10 "l.xori32" OP1_XOR (set d6 (xor a6 i10i)))
 
 ;; Format 11
-(aap-format-11 "l.addi32" OP1_ADDI (set d6 (add a6 i10))(set carry (ge (add a6 i10) 0x10000)))
-(aap-format-11 "l.subi32" OP1_SUBI (set d6 (sub a6 i10))(set carry (gt i10 a6)))
+;(aap-format-11 "l.addi32" OP1_ADDI (set d6 (add a6 i10))(set carry (ge (add a6 i10) 0x10000)))
+;(aap-format-11 "l.subi32" OP1_SUBI (set d6 (sub a6 i10))(set carry (gt i10 a6)))
 
 ;; Format 12
 (aap-format-12 "l.beq32" OP1_BEQ eq)
@@ -1316,91 +1316,91 @@
 (aap-format-12 "l.bleu32" OP1_BLEU leu)
 
 ;; Format 13
-(aap-format-13 "l.ldb32 ${d6},(${a6},${i10})" OP1_LDB (set d6
-	       		 	   (mem QI(add a6 (ext SI (trunc HI i10)))))
-				 (nop)(nop))
+;(aap-format-13 "l.ldb32 ${d6},(${a6},${i10})" OP1_LDB (set d6
+;	       		 	   (mem QI(add a6 (ext SI (trunc HI i10)))))
+;				 (nop)(nop))
 
-(aap-format-13 "l.ldw32 ${d6},(${a6},${i10})" OP1_LDW (set d6
-	       		 	   (or
-				     (mem QI(add a6 (ext SI (trunc HI i10))))
-				     (sll (mem QI (addc a6 (ext SI (trunc HI i10)) 1)) 8)
-				   )
-				 )
-	       		 	 (nop)(nop))
+;(aap-format-13 "l.ldw32 ${d6},(${a6},${i10})" OP1_LDW (set d6
+;	       		 	   (or
+;				     (mem QI(add a6 (ext SI (trunc HI i10))))
+;				     (sll (mem QI (addc a6 (ext SI (trunc HI i10)) 1)) 8)
+;				   )
+;				 )
+;	       		 	 (nop)(nop))
 
-(aap-format-13 "l.ldb32 ${d6},(${a6}+,${i10})" OP1_LDBPO (set d6
-	       		 	       (mem QI(add a6 (ext SI (trunc HI i10)))))
-				     (set a6 (add a6 (ext SI (trunc HI i10))))
-	       		   	     (nop))
+;(aap-format-13 "l.ldb32 ${d6},(${a6}+,${i10})" OP1_LDBPO (set d6
+;	       		 	       (mem QI(add a6 (ext SI (trunc HI i10)))))
+;				     (set a6 (add a6 (ext SI (trunc HI i10))))
+;	       		   	     (nop))
 
-(aap-format-13 "l.ldw32 ${d6},(${a6}+,${i10})" OP1_LDWPO (set d6
-	       		 	       (or
-				         (mem QI(add a6 (ext SI (trunc HI i10))))
-			    	         (sll (mem QI (addc a6 (ext SI (trunc HI i10)) 1)) 8)
-				       )
-				     )
-				     (set a6
-				       (add a6 (ext SI (trunc HI i10))))
-	       		   	     (nop))
+;(aap-format-13 "l.ldw32 ${d6},(${a6}+,${i10})" OP1_LDWPO (set d6
+;	       		 	       (or
+;				         (mem QI(add a6 (ext SI (trunc HI i10))))
+;			    	         (sll (mem QI (addc a6 (ext SI (trunc HI i10)) 1)) 8)
+;				       )
+;				     )
+;				     (set a6
+;				       (add a6 (ext SI (trunc HI i10))))
+;	       		   	     (nop))
 
-(aap-format-13 "l.ldb32 ${d6},(-${a6},${i10})" OP1_LDBPR (set a6
-	       		   	       (sub a6 (ext SI (trunc HI i10))))
-	       		   	     (set d6
-				       (mem QI(a6)))
-	       		   	     (nop))
+;(aap-format-13 "l.ldb32 ${d6},(-${a6},${i10})" OP1_LDBPR (set a6
+;	       		   	       (sub a6 (ext SI (trunc HI i10))))
+;	       		   	     (set d6
+;				       (mem QI(a6)))
+;	       		   	     (nop))
 
-(aap-format-13 "l.ldw32 ${d6},(-${a6},${i10})" OP1_LDWPR (set a6
-	       		   	       (add a6 (ext SI (trunc HI i10))))
-	       		   	     (set d6
-				       (or
-				         (mem QI (a6))
-					 (sll (mem QI(add a6 1)) 8)))
-	       		   	     (nop))
+;(aap-format-13 "l.ldw32 ${d6},(-${a6},${i10})" OP1_LDWPR (set a6
+;	       		   	       (add a6 (ext SI (trunc HI i10))))
+;	       		   	     (set d6
+;				       (or
+;				         (mem QI (a6))
+;					 (sll (mem QI(add a6 1)) 8)))
+;	       		   	     (nop))
 
-(aap-format-13 "l.sdb32 (${d6},${i10}),${a6}" OP1_SDB (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		 	   (and a6 255))
-	       		 	 (nop)
-				 (nop))
+;(aap-format-13 "l.sdb32 (${d6},${i10}),${a6}" OP1_SDB (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		 	   (and a6 255))
+;	       		 	 (nop)
+;				 (nop))
 
-(aap-format-13 "l.sdw32 (${d6},${i10}),${a6}" OP1_SDW (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		 	   (and a6 255))
-	       		 	 (set (mem QI (addc d6 (ext SI (trunc HI i10)) 1))
-	       		 	   (srl a6 8))
-				 (nop))
+;(aap-format-13 "l.sdw32 (${d6},${i10}),${a6}" OP1_SDW (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		 	   (and a6 255))
+;	       		 	 (set (mem QI (addc d6 (ext SI (trunc HI i10)) 1))
+;	       		 	   (srl a6 8))
+;				 (nop))
 
-(aap-format-13 "l.sdb32 (${d6}+,${i10}),${a6}" OP1_SDBPO (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		 	       (and a6 255))
-	       		   	     (set d6
-				       (add d6 (ext SI (trunc HI i10))))
-				     (nop))
+;(aap-format-13 "l.sdb32 (${d6}+,${i10}),${a6}" OP1_SDBPO (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		 	       (and a6 255))
+;	       		   	     (set d6
+;				       (add d6 (ext SI (trunc HI i10))))
+;				     (nop))
 
-(aap-format-13 "l.sdw32 (${d6}+,${i10}),${a6}" OP1_SDWPO (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		   	       (and a6 255))
-	       		 	     (set (mem QI (addc d6 (ext SI (trunc HI i10)) 1))
-	       		 	       (srl a6 8))
-				     (set d6
-				       (add d6 (ext SI (trunc HI i10)))))
+;(aap-format-13 "l.sdw32 (${d6}+,${i10}),${a6}" OP1_SDWPO (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		   	       (and a6 255))
+;	       		 	     (set (mem QI (addc d6 (ext SI (trunc HI i10)) 1))
+;	       		 	       (srl a6 8))
+;				     (set d6
+;				       (add d6 (ext SI (trunc HI i10)))))
 
-(aap-format-13 "l.sdb32 (-${d6},${i10}),${a6}" OP1_SDBPR (set d6
-				       (sub d6 (ext SI (trunc HI i10))))
-	       		   	     (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		 	       (and a6 255))
-				     (nop))
+;(aap-format-13 "l.sdb32 (-${d6},${i10}),${a6}" OP1_SDBPR (set d6
+;				       (sub d6 (ext SI (trunc HI i10))))
+;	       		   	     (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		 	       (and a6 255))
+;				     (nop))
 
-(aap-format-13 "l.sdw32 (-${d6},${i10}),${a6}" OP1_SDWPR (set d6
-				       (sub d6 (ext SI (trunc HI i10))))
-	       		   	     (set (mem QI (add d6 (ext SI (trunc HI i10))))
-	       		 	       (and a6 255))
-				     (set d6
-				       (or
-				         (mem QI (a6))
-					 (srl (mem QI(add a6 1)) 8))))
+;(aap-format-13 "l.sdw32 (-${d6},${i10}),${a6}" OP1_SDWPR (set d6
+;				       (sub d6 (ext SI (trunc HI i10))))
+;	       		   	     (set (mem QI (add d6 (ext SI (trunc HI i10))))
+;	       		 	       (and a6 255))
+;				     (set d6
+;				       (or
+;				         (mem QI (a6))
+;					 (srl (mem QI(add a6 1)) 8))))
 
 ;; Format 14
 (aap-format-14 "l.nop32" OP1_NOP)
 
 ;; Format 15
-(aap-format-15 "l.movi32" OP1_MOVI)
+;(aap-format-15 "l.movi32" OP1_MOVI)
 
 ;; Format 16
 (aap-format-16 "l.bal32" OP1_BAL)

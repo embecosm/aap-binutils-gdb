@@ -40,7 +40,6 @@ This file is part of the GNU simulators.
 #endif
 
 extern const MACH aap32_mach;
-extern const MACH aap16_mach;
 
 #ifndef WANT_CPU
 /* The ARGBUF struct.  */

@@ -30,9 +30,6 @@ const MACH *sim_machs[] =
 #ifdef HAVE_CPU_AAPBF
   & aap32_mach,
 #endif
-#ifdef HAVE_CPU_AAP16BF
-  & aap16_mach,
-#endif
   0
 };
 

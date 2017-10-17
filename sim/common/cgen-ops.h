@@ -58,6 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEUBI(x, y) ((BI) (x) <= (BI) (y))
 #define GTUBI(x, y) ((BI) (x) > (BI) (y))
 #define GEUBI(x, y) ((BI) (x) >= (BI) (y))
+#define SLLBI(x, y) ((BI) (x) << (BI) (y))
 
 #define ADDQI(x, y) ((QI) ((UQI) (x) + (UQI) (y)))
 #define SUBQI(x, y) ((QI) ((UQI) (x) - (UQI) (y)))
