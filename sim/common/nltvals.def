@@ -91,6 +91,37 @@
  { "EXDEV", 18 },
 /* end errno target macros */
 #endif
+#ifdef NL_TARGET_aap
+#ifdef sys_defs
+/* from syscall.h */
+/* begin aap sys target macros */
+ { "SYS_argc", 22 },
+ { "SYS_argn", 24 },
+ { "SYS_argnlen", 23 },
+ { "SYS_argv", 13 },
+ { "SYS_argvlen", 12 },
+ { "SYS_chdir", 14 },
+ { "SYS_chmod", 16 },
+ { "SYS_close", 3 },
+ { "SYS_exit", 1 },
+ { "SYS_fstat", 10 },
+ { "SYS_getpid", 8 },
+ { "SYS_gettimeofday", 19 },
+ { "SYS_kill", 9 },
+ { "SYS_link", 21 },
+ { "SYS_lseek", 6 },
+ { "SYS_open", 2 },
+ { "SYS_read", 4 },
+ { "SYS_reconfig", 25 },
+ { "SYS_stat", 15 },
+ { "SYS_time", 18 },
+ { "SYS_times", 20 },
+ { "SYS_unlink", 7 },
+ { "SYS_utime", 17 },
+ { "SYS_write", 5 },
+/* end aap sys target macros */
+#endif
+#endif
 #ifdef signal_defs
 /* from signal.h */
 /* from sys/signal.h */
@@ -148,37 +179,6 @@
  { "O_TRUNC", 0x0400 },
  { "O_WRONLY", 1 },
 /* end open target macros */
-#endif
-#ifdef NL_TARGET_aap
-#ifdef sys_defs
-/* from syscall.h */
-/* begin aap sys target macros */
- { "SYS_argc", 22 },
- { "SYS_argn", 24 },
- { "SYS_argnlen", 23 },
- { "SYS_argv", 13 },
- { "SYS_argvlen", 12 },
- { "SYS_chdir", 14 },
- { "SYS_chmod", 16 },
- { "SYS_close", 3 },
- { "SYS_exit", 1 },
- { "SYS_fstat", 10 },
- { "SYS_getpid", 8 },
- { "SYS_gettimeofday", 19 },
- { "SYS_kill", 9 },
- { "SYS_link", 21 },
- { "SYS_lseek", 6 },
- { "SYS_open", 2 },
- { "SYS_read", 4 },
- { "SYS_reconfig", 25 },
- { "SYS_stat", 15 },
- { "SYS_time", 18 },
- { "SYS_times", 20 },
- { "SYS_unlink", 7 },
- { "SYS_utime", 17 },
- { "SYS_write", 5 },
-/* end aap sys target macros */
-#endif
 #endif
 #ifdef NL_TARGET_bfin
 #ifdef sys_defs

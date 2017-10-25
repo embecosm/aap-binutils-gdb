@@ -22,31 +22,28 @@
   (default-insn-word-bitsize 32)
   (default-insn-bitsize 32)
   (base-insn-bitsize 32)
-  (decode-assist (31 30 29 28 27 26))
 )
 
 ;;
-;; Cpu family definitions.
+;; Cpu names must be distinct from the architecture name and machine names.
+;; The "b" suffix stands for "base" and is the convention.
+;; The "f" suffix stands for "family" and is the convention.
 ;;
 ;; 32 bit
 (define-cpu
-  ;; cpu names must be distinct from the architecture name and machine names.
-  ;; The "b" suffix stands for "base" and is the convention.
-  ;; The "f" suffix stands for "family" and is the convention.
   (name aapbf)
   (comment "AAP 32 bit base family")
   (endian little)
   (word-bitsize 32)
+  (insn-chunk-bitsize 32)
 )
 ;; 16 bit
 (define-cpu
-  ;; cpu names must be distinct from the architecture name and machine names.
-  ;; The "b" suffix stands for "base" and is the convention.
-  ;; The "f" suffix stands for "family" and is the convention.
-  (name aap16bf)
+  (name aapbf16)
   (comment "AAP 16 bit base family")
   (endian little)
   (word-bitsize 32)
+  (insn-chunk-bitsize 16)
 )
 
 ;;
@@ -63,7 +60,7 @@
 (define-mach	;;bfd name = bfd-aap
   (name aap16)
   (comment "16 bit AAP machine")
-  (cpu aap16bf)
+  (cpu aapbf16)
   (isas aap)
 )
 
@@ -99,7 +96,6 @@
     )
 )
 
-
 ;;
 ;; Attributes
 ;;
@@ -117,7 +113,6 @@
   (print-name h-gpr)
   (prefix "")
   (values
-   (gp    26)(fp    27)(sp    28)(ra    29)(ea    30)(ba    31)
    (gpr0   0)(gpr1   1)(gpr2   2)(gpr3   3)(gpr4   4)(gpr5   5)(gpr6   6)(gpr7   7)
    (gpr8   8)(gpr9   9)(gpr10 10)(gpr11 11)(gpr12 12)(gpr13 13)(gpr14 14)(gpr15 15)
    (gpr16 16)(gpr17 17)(gpr18 18)(gpr19 19)(gpr20 20)(gpr21 21)(gpr22 22)(gpr23 23)
@@ -143,12 +138,12 @@
   (name cr-names)
   (print-name h-cr)
   (prefix "")
-  (values (psw 0)   (cbr 1)   (spi 2)   (spu 3)
-	  (bpc 6)   (bbpsw 8) (bbpc 14) (evb 5)
-	  (cr0 0)   (cr1 1)   (cr2 2)   (cr3 3)
-	  (cr4 4)   (cr5 5)   (cr6 6)   (cr7 7)
-	  (cr8 8)   (cr9 9)   (cr10 10) (cr11 11)
-	  (cr12 12) (cr13 13) (cr14 14) (cr15 15))
+  (values (spi 2)   (spu 3)   (bpc 14)
+  	  (evb 5)   (cr0 0)   (cr1 1)   (cr2 2)
+	  (cr3 3)   (cr4 4)   (cr5 5)   (cr6 6)
+	  (cr7 7)   (cr8 8)   (cr9 9)   (cr10 10)
+	  (cr11 11) (cr12 12) (cr13 13) (cr14 14)
+	  (cr15 15))
 )
 
 (define-hardware
@@ -206,28 +201,28 @@
 (dnf f-x-src-reg-2 "source 2 register (15-0)" (all-aap-isas) 2 3)
 
 (df f-uint-18-3 "- -- ---- --- --- iii - -- ---- --- --- ---"
-  (all-aap-isas) 18 3 UINT #f #f)
+  (MACH-32) 18 3 UINT #f #f)
 (df f-uint-21-6 "- -- ---- --- iii iii - -- ---- --- --- ---"
-  (all-aap-isas) 21 6 UINT #f #f)
+  (MACH-32) 21 6 UINT #f #f)
 (df f-uint-12-4 "- -- ---- --- --- --- - -- iiii --- --- ---"
-  (all-aap-isas) 12 4 UINT #f #f)
+  (MACH-32) 12 4 UINT #f #f)
 (df f-uint-iii1 "- -- ---- --- --- --- - -- iii1 --- --- ---"
-  (all-aap-isas) 12 4 UINT #f #f)
+  (MACH-32) 12 4 UINT #f #f)
 (df f-uint-2-3 "- -- ---- --- --- --- - -- ---- --- --- iii"
   (all-aap-isas) 2 3 UINT #f #f)
 (df f-uint-5-6 "- -- ---- --- --- --- - -- ---- --- iii iii"
   (all-aap-isas) 5 6 UINT #f #f)
 
 (df f-int-18-3 "- -- ---- --- --- sss - -- ---- --- --- ---"
-  (all-aap-isas) 18 3 INT #f #f)
+  (MACH-32) 18 3 INT #f #f)
 (df f-int-24-9 "- -- ---- sss sss sss - -- ---- --- --- ---"
-  (all-aap-isas) 24 9 INT #f #f)
+  (MACH-32) 24 9 INT #f #f)
 (df f-int-24-6 "- -- ---- sss sss --- - -- ---- --- --- ---"
-  (all-aap-isas) 24 6 INT #f #f)
+  (MACH-32) 24 6 INT #f #f)
 (df f-int-24-3 "- -- ---- sss --- --- - -- ---- --- --- ---"
-  (all-aap-isas) 24 3 INT #f #f)
+  (MACH-32) 24 3 INT #f #f)
 (df f-int-12-4 "- -- ---- --- --- --- - -- ssss --- --- ---"
-  (all-aap-isas) 12 4 INT #f #f)
+  (MACH-32) 12 4 INT #f #f)
 (df f-int-2-3 "- -- ---- --- --- --- - -- ---- --- --- sss"
   (all-aap-isas) 2 3 INT #f #f)
 (df f-int-8-3 "- -- ---- --- --- --- - -- ---- sss --- ---"
@@ -237,20 +232,20 @@
 (df f-int-8-9 "- -- ---- --- --- --- - -- ---- sss sss sss"
   (all-aap-isas) 8 9 INT #f #f)
 (df f-int-12-7 "- -- ---- --- --- --- - -- ssss sss --- ---"
-  (all-aap-isas) 12 7 INT #f #f)
+  (MACH-32) 12 7 INT #f #f)
 (df f-int-12-10 "- -- ---- --- --- --- - -- ssss sss sss ---"
-  (all-aap-isas) 12 10 INT #f #f)
+  (MACH-32) 12 10 INT #f #f)
 (df f-int-12-13 "- -- ---- --- --- --- - -- ssss sss sss sss"
-  (all-aap-isas) 12 13 INT #f #f)
+  (MACH-32) 12 13 INT #f #f)
 
 ;; for reloc testing
-(df f-u16 "16 bit unsigned" () 15 16 UINT #f #f)
+(df f-u16 "16 bit unsigned" (all-aap-isas) 15 16 UINT #f #f)
 
 ;; carry flag
-(dnf f-carry "carry flag" () 0 1)
+(dnf f-carry "carry flag" (all-aap-isas) 0 1)
 
 ;; d+1
-(dnf f-dst+1-reg "R(d+1)" (all-aap-isas) 24 6)
+(dnf f-dst+1-reg "R(d+1)" (MACH-32) 24 6)
 
 ;;
 ;; multi-ifields
@@ -258,7 +253,7 @@
 (define-multi-ifield
   (name f-s-22)
   (comment "sint 22bit format-17")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode INT)
   (subfields f-int-24-9 f-int-12-13)
   (insert (sequence ()
@@ -283,7 +278,7 @@
 (define-multi-ifield
   (name f-s-16)
   (comment "sint 16bit format-16")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode INT)
   (subfields f-int-24-6 f-int-12-10)
   (insert (sequence ()
@@ -308,7 +303,7 @@
 (define-multi-ifield
   (name f-s-10)
   (comment "sint 10bit format-12")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode INT)
   (subfields f-int-24-3 f-int-12-7)
   (insert (sequence ()
@@ -333,7 +328,7 @@
 (define-multi-ifield
   (name f-i-12)
   (comment "uint 12bit format-14")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode UINT)
   (subfields f-uint-5-6 f-uint-21-6)
   (insert (sequence ()
@@ -358,7 +353,7 @@
 (define-multi-ifield
   (name f-i-16)
   (comment "uint 16bit format-14")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode UINT)
   (subfields f-i-12 f-uint-12-4)
   (insert (sequence ()
@@ -383,7 +378,7 @@
 (define-multi-ifield
   (name f-i-6)
   (comment "uint 6bit")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode UINT)
   (subfields f-uint-2-3 f-uint-18-3)
   (insert (sequence ()
@@ -408,7 +403,7 @@
 (define-multi-ifield
   (name f-i-10)
   (comment "uint 10bit")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode UINT)
   (subfields f-i-6 f-uint-12-4)
   (insert (sequence ()
@@ -433,7 +428,7 @@
 (define-multi-ifield
   (name f-i-10i)
   (comment "uint 10bit using iii1")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (mode UINT)
   (subfields f-i-6 f-uint-iii1)
   (insert (sequence ()
@@ -458,7 +453,7 @@
 (define-multi-ifield
   (name f-d-6)
   (comment "register 6bit dest")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (subfields f-dst-reg f-x-dst-reg)
   (insert (sequence ()
   	  	    (set (ifield f-dst-reg)
@@ -482,7 +477,7 @@
 (define-multi-ifield
   (name f-a-6)
   (comment "register 6bit src1")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (subfields f-src-reg-1 f-x-src-reg-1)
   (insert (sequence ()
   	  	    (set (ifield f-src-reg-1)
@@ -506,7 +501,7 @@
 (define-multi-ifield
   (name f-b-6)
   (comment "register 6bit src2")
-  (attrs all-aap-isas)
+  (attrs MACH-32)
   (subfields f-src-reg-2 f-x-src-reg-2)
   (insert (sequence ()
   	  	    (set (ifield f-src-reg-2)
@@ -909,7 +904,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH MACH-32)
+      (attrs MACH-32)
       (syntax (.str mnemonic " ${d6},${a6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))

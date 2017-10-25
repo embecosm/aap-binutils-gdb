@@ -1,19 +1,15 @@
 /* Remote target callback routines.
    Copyright 1995-2015 Free Software Foundation, Inc.
    Contributed by Cygnus Solutions.
-
    This file is part of GDB.
-
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 3 of the License, or
    (at your option) any later version.
-
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -757,7 +753,6 @@ host_callback default_callback =
    This assumes that the basic system call recognition and value passing/
    returning is supported.  So maybe some coding/recompilation will be
    necessary, but not as much.
-
    If an error occurs, the existing mapping is not changed.  */
 
 CB_RC
@@ -874,7 +869,6 @@ cb_target_to_host_open (host_callback *cb, int target_val)
 
 /* Utility for e.g. cb_host_to_target_stat to store values in the target's
    stat struct.
-
    ??? The "val" must be as big as target word size.  */
 
 void
@@ -902,7 +896,6 @@ cb_store_target_endian (host_callback *cb, char *p, int size, long val)
 /* Translate a host's stat struct into a target's.
    If HS is NULL, just compute the length of the buffer required,
    TS is ignored.
-
    The result is the size of the target's stat struct,
    or zero if an error occurred during the translation.  */
 
@@ -1000,7 +993,6 @@ cb_host_to_target_stat (host_callback *cb, const struct stat *hs, PTR ts)
 }
 
 /* Cover functions to the vfprintf callbacks.
-
    ??? If one thinks of the callbacks as a subsystem onto itself [or part of
    a larger "remote target subsystem"] with a well defined interface, then
    one would think that the subsystem would provide these.  However, until

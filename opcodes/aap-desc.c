@@ -121,19 +121,13 @@ static const CGEN_ISA aap_cgen_isa_table[] = {
 /* Machine variants.  */
 
 static const CGEN_MACH aap_cgen_mach_table[] = {
-  { "aap32", "aap32", MACH_AAP32, 0 },
-  { "aap16", "aap16", MACH_AAP16, 0 },
+  { "aap32", "aap32", MACH_AAP32, 32 },
+  { "aap16", "aap16", MACH_AAP16, 16 },
   { 0, 0, 0, 0 }
 };
 
 static CGEN_KEYWORD_ENTRY aap_cgen_opval_gpr_names_entries[] =
 {
-  { "gp", 26, {0, {{{0, 0}}}}, 0, 0 },
-  { "fp", 27, {0, {{{0, 0}}}}, 0, 0 },
-  { "sp", 28, {0, {{{0, 0}}}}, 0, 0 },
-  { "ra", 29, {0, {{{0, 0}}}}, 0, 0 },
-  { "ea", 30, {0, {{{0, 0}}}}, 0, 0 },
-  { "ba", 31, {0, {{{0, 0}}}}, 0, 0 },
   { "gpr0", 0, {0, {{{0, 0}}}}, 0, 0 },
   { "gpr1", 1, {0, {{{0, 0}}}}, 0, 0 },
   { "gpr2", 2, {0, {{{0, 0}}}}, 0, 0 },
@@ -203,19 +197,15 @@ static CGEN_KEYWORD_ENTRY aap_cgen_opval_gpr_names_entries[] =
 CGEN_KEYWORD aap_cgen_opval_gpr_names =
 {
   & aap_cgen_opval_gpr_names_entries[0],
-  70,
+  64,
   0, 0, 0, 0, ""
 };
 
 static CGEN_KEYWORD_ENTRY aap_cgen_opval_cr_names_entries[] =
 {
-  { "psw", 0, {0, {{{0, 0}}}}, 0, 0 },
-  { "cbr", 1, {0, {{{0, 0}}}}, 0, 0 },
   { "spi", 2, {0, {{{0, 0}}}}, 0, 0 },
   { "spu", 3, {0, {{{0, 0}}}}, 0, 0 },
-  { "bpc", 6, {0, {{{0, 0}}}}, 0, 0 },
-  { "bbpsw", 8, {0, {{{0, 0}}}}, 0, 0 },
-  { "bbpc", 14, {0, {{{0, 0}}}}, 0, 0 },
+  { "bpc", 14, {0, {{{0, 0}}}}, 0, 0 },
   { "evb", 5, {0, {{{0, 0}}}}, 0, 0 },
   { "cr0", 0, {0, {{{0, 0}}}}, 0, 0 },
   { "cr1", 1, {0, {{{0, 0}}}}, 0, 0 },
@@ -238,7 +228,7 @@ static CGEN_KEYWORD_ENTRY aap_cgen_opval_cr_names_entries[] =
 CGEN_KEYWORD aap_cgen_opval_cr_names =
 {
   & aap_cgen_opval_cr_names_entries[0],
-  24,
+  20,
   0, 0, 0, 0, ""
 };
 
@@ -283,38 +273,38 @@ const CGEN_IFLD aap_cgen_ifld_table[] =
   { AAP_F_X_SRC_REG_1, "f-x-src-reg-1", 0, 32, 5, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_SRC_REG_2, "f-src-reg-2", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_X_SRC_REG_2, "f-x-src-reg-2", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_18_3, "f-uint-18-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_21_6, "f-uint-21-6", 0, 32, 21, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_12_4, "f-uint-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_UINT_III1, "f-uint-iii1", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_UINT_18_3, "f-uint-18-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_UINT_21_6, "f-uint-21-6", 0, 32, 21, 6, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_UINT_12_4, "f-uint-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_UINT_III1, "f-uint-iii1", 0, 32, 12, 4, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
   { AAP_F_UINT_2_3, "f-uint-2-3", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_UINT_5_6, "f-uint-5-6", 0, 32, 5, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_18_3, "f-int-18-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_24_9, "f-int-24-9", 0, 32, 24, 9, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_24_6, "f-int-24-6", 0, 32, 24, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_24_3, "f-int-24-3", 0, 32, 24, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_12_4, "f-int-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_18_3, "f-int-18-3", 0, 32, 18, 3, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_24_9, "f-int-24-9", 0, 32, 24, 9, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_24_6, "f-int-24-6", 0, 32, 24, 6, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_24_3, "f-int-24-3", 0, 32, 24, 3, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_12_4, "f-int-12-4", 0, 32, 12, 4, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
   { AAP_F_INT_2_3, "f-int-2-3", 0, 32, 2, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_INT_8_3, "f-int-8-3", 0, 32, 8, 3, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_INT_8_6, "f-int-8-6", 0, 32, 8, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_INT_8_9, "f-int-8-9", 0, 32, 8, 9, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_12_7, "f-int-12-7", 0, 32, 12, 7, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_12_10, "f-int-12-10", 0, 32, 12, 10, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_INT_12_13, "f-int-12-13", 0, 32, 12, 13, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_INT_12_7, "f-int-12-7", 0, 32, 12, 7, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_12_10, "f-int-12-10", 0, 32, 12, 10, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_INT_12_13, "f-int-12-13", 0, 32, 12, 13, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
   { AAP_F_U16, "f-u16", 0, 32, 15, 16, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
   { AAP_F_CARRY, "f-carry", 0, 32, 0, 1, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_DST_1_REG, "f-dst+1-reg", 0, 32, 24, 6, { 0, { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_S_22, "f-s-22", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_S_16, "f-s-16", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_S_10, "f-s-10", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_I_12, "f-i-12", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_I_16, "f-i-16", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_I_6, "f-i-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_I_10, "f-i-10", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_I_10I, "f-i-10i", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_D_6, "f-d-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_A_6, "f-a-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
-  { AAP_F_B_6, "f-b-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+  { AAP_F_DST_1_REG, "f-dst+1-reg", 0, 32, 24, 6, { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_S_22, "f-s-22", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_S_16, "f-s-16", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_S_10, "f-s-10", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_I_12, "f-i-12", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_I_16, "f-i-16", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_I_6, "f-i-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_I_10, "f-i-10", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_I_10I, "f-i-10i", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_D_6, "f-d-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_A_6, "f-a-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
+  { AAP_F_B_6, "f-b-6", 0, 0, 0, 0,{ 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
   { 0, 0, 0, 0, 0, 0, { 0, { { { (1<<MACH_BASE), 0 } } } } }
 };
 
@@ -436,19 +426,19 @@ const CGEN_OPERAND aap_cgen_operand_table[] =
 /* d6: dest 6bit */
   { "d6", AAP_OPERAND_D6, HW_H_GPR, 8, 6,
     { 2, { (const PTR) &AAP_F_D_6_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* a6: src1 6bit */
   { "a6", AAP_OPERAND_A6, HW_H_GPR, 5, 6,
     { 2, { (const PTR) &AAP_F_A_6_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* b6: src2 6bit */
   { "b6", AAP_OPERAND_B6, HW_H_GPR, 2, 6,
     { 2, { (const PTR) &AAP_F_B_6_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* dest1: dest+1 */
   { "dest1", AAP_OPERAND_DEST1, HW_H_GPR, 24, 6,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_DST_1_REG] } }, 
-    { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
 /* uint056: uint 5 6 */
   { "uint056", AAP_OPERAND_UINT056, HW_H_UINT, 5, 6,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_UINT_5_6] } }, 
@@ -464,27 +454,27 @@ const CGEN_OPERAND aap_cgen_operand_table[] =
 /* i12: uint 12bit */
   { "i12", AAP_OPERAND_I12, HW_H_UINT, 5, 12,
     { 2, { (const PTR) &AAP_F_I_12_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* i16: uint 16bit */
   { "i16", AAP_OPERAND_I16, HW_H_UINT, 5, 16,
     { 2, { (const PTR) &AAP_F_I_16_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* i6: uint 6bit */
   { "i6", AAP_OPERAND_I6, HW_H_UINT, 2, 6,
     { 2, { (const PTR) &AAP_F_I_6_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* i10: uint 10bit */
   { "i10", AAP_OPERAND_I10, HW_H_UINT, 2, 10,
     { 2, { (const PTR) &AAP_F_I_10_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* i10i: uint 10bit with iii1 */
   { "i10i", AAP_OPERAND_I10I, HW_H_UINT, 2, 10,
     { 2, { (const PTR) &AAP_F_I_10I_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* int1210: int 12 10 */
   { "int1210", AAP_OPERAND_INT1210, HW_H_SINT, 12, 10,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_12_10] } }, 
-    { 0, { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0, { { { (1<<MACH_AAP32), 0 } } } }  },
 /* int083: int 8 3 */
   { "int083", AAP_OPERAND_INT083, HW_H_SINT, 8, 3,
     { 0, { (const PTR) &aap_cgen_ifld_table[AAP_F_INT_8_3] } }, 
@@ -504,15 +494,15 @@ const CGEN_OPERAND aap_cgen_operand_table[] =
 /* s22: s 22 */
   { "s22", AAP_OPERAND_S22, HW_H_SINT, 12, 22,
     { 2, { (const PTR) &AAP_F_S_22_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* s16: s 16 */
   { "s16", AAP_OPERAND_S16, HW_H_SINT, 12, 16,
     { 2, { (const PTR) &AAP_F_S_16_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* s10: s 10 */
   { "s10", AAP_OPERAND_S10, HW_H_SINT, 12, 10,
     { 2, { (const PTR) &AAP_F_S_10_MULTI_IFIELD[0] } }, 
-    { 0|A(VIRTUAL), { { { (1<<MACH_BASE), 0 } } } }  },
+    { 0|A(VIRTUAL), { { { (1<<MACH_AAP32), 0 } } } }  },
 /* sentinel */
   { 0, 0, 0, 0, 0,
     { 0, { (const PTR) 0 } },

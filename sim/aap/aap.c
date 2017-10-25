@@ -1,7 +1,7 @@
 /* AAP simulator support code */
 
 #define WANT_CPU
-#define WANT_CPU_AAPBF16
+#define WANT_CPU_AAPBF
 
 #include "sim-main.h"
 #include "cgen-mem.h"
@@ -68,7 +68,7 @@ sim_engine_invalid_insn (SIM_CPU *current_cpu, IADDR cia, SEM_PC vpc)
   return vpc;
 }
 
-/* Process an address exception.  */
+/* Process an address exception. */
 
 void
 aap_core_signal (SIM_DESC sd, SIM_CPU *current_cpu, sim_cia cia,
@@ -92,13 +92,11 @@ aapbf_fetch_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
       else
 	SETTSI (buf, GET_H_GPR (gnr));
     }
-
   /* Fetch PC.  */
   else if (nr == SIM_AAP_PC_REGNUM)
     {
       SETTSI (buf, GET_H_PC ());
     }
-
   /* Fetch control register (CR). */
   else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
     {
@@ -107,7 +105,12 @@ aapbf_fetch_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
       if ((cnr < 32) || (cnr >= 32))
 	return 0;
       else
-	SETTSI (buf, GET_H_CR (cnr));
+	SETTUSI (buf, GET_H_CR (cnr));  /* See cgen-mem.h for SETTSI */
+    }
+  /* Fetch carry flag */
+   else if (nr == SIM_AAP_CF_REGNUM)
+    {
+      SETTSI (buf, GET_H_CF ());
     }
 
   else    /* We should never get here. */
@@ -118,8 +121,7 @@ aapbf_fetch_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
 
 int
 aapbf_store_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
-{      
-  /* Store general purpose registers. */
+{
   if (SIM_AAP_GPR0_REGNUM <= nr && nr <= SIM_AAP_GPR63_REGNUM)
     {
       int gnr = nr - SIM_AAP_GPR0_REGNUM;
@@ -129,14 +131,10 @@ aapbf_store_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
       else
 	SET_H_GPR (gnr, GETTSI (buf));
     }
-
-  /* Store PC.  */
   else if (nr == SIM_AAP_PC_REGNUM)
     {
-      SET_H_PC (GETTSI (buf));
+      SET_H_PC (GETTUSI (buf));
     }
-
-  /* Store control register (CR).  */
   else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
     {
       int cnr = nr - SIM_AAP_CR0_REGNUM;
@@ -145,6 +143,10 @@ aapbf_store_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
 	return 0;
       else
 	SET_H_CR (cnr, GETTSI (buf));
+    }
+   else if (nr == SIM_AAP_CF_REGNUM)
+    {
+      SET_H_CF (GETTSI (buf));
     }
   else
     return 0;

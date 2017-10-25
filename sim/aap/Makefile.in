@@ -1,26 +1,9 @@
-# Makefile template for Configure for the aap simulator
-# Copyright (C) 1996-2015 Free Software Foundation, Inc.
-# Contributed by Cygnus Support.
-#
-# This file is part of GDB, the GNU debugger.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Makefile for Configure for the AAP simulator
 
 ## COMMON_PRE_CONFIG_FRAG
 
-AAP32_OBJS = aap32.o cpu.o decode.o sem.o model.o mloop.o
-AAP16_OBJS = aap16.o cpu2.o decode2.o model2.o mloop2.o
+AAP_OBJS = aap.o cpu.o decode.o sem.o model.o mloop.o
+AAP16_OBJS = aap16.o cpu16.o decode16.o sem16.o model16.o mloop16.o
 TRAPS_OBJ = @traps_obj@
 
 SIM_OBJS = \
@@ -32,7 +15,7 @@ SIM_OBJS = \
 	cgen-utils.o cgen-trace.o cgen-scache.o \
 	cgen-run.o sim-reason.o sim-stop.o \
 	sim-if.o arch.o \
-	$(AAP32_OBJS) \
+	$(AAP_OBJS) \
 	$(AAP16_OBJS) \
 	$(TRAPS_OBJ) \
 	devices.o
@@ -42,7 +25,7 @@ SIM_EXTRA_DEPS = \
 	$(CGEN_INCLUDE_DEPS) \
 	arch.h cpuall.h aap-sim.h $(srcdir)/../../opcodes/aap-desc.h
 
-SIM_EXTRA_CFLAGS = @sim_extra_cflags@
+SIM_EXTRA_CFLAGS =
 
 SIM_EXTRA_CLEAN = aap-clean
 
@@ -61,7 +44,7 @@ traps.o: traps.c targ-vals.h $(SIM_MAIN_DEPS)
 traps-linux.o: traps.c syscall.h targ-vals.h $(SIM_MAIN_DEPS)
 devices.o: devices.c $(SIM_MAIN_DEPS)
 
-# AAP32 objs
+# AAP objs
 
 AAPBF_INCLUDE_DEPS = \
 	$(CGEN_MAIN_CPU_DEPS) \
@@ -87,34 +70,34 @@ model.o: model.c $(AAPBF_INCLUDE_DEPS)
 
 # AAP16 objs
 
-AAP16BF_INCLUDE_DEPS = \
+AAPBF16_INCLUDE_DEPS = \
 	$(CGEN_MAIN_CPU_DEPS) \
-	cpu2.h decode2.h eng2.h
+	cpu16.h decode16.h eng16.h
 
-aap16.o: aap16.c $(AAP16BF_INCLUDE_DEPS)
+aap16.o: aap16.c $(AAPBF16_INCLUDE_DEPS)
 
 # FIXME: Use of `mono' is wip.
-mloop2.c eng2.h: stamp-2mloop ; @true
-stamp-2mloop: $(srcdir)/../common/genmloop.sh mloop2.in Makefile
+mloop16.c eng16.h: stamp-16mloop ; @true
+stamp-16mloop: $(srcdir)/../common/genmloop.sh mloop16.in Makefile
 	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
-		-mono -no-fast -pbb -parallel-write -switch sem2-switch.c \
-		-cpu aap16bf -infile $(srcdir)/mloop2.in \
-		-outfile-suffix 2
-	$(SHELL) $(srcroot)/move-if-change eng2.hin eng2.h
-	$(SHELL) $(srcroot)/move-if-change mloop2.cin mloop2.c
-	touch stamp-2mloop
+		-mono -no-fast -pbb -parallel-write -switch sem16-switch.c \
+		-cpu aapbf16 -infile $(srcdir)/mloop16.in \
+		-outfile-suffix 16
+	$(SHELL) $(srcroot)/move-if-change eng16.hin eng16.h
+	$(SHELL) $(srcroot)/move-if-change mloop16.cin mloop16.c
+	touch stamp-16mloop
 
-mloop2.o: mloop2.c $(srcdir)/sem2-switch.c $(AAP16BF_INCLUDE_DEPS)
-cpu2.o: cpu2.c $(AAP16BF_INCLUDE_DEPS)
-decode2.o: decode2.c $(AAP16BF_INCLUDE_DEPS)
-sem2.o: sem2.c $(AAP16BF_INCLUDE_DEPS)
-model2.o: model2.c $(AAP16BF_INCLUDE_DEPS)
+mloop16.o: mloop16.c $(srcdir)/sem16-switch.c $(AAPBF16_INCLUDE_DEPS)
+cpu16.o: cpu16.c $(AAPBF16_INCLUDE_DEPS)
+decode16.o: decode16.c $(AAPBF16_INCLUDE_DEPS)
+sem16.o: sem16.c $(AAPBF16_INCLUDE_DEPS)
+model16.o: model16.c $(AAPBF16_INCLUDE_DEPS)
 
 aap-clean:
 	rm -f mloop.c eng.h stamp-mloop
 	rm -f mloopx.c engx.h stamp-xmloop
-	rm -f mloop2.c eng2.h stamp-2mloop
-	rm -f stamp-arch stamp-cpu stamp-xcpu stamp-2cpu
+	rm -f mloop16.c eng16.h stamp-16mloop
+	rm -f stamp-arch stamp-cpu stamp-xcpu stamp-16cpu
 	rm -f tmp-*
 
 # cgen support, enable with --enable-cgen-maint
@@ -144,12 +127,12 @@ stamp-cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cp
 $(srcdir)/cpu.h $(srcdir)/sem.c $(srcdir)/sem-switch.c $(srcdir)/model.c $(srcdir)/decode.c $(srcdir)/decode.h: $(CGEN_MAINT) stamp-cpu
 	@true
 
-stamp-2cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
+stamp-16cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
 	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
-	  cpu=aap16bf mach=aap16 SUFFIX=2 \
+	  cpu=aapbf16 mach=aap16 SUFFIX=16 \
 	  archfile=$(CPU_DIR)/aap.cpu \
 	  FLAGS="with-scache with-profile=fn" \
-	  EXTRAFILES="$(CGEN_CPU_SEMSW)"
-	touch stamp-2cpu
-$(srcdir)/cpu2.h $(srcdir)/sem2-switch.c $(srcdir)/model2.c $(srcdir)/decode2.c $(srcdir)/decode2.h: $(CGEN_MAINT) stamp-2cpu
+	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
+	touch stamp-16cpu
+$(srcdir)/cpu16.h $(srcdir)/sem16.c $(srcdir)/sem16-switch.c $(srcdir)/model16.c $(srcdir)/decode16.c $(srcdir)/decode16.h: $(CGEN_MAINT) stamp-16cpu
 	@true

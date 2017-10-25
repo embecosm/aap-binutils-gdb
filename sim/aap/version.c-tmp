@@ -1,0 +1,2 @@
+#include "version.h"
+const char version[] = "7.9.50.20150412-cvs";

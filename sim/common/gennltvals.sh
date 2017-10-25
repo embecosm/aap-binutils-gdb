@@ -29,6 +29,10 @@ $shell ${srccom}/gentvals.sh "" open ${srcroot}/newlib/libc/include \
 # Note that there is a standard syscall.h file (libgloss/syscall.h) now which
 # hopefully more targets can use.
 
+dir=libgloss target=aap
+$shell ${srccom}/gentvals.sh $target sys ${srcroot}/$dir \
+	"syscall.h" 'SYS_[_[:alnum:]]*' "${cpp}"
+
 dir=libgloss target=bfin
 $shell ${srccom}/gentvals.sh $target sys ${srcroot}/$dir \
 	"syscall.h" 'SYS_[_[:alnum:]]*' "${cpp}"

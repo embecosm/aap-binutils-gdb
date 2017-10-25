@@ -1,4 +1,4 @@
-# Simulator main loop for AAP. -*- C -*-
+# Simulator main loop for AAP16. -*- C -*-
 
 # Syntax:
 # /bin/sh mainloop.in command
@@ -275,7 +275,7 @@ xfull-exec-* | xfast-exec-*)
 cat <<EOF
 #if (! FAST_P && WITH_SEM_SWITCH_FULL) || (FAST_P && WITH_SEM_SWITCH_FAST)
 #define DEFINE_SWITCH
-#include "sem-switch.c"
+#include "sem16-switch.c"
 #else
   vpc = execute (current_cpu, vpc, FAST_P);
 #endif

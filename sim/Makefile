@@ -17,8 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-srcdir = .
+VPATH = ./aap
+srcdir = ./aap
 
 prefix = /usr/local
 exec_prefix = ${prefix}
@@ -56,11 +56,11 @@ AR_FLAGS = rc
 CC = gcc
 CFLAGS = -g -O2
 CC_FOR_BUILD = $(CC)
-CFLAGS_FOR_BUILD = -g -O2
+CFLAGS_FOR_BUILD = @CFLAGS_FOR_BUILD@
 MAKEINFO = makeinfo
 RANLIB = ranlib
 
-SUBDIRS =  testsuite
+SUBDIRS = @subdirs@
 
 INCDIR = $(srcdir)/../include
 CSEARCH = -I. -I$(srcdir) -I$(INCDIR)
