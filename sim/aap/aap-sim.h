@@ -11,4 +11,11 @@ struct _device { int foo; };
 
 BI aap_endian (SIM_CPU *);
 
+/* Cache Control Register */
+#define MCCR_ADDR 0xffffffff
+#define MCCR_CP 0x80
+
+/* sim_core_attach device argument.  */
+extern device aap_devices;
+
 #endif /* AAP_SIM_H */

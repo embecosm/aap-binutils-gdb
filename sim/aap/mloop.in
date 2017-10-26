@@ -11,6 +11,8 @@
 # {full,fast}-exec-{simple,scache,pbb}
 #
 
+#include "decode.h"
+
 case "x$1" in
 
 xsupport)
@@ -149,7 +151,7 @@ cat <<EOF
 	{
 	  extract16 (current_cpu, pc, insn >> 16, sc, FAST_P);
 	  extract16 (current_cpu, pc + 2, insn & 0x7fff, sc + 1, FAST_P);
-	  /* The m32r doesn't support parallel execution.  */
+	  /* The aap (m32r) doesn't support parallel execution.  */
 	  if ((insn & 0x8000) != 0
 	      && (insn & 0x7fff) != 0x7000) /* parallel nops are ok */
 	    sim_engine_illegal_insn (current_cpu, pc);
@@ -221,15 +223,11 @@ cat <<EOF
 	      SET_CTI_VPC (sc - 1);
 	      break;
 	    }
-	  /* The m32r doesn't support parallel execution.  */
+	  /* The aap (m32r) doesn't support parallel execution.  */
 	  if ((insn & 0x8000) != 0)
 	    {
-	      /* ??? Defer signalling to execution.  */
-	      if ((insn & 0x7fff) != 0x7000) /* parallel nops are ok */
+	    if ((insn & 0x7fff) != 0x7000) /* parallel nops are ok */
 		sim_engine_invalid_insn (current_cpu, pc - 2, 0);
-	      /* There's no point in processing parallel nops in fast mode.
-		 We might as well do this test since we've already tested
-		 that we have a parallel nop.  */
 	      if (0 && FAST_P)
 		{
 		  pc += 2;
@@ -244,7 +242,7 @@ cat <<EOF
 		 after the first insn.  */
 	      if (max_insns == 0)
 		break;
-	    }
+	       }
 	  /* We're guaranteed that we can always process 16 bit insns in
 	     pairs.  */
 	  idesc = extract16 (current_cpu, pc, insn & 0x7fff, &sc->argbuf, FAST_P);

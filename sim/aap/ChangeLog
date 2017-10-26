@@ -1,0 +1,9 @@
+2017-10-25  Mary Bennett  <mary.bennett@embecosm.com>
+
+	* Makefile.in: removed TRAPS_OBJ.
+
+2017-10-26  Mary Bennett  <mary.bennett@embecosm.com>
+	* device.c: created
+	* aap.c: added aapbf_model_insn_before, aapbf model_insn_after, aapbf_fetch_register, aapbf_store_register, aapbf_model_aap32_u_exec.
+	* aap16.c: added aapbf16_model_insn_before, aapbf16_model_insn_after, aapbf16_fetch_register, aapbf16_store_register, aapbf16_model_aap16_u_exec.
+	* aap.c: added handler funcions for cr.

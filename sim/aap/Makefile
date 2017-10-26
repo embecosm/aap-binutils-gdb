@@ -186,7 +186,6 @@ CGEN_INCLUDE_DEPS = \
 
 AAP_OBJS = aap.o cpu.o decode.o sem.o model.o mloop.o
 AAP16_OBJS = aap16.o cpu16.o decode16.o model16.o mloop16.o
-TRAPS_OBJ = @traps_obj@
 
 SIM_OBJS = \
 	$(SIM_NEW_COMMON_OBJS) \
@@ -199,8 +198,6 @@ SIM_OBJS = \
 	sim-if.o arch.o \
 	$(AAP_OBJS) \
 	$(AAP16_OBJS) \
-	$(TRAPS_OBJ) \
-	devices.o
 
 # Extra headers included by sim-main.h.
 SIM_EXTRA_DEPS = \
@@ -624,10 +621,6 @@ sim-if.o: sim-if.c $(SIM_MAIN_DEPS) $(srcdir)/../common/sim-core.h
 
 arch.o: arch.c $(SIM_MAIN_DEPS)
 
-traps.o: traps.c targ-vals.h $(SIM_MAIN_DEPS)
-traps-linux.o: traps.c syscall.h targ-vals.h $(SIM_MAIN_DEPS)
-devices.o: devices.c $(SIM_MAIN_DEPS)
-
 # AAP objs
 
 AAPBF_INCLUDE_DEPS = \
@@ -664,7 +657,7 @@ aap16.o: aap16.c $(AAPBF16_INCLUDE_DEPS)
 mloop16.c eng16.h: stamp-16mloop ; @true
 stamp-16mloop: $(srcdir)/../common/genmloop.sh mloop16.in Makefile
 	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
-		-mono -no-fast -pbb -parallel-write -switch sem16-switch.c \
+		-mono -no-fast -pbb -parallel-generic-write -switch sem16-switch.c \
 		-cpu aapbf16 -infile $(srcdir)/mloop16.in \
 		-outfile-suffix 16
 	$(SHELL) $(srcroot)/move-if-change eng16.hin eng16.h
@@ -674,7 +667,7 @@ stamp-16mloop: $(srcdir)/../common/genmloop.sh mloop16.in Makefile
 mloop16.o: mloop16.c $(srcdir)/sem16-switch.c $(AAPBF16_INCLUDE_DEPS)
 cpu16.o: cpu16.c $(AAPBF16_INCLUDE_DEPS)
 decode16.o: decode16.c $(AAPBF16_INCLUDE_DEPS)
-sem16.o: sem16.c $(AAPBF16_INCLUDE_DEPS)
+#sem16.o: sem16.c $(AAPBF16_INCLUDE_DEPS)
 model16.o: model16.c $(AAPBF16_INCLUDE_DEPS)
 
 aap-clean:
@@ -716,7 +709,7 @@ stamp-16cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.
 	  cpu=aapbf16 mach=aap16 SUFFIX=16 \
 	  archfile=$(CPU_DIR)/aap.cpu \
 	  FLAGS="with-scache with-profile=fn" \
-	  EXTRAFILES="$(CGEN_CPU_SEMSW)"
+	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
 	touch stamp-16cpu
 $(srcdir)/cpu16.h $(srcdir)/sem16-switch.c $(srcdir)/model16.c $(srcdir)/decode16.c $(srcdir)/decode16.h: $(CGEN_MAINT) stamp-16cpu
 	@true

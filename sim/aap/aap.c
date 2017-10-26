@@ -79,77 +79,85 @@ aap_core_signal (SIM_DESC sd, SIM_CPU *current_cpu, sim_cia cia,
 		   transfer, sig);
 }
 
-int
-aapbf_fetch_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
+/* Initialize cycle counting for an insn.
+   FIRST_P is non-zero if this is the first insn in a set of parallel
+   insns.  */
+void
+aapbf_model_insn_before (SIM_CPU *current_cpu, int first_p)
 {
-  /* Fetch general purpose registers. */
-  if (SIM_AAP_GPR0_REGNUM <= nr && nr <= SIM_AAP_GPR63_REGNUM)
-    {
-      int gnr = nr - SIM_AAP_GPR0_REGNUM;
-      
-      if ((gnr < 32) || (gnr >= 32))
-	return 0;
-      else
-	SETTSI (buf, GET_H_GPR (gnr));
-    }
-  /* Fetch PC.  */
-  else if (nr == SIM_AAP_PC_REGNUM)
-    {
-      SETTSI (buf, GET_H_PC ());
-    }
-  /* Fetch control register (CR). */
-  else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
-    {
-      int cnr = nr - SIM_AAP_CR0_REGNUM;
-      
-      if ((cnr < 32) || (cnr >= 32))
-	return 0;
-      else
-	SETTUSI (buf, GET_H_CR (cnr));  /* See cgen-mem.h for SETTSI */
-    }
-  /* Fetch carry flag */
-   else if (nr == SIM_AAP_CF_REGNUM)
-    {
-      SETTSI (buf, GET_H_CF ());
-    }
+  /*FIX ME: probably need stuff here */
+}
 
-  else    /* We should never get here. */
-    return 0;
+/* Record the cycles computed for an insn.
+   LAST_P is non-zero if this is the last insn in a set of parallel insns,
+   and we update the total cycle count.
+   CYCLES is the cycle count of the insn.  */
+void
+aapbf_model_insn_after (SIM_CPU *current_cpu, int last_p, int cycles)
+{
+  /*FIX ME: probably need stuff here */
+}
+
+/* FIX ME: should it be an int? */
+int
+aapbf_fetch_register (SIM_CPU *current_cpu, int rn, unsigned char *buf, int len)
+{
+  if (rn < 64)
+    SETTSI (buf, aapbf_h_gpr_get (current_cpu, rn));
+  else if (rn == 64)
+    SETTSI (buf, aapbf_h_pc_get (current_cpu));
+  else if (rn < 128)
+    SETTSI (buf, aapbf_h_cr_get (current_cpu, rn));
+  else if (rn == 128)
+    SETTSI (buf, aapbf_h_cf_get (current_cpu));
+  else 
+    return 0; //Fail
 
   return len;
 }
 
 int
-aapbf_store_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
+aapbf_store_register  (SIM_CPU *current_cpu, int rn, unsigned char *buf, int len)
 {
-  if (SIM_AAP_GPR0_REGNUM <= nr && nr <= SIM_AAP_GPR63_REGNUM)
-    {
-      int gnr = nr - SIM_AAP_GPR0_REGNUM;
-      
-      if ((gnr < 32) || (gnr >= 32))
-	return 0;
-      else
-	SET_H_GPR (gnr, GETTSI (buf));
-    }
-  else if (nr == SIM_AAP_PC_REGNUM)
-    {
-      SET_H_PC (GETTUSI (buf));
-    }
-  else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
-    {
-      int cnr = nr - SIM_AAP_CR0_REGNUM;
-      
-      if ((cnr < 32) || (cnr >= 32))
-	return 0;
-      else
-	SET_H_CR (cnr, GETTSI (buf));
-    }
-   else if (nr == SIM_AAP_CF_REGNUM)
-    {
-      SET_H_CF (GETTSI (buf));
-    }
-  else
+  if (rn < 64)  //GPR
+  {
+    int grn = rn - SIM_AAP_GPR0_REGNUM;
+    SET_H_GPR (grn, GETTSI (buf));
+  }
+  else if (rn == 64)  //PC
+  {
+    SET_H_PC (GETTSI (buf));
+  }
+  else if (rn < 128)  //CR
+  {
+    int crn = rn - SIM_AAP_CR0_REGNUM;
+    SET_H_CR (crn, GETTSI (buf));
+  }
+  else if (rn == 128)  //CF
+  {
+    SET_H_CF (GETTSI (buf));
+  }
+  else 
     return 0;
-  
+
   return len;
+}
+
+/* Function unit handlers */
+int
+aapbf_model_aap32_u_exec (SIM_CPU *cpu, const IDESC *idesc, int unit_num, int referenced)
+{
+  return idesc->timing->units[unit_num].done;
+}
+
+void
+aapbf_h_cr_set_handler (SIM_CPU *current_cpu, UINT cr, USI newval)
+{
+  return;
+}
+
+USI
+aapbf_h_cr_get_handler (SIM_CPU *current_cpu, UINT cr)
+{
+  return 0;
 }

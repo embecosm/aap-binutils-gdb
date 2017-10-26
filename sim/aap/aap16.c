@@ -24,12 +24,6 @@
 #define	SYS_argnlen	173
 #define	SYS_argn	174
 
-BI
-aap_endian (SIM_CPU *current_cpu)
-{
-  return (CURRENT_TARGET_BYTE_ORDER == LITTLE_ENDIAN);
-}
-
 /* Don't need fldi0, fldi1, fabsd, fabss, faddd, fadds, fcmpeqd, fcmpeqs, 
    fcmpged, fcmpges, fcmpgtd, fcmpgts, fcmpund, fcmpuns, fcnvds, fcnvsd, fdivd
    fdivs, floatld, floatls, floatqd, floatqs, fmacs, fmuld, fmuls... pref */
@@ -51,103 +45,87 @@ fetch_str (current_cpu, pc, addr)
   return buf;
 }
 
+/* Initialize cycle counting for an insn.
+   FIRST_P is non-zero if this is the first insn in a set of parallel
+   insns.  */
 void
-set_isa (SIM_CPU *current_cpu, int mode)
+aapbf16_model_insn_before (SIM_CPU *current_cpu, int first_p)
 {
-  /* Do nothing.  */
+  /*FIX ME: probably need stuff here */
 }
 
-/* The semantic code invokes this for invalid (unrecognized) instructions.  */
-
-SEM_PC
-sim_engine_invalid_insn (SIM_CPU *current_cpu, IADDR cia, SEM_PC vpc)
-{
-  SIM_DESC sd = CPU_STATE (current_cpu);
-  sim_engine_halt (sd, current_cpu, NULL, cia, sim_stopped, SIM_SIGILL);
-
-  return vpc;
-}
-
-/* Process an address exception.  */
-
+/* Record the cycles computed for an insn.
+   LAST_P is non-zero if this is the last insn in a set of parallel insns,
+   and we update the total cycle count.
+   CYCLES is the cycle count of the insn.  */
 void
-aap_core_signal (SIM_DESC sd, SIM_CPU *current_cpu, sim_cia cia,
-                  unsigned int map, int nr_bytes, address_word addr,
-                  transfer_type transfer, sim_core_signals sig)
+aapbf16_model_insn_after (SIM_CPU *current_cpu, int last_p, int cycles)
 {
-  sim_core_signal (sd, current_cpu, cia, map, nr_bytes, addr,
-		   transfer, sig);
+  /*FIX ME: probably need stuff here */
 }
 
+/* FIX ME: should it be an int? */
 int
-aapbf_fetch_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
+aapbf16_fetch_register (SIM_CPU *current_cpu, int rn,
+			unsigned char *buf, int len)
 {
-  /* Fetch general purpose registers. */
-  if (SIM_AAP_GPR0_REGNUM <= nr && nr <= SIM_AAP_GPR63_REGNUM)
-    {
-      int gnr = nr - SIM_AAP_GPR0_REGNUM;
-      
-      if ((gnr < 32) || (gnr >= 32))
-	return 0;
-      else
-	SETTSI (buf, GET_H_GPR (gnr));
-    }
-
-  /* Fetch PC.  */
-  else if (nr == SIM_AAP_PC_REGNUM)
-    {
-      SETTSI (buf, GET_H_PC ());
-    }
-
-  /* Fetch control register (CR). */
-  else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
-    {
-      int cnr = nr - SIM_AAP_CR0_REGNUM;
-      
-      if ((cnr < 32) || (cnr >= 32))
-	return 0;
-      else
-	SETTSI (buf, GET_H_CR (cnr));
-    }
-
-  else    /* We should never get here. */
-    return 0;
+  if (rn < 64)
+    SETTSI (buf, aapbf16_h_gpr_get (current_cpu, rn));
+  else if (rn == 64)
+    SETTSI (buf, aapbf16_h_pc_get (current_cpu));
+  else if (rn < 128)
+    SETTSI (buf, aapbf16_h_cr_get (current_cpu, rn));
+  else if (rn == 128)
+    SETTSI (buf, aapbf16_h_cf_get (current_cpu));
+  else 
+    return 0; //Fail
 
   return len;
 }
 
 int
-aapbf_store_register (SIM_CPU *cpu, int nr, unsigned char *buf, int len)
-{      
-  /* Store general purpose registers. */
-  if (SIM_AAP_GPR0_REGNUM <= nr && nr <= SIM_AAP_GPR63_REGNUM)
-    {
-      int gnr = nr - SIM_AAP_GPR0_REGNUM;
-      
-      if ((gnr < 32) || (gnr >= 32))
-	return 0;
-      else
-	SET_H_GPR (gnr, GETTSI (buf));
-    }
-
-  /* Store PC.  */
-  else if (nr == SIM_AAP_PC_REGNUM)
-    {
-      SET_H_PC (GETTSI (buf));
-    }
-
-  /* Store control register (CR).  */
-  else if (SIM_AAP_CR0_REGNUM <= nr && nr <= SIM_AAP_CR63_REGNUM)
-    {
-      int cnr = nr - SIM_AAP_CR0_REGNUM;
-      
-      if ((cnr < 32) || (cnr >= 32))
-	return 0;
-      else
-	SET_H_CR (cnr, GETTSI (buf));
-    }
-  else
+aapbf16_store_register  (SIM_CPU *current_cpu, int rn,
+			 unsigned char *buf, int len)
+{
+  if (rn < 64)  //GPR
+  {
+    int grn = rn - SIM_AAP_GPR0_REGNUM;
+    SET_H_GPR (grn, GETTSI (buf));
+  }
+  else if (rn == 64)  //PC
+  {
+    SET_H_PC (GETTSI (buf));
+  }
+  else if (rn < 128)  //CR
+  {
+    int crn = rn - SIM_AAP_CR0_REGNUM;
+    SET_H_CR (crn, GETTSI (buf));
+  }
+  else if (rn == 128)  //CF
+  {
+    SET_H_CF (GETTSI (buf));
+  }
+  else 
     return 0;
-  
+
   return len;
+}
+
+/* Function unit handlers */
+int
+aapbf16_model_aap16_u_exec (SIM_CPU *cpu, const IDESC *idesc, int unit_num, int referenced)
+{
+  return idesc->timing->units[unit_num].done;
+}
+
+void
+aapbf16_h_cr_set_handler (SIM_CPU *current_cpu, UINT cr, USI newval)
+{
+  return;
+}
+
+USI
+aapbf16_h_cr_get_handler (SIM_CPU *current_cpu, UINT cr)
+{
+  return 0;
 }

@@ -314,7 +314,7 @@ SEM_FN_NAME (aapbf16,l_asr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SRLSI (ORSI (* FLD (i_xsrc1), SLLBI (CPU (h_cf), 16)), * FLD (i_xsrc2));
+    USI opval = SRLSI (ORSI (* FLD (i_xsrc1), SLLSI (CPU (h_cf), 16)), * FLD (i_xsrc2));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -578,7 +578,7 @@ SEM_FN_NAME (aapbf16,l_jltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_BRANCH_INIT
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
-if (LTUUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
+if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
     USI opval = * FLD (i_xdest);
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
@@ -612,7 +612,7 @@ SEM_FN_NAME (aapbf16,l_jleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_BRANCH_INIT
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
-if (LEUUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
+if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
     USI opval = * FLD (i_xdest);
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
@@ -711,7 +711,7 @@ SEM_FN_NAME (aapbf16,l_asri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SRLSI (ORSI (* FLD (i_xsrc1), SLLBI (CPU (h_cf), 16)), FLD (f_uint_2_3));
+    USI opval = SRLSI (ORSI (* FLD (i_xsrc1), SLLSI (CPU (h_cf), 16)), FLD (f_uint_2_3));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -910,7 +910,7 @@ SEM_FN_NAME (aapbf16,l_bltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_BRANCH_INIT
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
-if (LTUUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
+if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
     USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
@@ -944,7 +944,7 @@ SEM_FN_NAME (aapbf16,l_bleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_BRANCH_INIT
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
-if (LEUUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
+if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
     USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
@@ -1376,13 +1376,11 @@ SEM_FN_NAME (aapbf16,init_idesc_table) (SIM_CPU *current_cpu)
 	idesc_table[sf->index].sem_fast = sf->fn;
       else
 	idesc_table[sf->index].sem_fast = SEM_FN_NAME (aapbf16,x_invalid);
-/*
 #else
       if (valid_p)
-        idesc_table[sf->index].sem_full = sf->fn;
+	idesc_table[sf->index].sem_full = sf->fn;
       else
-        idesc_table[sf->index].sem_full = SEM_FN_NAME (aapbf16,x_invalid);
-      */
+	idesc_table[sf->index].sem_full = SEM_FN_NAME (aapbf16,x_invalid);
 #endif
     }
 }

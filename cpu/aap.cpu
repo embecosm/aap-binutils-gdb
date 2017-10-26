@@ -1060,7 +1060,7 @@
 
 (aap-format-1 "l.xor" OP2_XOR (set xdest (xor xsrc1 xsrc2))(nop))
 
-(aap-format-1 "l.asr" OP2_ASR (set xdest (srl (or xsrc1 (sll carry 16)) xsrc2))(set carry 0))
+(aap-format-1 "l.asr" OP2_ASR (set xdest (srl (or xsrc1 (sll SI carry 16)) xsrc2))(set carry 0))
 
 (aap-format-1 "l.lsl" OP2_LSL (set xdest (sll xsrc1 xsrc2))(nop))
 
@@ -1089,11 +1089,11 @@
 	      	       		    	      	     (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 	      
-(aap-format-1 "l.jltu" OP2_JLTU (if (ltu xsrc1 xsrc2) (set pc xdest)
+(aap-format-1 "l.jltu" OP2_JLTU (if (lt xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:lt->ltu (causes LTUUSI)
 	      	       		    	       	      (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 
-(aap-format-1 "l.jleu" OP2_JLEU (if (leu xsrc1 xsrc2) (set pc xdest)
+(aap-format-1 "l.jleu" OP2_JLEU (if (le xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:le->leu (causes LEUUSI)
 	      	       		    	       	      (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 
@@ -1105,7 +1105,7 @@
 
 (aap-format-2 "l.subi" OP2_SUBI (set xdest (sub xsrc1 uint023))(set carry (gt xsrc1 uint023)))
 
-(aap-format-2 "l.asri" OP2_ASRI (set xdest (srl (or xsrc1 (sll carry 16)) uint023))(set carry 0))
+(aap-format-2 "l.asri" OP2_ASRI (set xdest (srl (or xsrc1 (sll SI carry 16)) uint023))(set carry 0))
 
 (aap-format-2 "l.lsli" OP2_LSLI (set xdest (sll xsrc1 xsrc2))(nop))
 
@@ -1116,8 +1116,8 @@
 (aap-format-3 "l.bne" OP2_BNE ne)
 (aap-format-3 "l.blts" OP2_BLTS lt)
 (aap-format-3 "l.bles" OP2_BLES le)
-(aap-format-3 "l.bltu" OP2_BLTU ltu)
-(aap-format-3 "l.bleu" OP2_BLEU leu)
+(aap-format-3 "l.bltu" OP2_BLTU lt)   ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-3 "l.bleu" OP2_BLEU le)   ;;FIX ME:le->leu (causes LEUUSI)
 
 ;; Format 4
 (aap-format-4 "l.ldb ${xdest},(${xsrc1},${int023})" OP2_LDB (set xdest
@@ -1224,7 +1224,7 @@
 	      				(set pc (add pc 2))
 					(nop))
 
-(aap-format-8 "l.asr32" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll carry 16)) b6))
+(aap-format-8 "l.asr32" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll SI carry 16)) b6))
 	      				(set carry 0)
 					(set pc (add pc 2)))
 					
@@ -1254,9 +1254,9 @@
 
 (aap-format-8 "l.jles32" OP1_JLES OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "l.jltu32" OP1_JLTU OP2_NOP (if (ltu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "l.jltu32" OP1_JLTU OP2_NOP (if (lt a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))  ;;FIX ME:lt->ltu (causes LTUUSI)
 
-(aap-format-8 "l.jleu32" OP1_JLEU OP2_NOP (if (leu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "l.jleu32" OP1_JLEU OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))  ;;FIX ME:le->leu (causes LEUUSI)
 
 (aap-format-8 "l.jmpl32" OP1_JMP OP2_ADD (set dest1 (add d6 1))(set pc (or (sll dest1 16) d6))(nop))
 
@@ -1281,15 +1281,15 @@
 					       	      	  (set pc (add pc 2)))(nop))
 
 (aap-format-8 "l.jltul32" OP1_JLTU OP2_ADD (set dest1 (add d6 1))
-	      		  	   	   (if (ltu a6 b6) (set pc (or (sll dest1 16) d6))
+	      		  	   	   (if (lt a6 b6) (set pc (or (sll dest1 16) d6))  ;;FIX ME:lt->ltu (causes LTUUSI)
 					       	       	   (set pc (add pc 2)))(nop))
 							   
 (aap-format-8 "l.jleul32" OP1_JLEU OP2_ADD (set dest1 (add d6 1))
-	      		  	   	   (if (leu a6 b6) (set pc (or (sll dest1 16) d6))
+	      		  	   	   (if (le a6 b6) (set pc (or (sll dest1 16) d6))  ;;FIX ME:le->leu (causes LEUUSI)
 					       	       	   (set pc (add pc 2)))(nop))
 
 ;; Format 9
-(aap-format-9 "l.asri32" OP1_ASRI (set d6 (srl (or a6 (sll carry 16)) i6))(set carry 0))
+(aap-format-9 "l.asri32" OP1_ASRI (set d6 (srl (or a6 (sll SI carry 16)) i6))(set carry 0))
 (aap-format-9 "l.lsli32" OP1_LSLI (set d6 (sll a6 i6))(nop))
 (aap-format-9 "l.lsri32" OP1_LSRI (set d6 (srl a6 i6))(nop))
 
@@ -1307,8 +1307,8 @@
 (aap-format-12 "l.bne32" OP1_BNE ne)
 (aap-format-12 "l.blts32" OP1_BLTS lt)
 (aap-format-12 "l.bles32" OP1_BLES le)
-(aap-format-12 "l.bltu32" OP1_BLTU ltu)
-(aap-format-12 "l.bleu32" OP1_BLEU leu)
+(aap-format-12 "l.bltu32" OP1_BLTU lt)  ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-12 "l.bleu32" OP1_BLEU le)  ;;FIX ME:le->leu (causes LEUUSI)
 
 ;; Format 13
 (aap-format-13 "l.ldb32 ${d6},(${a6},${i10})" OP1_LDB (set d6
