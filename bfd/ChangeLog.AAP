@@ -1,3 +1,8 @@
+2017-11-02  Mary Bennett <mary.bennett@embecosm.com>
+
+	* elf32-aap.c (aap_reloc_type_lookup): Add switch statement
+	* reloc.c: Add AAP relocations
+
 2016-01-11  Edward Jones  <ed.jones@embecosm.com>
 
 	* elf32-aap.c (HOWTO): Fix AAP_BR32 so that it encodes a 22 bit

@@ -38,51 +38,51 @@ This file is part of the GNU simulators.
     { AAPBF16_INSN_X_CTI_CHAIN, && case_sem_INSN_X_CTI_CHAIN },
     { AAPBF16_INSN_X_CHAIN, && case_sem_INSN_X_CHAIN },
     { AAPBF16_INSN_X_BEGIN, && case_sem_INSN_X_BEGIN },
-    { AAPBF16_INSN_L_ADD, && case_sem_INSN_L_ADD },
-    { AAPBF16_INSN_L_SUB, && case_sem_INSN_L_SUB },
-    { AAPBF16_INSN_L_AND, && case_sem_INSN_L_AND },
-    { AAPBF16_INSN_L_OR, && case_sem_INSN_L_OR },
-    { AAPBF16_INSN_L_XOR, && case_sem_INSN_L_XOR },
-    { AAPBF16_INSN_L_ASR, && case_sem_INSN_L_ASR },
-    { AAPBF16_INSN_L_LSL, && case_sem_INSN_L_LSL },
-    { AAPBF16_INSN_L_LSR, && case_sem_INSN_L_LSR },
-    { AAPBF16_INSN_L_MOV, && case_sem_INSN_L_MOV },
-    { AAPBF16_INSN_L_JMP, && case_sem_INSN_L_JMP },
-    { AAPBF16_INSN_L_JAL, && case_sem_INSN_L_JAL },
-    { AAPBF16_INSN_L_JEQ, && case_sem_INSN_L_JEQ },
-    { AAPBF16_INSN_L_JNE, && case_sem_INSN_L_JNE },
-    { AAPBF16_INSN_L_JLTS, && case_sem_INSN_L_JLTS },
-    { AAPBF16_INSN_L_JLES, && case_sem_INSN_L_JLES },
-    { AAPBF16_INSN_L_JLTU, && case_sem_INSN_L_JLTU },
-    { AAPBF16_INSN_L_JLEU, && case_sem_INSN_L_JLEU },
-    { AAPBF16_INSN_L_RTE, && case_sem_INSN_L_RTE },
-    { AAPBF16_INSN_L_ADDI, && case_sem_INSN_L_ADDI },
-    { AAPBF16_INSN_L_SUBI, && case_sem_INSN_L_SUBI },
-    { AAPBF16_INSN_L_ASRI, && case_sem_INSN_L_ASRI },
-    { AAPBF16_INSN_L_LSLI, && case_sem_INSN_L_LSLI },
-    { AAPBF16_INSN_L_LSRI, && case_sem_INSN_L_LSRI },
-    { AAPBF16_INSN_L_BEQ, && case_sem_INSN_L_BEQ },
-    { AAPBF16_INSN_L_BNE, && case_sem_INSN_L_BNE },
-    { AAPBF16_INSN_L_BLTS, && case_sem_INSN_L_BLTS },
-    { AAPBF16_INSN_L_BLES, && case_sem_INSN_L_BLES },
-    { AAPBF16_INSN_L_BLTU, && case_sem_INSN_L_BLTU },
-    { AAPBF16_INSN_L_BLEU, && case_sem_INSN_L_BLEU },
-    { AAPBF16_INSN_L_LDB___XDEST_____XSRC1____INT023__, && case_sem_INSN_L_LDB___XDEST_____XSRC1____INT023__ },
-    { AAPBF16_INSN_L_LDW___XDEST_____XSRC1____INT023__, && case_sem_INSN_L_LDW___XDEST_____XSRC1____INT023__ },
-    { AAPBF16_INSN_L_LDB___XDEST_____XSRC1_____INT023__, && case_sem_INSN_L_LDB___XDEST_____XSRC1_____INT023__ },
-    { AAPBF16_INSN_L_LDW___XDEST_____XSRC1_____INT023__, && case_sem_INSN_L_LDW___XDEST_____XSRC1_____INT023__ },
-    { AAPBF16_INSN_L_LDB___XDEST______XSRC1____INT023__, && case_sem_INSN_L_LDB___XDEST______XSRC1____INT023__ },
-    { AAPBF16_INSN_L_LDW___XDEST______XSRC1____INT023__, && case_sem_INSN_L_LDW___XDEST______XSRC1____INT023__ },
-    { AAPBF16_INSN_L_SDB____XDEST____INT023_____XSRC1_, && case_sem_INSN_L_SDB____XDEST____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_SDW____XDEST____INT023_____XSRC1_, && case_sem_INSN_L_SDW____XDEST____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_SDB____XDEST_____INT023_____XSRC1_, && case_sem_INSN_L_SDB____XDEST_____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_SDW____XDEST_____INT023_____XSRC1_, && case_sem_INSN_L_SDW____XDEST_____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_SDB_____XDEST____INT023_____XSRC1_, && case_sem_INSN_L_SDB_____XDEST____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_SDW_____XDEST____INT023_____XSRC1_, && case_sem_INSN_L_SDW_____XDEST____INT023_____XSRC1_ },
-    { AAPBF16_INSN_L_NOP, && case_sem_INSN_L_NOP },
-    { AAPBF16_INSN_L_MOVI, && case_sem_INSN_L_MOVI },
-    { AAPBF16_INSN_L_BAL, && case_sem_INSN_L_BAL },
-    { AAPBF16_INSN_L_BRA, && case_sem_INSN_L_BRA },
+    { AAPBF16_INSN_ADD, && case_sem_INSN_ADD },
+    { AAPBF16_INSN_SUB, && case_sem_INSN_SUB },
+    { AAPBF16_INSN_AND, && case_sem_INSN_AND },
+    { AAPBF16_INSN_OR, && case_sem_INSN_OR },
+    { AAPBF16_INSN_XOR, && case_sem_INSN_XOR },
+    { AAPBF16_INSN_ASR, && case_sem_INSN_ASR },
+    { AAPBF16_INSN_LSL, && case_sem_INSN_LSL },
+    { AAPBF16_INSN_LSR, && case_sem_INSN_LSR },
+    { AAPBF16_INSN_MOV, && case_sem_INSN_MOV },
+    { AAPBF16_INSN_JMP, && case_sem_INSN_JMP },
+    { AAPBF16_INSN_JAL, && case_sem_INSN_JAL },
+    { AAPBF16_INSN_JEQ, && case_sem_INSN_JEQ },
+    { AAPBF16_INSN_JNE, && case_sem_INSN_JNE },
+    { AAPBF16_INSN_JLTS, && case_sem_INSN_JLTS },
+    { AAPBF16_INSN_JLES, && case_sem_INSN_JLES },
+    { AAPBF16_INSN_JLTU, && case_sem_INSN_JLTU },
+    { AAPBF16_INSN_JLEU, && case_sem_INSN_JLEU },
+    { AAPBF16_INSN_RTE, && case_sem_INSN_RTE },
+    { AAPBF16_INSN_ADDI, && case_sem_INSN_ADDI },
+    { AAPBF16_INSN_SUBI, && case_sem_INSN_SUBI },
+    { AAPBF16_INSN_ASRI, && case_sem_INSN_ASRI },
+    { AAPBF16_INSN_LSLI, && case_sem_INSN_LSLI },
+    { AAPBF16_INSN_LSRI, && case_sem_INSN_LSRI },
+    { AAPBF16_INSN_BEQ, && case_sem_INSN_BEQ },
+    { AAPBF16_INSN_BNE, && case_sem_INSN_BNE },
+    { AAPBF16_INSN_BLTS, && case_sem_INSN_BLTS },
+    { AAPBF16_INSN_BLES, && case_sem_INSN_BLES },
+    { AAPBF16_INSN_BLTU, && case_sem_INSN_BLTU },
+    { AAPBF16_INSN_BLEU, && case_sem_INSN_BLEU },
+    { AAPBF16_INSN_LDB___XDEST_____XSRC1____INT023__, && case_sem_INSN_LDB___XDEST_____XSRC1____INT023__ },
+    { AAPBF16_INSN_LDW___XDEST_____XSRC1____INT023__, && case_sem_INSN_LDW___XDEST_____XSRC1____INT023__ },
+    { AAPBF16_INSN_LDB___XDEST_____XSRC1_____INT023__, && case_sem_INSN_LDB___XDEST_____XSRC1_____INT023__ },
+    { AAPBF16_INSN_LDW___XDEST_____XSRC1_____INT023__, && case_sem_INSN_LDW___XDEST_____XSRC1_____INT023__ },
+    { AAPBF16_INSN_LDB___XDEST______XSRC1____INT023__, && case_sem_INSN_LDB___XDEST______XSRC1____INT023__ },
+    { AAPBF16_INSN_LDW___XDEST______XSRC1____INT023__, && case_sem_INSN_LDW___XDEST______XSRC1____INT023__ },
+    { AAPBF16_INSN_STB____XDEST____INT023_____XSRC1_, && case_sem_INSN_STB____XDEST____INT023_____XSRC1_ },
+    { AAPBF16_INSN_STW____XDEST____INT023_____XSRC1_, && case_sem_INSN_STW____XDEST____INT023_____XSRC1_ },
+    { AAPBF16_INSN_STB____XDEST_____INT023_____XSRC1_, && case_sem_INSN_STB____XDEST_____INT023_____XSRC1_ },
+    { AAPBF16_INSN_STW____XDEST_____INT023_____XSRC1_, && case_sem_INSN_STW____XDEST_____INT023_____XSRC1_ },
+    { AAPBF16_INSN_STB_____XDEST____INT023_____XSRC1_, && case_sem_INSN_STB_____XDEST____INT023_____XSRC1_ },
+    { AAPBF16_INSN_STW_____XDEST____INT023_____XSRC1_, && case_sem_INSN_STW_____XDEST____INT023_____XSRC1_ },
+    { AAPBF16_INSN_NOP, && case_sem_INSN_NOP },
+    { AAPBF16_INSN_MOVI, && case_sem_INSN_MOVI },
+    { AAPBF16_INSN_BAL, && case_sem_INSN_BAL },
+    { AAPBF16_INSN_BRA, && case_sem_INSN_BRA },
     { 0, 0 }
   };
   int i;
@@ -282,11 +282,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_ADD) : /* l.add ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_ADD) : /* add dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -301,11 +301,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SUB) : /* l.sub ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_SUB) : /* sub dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -320,11 +320,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_AND) : /* l.and ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_AND) : /* and dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -339,11 +339,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_OR) : /* l.or ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_OR) : /* or dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -358,11 +358,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_XOR) : /* l.xor ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_XOR) : /* xor dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -377,11 +377,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_ASR) : /* l.asr ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_ASR) : /* asr dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -396,11 +396,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LSL) : /* l.lsl ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_LSL) : /* lsl dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -415,11 +415,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LSR) : /* l.lsr ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_LSR) : /* lsr dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -434,11 +434,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_MOV) : /* l.mov ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_MOV) : /* mov ${xdest},${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -453,11 +453,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JMP) : /* l.jmp ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JMP) : /* jmp ${xdest} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -474,11 +474,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JAL) : /* l.jal ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JAL) : /* jal ${xdest},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -493,11 +493,11 @@ SWITCH (sem, SEM_ARGBUF (vpc) -> semantic.sem_case)
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JEQ) : /* l.jeq ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JEQ) : /* jeq dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -525,11 +525,11 @@ if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JNE) : /* l.jne ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JNE) : /* jne dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -557,11 +557,11 @@ if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JLTS) : /* l.jlts ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JLTS) : /* jlts dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -589,11 +589,11 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JLES) : /* l.jles ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JLES) : /* jles dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -621,11 +621,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JLTU) : /* l.jltu ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JLTU) : /* jltu dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -653,11 +653,11 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_JLEU) : /* l.jleu ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_JLEU) : /* jleu dest,${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -685,11 +685,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_RTE) : /* l.rte ${xdest},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_RTE) : /* rte ${xdest} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -706,11 +706,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_ADDI) : /* l.addi ${xdest},${xsrc1},${uint023} */
+  CASE (sem, INSN_ADDI) : /* addi ${xdest},${xsrc1},${uint023} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -725,11 +725,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SUBI) : /* l.subi ${xdest},${xsrc1},${uint023} */
+  CASE (sem, INSN_SUBI) : /* subi ${xdest},${xsrc1},${uint023} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -744,11 +744,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_ASRI) : /* l.asri ${xdest},${xsrc1},${uint023} */
+  CASE (sem, INSN_ASRI) : /* asri ${xdest},${xsrc1},${uint023} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -763,11 +763,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LSLI) : /* l.lsli ${xdest},${xsrc1},${uint023} */
+  CASE (sem, INSN_LSLI) : /* lsli ${xdest},${xsrc1},${uint023} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -782,11 +782,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LSRI) : /* l.lsri ${xdest},${xsrc1},${uint023} */
+  CASE (sem, INSN_LSRI) : /* lsri ${xdest},${xsrc1},${uint023} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -801,11 +801,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BEQ) : /* l.beq ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BEQ) : /* beq ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -813,7 +813,7 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -833,11 +833,11 @@ if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BNE) : /* l.bne ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BNE) : /* bne ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -845,7 +845,7 @@ if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -865,11 +865,11 @@ if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BLTS) : /* l.blts ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BLTS) : /* blts ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -877,7 +877,7 @@ if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -897,11 +897,11 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BLES) : /* l.bles ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BLES) : /* bles ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -909,7 +909,7 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -929,11 +929,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BLTU) : /* l.bltu ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BLTU) : /* bltu ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -941,7 +941,7 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -961,11 +961,11 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BLEU) : /* l.bleu ${int083},${xsrc1},${xsrc2} */
+  CASE (sem, INSN_BLEU) : /* bleu ${int083},${xsrc1},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
@@ -973,7 +973,7 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 
 if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -993,17 +993,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDB___XDEST_____XSRC1____INT023__) : /* l.ldb ${xdest},(${xsrc1},${int023}) */
+  CASE (sem, INSN_LDB___XDEST_____XSRC1____INT023__) : /* ldb ${xdest},[${xsrc1},${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))));
+    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3))));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1012,17 +1012,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDW___XDEST_____XSRC1____INT023__) : /* l.ldw ${xdest},(${xsrc1},${int023}) */
+  CASE (sem, INSN_LDW___XDEST_____XSRC1____INT023__) : /* ldw ${xdest},[${xsrc1},${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))))), 8));
+    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)))), 8));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1031,17 +1031,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDB___XDEST_____XSRC1_____INT023__) : /* l.ldb ${xdest},(${xsrc1}+,${int023}) */
+  CASE (sem, INSN_LDB___XDEST_____XSRC1_____INT023__) : /* ldb ${xdest},[${xsrc1}+,${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))));
+    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3))));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1050,17 +1050,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDW___XDEST_____XSRC1_____INT023__) : /* l.ldw ${xdest},(${xsrc1}+,${int023}) */
+  CASE (sem, INSN_LDW___XDEST_____XSRC1_____INT023__) : /* ldw ${xdest},[${xsrc1}+,${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))))), 8));
+    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)))), 8));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1069,17 +1069,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDB___XDEST______XSRC1____INT023__) : /* l.ldb ${xdest},(-${xsrc1},${int023}) */
+  CASE (sem, INSN_LDB___XDEST______XSRC1____INT023__) : /* ldb ${xdest},[-${xsrc1},${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_xsrc1) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1088,17 +1088,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_LDW___XDEST______XSRC1____INT023__) : /* l.ldw ${xdest},(-${xsrc1},${int023}) */
+  CASE (sem, INSN_LDW___XDEST______XSRC1____INT023__) : /* ldw ${xdest},[-${xsrc1},${int023}] */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_xsrc1) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1107,18 +1107,18 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDB____XDEST____INT023_____XSRC1_) : /* l.sdb (${xdest},${int023}),${xsrc1} */
+  CASE (sem, INSN_STB____XDEST____INT023_____XSRC1_) : /* stb [${xdest},${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1126,18 +1126,18 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDW____XDEST____INT023_____XSRC1_) : /* l.sdw (${xdest},${int023}),${xsrc1} */
+  CASE (sem, INSN_STW____XDEST____INT023_____XSRC1_) : /* stw [${xdest},${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1145,18 +1145,18 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDB____XDEST_____INT023_____XSRC1_) : /* l.sdb (${xdest}+,${int023}),${xsrc1} */
+  CASE (sem, INSN_STB____XDEST_____INT023_____XSRC1_) : /* stb [${xdest}+,${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1164,18 +1164,18 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDW____XDEST_____INT023_____XSRC1_) : /* l.sdw (${xdest}+,${int023}),${xsrc1} */
+  CASE (sem, INSN_STW____XDEST_____INT023_____XSRC1_) : /* stw [${xdest}+,${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1183,17 +1183,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDB_____XDEST____INT023_____XSRC1_) : /* l.sdb (-${xdest},${int023}),${xsrc1} */
+  CASE (sem, INSN_STB_____XDEST____INT023_____XSRC1_) : /* stb [-${xdest},${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_d6), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_d6), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_d6) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1202,17 +1202,17 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_SDW_____XDEST____INT023_____XSRC1_) : /* l.sdw (-${xdest},${int023}),${xsrc1} */
+  CASE (sem, INSN_STW_____XDEST____INT023_____XSRC1_) : /* stw [-${xdest},${int023}],${xsrc1} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_d6), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_d6), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_d6) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1221,7 +1221,7 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_NOP) : /* l.nop ${xdest},${uint056} */
+  CASE (sem, INSN_NOP) : /* nop ${xdest},${uint056} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
@@ -1236,11 +1236,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_MOVI) : /* l.movi ${xdest},${uint056} */
+  CASE (sem, INSN_MOVI) : /* movi ${xdest},${uint056} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -1255,11 +1255,11 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BAL) : /* l.bal ${int086},${xsrc2} */
+  CASE (sem, INSN_BAL) : /* bal ${int086},${xsrc2} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
@@ -1274,18 +1274,18 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 }
   NEXT (vpc);
 
-  CASE (sem, INSN_L_BRA) : /* l.bra ${int089} */
+  CASE (sem, INSN_BRA) : /* bra ${int089} */
 {
   SEM_ARG sem_arg = SEM_SEM_ARG (vpc, sc);
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
-#define FLD(f) abuf->fields.sfmt_l_bra.f
+#define FLD(f) abuf->fields.sfmt_bra.f
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_BRANCH_INIT
   vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_9))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_9)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }

@@ -198,6 +198,7 @@ SIM_OBJS = \
 	sim-if.o arch.o \
 	$(AAP_OBJS) \
 	$(AAP16_OBJS) \
+	devices.o
 
 # Extra headers included by sim-main.h.
 SIM_EXTRA_DEPS = \
@@ -620,6 +621,8 @@ arch = aap
 sim-if.o: sim-if.c $(SIM_MAIN_DEPS) $(srcdir)/../common/sim-core.h
 
 arch.o: arch.c $(SIM_MAIN_DEPS)
+
+devices.o: devices.c $(SIM_MAIN_DEPS)
 
 # AAP objs
 

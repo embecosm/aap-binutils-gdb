@@ -66,3 +66,7 @@ extern void aap_show_usage (FILE *);
 
 extern symbolS *aap_undefined_symbol (char *);
 #define md_undefined_symbol aap_undefined_symbol
+
+/* After creating a fixup for an instruction operand, we need to check for
+   HI16 relocs and queue them up for later sorting.  */
+#define md_cgen_record_fixup_exp aap_cgen_record_fixup_exp

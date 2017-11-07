@@ -149,15 +149,3 @@ aapbf_model_aap32_u_exec (SIM_CPU *cpu, const IDESC *idesc, int unit_num, int re
 {
   return idesc->timing->units[unit_num].done;
 }
-
-void
-aapbf_h_cr_set_handler (SIM_CPU *current_cpu, UINT cr, USI newval)
-{
-  return;
-}
-
-USI
-aapbf_h_cr_get_handler (SIM_CPU *current_cpu, UINT cr)
-{
-  return 0;
-}

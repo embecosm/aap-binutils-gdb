@@ -49,7 +49,7 @@ aapbf16_h_gpr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
 USI
 aapbf16_h_cr_get (SIM_CPU *current_cpu, UINT regno)
 {
-  return GET_H_CR (regno);
+  return CPU (h_cr[regno]);
 }
 
 /* Set a value for h-cr.  */
@@ -57,7 +57,7 @@ aapbf16_h_cr_get (SIM_CPU *current_cpu, UINT regno)
 void
 aapbf16_h_cr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
 {
-  SET_H_CR (regno, newval);
+  CPU (h_cr[regno]) = newval;
 }
 
 /* Get the value of h-cf.  */

@@ -35,9 +35,9 @@ This file is part of the GNU simulators.
 /* Model handlers for each insn.  */
 
 static int
-model_aap16_l_add (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_add (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -51,9 +51,9 @@ model_aap16_l_add (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_sub (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_sub (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -67,9 +67,9 @@ model_aap16_l_sub (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_and (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_and (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -83,9 +83,9 @@ model_aap16_l_and (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_or (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_or (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -99,9 +99,9 @@ model_aap16_l_or (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_xor (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_xor (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -115,9 +115,9 @@ model_aap16_l_xor (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_asr (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_asr (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -131,9 +131,9 @@ model_aap16_l_asr (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_lsl (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_lsl (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -147,9 +147,9 @@ model_aap16_l_lsl (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_lsr (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_lsr (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -163,9 +163,9 @@ model_aap16_l_lsr (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_mov (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_mov (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -179,9 +179,9 @@ model_aap16_l_mov (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jmp (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jmp (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -195,9 +195,9 @@ model_aap16_l_jmp (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jal (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jal (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -211,9 +211,9 @@ model_aap16_l_jal (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jeq (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jeq (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -227,9 +227,9 @@ model_aap16_l_jeq (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jne (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jne (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -243,9 +243,9 @@ model_aap16_l_jne (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jlts (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jlts (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -259,9 +259,9 @@ model_aap16_l_jlts (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jles (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jles (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -275,9 +275,9 @@ model_aap16_l_jles (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jltu (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jltu (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -291,9 +291,9 @@ model_aap16_l_jltu (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_jleu (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_jleu (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -307,9 +307,9 @@ model_aap16_l_jleu (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_rte (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_rte (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -323,9 +323,9 @@ model_aap16_l_rte (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_addi (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_addi (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -339,9 +339,9 @@ model_aap16_l_addi (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_subi (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_subi (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -355,9 +355,9 @@ model_aap16_l_subi (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_asri (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_asri (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -371,9 +371,9 @@ model_aap16_l_asri (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_lsli (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_lsli (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -387,9 +387,9 @@ model_aap16_l_lsli (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_lsri (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_lsri (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -403,9 +403,9 @@ model_aap16_l_lsri (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_beq (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_beq (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -419,9 +419,9 @@ model_aap16_l_beq (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bne (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bne (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -435,9 +435,9 @@ model_aap16_l_bne (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_blts (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_blts (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -451,9 +451,9 @@ model_aap16_l_blts (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bles (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bles (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -467,9 +467,9 @@ model_aap16_l_bles (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bltu (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bltu (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -483,9 +483,9 @@ model_aap16_l_bltu (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bleu (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bleu (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -499,9 +499,9 @@ model_aap16_l_bleu (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_ldb___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldb___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -515,9 +515,9 @@ model_aap16_l_ldb___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem
 }
 
 static int
-model_aap16_l_ldw___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldw___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -531,9 +531,9 @@ model_aap16_l_ldw___xdest_____xsrc1____int023__ (SIM_CPU *current_cpu, void *sem
 }
 
 static int
-model_aap16_l_ldb___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldb___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -547,9 +547,9 @@ model_aap16_l_ldb___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_ldw___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldw___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -563,9 +563,9 @@ model_aap16_l_ldw___xdest_____xsrc1_____int023__ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_ldb___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldb___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -579,9 +579,9 @@ model_aap16_l_ldb___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_ldw___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_ldw___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -595,9 +595,9 @@ model_aap16_l_ldw___xdest______xsrc1____int023__ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_sdb____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stb____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -611,9 +611,9 @@ model_aap16_l_sdb____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem
 }
 
 static int
-model_aap16_l_sdw____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stw____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -627,9 +627,9 @@ model_aap16_l_sdw____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem
 }
 
 static int
-model_aap16_l_sdb____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stb____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -643,9 +643,9 @@ model_aap16_l_sdb____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_sdw____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stw____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -659,9 +659,9 @@ model_aap16_l_sdw____xdest_____int023_____xsrc1_ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_sdb_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stb_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -675,9 +675,9 @@ model_aap16_l_sdb_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_sdw_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_stw_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -691,7 +691,7 @@ model_aap16_l_sdw_____xdest____int023_____xsrc1_ (SIM_CPU *current_cpu, void *se
 }
 
 static int
-model_aap16_l_nop (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_nop (SIM_CPU *current_cpu, void *sem_arg)
 {
 #define FLD(f) abuf->fields.sfmt_empty.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
@@ -707,9 +707,9 @@ model_aap16_l_nop (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_movi (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_movi (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -723,9 +723,9 @@ model_aap16_l_movi (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bal (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bal (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -739,9 +739,9 @@ model_aap16_l_bal (SIM_CPU *current_cpu, void *sem_arg)
 }
 
 static int
-model_aap16_l_bra (SIM_CPU *current_cpu, void *sem_arg)
+model_aap16_bra (SIM_CPU *current_cpu, void *sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_bra.f
+#define FLD(f) abuf->fields.sfmt_bra.f
   const ARGBUF * UNUSED abuf = SEM_ARGBUF ((SEM_ARG) sem_arg);
   const IDESC * UNUSED idesc = abuf->idesc;
   int cycles = 0;
@@ -766,51 +766,51 @@ static const INSN_TIMING aap16_timing[] = {
   { AAPBF16_INSN_X_CTI_CHAIN, 0, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
   { AAPBF16_INSN_X_CHAIN, 0, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
   { AAPBF16_INSN_X_BEGIN, 0, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_ADD, model_aap16_l_add, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SUB, model_aap16_l_sub, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_AND, model_aap16_l_and, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_OR, model_aap16_l_or, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_XOR, model_aap16_l_xor, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_ASR, model_aap16_l_asr, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LSL, model_aap16_l_lsl, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LSR, model_aap16_l_lsr, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_MOV, model_aap16_l_mov, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JMP, model_aap16_l_jmp, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JAL, model_aap16_l_jal, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JEQ, model_aap16_l_jeq, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JNE, model_aap16_l_jne, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JLTS, model_aap16_l_jlts, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JLES, model_aap16_l_jles, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JLTU, model_aap16_l_jltu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_JLEU, model_aap16_l_jleu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_RTE, model_aap16_l_rte, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_ADDI, model_aap16_l_addi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SUBI, model_aap16_l_subi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_ASRI, model_aap16_l_asri, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LSLI, model_aap16_l_lsli, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LSRI, model_aap16_l_lsri, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BEQ, model_aap16_l_beq, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BNE, model_aap16_l_bne, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BLTS, model_aap16_l_blts, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BLES, model_aap16_l_bles, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BLTU, model_aap16_l_bltu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BLEU, model_aap16_l_bleu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDB___XDEST_____XSRC1____INT023__, model_aap16_l_ldb___xdest_____xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDW___XDEST_____XSRC1____INT023__, model_aap16_l_ldw___xdest_____xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDB___XDEST_____XSRC1_____INT023__, model_aap16_l_ldb___xdest_____xsrc1_____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDW___XDEST_____XSRC1_____INT023__, model_aap16_l_ldw___xdest_____xsrc1_____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDB___XDEST______XSRC1____INT023__, model_aap16_l_ldb___xdest______xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_LDW___XDEST______XSRC1____INT023__, model_aap16_l_ldw___xdest______xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDB____XDEST____INT023_____XSRC1_, model_aap16_l_sdb____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDW____XDEST____INT023_____XSRC1_, model_aap16_l_sdw____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDB____XDEST_____INT023_____XSRC1_, model_aap16_l_sdb____xdest_____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDW____XDEST_____INT023_____XSRC1_, model_aap16_l_sdw____xdest_____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDB_____XDEST____INT023_____XSRC1_, model_aap16_l_sdb_____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_SDW_____XDEST____INT023_____XSRC1_, model_aap16_l_sdw_____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_NOP, model_aap16_l_nop, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_MOVI, model_aap16_l_movi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BAL, model_aap16_l_bal, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
-  { AAPBF16_INSN_L_BRA, model_aap16_l_bra, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_ADD, model_aap16_add, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_SUB, model_aap16_sub, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_AND, model_aap16_and, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_OR, model_aap16_or, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_XOR, model_aap16_xor, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_ASR, model_aap16_asr, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LSL, model_aap16_lsl, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LSR, model_aap16_lsr, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_MOV, model_aap16_mov, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JMP, model_aap16_jmp, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JAL, model_aap16_jal, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JEQ, model_aap16_jeq, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JNE, model_aap16_jne, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JLTS, model_aap16_jlts, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JLES, model_aap16_jles, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JLTU, model_aap16_jltu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_JLEU, model_aap16_jleu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_RTE, model_aap16_rte, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_ADDI, model_aap16_addi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_SUBI, model_aap16_subi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_ASRI, model_aap16_asri, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LSLI, model_aap16_lsli, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LSRI, model_aap16_lsri, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BEQ, model_aap16_beq, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BNE, model_aap16_bne, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BLTS, model_aap16_blts, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BLES, model_aap16_bles, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BLTU, model_aap16_bltu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BLEU, model_aap16_bleu, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDB___XDEST_____XSRC1____INT023__, model_aap16_ldb___xdest_____xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDW___XDEST_____XSRC1____INT023__, model_aap16_ldw___xdest_____xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDB___XDEST_____XSRC1_____INT023__, model_aap16_ldb___xdest_____xsrc1_____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDW___XDEST_____XSRC1_____INT023__, model_aap16_ldw___xdest_____xsrc1_____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDB___XDEST______XSRC1____INT023__, model_aap16_ldb___xdest______xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_LDW___XDEST______XSRC1____INT023__, model_aap16_ldw___xdest______xsrc1____int023__, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STB____XDEST____INT023_____XSRC1_, model_aap16_stb____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STW____XDEST____INT023_____XSRC1_, model_aap16_stw____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STB____XDEST_____INT023_____XSRC1_, model_aap16_stb____xdest_____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STW____XDEST_____INT023_____XSRC1_, model_aap16_stw____xdest_____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STB_____XDEST____INT023_____XSRC1_, model_aap16_stb_____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_STW_____XDEST____INT023_____XSRC1_, model_aap16_stw_____xdest____int023_____xsrc1_, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_NOP, model_aap16_nop, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_MOVI, model_aap16_movi, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BAL, model_aap16_bal, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
+  { AAPBF16_INSN_BRA, model_aap16_bra, { { (int) UNIT_AAP16_U_EXEC, 1, 1 } } },
 };
 
 #endif /* WITH_PROFILE_MODEL_P */

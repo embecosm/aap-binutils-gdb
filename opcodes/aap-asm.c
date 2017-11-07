@@ -49,36 +49,142 @@ static const char * parse_insn_normal
 /* -- assembler routines inserted here.  */
 
 /* -- asm.c */
+static const char *
+parse_branch_and_link(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_branch_and_link\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BAL16,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
 
 static const char *
-parse_ulo16 (CGEN_CPU_DESC cd,
-	     const char **strp,
-	     int opindex,
-	     unsigned long *valuep)
+parse_branch_and_link32(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      unsigned long * valuep)
 {
-  const char *errmsg;
+  printf("parse_branch_and_link32\n");
+  
+  const char *errmsg = NULL;
   enum cgen_parse_operand_result result_type;
-  bfd_vma value;
- 
-  if (**strp == '#' || **strp == '%')
-    {
-      if (strncasecmp (*strp + 1, "lo(", 3) == 0)
-	{
-	  *strp += 4;
-	  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_FRV_LO16,
-				       & result_type, & value);
-	  if (**strp != ')')
-	    return "missing `)'";
-	  ++*strp;
-	  if (errmsg == NULL
-	      && result_type == CGEN_PARSE_OPERAND_RESULT_NUMBER)
-	    value &= 0xffff;
-	  *valuep = value;
-	  return errmsg;
-	}
-    }
-  return cgen_parse_unsigned_integer (cd, strp, opindex, valuep);
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BAL32,
+  	  		     & result_type, valuep);
+
+  return errmsg;
 }
+
+static const char *
+parse_bra(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_bra\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BR16,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
+static const char *
+parse_bra32(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_bra32\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BR32,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
+static const char *
+parse_branch_cond(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_branch_cond\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BRCC16,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
+static const char *
+parse_branch_cond32(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_branch_cond32\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BRCC32,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
+static const char *
+parse_move_immi(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_move_immi\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BR16,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
+static const char *
+parse_move_immi32(CGEN_CPU_DESC cd,
+	      const char ** strp,
+	      int opindex,
+	      bfd_vma * valuep)
+{
+  printf("parse_move_immi32\n");
+  
+  const char *errmsg = NULL;
+  enum cgen_parse_operand_result result_type;
+  
+  errmsg = cgen_parse_address (cd, strp, opindex, BFD_RELOC_AAP_BR32,
+  	  		     & result_type, valuep);
+
+  return errmsg;
+}
+
 /* -- */
 
 const char * aap_cgen_parse_operand
@@ -134,7 +240,7 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I12, (unsigned long *) (& fields->f_i_12));
       break;
     case AAP_OPERAND_I16 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I16, (unsigned long *) (& fields->f_i_16));
+      errmsg = parse_move_immi32 (cd, strp, AAP_OPERAND_I16, (unsigned long *) (& fields->f_i_16));
       break;
     case AAP_OPERAND_I6 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I6, (unsigned long *) (& fields->f_i_6));
@@ -143,34 +249,31 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
       break;
     case AAP_OPERAND_INT083 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT083, (long *) (& fields->f_int_8_3));
+      errmsg = parse_branch_cond (cd, strp, AAP_OPERAND_INT083, (long *) (& fields->f_int_8_3));
       break;
     case AAP_OPERAND_INT086 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT086, (long *) (& fields->f_int_8_6));
+      errmsg = parse_branch_and_link (cd, strp, AAP_OPERAND_INT086, (long *) (& fields->f_int_8_6));
       break;
     case AAP_OPERAND_INT089 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT089, (long *) (& fields->f_int_8_9));
+      errmsg = parse_bra (cd, strp, AAP_OPERAND_INT089, (long *) (& fields->f_int_8_9));
       break;
     case AAP_OPERAND_INT1210 :
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT1210, (long *) (& fields->f_int_12_10));
       break;
     case AAP_OPERAND_S10 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10));
+      errmsg = parse_branch_cond32 (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10));
       break;
     case AAP_OPERAND_S16 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S16, (long *) (& fields->f_s_16));
+      errmsg = parse_branch_and_link32 (cd, strp, AAP_OPERAND_S16, (long *) (& fields->f_s_16));
       break;
     case AAP_OPERAND_S22 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_S22, (long *) (& fields->f_s_22));
+      errmsg = parse_bra32 (cd, strp, AAP_OPERAND_S22, (long *) (& fields->f_s_22));
       break;
     case AAP_OPERAND_UINT023 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT023, (unsigned long *) (& fields->f_uint_2_3));
       break;
     case AAP_OPERAND_UINT056 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT056, (unsigned long *) (& fields->f_uint_5_6));
-      break;
-    case AAP_OPERAND_ULO16 :
-      errmsg = parse_ulo16 (cd, strp, AAP_OPERAND_ULO16, (unsigned long *) (& fields->f_u16));
+      errmsg = parse_move_immi (cd, strp, AAP_OPERAND_UINT056, (unsigned long *) (& fields->f_uint_5_6));
       break;
     case AAP_OPERAND_XDEST :
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_x_dst_reg);

@@ -779,9 +779,6 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
       break;
-    case AAP_OPERAND_ULO16 :
-      errmsg = insert_normal (cd, fields->f_u16, 0, 0, 15, 16, 32, total_length, buffer);
-      break;
     case AAP_OPERAND_XDEST :
       errmsg = insert_normal (cd, fields->f_x_dst_reg, 0, 0, 8, 3, 32, total_length, buffer);
       break;
@@ -978,9 +975,6 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
       break;
-    case AAP_OPERAND_ULO16 :
-      length = extract_normal (cd, ex_info, insn_value, 0, 0, 15, 16, 32, total_length, pc, & fields->f_u16);
-      break;
     case AAP_OPERAND_XDEST :
       length = extract_normal (cd, ex_info, insn_value, 0, 0, 8, 3, 32, total_length, pc, & fields->f_x_dst_reg);
       break;
@@ -1088,9 +1082,6 @@ aap_cgen_get_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       value = fields->f_uint_5_6;
       break;
-    case AAP_OPERAND_ULO16 :
-      value = fields->f_u16;
-      break;
     case AAP_OPERAND_XDEST :
       value = fields->f_x_dst_reg;
       break;
@@ -1179,9 +1170,6 @@ aap_cgen_get_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
       break;
     case AAP_OPERAND_UINT056 :
       value = fields->f_uint_5_6;
-      break;
-    case AAP_OPERAND_ULO16 :
-      value = fields->f_u16;
       break;
     case AAP_OPERAND_XDEST :
       value = fields->f_x_dst_reg;
@@ -1279,9 +1267,6 @@ aap_cgen_set_int_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
     case AAP_OPERAND_UINT056 :
       fields->f_uint_5_6 = value;
       break;
-    case AAP_OPERAND_ULO16 :
-      fields->f_u16 = value;
-      break;
     case AAP_OPERAND_XDEST :
       fields->f_x_dst_reg = value;
       break;
@@ -1367,9 +1352,6 @@ aap_cgen_set_vma_operand (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
       break;
     case AAP_OPERAND_UINT056 :
       fields->f_uint_5_6 = value;
-      break;
-    case AAP_OPERAND_ULO16 :
-      fields->f_u16 = value;
       break;
     case AAP_OPERAND_XDEST :
       fields->f_x_dst_reg = value;

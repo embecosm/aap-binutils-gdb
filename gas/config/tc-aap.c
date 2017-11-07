@@ -33,9 +33,9 @@ struct option md_longopts[] =
 size_t md_longopts_size = sizeof(md_longopts);
 
 /* Define characters with special meanings to GAS. */
-const char comment_chars[] = "#";
-const char line_comment_chars[] = "#";
-const char line_separator_chars[] = ";";
+const char comment_chars[] = ";";
+const char line_comment_chars[] = ";";
+const char line_separator_chars[] = "";
 const char EXP_CHARS[] = "eE";
 const char FLT_CHARS[] = "rRsSfFdDxXpP";
 
@@ -198,30 +198,6 @@ md_pcrel_from_section (fixS *fixP,
   return (fixP->fx_frag->fr_address + fixP->fx_where) & ~1;
 }
 
-/* Return the bfd reloc type for OPERAND of INSN at fixup FIXP.
-   Returns BFD_RELOC_NONE if no reloc type can be found.
-   *FIXP may be modified if desired.  */
-
-bfd_reloc_code_real_type
-md_cgen_lookup_reloc (const CGEN_INSN *insn ATTRIBUTE_UNUSED,
-		      const CGEN_OPERAND *operand,
-		      fixS *fixP)
-{
-  printf("md_cgen_lookup_reloc");
-
-  if (fixP->fx_cgen.opinfo)
-    return fixP->fx_cgen.opinfo;
-
-  switch (operand->type)    /* Check in aap-ibld.c for a complex errmsg definition */
-  {
-    default: /* avoid -Wall warning */
-      break;
-  }
-  
-  fprintf(stderr, "APB: %s : %d\n", __FILE__, __LINE__);
-  return BFD_RELOC_NONE;
-}
-
 /* Write a value out to the object file, using the appropriate endianness.  */
 
 void
@@ -273,12 +249,14 @@ tc_gen_reloc (asection *section,
 
   if (fixp->fx_pcrel)
     {
-      if (section->use_rela_p)
-	fixp->fx_offset -= md_pcrel_from_section (fixp, section);
-      else
-	fixp->fx_offset = reloc->address;
+      if (fixp->fx_r_type == BFD_RELOC_32)
+        fixp->fx_r_type = BFD_RELOC_32_PCREL;
+      else if (fixp->fx_r_type == BFD_RELOC_16)
+	{
+          fixp->fx_r_type = BFD_RELOC_16_PCREL;
+          bfd_set_error (bfd_error_bad_value);
+	}
     }
-  reloc->addend = fixp->fx_offset;
 
   code = fixp->fx_r_type;
   switch (code)
@@ -298,16 +276,44 @@ tc_gen_reloc (asection *section,
     }
 
   reloc->howto = bfd_reloc_type_lookup (stdoutput, code);
-  if (reloc->howto == NULL)
+  
+  if (reloc->howto == (reloc_howto_type *) NULL)
     {
       as_bad_where (fixp->fx_file, fixp->fx_line,
-		    _
-		    ("cannot represent %s relocation in this object file format"),
-		    bfd_get_reloc_code_name (code));
+            _("internal error: can't export reloc type %d (`%s')"),
+            fixp->fx_r_type, bfd_get_reloc_code_name (code));
       return NULL;
     }
 
+   /* Use fx_offset for these cases. M32r */
+  if (fixp->fx_r_type == BFD_RELOC_32_PCREL)
+    reloc->addend  = fixp->fx_offset;
+  else
+    reloc->addend  = fixp->fx_addnumber;
+
   return reloc;
+}
+
+/* Apply fixup FIXP to SIZE-byte field BUF given that VAL is its
+   assembly-time value.  If we're generating a reloc for FIXP,
+   see whether the addend should be stored in-place or whether
+   it should be in an ELF r_addend field.  */
+/* From sh */
+static void
+apply_full_field_fix (fixS *fixP, char *buf, bfd_vma val, int size)
+{
+  reloc_howto_type *howto;
+
+  if (fixP->fx_addsy != NULL || fixP->fx_pcrel)
+    {
+      howto = bfd_reloc_type_lookup (stdoutput, fixP->fx_r_type);
+      if (howto && !howto->partial_inplace)
+	{
+	  fixP->fx_addnumber = val;
+	  return;
+	}
+    }
+  md_number_to_chars (buf, val, size);
 }
 
 /* Fixup some data or instructions after we find out the value of a symbol
@@ -319,21 +325,53 @@ aap_apply_fix (fixS *fixP, valueT *valueP, segT seg)
   printf("aap_apply_fix\n");
   
   valueT value = * valueP;
-  seg = seg;
+  char * buf = fixP->fx_where + fixP->fx_frag->fr_literal;
 
+  gas_cgen_md_apply_fix (fixP, valueP, seg);
+  
+  /* Note whether this will delete the relocation.  */
+  if (fixP->fx_addsy == 0 && !fixP->fx_pcrel)
+    fixP->fx_done = 1;
+  
   if (fixP->fx_subsy != (symbolS *) NULL)
     as_bad_where (fixP->fx_file, fixP->fx_line, _("expression too complex"));
+  
+  switch (fixP->fx_r_type)
+    {
+    case BFD_RELOC_NONE:
+      /* This will need to go in the object file.  */
+      fixP->fx_done = 0;
+      break;
+      
+    case BFD_RELOC_8:
+      if (fixP->fx_done || !seg->use_rela_p)
+	*buf = value;
+      break;
 
-  if (fixP->fx_addsy == NULL)
-    fixP->fx_done = 1;
+    case BFD_RELOC_16:
+      apply_full_field_fix(fixP, buf, value, 2);
+      break;
+      
+    case BFD_RELOC_32:
+      fixP->fx_r_type = BFD_RELOC_32_PCREL;
+      /*fallthrough*/
+    case BFD_RELOC_32_PCREL:
+      apply_full_field_fix(fixP, buf, value, 4);
+      break;
+      
+    default:
+      break;
+      /*      as_bad_where (fixP->fx_file, fixP->fx_line,
+	      _("bad relocation fixup type (%d) (apply_fix)"), fixP->fx_r_type);*/
+    }
 
   if (fixP->fx_done)
     number_to_chars_littleendian (fixP->fx_where + fixP->fx_frag->fr_literal,
 				  value, fixP->fx_size);
   else
     /* Initialise the part of an instruction frag covered by the
-       relocation.  (Many occurrences of frag_more followed by fix_new
-       lack any init of the frag.)  Since VAX uses RELA relocs the
+       relocation. (Many occurrences of frag_more followed by fix_new
+       lack any init of the frag.) Since VAX uses RELA relocs the
        value we write into this field doesn't really matter. */
     memset (fixP->fx_where + fixP->fx_frag->fr_literal, 0, fixP->fx_size);
 }
@@ -364,6 +402,23 @@ aap_force_relocation (fixS *fix)
 }
 
   return generic_force_reloc (fix);
+}
+
+bfd_reloc_code_real_type
+md_cgen_lookup_reloc (const CGEN_INSN * insn ATTRIBUTE_UNUSED,
+		      const CGEN_OPERAND * operand,
+		      fixS * fixP)
+{
+  printf("cgen_lookup_reloc: %d\n", fixP->fx_cgen.opinfo);
+  
+  if (fixP->fx_cgen.opinfo)
+    return fixP->fx_cgen.opinfo;
+
+  switch (operand->type)
+    {
+    default:
+      return BFD_RELOC_NONE;
+    }
 }
 
 /**********************************************************************************/
@@ -406,9 +461,9 @@ aap_section_align (segT segment,
 }
 
 symbolS *
-aap_undefined_symbol (char *name ATTRIBUTE_UNUSED)
+aap_undefined_symbol (char *name)// ATTRIBUTE_UNUSED)
 {
-  printf("aap_undefined_symbol\n");
+  printf("aap_undefined_symbol: %s\n", name);
   
   return NULL;
 }
@@ -450,4 +505,20 @@ aap_create_long_jump (char *ptr,
   *ptr++ = AAP_ABSOLUTE_MODE;
   aap_number_to_chars (ptr, offset, 4);
   fix_new (frag, ptr - frag->fr_literal, 4, to_symbol, (long) 0, 0, NO_RELOC);
+}
+
+/* to prevent seg fault in gas_cgen_record_fixup */
+fixS *
+aap_cgen_record_fixup_exp (fragS *frag,
+			    int where,
+			    const CGEN_INSN *insn,
+			    int length,
+			    const CGEN_OPERAND *operand,
+			    int opinfo,
+			    expressionS *exp)
+{  
+  fixS * fixP = gas_cgen_record_fixup_exp (frag, where, insn, length,
+                                           operand, opinfo, exp);
+
+  return fixP;
 }

@@ -46,51 +46,51 @@ static const struct insn_sem aapbf16_insn_sem[] =
   { VIRTUAL_INSN_X_CTI_CHAIN, AAPBF16_INSN_X_CTI_CHAIN, AAPBF16_SFMT_EMPTY },
   { VIRTUAL_INSN_X_CHAIN, AAPBF16_INSN_X_CHAIN, AAPBF16_SFMT_EMPTY },
   { VIRTUAL_INSN_X_BEGIN, AAPBF16_INSN_X_BEGIN, AAPBF16_SFMT_EMPTY },
-  { AAP_INSN_L_ADD, AAPBF16_INSN_L_ADD, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_SUB, AAPBF16_INSN_L_SUB, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_AND, AAPBF16_INSN_L_AND, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_OR, AAPBF16_INSN_L_OR, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_XOR, AAPBF16_INSN_L_XOR, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_ASR, AAPBF16_INSN_L_ASR, AAPBF16_SFMT_L_ASR },
-  { AAP_INSN_L_LSL, AAPBF16_INSN_L_LSL, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_LSR, AAPBF16_INSN_L_LSR, AAPBF16_SFMT_L_ADD },
-  { AAP_INSN_L_MOV, AAPBF16_INSN_L_MOV, AAPBF16_SFMT_L_MOV },
-  { AAP_INSN_L_JMP, AAPBF16_INSN_L_JMP, AAPBF16_SFMT_L_JMP },
-  { AAP_INSN_L_JAL, AAPBF16_INSN_L_JAL, AAPBF16_SFMT_L_JAL },
-  { AAP_INSN_L_JEQ, AAPBF16_INSN_L_JEQ, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_JNE, AAPBF16_INSN_L_JNE, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_JLTS, AAPBF16_INSN_L_JLTS, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_JLES, AAPBF16_INSN_L_JLES, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_JLTU, AAPBF16_INSN_L_JLTU, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_JLEU, AAPBF16_INSN_L_JLEU, AAPBF16_SFMT_L_JEQ },
-  { AAP_INSN_L_RTE, AAPBF16_INSN_L_RTE, AAPBF16_SFMT_L_JMP },
-  { AAP_INSN_L_ADDI, AAPBF16_INSN_L_ADDI, AAPBF16_SFMT_L_ADDI },
-  { AAP_INSN_L_SUBI, AAPBF16_INSN_L_SUBI, AAPBF16_SFMT_L_ADDI },
-  { AAP_INSN_L_ASRI, AAPBF16_INSN_L_ASRI, AAPBF16_SFMT_L_ASRI },
-  { AAP_INSN_L_LSLI, AAPBF16_INSN_L_LSLI, AAPBF16_SFMT_L_LSLI },
-  { AAP_INSN_L_LSRI, AAPBF16_INSN_L_LSRI, AAPBF16_SFMT_L_LSLI },
-  { AAP_INSN_L_BEQ, AAPBF16_INSN_L_BEQ, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_BNE, AAPBF16_INSN_L_BNE, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_BLTS, AAPBF16_INSN_L_BLTS, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_BLES, AAPBF16_INSN_L_BLES, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_BLTU, AAPBF16_INSN_L_BLTU, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_BLEU, AAPBF16_INSN_L_BLEU, AAPBF16_SFMT_L_BEQ },
-  { AAP_INSN_L_LDB___XDEST_____XSRC1____INT023__, AAPBF16_INSN_L_LDB___XDEST_____XSRC1____INT023__, AAPBF16_SFMT_L_LDB___XDEST_____XSRC1____INT023__ },
-  { AAP_INSN_L_LDW___XDEST_____XSRC1____INT023__, AAPBF16_INSN_L_LDW___XDEST_____XSRC1____INT023__, AAPBF16_SFMT_L_LDW___XDEST_____XSRC1____INT023__ },
-  { AAP_INSN_L_LDB___XDEST_____XSRC1_____INT023__, AAPBF16_INSN_L_LDB___XDEST_____XSRC1_____INT023__, AAPBF16_SFMT_L_LDB___XDEST_____XSRC1____INT023__ },
-  { AAP_INSN_L_LDW___XDEST_____XSRC1_____INT023__, AAPBF16_INSN_L_LDW___XDEST_____XSRC1_____INT023__, AAPBF16_SFMT_L_LDW___XDEST_____XSRC1____INT023__ },
-  { AAP_INSN_L_LDB___XDEST______XSRC1____INT023__, AAPBF16_INSN_L_LDB___XDEST______XSRC1____INT023__, AAPBF16_SFMT_L_LDB___XDEST______XSRC1____INT023__ },
-  { AAP_INSN_L_LDW___XDEST______XSRC1____INT023__, AAPBF16_INSN_L_LDW___XDEST______XSRC1____INT023__, AAPBF16_SFMT_L_LDB___XDEST______XSRC1____INT023__ },
-  { AAP_INSN_L_SDB____XDEST____INT023_____XSRC1_, AAPBF16_INSN_L_SDB____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_SDW____XDEST____INT023_____XSRC1_, AAPBF16_INSN_L_SDW____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_SDB____XDEST_____INT023_____XSRC1_, AAPBF16_INSN_L_SDB____XDEST_____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_SDW____XDEST_____INT023_____XSRC1_, AAPBF16_INSN_L_SDW____XDEST_____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_SDB_____XDEST____INT023_____XSRC1_, AAPBF16_INSN_L_SDB_____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB_____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_SDW_____XDEST____INT023_____XSRC1_, AAPBF16_INSN_L_SDW_____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_L_SDB_____XDEST____INT023_____XSRC1_ },
-  { AAP_INSN_L_NOP, AAPBF16_INSN_L_NOP, AAPBF16_SFMT_L_NOP },
-  { AAP_INSN_L_MOVI, AAPBF16_INSN_L_MOVI, AAPBF16_SFMT_L_MOVI },
-  { AAP_INSN_L_BAL, AAPBF16_INSN_L_BAL, AAPBF16_SFMT_L_BAL },
-  { AAP_INSN_L_BRA, AAPBF16_INSN_L_BRA, AAPBF16_SFMT_L_BRA },
+  { AAP_INSN_ADD, AAPBF16_INSN_ADD, AAPBF16_SFMT_ADD },
+  { AAP_INSN_SUB, AAPBF16_INSN_SUB, AAPBF16_SFMT_ADD },
+  { AAP_INSN_AND, AAPBF16_INSN_AND, AAPBF16_SFMT_ADD },
+  { AAP_INSN_OR, AAPBF16_INSN_OR, AAPBF16_SFMT_ADD },
+  { AAP_INSN_XOR, AAPBF16_INSN_XOR, AAPBF16_SFMT_ADD },
+  { AAP_INSN_ASR, AAPBF16_INSN_ASR, AAPBF16_SFMT_ASR },
+  { AAP_INSN_LSL, AAPBF16_INSN_LSL, AAPBF16_SFMT_ADD },
+  { AAP_INSN_LSR, AAPBF16_INSN_LSR, AAPBF16_SFMT_ADD },
+  { AAP_INSN_MOV, AAPBF16_INSN_MOV, AAPBF16_SFMT_MOV },
+  { AAP_INSN_JMP, AAPBF16_INSN_JMP, AAPBF16_SFMT_JMP },
+  { AAP_INSN_JAL, AAPBF16_INSN_JAL, AAPBF16_SFMT_JAL },
+  { AAP_INSN_JEQ, AAPBF16_INSN_JEQ, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_JNE, AAPBF16_INSN_JNE, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_JLTS, AAPBF16_INSN_JLTS, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_JLES, AAPBF16_INSN_JLES, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_JLTU, AAPBF16_INSN_JLTU, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_JLEU, AAPBF16_INSN_JLEU, AAPBF16_SFMT_JEQ },
+  { AAP_INSN_RTE, AAPBF16_INSN_RTE, AAPBF16_SFMT_JMP },
+  { AAP_INSN_ADDI, AAPBF16_INSN_ADDI, AAPBF16_SFMT_ADDI },
+  { AAP_INSN_SUBI, AAPBF16_INSN_SUBI, AAPBF16_SFMT_ADDI },
+  { AAP_INSN_ASRI, AAPBF16_INSN_ASRI, AAPBF16_SFMT_ASRI },
+  { AAP_INSN_LSLI, AAPBF16_INSN_LSLI, AAPBF16_SFMT_LSLI },
+  { AAP_INSN_LSRI, AAPBF16_INSN_LSRI, AAPBF16_SFMT_LSLI },
+  { AAP_INSN_BEQ, AAPBF16_INSN_BEQ, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_BNE, AAPBF16_INSN_BNE, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_BLTS, AAPBF16_INSN_BLTS, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_BLES, AAPBF16_INSN_BLES, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_BLTU, AAPBF16_INSN_BLTU, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_BLEU, AAPBF16_INSN_BLEU, AAPBF16_SFMT_BEQ },
+  { AAP_INSN_LDB___XDEST_____XSRC1____INT023__, AAPBF16_INSN_LDB___XDEST_____XSRC1____INT023__, AAPBF16_SFMT_LDB___XDEST_____XSRC1____INT023__ },
+  { AAP_INSN_LDW___XDEST_____XSRC1____INT023__, AAPBF16_INSN_LDW___XDEST_____XSRC1____INT023__, AAPBF16_SFMT_LDW___XDEST_____XSRC1____INT023__ },
+  { AAP_INSN_LDB___XDEST_____XSRC1_____INT023__, AAPBF16_INSN_LDB___XDEST_____XSRC1_____INT023__, AAPBF16_SFMT_LDB___XDEST_____XSRC1____INT023__ },
+  { AAP_INSN_LDW___XDEST_____XSRC1_____INT023__, AAPBF16_INSN_LDW___XDEST_____XSRC1_____INT023__, AAPBF16_SFMT_LDW___XDEST_____XSRC1____INT023__ },
+  { AAP_INSN_LDB___XDEST______XSRC1____INT023__, AAPBF16_INSN_LDB___XDEST______XSRC1____INT023__, AAPBF16_SFMT_LDB___XDEST______XSRC1____INT023__ },
+  { AAP_INSN_LDW___XDEST______XSRC1____INT023__, AAPBF16_INSN_LDW___XDEST______XSRC1____INT023__, AAPBF16_SFMT_LDB___XDEST______XSRC1____INT023__ },
+  { AAP_INSN_STB____XDEST____INT023_____XSRC1_, AAPBF16_INSN_STB____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_STB____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_STW____XDEST____INT023_____XSRC1_, AAPBF16_INSN_STW____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_STB____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_STB____XDEST_____INT023_____XSRC1_, AAPBF16_INSN_STB____XDEST_____INT023_____XSRC1_, AAPBF16_SFMT_STB____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_STW____XDEST_____INT023_____XSRC1_, AAPBF16_INSN_STW____XDEST_____INT023_____XSRC1_, AAPBF16_SFMT_STB____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_STB_____XDEST____INT023_____XSRC1_, AAPBF16_INSN_STB_____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_STB_____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_STW_____XDEST____INT023_____XSRC1_, AAPBF16_INSN_STW_____XDEST____INT023_____XSRC1_, AAPBF16_SFMT_STB_____XDEST____INT023_____XSRC1_ },
+  { AAP_INSN_NOP, AAPBF16_INSN_NOP, AAPBF16_SFMT_NOP },
+  { AAP_INSN_MOVI, AAPBF16_INSN_MOVI, AAPBF16_SFMT_MOVI },
+  { AAP_INSN_BAL, AAPBF16_INSN_BAL, AAPBF16_SFMT_BAL },
+  { AAP_INSN_BRA, AAPBF16_INSN_BRA, AAPBF16_SFMT_BRA },
 };
 
 static const struct insn_sem aapbf16_insn_sem_invalid =
@@ -173,183 +173,183 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
       {
       case 0 :
         if ((entire_insn & 0xfe00) == 0x0)
-          { itype = AAPBF16_INSN_L_NOP; goto extract_sfmt_l_nop; }
+          { itype = AAPBF16_INSN_NOP; goto extract_sfmt_nop; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 1 :
         if ((entire_insn & 0xfe00) == 0x200)
-          { itype = AAPBF16_INSN_L_ADD; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_ADD; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 2 :
         if ((entire_insn & 0xfe00) == 0x400)
-          { itype = AAPBF16_INSN_L_SUB; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_SUB; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 3 :
         if ((entire_insn & 0xfe00) == 0x600)
-          { itype = AAPBF16_INSN_L_AND; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_AND; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 4 :
         if ((entire_insn & 0xfe00) == 0x800)
-          { itype = AAPBF16_INSN_L_OR; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_OR; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 5 :
         if ((entire_insn & 0xfe00) == 0xa00)
-          { itype = AAPBF16_INSN_L_XOR; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_XOR; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 6 :
         if ((entire_insn & 0xfe00) == 0xc00)
-          { itype = AAPBF16_INSN_L_ASR; goto extract_sfmt_l_asr; }
+          { itype = AAPBF16_INSN_ASR; goto extract_sfmt_asr; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 7 :
         if ((entire_insn & 0xfe00) == 0xe00)
-          { itype = AAPBF16_INSN_L_LSL; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_LSL; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 8 :
         if ((entire_insn & 0xfe00) == 0x1000)
-          { itype = AAPBF16_INSN_L_LSR; goto extract_sfmt_l_add; }
+          { itype = AAPBF16_INSN_LSR; goto extract_sfmt_add; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 9 :
         if ((entire_insn & 0xfe00) == 0x1200)
-          { itype = AAPBF16_INSN_L_MOV; goto extract_sfmt_l_mov; }
+          { itype = AAPBF16_INSN_MOV; goto extract_sfmt_mov; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 10 :
         if ((entire_insn & 0xfe00) == 0x1400)
-          { itype = AAPBF16_INSN_L_ADDI; goto extract_sfmt_l_addi; }
+          { itype = AAPBF16_INSN_ADDI; goto extract_sfmt_addi; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 11 :
         if ((entire_insn & 0xfe00) == 0x1600)
-          { itype = AAPBF16_INSN_L_SUBI; goto extract_sfmt_l_addi; }
+          { itype = AAPBF16_INSN_SUBI; goto extract_sfmt_addi; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 12 :
         if ((entire_insn & 0xfe00) == 0x1800)
-          { itype = AAPBF16_INSN_L_ASRI; goto extract_sfmt_l_asri; }
+          { itype = AAPBF16_INSN_ASRI; goto extract_sfmt_asri; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 13 :
         if ((entire_insn & 0xfe00) == 0x1a00)
-          { itype = AAPBF16_INSN_L_LSLI; goto extract_sfmt_l_lsli; }
+          { itype = AAPBF16_INSN_LSLI; goto extract_sfmt_lsli; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 14 :
         if ((entire_insn & 0xfe00) == 0x1c00)
-          { itype = AAPBF16_INSN_L_LSRI; goto extract_sfmt_l_lsli; }
+          { itype = AAPBF16_INSN_LSRI; goto extract_sfmt_lsli; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 15 :
         if ((entire_insn & 0xfe00) == 0x1e00)
-          { itype = AAPBF16_INSN_L_MOVI; goto extract_sfmt_l_movi; }
+          { itype = AAPBF16_INSN_MOVI; goto extract_sfmt_movi; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 16 :
         if ((entire_insn & 0xfe00) == 0x2000)
-          { itype = AAPBF16_INSN_L_LDB___XDEST_____XSRC1____INT023__; goto extract_sfmt_l_ldb___xdest_____xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDB___XDEST_____XSRC1____INT023__; goto extract_sfmt_ldb___xdest_____xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 17 :
         if ((entire_insn & 0xfe00) == 0x2200)
-          { itype = AAPBF16_INSN_L_LDB___XDEST_____XSRC1_____INT023__; goto extract_sfmt_l_ldb___xdest_____xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDB___XDEST_____XSRC1_____INT023__; goto extract_sfmt_ldb___xdest_____xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 18 :
         if ((entire_insn & 0xfe00) == 0x2400)
-          { itype = AAPBF16_INSN_L_LDB___XDEST______XSRC1____INT023__; goto extract_sfmt_l_ldb___xdest______xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDB___XDEST______XSRC1____INT023__; goto extract_sfmt_ldb___xdest______xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 20 :
         if ((entire_insn & 0xfe00) == 0x2800)
-          { itype = AAPBF16_INSN_L_LDW___XDEST_____XSRC1____INT023__; goto extract_sfmt_l_ldw___xdest_____xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDW___XDEST_____XSRC1____INT023__; goto extract_sfmt_ldw___xdest_____xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 21 :
         if ((entire_insn & 0xfe00) == 0x2a00)
-          { itype = AAPBF16_INSN_L_LDW___XDEST_____XSRC1_____INT023__; goto extract_sfmt_l_ldw___xdest_____xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDW___XDEST_____XSRC1_____INT023__; goto extract_sfmt_ldw___xdest_____xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 22 :
         if ((entire_insn & 0xfe00) == 0x2c00)
-          { itype = AAPBF16_INSN_L_LDW___XDEST______XSRC1____INT023__; goto extract_sfmt_l_ldb___xdest______xsrc1____int023__; }
+          { itype = AAPBF16_INSN_LDW___XDEST______XSRC1____INT023__; goto extract_sfmt_ldb___xdest______xsrc1____int023__; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 24 :
         if ((entire_insn & 0xfe00) == 0x3000)
-          { itype = AAPBF16_INSN_L_SDB____XDEST____INT023_____XSRC1_; goto extract_sfmt_l_sdb____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STB____XDEST____INT023_____XSRC1_; goto extract_sfmt_stb____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 25 :
         if ((entire_insn & 0xfe00) == 0x3200)
-          { itype = AAPBF16_INSN_L_SDB____XDEST_____INT023_____XSRC1_; goto extract_sfmt_l_sdb____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STB____XDEST_____INT023_____XSRC1_; goto extract_sfmt_stb____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 26 :
         if ((entire_insn & 0xfe00) == 0x3400)
-          { itype = AAPBF16_INSN_L_SDB_____XDEST____INT023_____XSRC1_; goto extract_sfmt_l_sdb_____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STB_____XDEST____INT023_____XSRC1_; goto extract_sfmt_stb_____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 28 :
         if ((entire_insn & 0xfe00) == 0x3800)
-          { itype = AAPBF16_INSN_L_SDW____XDEST____INT023_____XSRC1_; goto extract_sfmt_l_sdb____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STW____XDEST____INT023_____XSRC1_; goto extract_sfmt_stb____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 29 :
         if ((entire_insn & 0xfe00) == 0x3a00)
-          { itype = AAPBF16_INSN_L_SDW____XDEST_____INT023_____XSRC1_; goto extract_sfmt_l_sdb____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STW____XDEST_____INT023_____XSRC1_; goto extract_sfmt_stb____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 30 :
         if ((entire_insn & 0xfe00) == 0x3c00)
-          { itype = AAPBF16_INSN_L_SDW_____XDEST____INT023_____XSRC1_; goto extract_sfmt_l_sdb_____xdest____int023_____xsrc1_; }
+          { itype = AAPBF16_INSN_STW_____XDEST____INT023_____XSRC1_; goto extract_sfmt_stb_____xdest____int023_____xsrc1_; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 32 :
         if ((entire_insn & 0xfe00) == 0x4000)
-          { itype = AAPBF16_INSN_L_BRA; goto extract_sfmt_l_bra; }
+          { itype = AAPBF16_INSN_BRA; goto extract_sfmt_bra; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 33 :
         if ((entire_insn & 0xfe00) == 0x4200)
-          { itype = AAPBF16_INSN_L_BAL; goto extract_sfmt_l_bal; }
+          { itype = AAPBF16_INSN_BAL; goto extract_sfmt_bal; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 34 :
         if ((entire_insn & 0xfe00) == 0x4400)
-          { itype = AAPBF16_INSN_L_BEQ; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BEQ; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 35 :
         if ((entire_insn & 0xfe00) == 0x4600)
-          { itype = AAPBF16_INSN_L_BNE; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BNE; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 36 :
         if ((entire_insn & 0xfe00) == 0x4800)
-          { itype = AAPBF16_INSN_L_BLTS; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BLTS; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 37 :
         if ((entire_insn & 0xfe00) == 0x4a00)
-          { itype = AAPBF16_INSN_L_BLES; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BLES; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 38 :
         if ((entire_insn & 0xfe00) == 0x4c00)
-          { itype = AAPBF16_INSN_L_BLTU; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BLTU; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 39 :
         if ((entire_insn & 0xfe00) == 0x4e00)
-          { itype = AAPBF16_INSN_L_BLEU; goto extract_sfmt_l_beq; }
+          { itype = AAPBF16_INSN_BLEU; goto extract_sfmt_beq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 40 :
         if ((entire_insn & 0xfe00) == 0x5000)
-          { itype = AAPBF16_INSN_L_JMP; goto extract_sfmt_l_jmp; }
+          { itype = AAPBF16_INSN_JMP; goto extract_sfmt_jmp; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 41 :
         if ((entire_insn & 0xfe00) == 0x5200)
-          { itype = AAPBF16_INSN_L_JAL; goto extract_sfmt_l_jal; }
+          { itype = AAPBF16_INSN_JAL; goto extract_sfmt_jal; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 42 :
         if ((entire_insn & 0xfe00) == 0x5400)
-          { itype = AAPBF16_INSN_L_JEQ; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JEQ; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 43 :
         if ((entire_insn & 0xfe00) == 0x5600)
-          { itype = AAPBF16_INSN_L_JNE; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JNE; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 44 :
         if ((entire_insn & 0xfe00) == 0x5800)
-          { itype = AAPBF16_INSN_L_JLTS; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JLTS; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 45 :
         if ((entire_insn & 0xfe00) == 0x5a00)
-          { itype = AAPBF16_INSN_L_JLES; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JLES; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 46 :
         if ((entire_insn & 0xfe00) == 0x5c00)
-          { itype = AAPBF16_INSN_L_JLTU; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JLTU; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 47 :
         if ((entire_insn & 0xfe00) == 0x5e00)
-          { itype = AAPBF16_INSN_L_JLEU; goto extract_sfmt_l_jeq; }
+          { itype = AAPBF16_INSN_JLEU; goto extract_sfmt_jeq; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       case 48 :
         if ((entire_insn & 0xfe00) == 0x6000)
-          { itype = AAPBF16_INSN_L_RTE; goto extract_sfmt_l_jmp; }
+          { itype = AAPBF16_INSN_RTE; goto extract_sfmt_jmp; }
         itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       default : itype = AAPBF16_INSN_X_INVALID; goto extract_sfmt_empty;
       }
@@ -371,11 +371,11 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_add:
+ extract_sfmt_add:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
@@ -391,17 +391,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_add", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_add", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_asr:
+ extract_sfmt_asr:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
@@ -420,17 +420,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_asr", "f_carry 0x%x", 'x', f_carry, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_asr", "f_carry 0x%x", 'x', f_carry, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_mov:
+ extract_sfmt_mov:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
 
@@ -442,17 +442,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_mov", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_mov", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_jmp:
+ extract_sfmt_jmp:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
     UINT f_x_dst_reg;
 
     f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3);
@@ -460,7 +460,7 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   /* Record the fields for the semantic handler.  */
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_jmp", "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_jmp", "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */
@@ -472,11 +472,11 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_jal:
+ extract_sfmt_jal:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
     UINT f_x_src_reg_2;
 
     f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3);
@@ -484,7 +484,7 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   /* Record the fields for the semantic handler.  */
   FLD (f_x_src_reg_2) = f_x_src_reg_2;
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_jal", "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_jal", "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */
@@ -496,11 +496,11 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_jeq:
+ extract_sfmt_jeq:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
@@ -516,7 +516,7 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_jeq", "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_jeq", "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */
@@ -528,11 +528,11 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_addi:
+ extract_sfmt_addi:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_uint_2_3;
@@ -547,17 +547,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_addi", "f_uint_2_3 0x%x", 'x', f_uint_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_addi", "f_uint_2_3 0x%x", 'x', f_uint_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_asri:
+ extract_sfmt_asri:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_uint_2_3;
@@ -575,17 +575,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_asri", "f_carry 0x%x", 'x', f_carry, "f_uint_2_3 0x%x", 'x', f_uint_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_asri", "f_carry 0x%x", 'x', f_carry, "f_uint_2_3 0x%x", 'x', f_uint_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_lsli:
+ extract_sfmt_lsli:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
@@ -601,17 +601,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_lsli", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_lsli", "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_beq:
+ extract_sfmt_beq:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
     INT f_int_8_3;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
@@ -626,7 +626,7 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_src_reg_2) = f_x_src_reg_2;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_beq", "f_int_8_3 0x%x", 'x', f_int_8_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_beq", "f_int_8_3 0x%x", 'x', f_int_8_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */
@@ -638,11 +638,11 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_ldb___xdest_____xsrc1____int023__:
+ extract_sfmt_ldb___xdest_____xsrc1____int023__:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     INT f_int_2_3;
@@ -657,17 +657,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_ldb___xdest_____xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_ldb___xdest_____xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_ldw___xdest_____xsrc1____int023__:
+ extract_sfmt_ldw___xdest_____xsrc1____int023__:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     INT f_int_2_3;
@@ -682,17 +682,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_ldw___xdest_____xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_ldw___xdest_____xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_ldb___xdest______xsrc1____int023__:
+ extract_sfmt_ldb___xdest______xsrc1____int023__:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
     UINT f_x_src_reg_1;
     INT f_int_2_3;
 
@@ -703,17 +703,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_int_2_3) = f_int_2_3;
   FLD (f_x_src_reg_1) = f_x_src_reg_1;
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_ldb___xdest______xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "xsrc1 0x%x", 'x', f_x_src_reg_1, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_ldb___xdest______xsrc1____int023__", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "xsrc1 0x%x", 'x', f_x_src_reg_1, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_sdb____xdest____int023_____xsrc1_:
+ extract_sfmt_stb____xdest____int023_____xsrc1_:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     INT f_int_2_3;
@@ -728,17 +728,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_x_src_reg_1) = f_x_src_reg_1;
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
   FLD (i_xsrc1) = & CPU (h_gpr)[f_x_src_reg_1];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_sdb____xdest____int023_____xsrc1_", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_stb____xdest____int023_____xsrc1_", "f_int_2_3 0x%x", 'x', f_int_2_3, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "f_x_src_reg_1 0x%x", 'x', f_x_src_reg_1, "xdest 0x%x", 'x', f_x_dst_reg, "xsrc1 0x%x", 'x', f_x_src_reg_1, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_sdb_____xdest____int023_____xsrc1_:
+ extract_sfmt_stb_____xdest____int023_____xsrc1_:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
     UINT f_dst_reg;
     UINT f_x_dst_reg;
     INT f_int_2_3;
@@ -753,30 +753,30 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_d_6) = f_d_6;
   FLD (f_int_2_3) = f_int_2_3;
   FLD (i_d6) = & CPU (h_gpr)[f_d_6];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_sdb_____xdest____int023_____xsrc1_", "f_d_6 0x%x", 'x', f_d_6, "f_int_2_3 0x%x", 'x', f_int_2_3, "d6 0x%x", 'x', f_d_6, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_stb_____xdest____int023_____xsrc1_", "f_d_6 0x%x", 'x', f_d_6, "f_int_2_3 0x%x", 'x', f_int_2_3, "d6 0x%x", 'x', f_d_6, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_nop:
+ extract_sfmt_nop:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
 #define FLD(f) abuf->fields.sfmt_empty.f
 
 
   /* Record the fields for the semantic handler.  */
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_nop", (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_nop", (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_movi:
+ extract_sfmt_movi:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
     UINT f_x_dst_reg;
     UINT f_uint_5_6;
 
@@ -787,17 +787,17 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   FLD (f_uint_5_6) = f_uint_5_6;
   FLD (f_x_dst_reg) = f_x_dst_reg;
   FLD (i_xdest) = & CPU (h_gpr)[f_x_dst_reg];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_movi", "f_uint_5_6 0x%x", 'x', f_uint_5_6, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_movi", "f_uint_5_6 0x%x", 'x', f_uint_5_6, "f_x_dst_reg 0x%x", 'x', f_x_dst_reg, "xdest 0x%x", 'x', f_x_dst_reg, (char *) 0));
 
 #undef FLD
     return idesc;
   }
 
- extract_sfmt_l_bal:
+ extract_sfmt_bal:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
     UINT f_x_src_reg_2;
 
     f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3);
@@ -805,7 +805,7 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
   /* Record the fields for the semantic handler.  */
   FLD (f_x_src_reg_2) = f_x_src_reg_2;
   FLD (i_xsrc2) = & CPU (h_gpr)[f_x_src_reg_2];
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_bal", "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_bal", "f_x_src_reg_2 0x%x", 'x', f_x_src_reg_2, "xsrc2 0x%x", 'x', f_x_src_reg_2, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */
@@ -817,18 +817,18 @@ aapbf16_decode (SIM_CPU *current_cpu, IADDR pc,
     return idesc;
   }
 
- extract_sfmt_l_bra:
+ extract_sfmt_bra:
   {
     const IDESC *idesc = &aapbf16_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
-#define FLD(f) abuf->fields.sfmt_l_bra.f
+#define FLD(f) abuf->fields.sfmt_bra.f
     INT f_int_8_9;
 
     f_int_8_9 = EXTRACT_LSB0_SINT (insn, 16, 8, 9);
 
   /* Record the fields for the semantic handler.  */
   FLD (f_int_8_9) = f_int_8_9;
-  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_l_bra", "f_int_8_9 0x%x", 'x', f_int_8_9, (char *) 0));
+  TRACE_EXTRACT (current_cpu, abuf, (current_cpu, pc, "sfmt_bra", "f_int_8_9 0x%x", 'x', f_int_8_9, (char *) 0));
 
 #if WITH_PROFILE_MODEL_P
   /* Record the fields for profiling.  */

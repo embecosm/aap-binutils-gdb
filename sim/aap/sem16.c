@@ -197,12 +197,12 @@ SEM_FN_NAME (aapbf16,x_begin) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.add: l.add ${xdest},${xsrc1},${xsrc2} */
+/* add: add dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_add) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,add) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -218,12 +218,12 @@ SEM_FN_NAME (aapbf16,l_add) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.sub: l.sub ${xdest},${xsrc1},${xsrc2} */
+/* sub: sub dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sub) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,sub) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -239,12 +239,12 @@ SEM_FN_NAME (aapbf16,l_sub) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.and: l.and ${xdest},${xsrc1},${xsrc2} */
+/* and: and dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_and) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,and) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -260,12 +260,12 @@ SEM_FN_NAME (aapbf16,l_and) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.or: l.or ${xdest},${xsrc1},${xsrc2} */
+/* or: or dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_or) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,or) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -281,12 +281,12 @@ SEM_FN_NAME (aapbf16,l_or) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.xor: l.xor ${xdest},${xsrc1},${xsrc2} */
+/* xor: xor dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_xor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,xor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -302,12 +302,12 @@ SEM_FN_NAME (aapbf16,l_xor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.asr: l.asr ${xdest},${xsrc1},${xsrc2} */
+/* asr: asr dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_asr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,asr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -323,12 +323,12 @@ SEM_FN_NAME (aapbf16,l_asr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.lsl: l.lsl ${xdest},${xsrc1},${xsrc2} */
+/* lsl: lsl dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_lsl) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,lsl) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -344,12 +344,12 @@ SEM_FN_NAME (aapbf16,l_lsl) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.lsr: l.lsr ${xdest},${xsrc1},${xsrc2} */
+/* lsr: lsr dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_lsr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,lsr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -365,12 +365,12 @@ SEM_FN_NAME (aapbf16,l_lsr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.mov: l.mov ${xdest},${xsrc1},${xsrc2} */
+/* mov: mov ${xdest},${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_mov) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,mov) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -386,12 +386,12 @@ SEM_FN_NAME (aapbf16,l_mov) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.jmp: l.jmp ${xdest},${xsrc1},${xsrc2} */
+/* jmp: jmp ${xdest} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jmp) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jmp) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -409,12 +409,12 @@ SEM_FN_NAME (aapbf16,l_jmp) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.jal: l.jal ${xdest},${xsrc1},${xsrc2} */
+/* jal: jal ${xdest},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -430,12 +430,12 @@ SEM_FN_NAME (aapbf16,l_jal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.jeq: l.jeq ${xdest},${xsrc1},${xsrc2} */
+/* jeq: jeq dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jeq) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jeq) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -464,12 +464,12 @@ if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.jne: l.jne ${xdest},${xsrc1},${xsrc2} */
+/* jne: jne dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jne) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jne) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -498,12 +498,12 @@ if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.jlts: l.jlts ${xdest},${xsrc1},${xsrc2} */
+/* jlts: jlts dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jlts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jlts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -532,12 +532,12 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.jles: l.jles ${xdest},${xsrc1},${xsrc2} */
+/* jles: jles dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jles) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jles) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -566,12 +566,12 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.jltu: l.jltu ${xdest},${xsrc1},${xsrc2} */
+/* jltu: jltu dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -600,12 +600,12 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.jleu: l.jleu ${xdest},${xsrc1},${xsrc2} */
+/* jleu: jleu dest,${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_jleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,jleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -634,12 +634,12 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.rte: l.rte ${xdest},${xsrc1},${xsrc2} */
+/* rte: rte ${xdest} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_rte) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,rte) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -657,12 +657,12 @@ SEM_FN_NAME (aapbf16,l_rte) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.addi: l.addi ${xdest},${xsrc1},${uint023} */
+/* addi: addi ${xdest},${xsrc1},${uint023} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_addi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,addi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -678,12 +678,12 @@ SEM_FN_NAME (aapbf16,l_addi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.subi: l.subi ${xdest},${xsrc1},${uint023} */
+/* subi: subi ${xdest},${xsrc1},${uint023} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_subi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,subi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -699,12 +699,12 @@ SEM_FN_NAME (aapbf16,l_subi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.asri: l.asri ${xdest},${xsrc1},${uint023} */
+/* asri: asri ${xdest},${xsrc1},${uint023} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_asri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,asri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asri.f
+#define FLD(f) abuf->fields.sfmt_asri.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -720,12 +720,12 @@ SEM_FN_NAME (aapbf16,l_asri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.lsli: l.lsli ${xdest},${xsrc1},${uint023} */
+/* lsli: lsli ${xdest},${xsrc1},${uint023} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_lsli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,lsli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -741,12 +741,12 @@ SEM_FN_NAME (aapbf16,l_lsli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.lsri: l.lsri ${xdest},${xsrc1},${uint023} */
+/* lsri: lsri ${xdest},${xsrc1},${uint023} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_lsri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,lsri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_asr.f
+#define FLD(f) abuf->fields.sfmt_asr.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -762,12 +762,12 @@ SEM_FN_NAME (aapbf16,l_lsri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.beq: l.beq ${int083},${xsrc1},${xsrc2} */
+/* beq: beq ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_beq) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,beq) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -776,7 +776,7 @@ SEM_FN_NAME (aapbf16,l_beq) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -796,12 +796,12 @@ if (EQSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.bne: l.bne ${int083},${xsrc1},${xsrc2} */
+/* bne: bne ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bne) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bne) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -810,7 +810,7 @@ SEM_FN_NAME (aapbf16,l_bne) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -830,12 +830,12 @@ if (NESI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.blts: l.blts ${int083},${xsrc1},${xsrc2} */
+/* blts: blts ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_blts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,blts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -844,7 +844,7 @@ SEM_FN_NAME (aapbf16,l_blts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -864,12 +864,12 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.bles: l.bles ${int083},${xsrc1},${xsrc2} */
+/* bles: bles ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bles) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bles) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -878,7 +878,7 @@ SEM_FN_NAME (aapbf16,l_bles) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -898,12 +898,12 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.bltu: l.bltu ${int083},${xsrc1},${xsrc2} */
+/* bltu: bltu ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -912,7 +912,7 @@ SEM_FN_NAME (aapbf16,l_bltu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -932,12 +932,12 @@ if (LTUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.bleu: l.bleu ${int083},${xsrc1},${xsrc2} */
+/* bleu: bleu ${int083},${xsrc1},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -946,7 +946,7 @@ SEM_FN_NAME (aapbf16,l_bleu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 
 if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_3))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_3)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     written |= (1 << 4);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
@@ -966,19 +966,19 @@ if (LEUSI (* FLD (i_xsrc1), * FLD (i_xsrc2))) {
 #undef FLD
 }
 
-/* l.ldb ${xdest},(${xsrc1},${int023}): l.ldb ${xdest},(${xsrc1},${int023}) */
+/* ldb ${xdest},[${xsrc1},${int023}]: ldb ${xdest},[${xsrc1},${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldb___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))));
+    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3))));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -987,19 +987,19 @@ SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu,
 #undef FLD
 }
 
-/* l.ldw ${xdest},(${xsrc1},${int023}): l.ldw ${xdest},(${xsrc1},${int023}) */
+/* ldw ${xdest},[${xsrc1},${int023}]: ldw ${xdest},[${xsrc1},${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldw___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))))), 8));
+    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)))), 8));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1008,19 +1008,19 @@ SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1____int023__) (SIM_CPU *current_cpu,
 #undef FLD
 }
 
-/* l.ldb ${xdest},(${xsrc1}+,${int023}): l.ldb ${xdest},(${xsrc1}+,${int023}) */
+/* ldb ${xdest},[${xsrc1}+,${int023}]: ldb ${xdest},[${xsrc1}+,${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldb___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))));
+    USI opval = GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3))));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1029,19 +1029,19 @@ SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.ldw ${xdest},(${xsrc1}+,${int023}): l.ldw ${xdest},(${xsrc1}+,${int023}) */
+/* ldw ${xdest},[${xsrc1}+,${int023}]: ldw ${xdest},[${xsrc1}+,${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldw___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))))), 8));
+    USI opval = ORQI (GETMEMQI (current_cpu, pc, ADDCSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)), 1)), SLLQI (GETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)))), 8));
     * FLD (i_xdest) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1050,19 +1050,19 @@ SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1_____int023__) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.ldb ${xdest},(-${xsrc1},${int023}): l.ldb ${xdest},(-${xsrc1},${int023}) */
+/* ldb ${xdest},[-${xsrc1},${int023}]: ldb ${xdest},[-${xsrc1},${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldb___xdest______xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldb___xdest______xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_xsrc1) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1071,19 +1071,19 @@ SEM_FN_NAME (aapbf16,l_ldb___xdest______xsrc1____int023__) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.ldw ${xdest},(-${xsrc1},${int023}): l.ldw ${xdest},(-${xsrc1},${int023}) */
+/* ldw ${xdest},[-${xsrc1},${int023}]: ldw ${xdest},[-${xsrc1},${int023}] */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_ldw___xdest______xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,ldw___xdest______xsrc1____int023__) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_xsrc1), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_xsrc1), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_xsrc1) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1092,12 +1092,12 @@ SEM_FN_NAME (aapbf16,l_ldw___xdest______xsrc1____int023__) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.sdb (${xdest},${int023}),${xsrc1}: l.sdb (${xdest},${int023}),${xsrc1} */
+/* stb [${xdest},${int023}],${xsrc1}: stb [${xdest},${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdb____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stb____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1105,7 +1105,7 @@ SEM_FN_NAME (aapbf16,l_sdb____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu,
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1113,12 +1113,12 @@ SEM_FN_NAME (aapbf16,l_sdb____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu,
 #undef FLD
 }
 
-/* l.sdw (${xdest},${int023}),${xsrc1}: l.sdw (${xdest},${int023}),${xsrc1} */
+/* stw [${xdest},${int023}],${xsrc1}: stw [${xdest},${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdw____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stw____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1126,7 +1126,7 @@ SEM_FN_NAME (aapbf16,l_sdw____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu,
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1134,12 +1134,12 @@ SEM_FN_NAME (aapbf16,l_sdw____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu,
 #undef FLD
 }
 
-/* l.sdb (${xdest}+,${int023}),${xsrc1}: l.sdb (${xdest}+,${int023}),${xsrc1} */
+/* stb [${xdest}+,${int023}],${xsrc1}: stb [${xdest}+,${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdb____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stb____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1147,7 +1147,7 @@ SEM_FN_NAME (aapbf16,l_sdb____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1155,12 +1155,12 @@ SEM_FN_NAME (aapbf16,l_sdb____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.sdw (${xdest}+,${int023}),${xsrc1}: l.sdw (${xdest}+,${int023}),${xsrc1} */
+/* stw [${xdest}+,${int023}],${xsrc1}: stw [${xdest}+,${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdw____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stw____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_ldb___xdest_____xsrc1____int023__.f
+#define FLD(f) abuf->fields.sfmt_ldb___xdest_____xsrc1____int023__.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1168,7 +1168,7 @@ SEM_FN_NAME (aapbf16,l_sdw____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu
 
   {
     QI opval = ANDSI (* FLD (i_xsrc1), 255);
-    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTHISI (TRUNCSIHI (FLD (f_int_2_3)))), opval);
+    SETMEMQI (current_cpu, pc, ADDSI (* FLD (i_xdest), EXTSISI (FLD (f_int_2_3))), opval);
     TRACE_RESULT (current_cpu, abuf, "memory", 'x', opval);
   }
 
@@ -1176,19 +1176,19 @@ SEM_FN_NAME (aapbf16,l_sdw____xdest_____int023_____xsrc1_) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.sdb (-${xdest},${int023}),${xsrc1}: l.sdb (-${xdest},${int023}),${xsrc1} */
+/* stb [-${xdest},${int023}],${xsrc1}: stb [-${xdest},${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdb_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stb_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_d6), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_d6), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_d6) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1197,19 +1197,19 @@ SEM_FN_NAME (aapbf16,l_sdb_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.sdw (-${xdest},${int023}),${xsrc1}: l.sdw (-${xdest},${int023}),${xsrc1} */
+/* stw [-${xdest},${int023}],${xsrc1}: stw [-${xdest},${int023}],${xsrc1} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_sdw_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,stw_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_sdb_____xdest____int023_____xsrc1_.f
+#define FLD(f) abuf->fields.sfmt_stb_____xdest____int023_____xsrc1_.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = SUBSI (* FLD (i_d6), EXTHISI (TRUNCSIHI (FLD (f_int_2_3))));
+    USI opval = SUBSI (* FLD (i_d6), EXTSISI (FLD (f_int_2_3)));
     * FLD (i_d6) = opval;
     TRACE_RESULT (current_cpu, abuf, "gpr", 'x', opval);
   }
@@ -1218,10 +1218,10 @@ SEM_FN_NAME (aapbf16,l_sdw_____xdest____int023_____xsrc1_) (SIM_CPU *current_cpu
 #undef FLD
 }
 
-/* l.nop: l.nop ${xdest},${uint056} */
+/* nop: nop ${xdest},${uint056} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_nop) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,nop) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
 #define FLD(f) abuf->fields.sfmt_empty.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
@@ -1235,12 +1235,12 @@ SEM_FN_NAME (aapbf16,l_nop) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.movi: l.movi ${xdest},${uint056} */
+/* movi: movi ${xdest},${uint056} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_movi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,movi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_movi.f
+#define FLD(f) abuf->fields.sfmt_movi.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1256,12 +1256,12 @@ SEM_FN_NAME (aapbf16,l_movi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.bal: l.bal ${int086},${xsrc2} */
+/* bal: bal ${int086},${xsrc2} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_beq.f
+#define FLD(f) abuf->fields.sfmt_beq.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1277,12 +1277,12 @@ SEM_FN_NAME (aapbf16,l_bal) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 #undef FLD
 }
 
-/* l.bra: l.bra ${int089} */
+/* bra: bra ${int089} */
 
 static SEM_PC
-SEM_FN_NAME (aapbf16,l_bra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
+SEM_FN_NAME (aapbf16,bra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
 {
-#define FLD(f) abuf->fields.sfmt_l_bra.f
+#define FLD(f) abuf->fields.sfmt_bra.f
   ARGBUF *abuf = SEM_ARGBUF (sem_arg);
   int UNUSED written = 0;
   IADDR UNUSED pc = abuf->addr;
@@ -1290,7 +1290,7 @@ SEM_FN_NAME (aapbf16,l_bra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   SEM_PC vpc = SEM_NEXT_VPC (sem_arg, pc, 2);
 
   {
-    USI opval = ADDSI (pc, EXTHISI (TRUNCSIHI (FLD (f_int_8_9))));
+    USI opval = ADDSI (pc, EXTSISI (FLD (f_int_8_9)));
     SEM_BRANCH_VIA_ADDR (current_cpu, sem_arg, opval, vpc);
     TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
@@ -1309,51 +1309,51 @@ static const struct sem_fn_desc sem_fns[] = {
   { AAPBF16_INSN_X_CTI_CHAIN, SEM_FN_NAME (aapbf16,x_cti_chain) },
   { AAPBF16_INSN_X_CHAIN, SEM_FN_NAME (aapbf16,x_chain) },
   { AAPBF16_INSN_X_BEGIN, SEM_FN_NAME (aapbf16,x_begin) },
-  { AAPBF16_INSN_L_ADD, SEM_FN_NAME (aapbf16,l_add) },
-  { AAPBF16_INSN_L_SUB, SEM_FN_NAME (aapbf16,l_sub) },
-  { AAPBF16_INSN_L_AND, SEM_FN_NAME (aapbf16,l_and) },
-  { AAPBF16_INSN_L_OR, SEM_FN_NAME (aapbf16,l_or) },
-  { AAPBF16_INSN_L_XOR, SEM_FN_NAME (aapbf16,l_xor) },
-  { AAPBF16_INSN_L_ASR, SEM_FN_NAME (aapbf16,l_asr) },
-  { AAPBF16_INSN_L_LSL, SEM_FN_NAME (aapbf16,l_lsl) },
-  { AAPBF16_INSN_L_LSR, SEM_FN_NAME (aapbf16,l_lsr) },
-  { AAPBF16_INSN_L_MOV, SEM_FN_NAME (aapbf16,l_mov) },
-  { AAPBF16_INSN_L_JMP, SEM_FN_NAME (aapbf16,l_jmp) },
-  { AAPBF16_INSN_L_JAL, SEM_FN_NAME (aapbf16,l_jal) },
-  { AAPBF16_INSN_L_JEQ, SEM_FN_NAME (aapbf16,l_jeq) },
-  { AAPBF16_INSN_L_JNE, SEM_FN_NAME (aapbf16,l_jne) },
-  { AAPBF16_INSN_L_JLTS, SEM_FN_NAME (aapbf16,l_jlts) },
-  { AAPBF16_INSN_L_JLES, SEM_FN_NAME (aapbf16,l_jles) },
-  { AAPBF16_INSN_L_JLTU, SEM_FN_NAME (aapbf16,l_jltu) },
-  { AAPBF16_INSN_L_JLEU, SEM_FN_NAME (aapbf16,l_jleu) },
-  { AAPBF16_INSN_L_RTE, SEM_FN_NAME (aapbf16,l_rte) },
-  { AAPBF16_INSN_L_ADDI, SEM_FN_NAME (aapbf16,l_addi) },
-  { AAPBF16_INSN_L_SUBI, SEM_FN_NAME (aapbf16,l_subi) },
-  { AAPBF16_INSN_L_ASRI, SEM_FN_NAME (aapbf16,l_asri) },
-  { AAPBF16_INSN_L_LSLI, SEM_FN_NAME (aapbf16,l_lsli) },
-  { AAPBF16_INSN_L_LSRI, SEM_FN_NAME (aapbf16,l_lsri) },
-  { AAPBF16_INSN_L_BEQ, SEM_FN_NAME (aapbf16,l_beq) },
-  { AAPBF16_INSN_L_BNE, SEM_FN_NAME (aapbf16,l_bne) },
-  { AAPBF16_INSN_L_BLTS, SEM_FN_NAME (aapbf16,l_blts) },
-  { AAPBF16_INSN_L_BLES, SEM_FN_NAME (aapbf16,l_bles) },
-  { AAPBF16_INSN_L_BLTU, SEM_FN_NAME (aapbf16,l_bltu) },
-  { AAPBF16_INSN_L_BLEU, SEM_FN_NAME (aapbf16,l_bleu) },
-  { AAPBF16_INSN_L_LDB___XDEST_____XSRC1____INT023__, SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1____int023__) },
-  { AAPBF16_INSN_L_LDW___XDEST_____XSRC1____INT023__, SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1____int023__) },
-  { AAPBF16_INSN_L_LDB___XDEST_____XSRC1_____INT023__, SEM_FN_NAME (aapbf16,l_ldb___xdest_____xsrc1_____int023__) },
-  { AAPBF16_INSN_L_LDW___XDEST_____XSRC1_____INT023__, SEM_FN_NAME (aapbf16,l_ldw___xdest_____xsrc1_____int023__) },
-  { AAPBF16_INSN_L_LDB___XDEST______XSRC1____INT023__, SEM_FN_NAME (aapbf16,l_ldb___xdest______xsrc1____int023__) },
-  { AAPBF16_INSN_L_LDW___XDEST______XSRC1____INT023__, SEM_FN_NAME (aapbf16,l_ldw___xdest______xsrc1____int023__) },
-  { AAPBF16_INSN_L_SDB____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdb____xdest____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_SDW____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdw____xdest____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_SDB____XDEST_____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdb____xdest_____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_SDW____XDEST_____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdw____xdest_____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_SDB_____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdb_____xdest____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_SDW_____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,l_sdw_____xdest____int023_____xsrc1_) },
-  { AAPBF16_INSN_L_NOP, SEM_FN_NAME (aapbf16,l_nop) },
-  { AAPBF16_INSN_L_MOVI, SEM_FN_NAME (aapbf16,l_movi) },
-  { AAPBF16_INSN_L_BAL, SEM_FN_NAME (aapbf16,l_bal) },
-  { AAPBF16_INSN_L_BRA, SEM_FN_NAME (aapbf16,l_bra) },
+  { AAPBF16_INSN_ADD, SEM_FN_NAME (aapbf16,add) },
+  { AAPBF16_INSN_SUB, SEM_FN_NAME (aapbf16,sub) },
+  { AAPBF16_INSN_AND, SEM_FN_NAME (aapbf16,and) },
+  { AAPBF16_INSN_OR, SEM_FN_NAME (aapbf16,or) },
+  { AAPBF16_INSN_XOR, SEM_FN_NAME (aapbf16,xor) },
+  { AAPBF16_INSN_ASR, SEM_FN_NAME (aapbf16,asr) },
+  { AAPBF16_INSN_LSL, SEM_FN_NAME (aapbf16,lsl) },
+  { AAPBF16_INSN_LSR, SEM_FN_NAME (aapbf16,lsr) },
+  { AAPBF16_INSN_MOV, SEM_FN_NAME (aapbf16,mov) },
+  { AAPBF16_INSN_JMP, SEM_FN_NAME (aapbf16,jmp) },
+  { AAPBF16_INSN_JAL, SEM_FN_NAME (aapbf16,jal) },
+  { AAPBF16_INSN_JEQ, SEM_FN_NAME (aapbf16,jeq) },
+  { AAPBF16_INSN_JNE, SEM_FN_NAME (aapbf16,jne) },
+  { AAPBF16_INSN_JLTS, SEM_FN_NAME (aapbf16,jlts) },
+  { AAPBF16_INSN_JLES, SEM_FN_NAME (aapbf16,jles) },
+  { AAPBF16_INSN_JLTU, SEM_FN_NAME (aapbf16,jltu) },
+  { AAPBF16_INSN_JLEU, SEM_FN_NAME (aapbf16,jleu) },
+  { AAPBF16_INSN_RTE, SEM_FN_NAME (aapbf16,rte) },
+  { AAPBF16_INSN_ADDI, SEM_FN_NAME (aapbf16,addi) },
+  { AAPBF16_INSN_SUBI, SEM_FN_NAME (aapbf16,subi) },
+  { AAPBF16_INSN_ASRI, SEM_FN_NAME (aapbf16,asri) },
+  { AAPBF16_INSN_LSLI, SEM_FN_NAME (aapbf16,lsli) },
+  { AAPBF16_INSN_LSRI, SEM_FN_NAME (aapbf16,lsri) },
+  { AAPBF16_INSN_BEQ, SEM_FN_NAME (aapbf16,beq) },
+  { AAPBF16_INSN_BNE, SEM_FN_NAME (aapbf16,bne) },
+  { AAPBF16_INSN_BLTS, SEM_FN_NAME (aapbf16,blts) },
+  { AAPBF16_INSN_BLES, SEM_FN_NAME (aapbf16,bles) },
+  { AAPBF16_INSN_BLTU, SEM_FN_NAME (aapbf16,bltu) },
+  { AAPBF16_INSN_BLEU, SEM_FN_NAME (aapbf16,bleu) },
+  { AAPBF16_INSN_LDB___XDEST_____XSRC1____INT023__, SEM_FN_NAME (aapbf16,ldb___xdest_____xsrc1____int023__) },
+  { AAPBF16_INSN_LDW___XDEST_____XSRC1____INT023__, SEM_FN_NAME (aapbf16,ldw___xdest_____xsrc1____int023__) },
+  { AAPBF16_INSN_LDB___XDEST_____XSRC1_____INT023__, SEM_FN_NAME (aapbf16,ldb___xdest_____xsrc1_____int023__) },
+  { AAPBF16_INSN_LDW___XDEST_____XSRC1_____INT023__, SEM_FN_NAME (aapbf16,ldw___xdest_____xsrc1_____int023__) },
+  { AAPBF16_INSN_LDB___XDEST______XSRC1____INT023__, SEM_FN_NAME (aapbf16,ldb___xdest______xsrc1____int023__) },
+  { AAPBF16_INSN_LDW___XDEST______XSRC1____INT023__, SEM_FN_NAME (aapbf16,ldw___xdest______xsrc1____int023__) },
+  { AAPBF16_INSN_STB____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stb____xdest____int023_____xsrc1_) },
+  { AAPBF16_INSN_STW____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stw____xdest____int023_____xsrc1_) },
+  { AAPBF16_INSN_STB____XDEST_____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stb____xdest_____int023_____xsrc1_) },
+  { AAPBF16_INSN_STW____XDEST_____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stw____xdest_____int023_____xsrc1_) },
+  { AAPBF16_INSN_STB_____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stb_____xdest____int023_____xsrc1_) },
+  { AAPBF16_INSN_STW_____XDEST____INT023_____XSRC1_, SEM_FN_NAME (aapbf16,stw_____xdest____int023_____xsrc1_) },
+  { AAPBF16_INSN_NOP, SEM_FN_NAME (aapbf16,nop) },
+  { AAPBF16_INSN_MOVI, SEM_FN_NAME (aapbf16,movi) },
+  { AAPBF16_INSN_BAL, SEM_FN_NAME (aapbf16,bal) },
+  { AAPBF16_INSN_BRA, SEM_FN_NAME (aapbf16,bra) },
   { 0, 0 }
 };
 

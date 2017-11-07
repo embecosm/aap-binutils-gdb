@@ -48,11 +48,8 @@ typedef struct {
 #define SET_H_GPR(a1, x) (CPU (h_gpr)[a1] = (x))
   /* control registers */
   USI h_cr[16];
-#define GET_H_CR(index) aapbf16_h_cr_get_handler (current_cpu, index)
-#define SET_H_CR(index, x) \
-do { \
-aapbf16_h_cr_set_handler (current_cpu, (index), (x));\
-;} while (0)
+#define GET_H_CR(a1) CPU (h_cr)[a1]
+#define SET_H_CR(a1, x) (CPU (h_cr)[a1] = (x))
   /* carry flag */
   BI h_cf;
 #define GET_H_CF() CPU (h_cf)
@@ -91,31 +88,31 @@ union sem_fields {
   } sfmt_empty;
   struct { /*  */
     INT f_int_8_9;
-  } sfmt_l_bra;
+  } sfmt_bra;
   struct { /*  */
     USI* i_xdest;
     UINT f_uint_5_6;
     UINT f_x_dst_reg;
-  } sfmt_l_movi;
+  } sfmt_movi;
   struct { /*  */
     USI* i_d6;
     INT f_int_2_3;
     UINT f_d_6;
-  } sfmt_l_sdb_____xdest____int023_____xsrc1_;
+  } sfmt_stb_____xdest____int023_____xsrc1_;
   struct { /*  */
     USI* i_xdest;
     USI* i_xsrc1;
     INT f_int_2_3;
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
-  } sfmt_l_ldb___xdest_____xsrc1____int023__;
+  } sfmt_ldb___xdest_____xsrc1____int023__;
   struct { /*  */
     USI* i_xsrc1;
     USI* i_xsrc2;
     INT f_int_8_3;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
-  } sfmt_l_beq;
+  } sfmt_beq;
   struct { /*  */
     USI* i_xdest;
     USI* i_xsrc1;
@@ -123,7 +120,7 @@ union sem_fields {
     UINT f_uint_2_3;
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
-  } sfmt_l_asri;
+  } sfmt_asri;
   struct { /*  */
     USI* i_xdest;
     USI* i_xsrc1;
@@ -132,7 +129,7 @@ union sem_fields {
     UINT f_x_dst_reg;
     UINT f_x_src_reg_1;
     UINT f_x_src_reg_2;
-  } sfmt_l_asr;
+  } sfmt_asr;
 #if WITH_SCACHE_PBB
   /* Writeback handler.  */
   struct {
@@ -193,14 +190,14 @@ struct scache {
 #define EXTRACT_IFMT_EMPTY_CODE \
   length = 0; \
 
-#define EXTRACT_IFMT_L_ADD_VARS \
+#define EXTRACT_IFMT_ADD_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   UINT f_x_dst_reg; \
   UINT f_x_src_reg_1; \
   UINT f_x_src_reg_2; \
   unsigned int length;
-#define EXTRACT_IFMT_L_ADD_CODE \
+#define EXTRACT_IFMT_ADD_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
@@ -208,14 +205,29 @@ struct scache {
   f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
   f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
 
-#define EXTRACT_IFMT_L_ADDI_VARS \
+#define EXTRACT_IFMT_JEQ_VARS \
+  UINT f_x_length; \
+  UINT f_x_opcode; \
+  UINT f_x_dst_reg; \
+  UINT f_x_src_reg_1; \
+  UINT f_x_src_reg_2; \
+  unsigned int length;
+#define EXTRACT_IFMT_JEQ_CODE \
+  length = 2; \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
+  f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
+  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
+  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
+  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
+
+#define EXTRACT_IFMT_ADDI_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   UINT f_x_dst_reg; \
   UINT f_x_src_reg_1; \
   UINT f_uint_2_3; \
   unsigned int length;
-#define EXTRACT_IFMT_L_ADDI_CODE \
+#define EXTRACT_IFMT_ADDI_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
@@ -223,14 +235,14 @@ struct scache {
   f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
   f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
 
-#define EXTRACT_IFMT_L_BEQ_VARS \
+#define EXTRACT_IFMT_BEQ_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   INT f_int_8_3; \
   UINT f_x_src_reg_1; \
   UINT f_x_src_reg_2; \
   unsigned int length;
-#define EXTRACT_IFMT_L_BEQ_CODE \
+#define EXTRACT_IFMT_BEQ_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
@@ -238,14 +250,14 @@ struct scache {
   f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
   f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
 
-#define EXTRACT_IFMT_L_LDB___XDEST_____XSRC1____INT023___VARS \
+#define EXTRACT_IFMT_LDB___XDEST_____XSRC1____INT023___VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   UINT f_x_dst_reg; \
   UINT f_x_src_reg_1; \
   INT f_int_2_3; \
   unsigned int length;
-#define EXTRACT_IFMT_L_LDB___XDEST_____XSRC1____INT023___CODE \
+#define EXTRACT_IFMT_LDB___XDEST_____XSRC1____INT023___CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
@@ -253,38 +265,38 @@ struct scache {
   f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 16, 5, 3); \
   f_int_2_3 = EXTRACT_LSB0_SINT (insn, 16, 2, 3); \
 
-#define EXTRACT_IFMT_L_NOP_VARS \
+#define EXTRACT_IFMT_NOP_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   UINT f_x_dst_reg; \
   UINT f_uint_5_6; \
   unsigned int length;
-#define EXTRACT_IFMT_L_NOP_CODE \
+#define EXTRACT_IFMT_NOP_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
   f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 16, 8, 3); \
   f_uint_5_6 = EXTRACT_LSB0_UINT (insn, 16, 5, 6); \
 
-#define EXTRACT_IFMT_L_BAL_VARS \
+#define EXTRACT_IFMT_BAL_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   INT f_int_8_6; \
   UINT f_x_src_reg_2; \
   unsigned int length;
-#define EXTRACT_IFMT_L_BAL_CODE \
+#define EXTRACT_IFMT_BAL_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \
   f_int_8_6 = EXTRACT_LSB0_SINT (insn, 16, 8, 6); \
   f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 16, 2, 3); \
 
-#define EXTRACT_IFMT_L_BRA_VARS \
+#define EXTRACT_IFMT_BRA_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
   INT f_int_8_9; \
   unsigned int length;
-#define EXTRACT_IFMT_L_BRA_CODE \
+#define EXTRACT_IFMT_BRA_CODE \
   length = 2; \
   f_x_length = EXTRACT_LSB0_UINT (insn, 16, 15, 1); \
   f_x_opcode = EXTRACT_LSB0_UINT (insn, 16, 14, 6); \

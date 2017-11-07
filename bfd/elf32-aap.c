@@ -762,6 +762,58 @@ aap_elf_relocate_section (bfd *output_bfd ATTRIBUTE_UNUSED,
   return TRUE;
 }
 
+/* returns the elf version of the relocation code */
+static reloc_howto_type *
+aap_reloc_type_lookup (bfd * abfd ATTRIBUTE_UNUSED,
+		       bfd_reloc_code_real_type code)
+{
+  printf("aap_reloc_type_lookup: %d\n", code);
+
+  switch (code)
+    {/*
+    case BFD_RELOC_AAP_NONE:
+      return & elf_aap_howto_table [R_AAP_NONE];
+    case BFD_RELOC_AAP_8:
+      return & elf_aap_howto_table [R_AAP_8];
+    case BFD_RELOC_AAP_16:
+      return & elf_aap_howto_table [R_AAP_16];
+    case BFD_RELOC_AAP_32:
+      return & elf_aap_howto_table [R_AAP_32];
+    case BFD_RELOC_AAP_64:
+    return & elf_aap_howto_table [R_AAP_64];*/
+    case BFD_RELOC_AAP_BR16:
+      return & elf_aap_howto_table [R_AAP_BR16];
+    case BFD_RELOC_AAP_BR32:
+      return & elf_aap_howto_table [R_AAP_BR32];
+    case BFD_RELOC_AAP_BRCC16:
+      return & elf_aap_howto_table [R_AAP_BRCC16];
+    case BFD_RELOC_AAP_BRCC32:
+      return & elf_aap_howto_table [R_AAP_BRCC32];
+    case BFD_RELOC_AAP_BAL16:
+      return & elf_aap_howto_table [R_AAP_BAL16];
+    case BFD_RELOC_AAP_BAL32:
+      return & elf_aap_howto_table [R_AAP_BAL32];
+    case BFD_RELOC_AAP_ABS6:
+      return & elf_aap_howto_table [R_AAP_ABS6];
+    case BFD_RELOC_AAP_ABS9:
+      return & elf_aap_howto_table [R_AAP_ABS9];
+    case BFD_RELOC_AAP_ABS10:
+      return & elf_aap_howto_table [R_AAP_ABS10];
+    case BFD_RELOC_AAP_ABS12:
+      return & elf_aap_howto_table [R_AAP_ABS12];
+    case BFD_RELOC_AAP_ABS16:
+      return & elf_aap_howto_table [R_AAP_ABS16];
+    case BFD_RELOC_AAP_SHIFT6:
+      return & elf_aap_howto_table [R_AAP_SHIFT6];
+    case BFD_RELOC_AAP_OFF10:
+    return & elf_aap_howto_table [R_AAP_OFF10];
+    default:
+      break;
+    }
+}
+
+#define bfd_elf32_bfd_reloc_type_lookup aap_reloc_type_lookup
+
 #define TARGET_LITTLE_SYM   aap_elf32_vec
 #define TARGET_LITTLE_NAME  "elf32-aap"
 /*#define TARGET_BIG_SYM      bfd_elf32_aap_vec*/

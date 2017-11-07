@@ -231,9 +231,6 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_UINT056 :
       print_normal (cd, info, fields->f_uint_5_6, 0, pc, length);
       break;
-    case AAP_OPERAND_ULO16 :
-      print_lo (cd, info, fields->f_u16, 0, pc, length);
-      break;
     case AAP_OPERAND_XDEST :
       print_keyword (cd, info, & aap_cgen_opval_gpr_names, fields->f_x_dst_reg, 0);
       break;
