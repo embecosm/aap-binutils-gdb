@@ -46,9 +46,9 @@ struct _sim_cpu {
 #if defined (WANT_CPU_AAPBF)
   AAPBF_CPU_DATA cpu_data;
 #endif
-#if defined (WANT_CPU_AAPBF16)
-  AAPBF16_CPU_DATA cpu_data;
-#endif
+  //#if defined (WANT_CPU_AAPBF16)
+  //  AAPBF16_CPU_DATA cpu_data;
+  //#endif
 };
 
 /* The sim_state struct.  */
@@ -72,5 +72,21 @@ aap_core_signal ((SD), (CPU), (CIA), (MAP), (NR_BYTES), (ADDR), \
 
 /* Default memory size.  */
 #define AAP_DEFAULT_MEM_SIZE 0x800000 /* 8M */
+
+/* For decode.c */
+//#include "../../cpu/aap_ifield.h"
+#define aapbf_aap_sem_init_idesc_table aapbf_sem_init_idesc_table
+
+/* For model.c */
+#define aapbf_aap_engine_run_fast aapbf_engine_run_fast
+#define aapbf_aap_engine_run_full aapbf_engine_run_full
+
+/* For mloop.c */
+#define AAPBF_INSN_X_AFTER AAPBF_AAP_INSN_X_AFTER
+#define AAPBF_INSN_X_BEFORE AAPBF_AAP_INSN_X_BEFORE
+#define AAPBF_INSN_X_BEGIN AAPBF_AAP_INSN_X_BEGIN
+#define AAPBF_INSN_X_CTI_CHAIN AAPBF_AAP_INSN_X_CTI_CHAIN
+#define AAPBF_INSN_X_CHAIN AAPBF_AAP_INSN_X_CHAIN
+#define aapbf_decode aapbf_aap_decode
 
 #endif /* SIM_MAIN_H */

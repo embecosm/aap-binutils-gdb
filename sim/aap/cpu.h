@@ -87,57 +87,48 @@ union sem_fields {
     int empty;
   } sfmt_empty;
   struct { /*  */
-    INT f_s_22;
-  } sfmt_bra32;
+    SI f_s_22;
+  } sfmt_bra;
   struct { /*  */
     USI* i_d6;
-    UINT f_d_6;
-    UINT f_i_16;
-  } sfmt_movi32;
+    SI f_d_6;
+    SI f_i_16;
+  } sfmt_movi;
+  struct { /*  */
+    USI* i_d6;
+    SI f_d_6;
+    SI f_i_12;
+  } sfmt_nop;
   struct { /*  */
     USI* i_d6;
     USI* i_dest1;
-    UINT f_d_6;
+    SI f_d_6;
     UINT f_dst_1_reg;
-  } sfmt_jmpl32;
-  struct { /*  */
-    USI* i_a6;
-    USI* i_b6;
-    INT f_s_10;
-    UINT f_a_6;
-    UINT f_b_6;
-  } sfmt_beq32;
+  } sfmt_jmpl;
   struct { /*  */
     USI* i_a6;
     USI* i_d6;
-    UINT f_a_6;
-    UINT f_d_6;
-    UINT f_i_10;
-  } sfmt_addi32;
+    SI f_a_6;
+    SI f_d_6;
+    SI f_i_10;
+  } sfmt_addi;
   struct { /*  */
     USI* i_a6;
     USI* i_d6;
-    UINT f_a_6;
-    UINT f_d_6;
-    UINT f_i_10i;
-  } sfmt_andi32;
-  struct { /*  */
-    USI* i_a6;
-    USI* i_d6;
-    UINT f_a_6;
+    SI f_a_6;
+    SI f_d_6;
     UINT f_carry;
-    UINT f_d_6;
-    UINT f_i_6;
-  } sfmt_asri32;
+    USI f_i_6;
+  } sfmt_asri;
   struct { /*  */
     USI* i_a6;
     USI* i_b6;
     USI* i_d6;
-    UINT f_a_6;
-    UINT f_b_6;
+    SI f_a_6;
+    SI f_b_6;
+    SI f_d_6;
     UINT f_carry;
-    UINT f_d_6;
-  } sfmt_asr32;
+  } sfmt_asr;
 #if WITH_SCACHE_PBB
   /* Writeback handler.  */
   struct {
@@ -198,285 +189,308 @@ struct scache {
 #define EXTRACT_IFMT_EMPTY_CODE \
   length = 0; \
 
-#define EXTRACT_IFMT_ADD32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_ADD_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_src_reg_2; \
-  UINT f_x_src_reg_2; \
-  UINT f_b_6; \
-  unsigned int length;
-#define EXTRACT_IFMT_ADD32_CODE \
-  length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
-  f_b_6 = ((HI) (UINT) (((((f_src_reg_2) << (3))) | (f_x_src_reg_2))));\
-
-#define EXTRACT_IFMT_JEQ32_VARS \
   UINT f_length; \
   UINT f_opcode; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
+  UINT f_src_1_hi; \
+  UINT f_src_1_lo; \
+  SI f_a_6; \
+  UINT f_src_2_hi; \
+  UINT f_src_2_lo; \
+  SI f_b_6; \
+  unsigned int length;
+#define EXTRACT_IFMT_ADD_CODE \
+  length = 4; \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
+  f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
+  f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
+  f_a_6 = ((HI) (UINT) (((((f_src_1_hi) << (3))) | (f_src_1_lo))));\
+  f_a_6 =   f_a_6 = decode6 (f_a_6, f_src_1_lo, f_src_1_hi);\
+;\
+  f_src_2_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
+  f_src_2_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_b_6 = ((HI) (UINT) (((((f_src_2_hi) << (3))) | (f_src_2_lo))));\
+  f_b_6 =   f_b_6 = decode6 (f_b_6, f_src_2_lo, f_src_2_hi);\
+;\
+
+#define EXTRACT_IFMT_ASRI_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_src_reg_2; \
-  UINT f_x_src_reg_2; \
-  UINT f_b_6; \
-  unsigned int length;
-#define EXTRACT_IFMT_JEQ32_CODE \
-  length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
-  f_b_6 = ((HI) (UINT) (((((f_src_reg_2) << (3))) | (f_x_src_reg_2))));\
-
-#define EXTRACT_IFMT_ASRI32_VARS \
   UINT f_length; \
   UINT f_opcode; \
-  UINT f_x_length; \
-  UINT f_x_opcode; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_uint_2_3; \
-  UINT f_uint_18_3; \
-  UINT f_i_6; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
+  UINT f_src_1_hi; \
+  UINT f_src_1_lo; \
+  SI f_a_6; \
+  UINT f_uint_18_3_hi; \
+  UINT f_uint_2_3_lo; \
+  USI f_i_6; \
   unsigned int length;
-#define EXTRACT_IFMT_ASRI32_CODE \
+#define EXTRACT_IFMT_ASRI_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
-  f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_i_6 = ((HI) (UINT) (((((f_uint_18_3) << (3))) | (f_uint_2_3))));\
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
+  f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
+  f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
+  f_a_6 = ((HI) (UINT) (((((f_src_1_hi) << (3))) | (f_src_1_lo))));\
+  f_a_6 =   f_a_6 = decode6 (f_a_6, f_src_1_lo, f_src_1_hi);\
+;\
+  f_uint_18_3_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
+  f_uint_2_3_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_i_6 = ((HI) (UINT) (((((f_uint_18_3_hi) << (3))) | (f_uint_2_3_lo))));\
+  f_i_6 =   f_i_6 = decode6 (f_i_6, f_uint_2_3_lo, f_uint_18_3_hi);\
+;\
 
-#define EXTRACT_IFMT_ANDI32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_ANDI_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_i_6; \
-  UINT f_uint_iii1; \
-  UINT f_i_10i; \
-  unsigned int length;
-#define EXTRACT_IFMT_ANDI32_CODE \
-  length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_i_6 = ((HI) (UINT) (((((f_uint_18_3) << (3))) | (f_uint_2_3))));\
-  f_uint_iii1 = EXTRACT_LSB0_UINT (insn, 32, 12, 4); \
-  f_i_10 = ((HI) (UINT) (((((f_uint_iii1) << (4))) | (f_i_6))));\
-
-#define EXTRACT_IFMT_ADDI32_VARS \
+  UINT f_class_1; \
   UINT f_length; \
   UINT f_opcode; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
+  UINT f_src_1_hi; \
+  UINT f_src_1_lo; \
+  SI f_a_6; \
+  USI f_i_6; \
+  UINT f_uint_28_3; \
+  SI f_i_9; \
+  unsigned int length;
+#define EXTRACT_IFMT_ANDI_CODE \
+  length = 4; \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_class_1 = EXTRACT_LSB0_UINT (insn, 32, 25, 1); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
+  f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
+  f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
+  f_a_6 = ((HI) (UINT) (((((f_src_1_hi) << (3))) | (f_src_1_lo))));\
+  f_a_6 =   f_a_6 = decode6 (f_a_6, f_src_1_lo, f_src_1_hi);\
+;\
+  f_i_6 = ((HI) (UINT) (((((f_uint_18_3_hi) << (3))) | (f_uint_2_3_lo))));\
+  f_i_6 =   f_i_6 = decode6 (f_i_6, f_uint_2_3_lo, f_uint_18_3_hi);\
+;\
+  f_uint_28_3 = EXTRACT_LSB0_UINT (insn, 32, 28, 3); \
+  f_i_9 = ((HI) (UINT) (((((f_uint_28_3) << (3))) | (f_i_6))));\
+  f_i_9 =   f_i_9 = decode9 (f_i_9, f_uint_2_3_lo, f_uint_18_3_hi, f_uint_28_3);\
+;\
+
+#define EXTRACT_IFMT_ADDI_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_i_6; \
-  UINT f_uint_12_4; \
-  UINT f_i_10; \
-  unsigned int length;
-#define EXTRACT_IFMT_ADDI32_CODE \
-  length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_i_6 = ((HI) (UINT) (((((f_uint_18_3) << (3))) | (f_uint_2_3))));\
-  f_uint_12_4 = EXTRACT_LSB0_UINT (insn, 32, 12, 4); \
-  f_i_10 = ((HI) (UINT) (((((f_uint_12_4) << (4))) | (f_i_6))));\
-
-#define EXTRACT_IFMT_BEQ32_VARS \
   UINT f_length; \
   UINT f_opcode; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
+  UINT f_src_1_hi; \
+  UINT f_src_1_lo; \
+  SI f_a_6; \
+  USI f_i_6; \
+  UINT f_uint_28_4; \
+  SI f_i_10; \
+  unsigned int length;
+#define EXTRACT_IFMT_ADDI_CODE \
+  length = 4; \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
+  f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
+  f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
+  f_a_6 = ((HI) (UINT) (((((f_src_1_hi) << (3))) | (f_src_1_lo))));\
+  f_a_6 =   f_a_6 = decode6 (f_a_6, f_src_1_lo, f_src_1_hi);\
+;\
+  f_i_6 = ((HI) (UINT) (((((f_uint_18_3_hi) << (3))) | (f_uint_2_3_lo))));\
+  f_i_6 =   f_i_6 = decode6 (f_i_6, f_uint_2_3_lo, f_uint_18_3_hi);\
+;\
+  f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4); \
+  f_i_10 = ((HI) (UINT) (((((f_uint_28_4) << (4))) | (f_i_6))));\
+  f_i_10 =   f_i_10 = decode10 (f_i_10, f_uint_2_3_lo, f_uint_28_4, f_uint_18_3_hi);\
+;\
+
+#define EXTRACT_IFMT_BEQ_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
+  UINT f_length; \
+  UINT f_opcode; \
   INT f_int_24_3; \
-  INT f_int_12_7; \
-  INT f_s_10; \
-  UINT f_src_reg_1; \
-  UINT f_x_src_reg_1; \
-  UINT f_a_6; \
-  UINT f_src_reg_2; \
-  UINT f_x_src_reg_2; \
-  UINT f_b_6; \
+  SI f_s_7; \
+  SI f_s_10_fin; \
+  UINT f_src_1_hi; \
+  UINT f_src_1_lo; \
+  SI f_a_6; \
+  UINT f_src_2_hi; \
+  UINT f_src_2_lo; \
+  SI f_b_6; \
   unsigned int length;
-#define EXTRACT_IFMT_BEQ32_CODE \
+#define EXTRACT_IFMT_BEQ_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_3 = EXTRACT_LSB0_SINT (insn, 32, 24, 3); \
-  f_int_12_7 = EXTRACT_LSB0_SINT (insn, 32, 12, 7); \
-  f_s_10 = ((HI) (INT) (((((f_int_24_3) << (7))) | (f_int_12_7))));\
-  f_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
-  f_x_src_reg_1 = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
-  f_a_6 = ((HI) (UINT) (((((f_src_reg_1) << (3))) | (f_x_src_reg_1))));\
-  f_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
-  f_b_6 = ((HI) (UINT) (((((f_src_reg_2) << (3))) | (f_x_src_reg_2))));\
+  f_s_7 = ((HI) (INT) (((((f_int_28_4_lo) << (3))) | (f_int_8_3))));\
+  f_s_7 =   f_s_7 = decodeS7 (f_s_7, f_int_28_4_lo, f_int_8_3);\
+;\
+  f_s_10_fin = ((HI) (INT) (((((f_int_24_3) << (7))) | (f_s_7))));\
+  f_s_10_fin =   f_s_10_fin = decodeS10 (f_s_10_fin, f_int_8_3, f_int_24_3, f_int_28_4_lo);\
+;\
+  f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
+  f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
+  f_a_6 = ((HI) (UINT) (((((f_src_1_hi) << (3))) | (f_src_1_lo))));\
+  f_a_6 =   f_a_6 = decode6 (f_a_6, f_src_1_lo, f_src_1_hi);\
+;\
+  f_src_2_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
+  f_src_2_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_b_6 = ((HI) (UINT) (((((f_src_2_hi) << (3))) | (f_src_2_lo))));\
+  f_b_6 =   f_b_6 = decode6 (f_b_6, f_src_2_lo, f_src_2_hi);\
+;\
 
-#define EXTRACT_IFMT_NOP32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_NOP_VARS \
   UINT f_x_length; \
   UINT f_x_opcode; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
+  UINT f_length; \
+  UINT f_opcode; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
   UINT f_uint_5_6; \
   UINT f_uint_21_6; \
-  UINT f_i_12; \
+  SI f_i_12; \
   unsigned int length;
-#define EXTRACT_IFMT_NOP32_CODE \
+#define EXTRACT_IFMT_NOP_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
   f_uint_5_6 = EXTRACT_LSB0_UINT (insn, 32, 5, 6); \
   f_uint_21_6 = EXTRACT_LSB0_UINT (insn, 32, 21, 6); \
   f_i_12 = ((HI) (UINT) (((((f_uint_21_6) << (6))) | (f_uint_5_6))));\
+  f_i_12 =   f_i_12 = decode12 (f_i_12, f_uint_21_6, f_uint_5_6);\
+;\
 
-#define EXTRACT_IFMT_MOVI32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_MOVI_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
-  UINT f_dst_reg; \
-  UINT f_x_dst_reg; \
-  UINT f_d_6; \
-  UINT f_i_12; \
-  UINT f_uint_12_4; \
-  UINT f_i_16; \
+  UINT f_length; \
+  UINT f_opcode; \
+  UINT f_dst_hi; \
+  UINT f_dst_lo; \
+  SI f_d_6; \
+  SI f_i_12; \
+  UINT f_uint_28_4; \
+  SI f_i_16; \
   unsigned int length;
-#define EXTRACT_IFMT_MOVI32_CODE \
+#define EXTRACT_IFMT_MOVI_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
-  f_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
-  f_x_dst_reg = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
-  f_d_6 = ((HI) (UINT) (((((f_dst_reg) << (3))) | (f_x_dst_reg))));\
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
+  f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3); \
+  f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3); \
+  f_d_6 = ((((f_dst_hi) << (3))) | (f_dst_lo));\
+  f_d_6 =   f_d_6 = decode6 (f_d_6, f_dst_lo, f_dst_hi);\
+;\
   f_i_12 = ((HI) (UINT) (((((f_uint_21_6) << (6))) | (f_uint_5_6))));\
-  f_uint_12_4 = EXTRACT_LSB0_UINT (insn, 32, 12, 4); \
-  f_i_16 = ((HI) (UINT) (((((f_uint_12_4) << (4))) | (f_i_12))));\
+  f_i_12 =   f_i_12 = decode12 (f_i_12, f_uint_21_6, f_uint_5_6);\
+;\
+  f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4); \
+  f_i_16 = ((HI) (UINT) (((((f_uint_28_4) << (4))) | (f_i_12))));\
+  f_i_16 =   f_i_16 = decode16 (f_i_16, f_uint_21_6, f_uint_28_4, f_uint_5_6);\
+;\
 
-#define EXTRACT_IFMT_BAL32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_BAL_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
+  UINT f_length; \
+  UINT f_opcode; \
   INT f_int_24_6; \
-  INT f_int_12_10; \
-  INT f_s_16; \
-  UINT f_src_reg_2; \
-  UINT f_x_src_reg_2; \
-  UINT f_b_6; \
+  INT f_s_10; \
+  SI f_s_16; \
+  UINT f_src_2_hi; \
+  UINT f_src_2_lo; \
+  SI f_b_6; \
   unsigned int length;
-#define EXTRACT_IFMT_BAL32_CODE \
+#define EXTRACT_IFMT_BAL_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_6 = EXTRACT_LSB0_SINT (insn, 32, 24, 6); \
-  f_int_12_10 = EXTRACT_LSB0_SINT (insn, 32, 12, 10); \
-  f_s_16 = ((HI) (INT) (((((f_int_24_6) << (10))) | (f_int_12_10))));\
-  f_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_x_src_reg_2 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
-  f_b_6 = ((HI) (UINT) (((((f_src_reg_2) << (3))) | (f_x_src_reg_2))));\
+  f_s_10 = ((HI) (INT) (((((f_int_28_4_lo) << (6))) | (f_int_8_6))));\
+  f_s_16 = ((HI) (INT) (((((f_int_24_6) << (10))) | (f_s_10))));\
+  f_s_16 =   f_s_16 = decodeS16 (f_s_16, f_int_8_6, f_int_24_6, f_int_28_4_lo);\
+;\
+  f_src_2_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
+  f_src_2_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_b_6 = ((HI) (UINT) (((((f_src_2_hi) << (3))) | (f_src_2_lo))));\
+  f_b_6 =   f_b_6 = decode6 (f_b_6, f_src_2_lo, f_src_2_hi);\
+;\
 
-#define EXTRACT_IFMT_BRA32_VARS \
-  UINT f_length; \
-  UINT f_opcode; \
+#define EXTRACT_IFMT_BRA_VARS \
   UINT f_x_length; \
   UINT f_x_class; \
+  UINT f_length; \
+  UINT f_opcode; \
   INT f_int_24_9; \
-  INT f_int_12_13; \
-  INT f_s_22; \
+  INT f_s_13; \
+  SI f_s_22; \
   unsigned int length;
-#define EXTRACT_IFMT_BRA32_CODE \
+#define EXTRACT_IFMT_BRA_CODE \
   length = 4; \
-  f_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
-  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 30, 6); \
-  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
-  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 14, 2); \
+  f_x_length = EXTRACT_LSB0_UINT (insn, 32, 31, 1); \
+  f_x_class = EXTRACT_LSB0_UINT (insn, 32, 30, 2); \
+  f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
+  f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_9 = EXTRACT_LSB0_SINT (insn, 32, 24, 9); \
-  f_int_12_13 = EXTRACT_LSB0_SINT (insn, 32, 12, 13); \
-  f_s_22 = ((HI) (INT) (((((f_int_24_9) << (13))) | (f_int_12_13))));\
+  f_s_13 = ((HI) (INT) (((((f_int_28_4_lo) << (9))) | (f_int_8_9))));\
+  f_s_22 = ((HI) (INT) (((((f_int_24_9) << (13))) | (f_s_13))));\
+  f_s_22 =   f_s_22 = decodeS22 (f_s_22, f_int_8_9, f_int_24_9, f_int_28_4_lo);\
+;\
 
 /* Collection of various things for the trace handler to use.  */
 

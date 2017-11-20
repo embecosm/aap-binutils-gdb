@@ -3,8 +3,7 @@
  * 2017/09/21: allows a blank page to compile using abort()
  * 2017/09/28: allows a all of instructions to be assembled
  * 2017/10/02: disassembler for 32 bit instructions
- * TODO: if an odd number of 16bit insn before EOF or a 32bit insn, 
- *       insn is *unknown* or out of bounds
+ * 
  */
 
 #include "config.h"
@@ -233,7 +232,7 @@ aap_atof (int type,
    format.  */
 
 arelent *
-tc_gen_reloc (asection *section,
+tc_gen_reloc (asection *section ATTRIBUTE_UNUSED,
 	      fixS *fixp)
 {
   printf("tc_gen_reloc\n");
@@ -361,19 +360,7 @@ aap_apply_fix (fixS *fixP, valueT *valueP, segT seg)
       
     default:
       break;
-      /*      as_bad_where (fixP->fx_file, fixP->fx_line,
-	      _("bad relocation fixup type (%d) (apply_fix)"), fixP->fx_r_type);*/
     }
-
-  if (fixP->fx_done)
-    number_to_chars_littleendian (fixP->fx_where + fixP->fx_frag->fr_literal,
-				  value, fixP->fx_size);
-  else
-    /* Initialise the part of an instruction frag covered by the
-       relocation. (Many occurrences of frag_more followed by fix_new
-       lack any init of the frag.) Since VAX uses RELA relocs the
-       value we write into this field doesn't really matter. */
-    memset (fixP->fx_where + fixP->fx_frag->fr_literal, 0, fixP->fx_size);
 }
 
 
@@ -399,7 +386,7 @@ aap_force_relocation (fixS *fix)
 
   default:
     break;
-}
+  }
 
   return generic_force_reloc (fix);
 }
@@ -461,7 +448,7 @@ aap_section_align (segT segment,
 }
 
 symbolS *
-aap_undefined_symbol (char *name)// ATTRIBUTE_UNUSED)
+aap_undefined_symbol (char *name)
 {
   printf("aap_undefined_symbol: %s\n", name);
   
@@ -504,7 +491,7 @@ aap_create_long_jump (char *ptr,
   *ptr++ = AAP_JMP;		/* Arbitrary jump.  */
   *ptr++ = AAP_ABSOLUTE_MODE;
   aap_number_to_chars (ptr, offset, 4);
-  fix_new (frag, ptr - frag->fr_literal, 4, to_symbol, (long) 0, 0, NO_RELOC);
+  fix_new (frag, ptr - frag->fr_literal, 4, to_symbol, (long) 0, 0, BFD_RELOC_NONE);
 }
 
 /* to prevent seg fault in gas_cgen_record_fixup */

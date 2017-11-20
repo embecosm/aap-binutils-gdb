@@ -33,7 +33,6 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 
 /* Selected cpu families.  */
 #define HAVE_CPU_AAPBF
-#define HAVE_CPU_AAPBF16
 
 #define CGEN_INSN_LSB0_P 1
 
@@ -46,7 +45,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_INT_INSN_P 1
 
 /* Maximum number of syntax elements in an instruction.  */
-#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 16
+#define CGEN_ACTUAL_MAX_SYNTAX_ELEMENTS 14
 
 /* CGEN_MNEMONIC_OPERANDS is defined if mnemonics have operands.
    e.g. In "b,a foo" the ",a" is an operand.  If mnemonics have operands
@@ -54,7 +53,7 @@ This file is part of the GNU Binutils and/or GDB, the GNU debugger.
 #define CGEN_MNEMONIC_OPERANDS
 
 /* Maximum number of fields in an instruction.  */
-#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 7
+#define CGEN_ACTUAL_MAX_IFMT_OPERANDS 8
 
 /* Enums.  */
 
@@ -109,23 +108,18 @@ typedef enum opcodes1 {
  , OP1_BLTS = 36, OP1_BLES = 37, OP1_BLTU = 38, OP1_BLEU = 39
  , OP1_JMP = 40, OP1_JAL = 41, OP1_JEQ = 42, OP1_JNE = 43
  , OP1_JLTS = 44, OP1_JLES = 45, OP1_JLTU = 46, OP1_JLEU = 47
+ , OP1_RD = 48
 } OPCODES1;
 
 /* Enum declaration for opcodes2.  */
 typedef enum opcodes2 {
-  OP2_NOP = 0, OP2_ADD = 1, OP2_SUB = 2, OP2_AND = 3
- , OP2_OR = 4, OP2_XOR = 5, OP2_ASR = 6, OP2_LSL = 7
- , OP2_LSR = 8, OP2_MOV = 9, OP2_ADDI = 10, OP2_SUBI = 11
- , OP2_ASRI = 12, OP2_LSLI = 13, OP2_LSRI = 14, OP2_MOVI = 15
- , OP2_LDB = 16, OP2_LDW = 20, OP2_LDBPO = 17, OP2_LDWPO = 21
- , OP2_LDBPR = 18, OP2_LDWPR = 22, OP2_STB = 24, OP2_STW = 28
- , OP2_STBPO = 25, OP2_STWPO = 29, OP2_STBPR = 26, OP2_STWPR = 30
- , OP2_BRA = 32, OP2_BAL = 33, OP2_BEQ = 34, OP2_BNE = 35
- , OP2_BLTS = 36, OP2_BLES = 37, OP2_BLTU = 38, OP2_BLEU = 39
- , OP2_JMP = 40, OP2_JAL = 41, OP2_JEQ = 42, OP2_JNE = 43
- , OP2_JLTS = 44, OP2_JLES = 45, OP2_JLTU = 46, OP2_JLEU = 47
- , OP2_RD = 48
+  OP2_NOP, OP2_ADD
 } OPCODES2;
+
+/* Enum declaration for opcodes3.  */
+typedef enum opcodes3 {
+  OP3_IMM = 1, OP3_NOR = 0
+} OPCODES3;
 
 /* Enum declaration for xclass.  */
 typedef enum xclass {
@@ -141,11 +135,11 @@ typedef enum mach_attr {
 
 /* Enum declaration for instruction set selection.  */
 typedef enum isa_attr {
-  ISA_AAP, ISA_MAX
+  ISA_AAP16, ISA_AAP32, ISA_MAX
 } ISA_ATTR;
 
 /* Number of architecture variants.  */
-#define MAX_ISAS  1
+#define MAX_ISAS  ((int) ISA_MAX)
 #define MAX_MACHS ((int) MACH_MAX)
 
 /* Ifield support.  */
@@ -156,7 +150,7 @@ typedef enum isa_attr {
 typedef enum cgen_ifld_attr {
   CGEN_IFLD_VIRTUAL, CGEN_IFLD_PCREL_ADDR, CGEN_IFLD_ABS_ADDR, CGEN_IFLD_RESERVED
  , CGEN_IFLD_SIGN_OPT, CGEN_IFLD_SIGNED, CGEN_IFLD_END_BOOLS, CGEN_IFLD_START_NBOOLS = 31
- , CGEN_IFLD_MACH, CGEN_IFLD_END_NBOOLS
+ , CGEN_IFLD_MACH, CGEN_IFLD_ISA, CGEN_IFLD_END_NBOOLS
 } CGEN_IFLD_ATTR;
 
 /* Number of non-boolean elements in cgen_ifld_attr.  */
@@ -164,6 +158,7 @@ typedef enum cgen_ifld_attr {
 
 /* cgen_ifld attribute accessor macros.  */
 #define CGEN_ATTR_CGEN_IFLD_MACH_VALUE(attrs) ((attrs)->nonbool[CGEN_IFLD_MACH-CGEN_IFLD_START_NBOOLS-1].nonbitset)
+#define CGEN_ATTR_CGEN_IFLD_ISA_VALUE(attrs) ((attrs)->nonbool[CGEN_IFLD_ISA-CGEN_IFLD_START_NBOOLS-1].bitset)
 #define CGEN_ATTR_CGEN_IFLD_VIRTUAL_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_IFLD_VIRTUAL)) != 0)
 #define CGEN_ATTR_CGEN_IFLD_PCREL_ADDR_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_IFLD_PCREL_ADDR)) != 0)
 #define CGEN_ATTR_CGEN_IFLD_ABS_ADDR_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_IFLD_ABS_ADDR)) != 0)
@@ -174,16 +169,18 @@ typedef enum cgen_ifld_attr {
 /* Enum declaration for aap ifield types.  */
 typedef enum ifield_type {
   AAP_F_NIL, AAP_F_ANYOF, AAP_F_LENGTH, AAP_F_X_LENGTH
- , AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE, AAP_F_DST_REG
- , AAP_F_X_DST_REG, AAP_F_SRC_REG_1, AAP_F_X_SRC_REG_1, AAP_F_SRC_REG_2
- , AAP_F_X_SRC_REG_2, AAP_F_UINT_18_3, AAP_F_UINT_21_6, AAP_F_UINT_12_4
- , AAP_F_UINT_III1, AAP_F_UINT_2_3, AAP_F_UINT_5_6, AAP_F_INT_18_3
- , AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3, AAP_F_INT_12_4
- , AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6, AAP_F_INT_8_9
- , AAP_F_INT_12_7, AAP_F_INT_12_10, AAP_F_INT_12_13, AAP_F_U16
- , AAP_F_CARRY, AAP_F_DST_1_REG, AAP_F_S_22, AAP_F_S_16
- , AAP_F_S_10, AAP_F_I_12, AAP_F_I_16, AAP_F_I_6
- , AAP_F_I_10, AAP_F_I_10I, AAP_F_D_6, AAP_F_A_6
+ , AAP_F_X_CLASS, AAP_F_OPCODE, AAP_F_X_OPCODE, AAP_F_CLASS_1
+ , AAP_F_DST_HI, AAP_F_DST_LO, AAP_F_X_DST_REG, AAP_F_SRC_1_HI
+ , AAP_F_SRC_1_LO, AAP_F_X_SRC_REG_1, AAP_F_SRC_2_HI, AAP_F_SRC_2_LO
+ , AAP_F_X_SRC_REG_2, AAP_F_UINT_18_3_HI, AAP_F_UINT_21_6, AAP_F_UINT_28_4
+ , AAP_F_UINT_28_3, AAP_F_UINT_2_3, AAP_F_UINT_2_3_LO, AAP_F_UINT_5_6
+ , AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3
+ , AAP_F_INT_28_4_LO, AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6
+ , AAP_F_INT_8_9, AAP_F_INT_12_7, AAP_F_INT_12_10, AAP_F_INT_12_13
+ , AAP_F_U16, AAP_F_CARRY, AAP_F_DST_1_REG, AAP_F_S_13
+ , AAP_F_S_10, AAP_F_S_7, AAP_F_S_22, AAP_F_S_16
+ , AAP_F_S_10_FIN, AAP_F_I_12, AAP_F_I_16, AAP_F_I_6
+ , AAP_F_I_9, AAP_F_I_10, AAP_F_D_6, AAP_F_A_6
  , AAP_F_B_6, AAP_F_MAX
 } IFIELD_TYPE;
 
@@ -194,7 +191,8 @@ typedef enum ifield_type {
 /* Enum declaration for cgen_hw attrs.  */
 typedef enum cgen_hw_attr {
   CGEN_HW_VIRTUAL, CGEN_HW_CACHE_ADDR, CGEN_HW_PC, CGEN_HW_PROFILE
- , CGEN_HW_END_BOOLS, CGEN_HW_START_NBOOLS = 31, CGEN_HW_MACH, CGEN_HW_END_NBOOLS
+ , CGEN_HW_END_BOOLS, CGEN_HW_START_NBOOLS = 31, CGEN_HW_MACH, CGEN_HW_ISA
+ , CGEN_HW_END_NBOOLS
 } CGEN_HW_ATTR;
 
 /* Number of non-boolean elements in cgen_hw_attr.  */
@@ -202,6 +200,7 @@ typedef enum cgen_hw_attr {
 
 /* cgen_hw attribute accessor macros.  */
 #define CGEN_ATTR_CGEN_HW_MACH_VALUE(attrs) ((attrs)->nonbool[CGEN_HW_MACH-CGEN_HW_START_NBOOLS-1].nonbitset)
+#define CGEN_ATTR_CGEN_HW_ISA_VALUE(attrs) ((attrs)->nonbool[CGEN_HW_ISA-CGEN_HW_START_NBOOLS-1].bitset)
 #define CGEN_ATTR_CGEN_HW_VIRTUAL_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_HW_VIRTUAL)) != 0)
 #define CGEN_ATTR_CGEN_HW_CACHE_ADDR_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_HW_CACHE_ADDR)) != 0)
 #define CGEN_ATTR_CGEN_HW_PC_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_HW_PC)) != 0)
@@ -222,7 +221,8 @@ typedef enum cgen_hw_type {
 typedef enum cgen_operand_attr {
   CGEN_OPERAND_VIRTUAL, CGEN_OPERAND_PCREL_ADDR, CGEN_OPERAND_ABS_ADDR, CGEN_OPERAND_SIGN_OPT
  , CGEN_OPERAND_SIGNED, CGEN_OPERAND_NEGATIVE, CGEN_OPERAND_RELAX, CGEN_OPERAND_SEM_ONLY
- , CGEN_OPERAND_END_BOOLS, CGEN_OPERAND_START_NBOOLS = 31, CGEN_OPERAND_MACH, CGEN_OPERAND_END_NBOOLS
+ , CGEN_OPERAND_END_BOOLS, CGEN_OPERAND_START_NBOOLS = 31, CGEN_OPERAND_MACH, CGEN_OPERAND_ISA
+ , CGEN_OPERAND_END_NBOOLS
 } CGEN_OPERAND_ATTR;
 
 /* Number of non-boolean elements in cgen_operand_attr.  */
@@ -230,6 +230,7 @@ typedef enum cgen_operand_attr {
 
 /* cgen_operand attribute accessor macros.  */
 #define CGEN_ATTR_CGEN_OPERAND_MACH_VALUE(attrs) ((attrs)->nonbool[CGEN_OPERAND_MACH-CGEN_OPERAND_START_NBOOLS-1].nonbitset)
+#define CGEN_ATTR_CGEN_OPERAND_ISA_VALUE(attrs) ((attrs)->nonbool[CGEN_OPERAND_ISA-CGEN_OPERAND_START_NBOOLS-1].bitset)
 #define CGEN_ATTR_CGEN_OPERAND_VIRTUAL_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_OPERAND_VIRTUAL)) != 0)
 #define CGEN_ATTR_CGEN_OPERAND_PCREL_ADDR_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_OPERAND_PCREL_ADDR)) != 0)
 #define CGEN_ATTR_CGEN_OPERAND_ABS_ADDR_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_OPERAND_ABS_ADDR)) != 0)
@@ -241,10 +242,10 @@ typedef enum cgen_operand_attr {
 
 /* Enum declaration for aap operand types.  */
 typedef enum cgen_operand_type {
-  AAP_OPERAND_PC, AAP_OPERAND_CARRY, AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1
- , AAP_OPERAND_XSRC2, AAP_OPERAND_D6, AAP_OPERAND_A6, AAP_OPERAND_B6
- , AAP_OPERAND_DEST1, AAP_OPERAND_UINT056, AAP_OPERAND_UINT023, AAP_OPERAND_I12
- , AAP_OPERAND_I16, AAP_OPERAND_I6, AAP_OPERAND_I10, AAP_OPERAND_I10I
+  AAP_OPERAND_PC, AAP_OPERAND_I12, AAP_OPERAND_I6, AAP_OPERAND_I9
+ , AAP_OPERAND_I10, AAP_OPERAND_D6, AAP_OPERAND_A6, AAP_OPERAND_B6
+ , AAP_OPERAND_CARRY, AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1, AAP_OPERAND_XSRC2
+ , AAP_OPERAND_DEST1, AAP_OPERAND_UINT056, AAP_OPERAND_I16, AAP_OPERAND_UINT023
  , AAP_OPERAND_INT1210, AAP_OPERAND_INT083, AAP_OPERAND_INT086, AAP_OPERAND_INT089
  , AAP_OPERAND_INT023, AAP_OPERAND_S22, AAP_OPERAND_S16, AAP_OPERAND_S10
  , AAP_OPERAND_MAX
@@ -263,7 +264,7 @@ typedef enum cgen_insn_attr {
   CGEN_INSN_ALIAS, CGEN_INSN_VIRTUAL, CGEN_INSN_UNCOND_CTI, CGEN_INSN_COND_CTI
  , CGEN_INSN_SKIP_CTI, CGEN_INSN_DELAY_SLOT, CGEN_INSN_RELAXABLE, CGEN_INSN_RELAXED
  , CGEN_INSN_NO_DIS, CGEN_INSN_PBB, CGEN_INSN_END_BOOLS, CGEN_INSN_START_NBOOLS = 31
- , CGEN_INSN_MACH, CGEN_INSN_END_NBOOLS
+ , CGEN_INSN_MACH, CGEN_INSN_ISA, CGEN_INSN_END_NBOOLS
 } CGEN_INSN_ATTR;
 
 /* Number of non-boolean elements in cgen_insn_attr.  */
@@ -271,6 +272,7 @@ typedef enum cgen_insn_attr {
 
 /* cgen_insn attribute accessor macros.  */
 #define CGEN_ATTR_CGEN_INSN_MACH_VALUE(attrs) ((attrs)->nonbool[CGEN_INSN_MACH-CGEN_INSN_START_NBOOLS-1].nonbitset)
+#define CGEN_ATTR_CGEN_INSN_ISA_VALUE(attrs) ((attrs)->nonbool[CGEN_INSN_ISA-CGEN_INSN_START_NBOOLS-1].bitset)
 #define CGEN_ATTR_CGEN_INSN_ALIAS_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_INSN_ALIAS)) != 0)
 #define CGEN_ATTR_CGEN_INSN_VIRTUAL_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_INSN_VIRTUAL)) != 0)
 #define CGEN_ATTR_CGEN_INSN_UNCOND_CTI_VALUE(attrs) (((attrs)->bool_ & (1 << CGEN_INSN_UNCOND_CTI)) != 0)

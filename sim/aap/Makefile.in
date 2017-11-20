@@ -3,7 +3,7 @@
 ## COMMON_PRE_CONFIG_FRAG
 
 AAP_OBJS = aap.o cpu.o decode.o sem.o model.o mloop.o
-AAP16_OBJS = aap16.o cpu16.o decode16.o model16.o mloop16.o
+#AAP16_OBJS = aap16.o cpu16.o decode16.o model16.o mloop16.o
 
 SIM_OBJS = \
 	$(SIM_NEW_COMMON_OBJS) \
@@ -15,7 +15,6 @@ SIM_OBJS = \
 	cgen-run.o sim-reason.o sim-stop.o \
 	sim-if.o arch.o \
 	$(AAP_OBJS) \
-	$(AAP16_OBJS) \
 	devices.o
 
 # Extra headers included by sim-main.h.
@@ -66,34 +65,33 @@ model.o: model.c $(AAPBF_INCLUDE_DEPS)
 
 # AAP16 objs
 
-AAPBF16_INCLUDE_DEPS = \
-	$(CGEN_MAIN_CPU_DEPS) \
-	cpu16.h decode16.h eng16.h
-
-aap16.o: aap16.c $(AAPBF16_INCLUDE_DEPS)
-
+#AAPBF16_INCLUDE_DEPS = \
+#	$(CGEN_MAIN_CPU_DEPS) \
+#	cpu16.h decode16.h eng16.h
+#
+#aap16.o: aap16.c $(AAPBF16_INCLUDE_DEPS)
+#
 # FIXME: Use of `mono' is wip.
-mloop16.c eng16.h: stamp-16mloop ; @true
-stamp-16mloop: $(srcdir)/../common/genmloop.sh mloop16.in Makefile
-	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
-		-mono -no-fast -pbb -parallel-generic-write -switch sem16-switch.c \
-		-cpu aapbf16 -infile $(srcdir)/mloop16.in \
-		-outfile-suffix 16
-	$(SHELL) $(srcroot)/move-if-change eng16.hin eng16.h
-	$(SHELL) $(srcroot)/move-if-change mloop16.cin mloop16.c
-	touch stamp-16mloop
+#mloop16.c eng16.h: stamp-16mloop ; @true
+#stamp-16mloop: $(srcdir)/../common/genmloop.sh mloop16.in Makefile
+#	$(SHELL) $(srccom)/genmloop.sh -shell $(SHELL) \
+#		-mono -no-fast -pbb -parallel-generic-write -switch sem16-switch.c \
+#		-cpu aapbf16 -infile $(srcdir)/mloop16.in \
+#		-outfile-suffix 16
+#	$(SHELL) $(srcroot)/move-if-change eng16.hin eng16.h
+#	$(SHELL) $(srcroot)/move-if-change mloop16.cin mloop16.c
+#	touch stamp-16mloop
 
-mloop16.o: mloop16.c $(srcdir)/sem16-switch.c $(AAPBF16_INCLUDE_DEPS)
-cpu16.o: cpu16.c $(AAPBF16_INCLUDE_DEPS)
-decode16.o: decode16.c $(AAPBF16_INCLUDE_DEPS)
+#mloop16.o: mloop16.c $(srcdir)/sem16-switch.c $(AAPBF16_INCLUDE_DEPS)
+#cpu16.o: cpu16.c $(AAPBF16_INCLUDE_DEPS)
+#decode16.o: decode16.c $(AAPBF16_INCLUDE_DEPS)
 #sem16.o: sem16.c $(AAPBF16_INCLUDE_DEPS)
-model16.o: model16.c $(AAPBF16_INCLUDE_DEPS)
+#model16.o: model16.c $(AAPBF16_INCLUDE_DEPS)
 
 aap-clean:
 	rm -f mloop.c eng.h stamp-mloop
-	rm -f mloopx.c engx.h stamp-xmloop
 	rm -f mloop16.c eng16.h stamp-16mloop
-	rm -f stamp-arch stamp-cpu stamp-xcpu stamp-16cpu
+	rm -f stamp-arch stamp-cpu stamp-16cpu
 	rm -f tmp-*
 
 # cgen support, enable with --enable-cgen-maint
@@ -115,20 +113,10 @@ $(srcdir)/arch.h $(srcdir)/arch.c $(srcdir)/cpuall.h: $(CGEN_MAINT) stamp-arch
 
 stamp-cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
 	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
-	  cpu=aapbf mach=aap32 SUFFIX= \
+	  cpu=aapbf mach=aap32 isa=aap SUFFIX= \
 	  archfile=$(CPU_DIR)/aap.cpu \
 	  FLAGS="with-scache with-profile=fn" \
 	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
 	touch stamp-cpu
 $(srcdir)/cpu.h $(srcdir)/sem.c $(srcdir)/sem-switch.c $(srcdir)/model.c $(srcdir)/decode.c $(srcdir)/decode.h: $(CGEN_MAINT) stamp-cpu
-	@true
-
-stamp-16cpu: $(CGEN_READ_SCM) $(CGEN_CPU_SCM) $(CGEN_DECODE_SCM) $(CPU_DIR)/aap.cpu Makefile
-	$(MAKE) cgen-cpu-decode $(CGEN_FLAGS_TO_PASS) \
-	  cpu=aapbf16 mach=aap16 SUFFIX=16 \
-	  archfile=$(CPU_DIR)/aap.cpu \
-	  FLAGS="with-scache with-profile=fn" \
-	  EXTRAFILES="$(CGEN_CPU_SEM) $(CGEN_CPU_SEMSW)"
-	touch stamp-16cpu
-$(srcdir)/cpu16.h $(srcdir)/sem16-switch.c $(srcdir)/model16.c $(srcdir)/decode16.c $(srcdir)/decode16.h: $(CGEN_MAINT) stamp-16cpu
 	@true

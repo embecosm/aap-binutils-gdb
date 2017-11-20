@@ -13,12 +13,19 @@
   (comment "AAP")
   (default-alignment aligned)
   (insn-lsb0? #t)	;; is bit 0 the msb or lsb? It is lsb true.
-  (machs aap16 aap32)	;; list of machines
-  (isas aap)  		;; isa name
+  (machs aap16 aap32)		;; list of machines
+  (isas aap16 aap32)  		;; isa name
 )
 
+
+(define-isa	;;requires the same default
+  (name aap16)
+  (default-insn-word-bitsize 32)
+  (default-insn-bitsize 32)
+  (base-insn-bitsize 32)
+)
 (define-isa	;;fetches 1 insn at a time & does not execute in parallel. 
-  (name aap)
+  (name aap32)
   (default-insn-word-bitsize 32)
   (default-insn-bitsize 32)
   (base-insn-bitsize 32)
@@ -29,59 +36,34 @@
 ;; The "b" suffix stands for "base" and is the convention.
 ;; The "f" suffix stands for "family" and is the convention.
 ;;
-;; 32 bit
 (define-cpu
   (name aapbf)
-  (comment "AAP 32 bit base family")
+  (comment "AAP base family")
   (endian little)
   (word-bitsize 32)
   (insn-chunk-bitsize 32)
-)
-;; 16 bit
-(define-cpu
-  (name aapbf16)
-  (comment "AAP 16 bit base family")
-  (endian little)
-  (word-bitsize 32)
-  (insn-chunk-bitsize 16)
 )
 
 ;;
 ;; Machines
 ;;
-;; 32 bit AAP machine
+(define-mach	;;bfd name = bfd-aap
+  (name aap16)
+  (comment "16 bit AAP machine")
+  (cpu aapbf)
+  (isas aap16)
+)
 (define-mach	;;bfd name = bfd-aap
   (name aap32)
   (comment "32 bit AAP machine")
   (cpu aapbf)
-  (isas aap)
-)
-;; 16 bit mach
-(define-mach	;;bfd name = bfd-aap
-  (name aap16)
-  (comment "16 bit AAP machine")
-  (cpu aapbf16)
-  (isas aap)
+  (bfd-name "aap")
+  (isas aap32)
 )
 
 ;;
 ;; Models
 ;;
-;; 32 bit
-(define-model
-  (name aap32)
-  (comment "32 bit AAP model")
-  (mach aap32)
-  
-  (unit u-exec "Execution Unit" ()
-    1 1 ;; issue done
-    () ;; state
-    () ;; inputs
-    () ;; outputs
-    () ;; profile action (default)
-    )
-)
-;; 16 bit
 (define-model
   (name aap16)
   (comment "16 bit AAP model")
@@ -95,18 +77,31 @@
     () ;; profile action (default)
     )
 )
+(define-model
+  (name aap32)
+  (comment "32 bit AAP model")
+  (mach aap32)
+  
+  (unit u-exec "Execution Unit" ()
+    1 1 ;; issue done
+    () ;; state
+    () ;; inputs
+    () ;; outputs
+    () ;; profile action (default)
+    )
+)
 
 ;;
 ;; Attributes
 ;;
-(define-pmacro all-aap-isas () (ISA aap))
-(define-pmacro MACH-16 (MACH aap16))
-(define-pmacro MACH-32 (MACH aap32))
+(define-pmacro all-aap-isas () (ISA aap16,aap32))
+(define-pmacro ISA-32 (ISA aap32))
+(define-pmacro ISA-16 (ISA aap16))
 
 ;;
-;; General Purpose Registers (copied frv)
+;; General Purpose Registers
 ;;
-;; AAP has between 4 and 64 16bit general purpose registers
+;; AAP has between 4 and 64 16 bit general purpose registers
 
 (define-keyword
   (name gpr-names)
@@ -161,6 +156,7 @@
 ;;
 ;; Instruction fields
 ;;
+;; 15..................0 31.................16 
 ;; 0 00 0000 000 000 000 0 CC OOOO DDD AAA BBB
 ;; 0 00 0000 000 000 000 0 CC OOOO DDD AAA III
 ;; 0 00 0000 000 000 000 0 CC OOOO SSS AAA BBB
@@ -171,7 +167,7 @@
 ;;
 ;; 1 CC OOOO DDD AAA BBB 0 CC OOOO DDD AAA BBB
 ;; 1 CC OOOO DDD AAA III 0 CC OOOO DDD AAA III
-;; 1 CC OOOO DDD AAA III 0 CC III1 DDD AAA III
+;; 1 CC OOOO DDD AAA III 0 CC III1 DDD AAA III (removed)
 ;; 1 CC OOOO DDD AAA III 0 CC IIII DDD AAA III
 ;; 1 CC OOOO SSS AAA BBB 0 CC SSSS SSS AAA BBB
 
@@ -182,57 +178,67 @@
 ;; 1 CC OOOO SSS SSS SSS 0 CC SSSS SSS SSS SSS
 
 ;;    name        comment                 macro   start length   (mode: UINT)
-(dnf f-length "long insn bit (31-16)" (all-aap-isas) 31 1)
-(dnf f-x-length "long insn bit (15-0)" (all-aap-isas) 15 1)
+(dnf f-length "long insn bit (31-16)" (all-aap-isas) 15 1)
+(dnf f-x-length "long insn bit (15-0)" (all-aap-isas) 31 1)
 
-(dnf f-x-class "instruction class (15-0)" (all-aap-isas) 14 2)
-(dnf f-opcode "instruction opcode & class (31-16)" (all-aap-isas) 30 6)
-(dnf f-x-opcode "instruction opcode & class (15-0)" (all-aap-isas) 14 6)
+(dnf f-x-class "instruction class (15-0)" (all-aap-isas) 30 2)
+(dnf f-opcode "instruction opcode & class (31-16)" (all-aap-isas) 14 6)
+(dnf f-x-opcode "instruction opcode & class (15-0)" (all-aap-isas) 30 6)
+(dnf f-class-1 "part of the lower opcode" (all-aap-isas) 25 1)
 
-(dnf f-dst-reg "destination register (31-16)" (all-aap-isas) 24 3)
+(dnf f-dst-hi "destination register (31-16)" (all-aap-isas) 24 3)
+(dnf f-dst-lo "destination register for multifield (15-0)" (all-aap-isas) 8 3)
 (dnf f-x-dst-reg "destination register (15-0)" (all-aap-isas) 8 3)
-(dnf f-src-reg-1 "source 1 register (31-16)" (all-aap-isas) 21 3)
+
+(dnf f-src-1-hi "source 1 register (31-16)" (all-aap-isas) 21 3)
+(dnf f-src-1-lo "source 1 register for multifield (15-0)" (all-aap-isas) 5 3)
 (dnf f-x-src-reg-1 "source 1 register (15-0)" (all-aap-isas) 5 3)
-(dnf f-src-reg-2 "source 2 register (31-16)" (all-aap-isas) 18 3)
+
+(dnf f-src-2-hi "source 2 register (31-16)" (all-aap-isas) 18 3)
+(dnf f-src-2-lo "source 2 register for multifield (15-0)" (all-aap-isas) 2 3)
 (dnf f-x-src-reg-2 "source 2 register (15-0)" (all-aap-isas) 2 3)
 
-(df f-uint-18-3 "- -- ---- --- --- iii - -- ---- --- --- ---"
-  (MACH-32) 18 3 UINT #f #f)
+(df f-uint-18-3-hi "For multi-ifield f-i-6"
+  (ISA-32) 18 3 UINT #f #f)
 (df f-uint-21-6 "- -- ---- --- iii iii - -- ---- --- --- ---"
-  (MACH-32) 21 6 UINT #f #f)
-(df f-uint-12-4 "- -- ---- --- --- --- - -- iiii --- --- ---"
-  (MACH-32) 12 4 UINT #f #f)
-(df f-uint-iii1 "- -- ---- --- --- --- - -- iii1 --- --- ---"
-  (MACH-32) 12 4 UINT #f #f)
+  (ISA-32) 21 6 UINT #f #f)
+(df f-uint-28-4 "- -- ---- --- --- --- - -- iiii --- --- ---"  ;**
+  (ISA-32) 28 4 UINT #f #f)
+(df f-uint-28-3 "- -- ---- --- --- --- - -- iii- --- --- ---"
+  (ISA-32) 28 3 UINT #f #f)
 (df f-uint-2-3 "- -- ---- --- --- --- - -- ---- --- --- iii"
   (all-aap-isas) 2 3 UINT #f #f)
+(df f-uint-2-3-lo "For multi-ifield f-i-6"
+  (ISA-32) 2 3 UINT #f #f)
 (df f-uint-5-6 "- -- ---- --- --- --- - -- ---- --- iii iii"
   (all-aap-isas) 5 6 UINT #f #f)
 
 (df f-int-18-3 "- -- ---- --- --- sss - -- ---- --- --- ---"
-  (MACH-32) 18 3 INT #f #f)
+  (ISA-32) 18 3 INT #f #f)
 (df f-int-24-9 "- -- ---- sss sss sss - -- ---- --- --- ---"
-  (MACH-32) 24 9 INT #f #f)
+  (ISA-32) 24 9 INT #f #f)
 (df f-int-24-6 "- -- ---- sss sss --- - -- ---- --- --- ---"
-  (MACH-32) 24 6 INT #f #f)
+  (ISA-32) 24 6 INT #f #f)
 (df f-int-24-3 "- -- ---- sss --- --- - -- ---- --- --- ---"
-  (MACH-32) 24 3 INT #f #f)
-(df f-int-12-4 "- -- ---- --- --- --- - -- ssss --- --- ---"
-  (MACH-32) 12 4 INT #f #f)
+  (ISA-32) 24 3 INT #f #f)
+(df f-int-28-4-lo "For multi-ifields: - -- ssss --- --- ---"  ;*
+  (ISA-32) 28 4 INT #f #f)
 (df f-int-2-3 "- -- ---- --- --- --- - -- ---- --- --- sss"
   (all-aap-isas) 2 3 INT #f #f)
+  
 (df f-int-8-3 "- -- ---- --- --- --- - -- ---- sss --- ---"
   (all-aap-isas) 8 3 INT #f #f)
 (df f-int-8-6 "- -- ---- --- --- --- - -- ---- sss sss ---"
   (all-aap-isas) 8 6 INT #f #f)
 (df f-int-8-9 "- -- ---- --- --- --- - -- ---- sss sss sss"
   (all-aap-isas) 8 9 INT #f #f)
-(df f-int-12-7 "- -- ---- --- --- --- - -- ssss sss --- ---"
-  (MACH-32) 12 7 INT #f #f)
-(df f-int-12-10 "- -- ---- --- --- --- - -- ssss sss sss ---"
-  (MACH-32) 12 10 INT #f #f)
-(df f-int-12-13 "- -- ---- --- --- --- - -- ssss sss sss sss"
-  (MACH-32) 12 13 INT #f #f)
+  
+(df f-int-12-7 "- -- ---- --- --- --- - -- ssss sss --- ---"  ;Remade
+  (ISA-32) 12 7 INT #f #f)
+(df f-int-12-10 "- -- ---- --- --- --- - -- ssss sss sss ---" ;Remade
+  (ISA-32) 12 10 INT #f #f)
+(df f-int-12-13 "- -- ---- --- --- --- - -- ssss sss sss sss" ;Remade
+  (ISA-32) 12 13 INT #f #f)
 
 ;; for reloc testing
 (df f-u16 "16 bit unsigned" (all-aap-isas) 15 16 UINT #f #f)
@@ -241,23 +247,101 @@
 (dnf f-carry "carry flag" (all-aap-isas) 0 1)
 
 ;; d+1
-(dnf f-dst+1-reg "R(d+1)" (MACH-32) 24 6)
+(dnf f-dst+1-reg "R(d+1)" () 24 6)
 
 ;;
 ;; multi-ifields
 ;;
 (define-multi-ifield
+  (name f-s-13)
+  (comment "sint 13bit")
+  (mode INT)
+  (subfields f-int-28-4-lo f-int-8-9)
+  (insert (sequence ()
+  	  	    (set (ifield f-int-28-4-lo)
+		    	 (and (srl (ifield f-s-13)
+			      	   (const 9))
+			      (const #x1f)))
+		    (set (ifield f-int-8-9)
+		    	 (and (ifield f-s-13)
+			      (const #x7ff)))
+	)
+  )
+  (extract
+	   (set (ifield f-s-13)
+	   	(trunc HI
+		       (or (sll (ifield f-int-28-4-lo)
+		       	   	(const 9))
+			   (ifield f-int-8-9)))
+	    )
+  )
+)
+(define-multi-ifield
+  (name f-s-10)
+  (comment "sint 10bit")
+  (mode INT)
+  (subfields f-int-28-4-lo f-int-8-6)
+  (insert (sequence ()
+  	  	    (set (ifield f-int-28-4-lo)
+		    	 (and (srl (ifield f-s-10)
+			      	   (const 6))
+			      (const #x1f)))
+		    (set (ifield f-int-8-6)
+		    	 (and (ifield f-s-10)
+			      (const #x7ff)))
+	)
+  )
+  (extract
+	   (set (ifield f-s-10)
+	   	(trunc HI
+		       (or (sll (ifield f-int-28-4-lo)
+		       	   	(const 6))
+			   (ifield f-int-8-6)))
+	    )
+  )
+)
+(define-multi-ifield
+  (name f-s-7)
+  (comment "sint 7bit")
+  (mode INT)
+  (subfields f-int-28-4-lo f-int-8-3)
+  (insert (sequence ()
+  	  	    (set (ifield f-int-28-4-lo)
+		    	 (and (srl (ifield f-s-7)
+			      	   (const 3))
+			      (const #x1f)))
+		    (set (ifield f-int-8-3)
+		    	 (and (ifield f-s-7)
+			      (const #x7ff)))
+	)
+  )
+  (extract
+	   (set (ifield f-s-7)
+	   	(trunc HI
+		       (or (sll (ifield f-int-28-4-lo)
+		       	   	(const 3))
+			   (ifield f-int-8-3)))
+	    )
+  )  (encode (value pc)
+  	  (sequence SI () (set SI f-int-8-3 (c-raw-call SI "findHiS7" value))
+	  	    	  (set SI f-int-28-4-lo (c-raw-call SI "findLoS7" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decodeS7" value f-int-28-4-lo f-int-8-3))
+  )
+)
+(define-multi-ifield
   (name f-s-22)
   (comment "sint 22bit format-17")
- ; (attrs MACH-32)
   (mode INT)
-  (subfields f-int-24-9 f-int-12-13)
+  (subfields f-int-24-9 f-s-13)  ;f-int-28-4-lo f-int-8-9
   (insert (sequence ()
   	  	    (set (ifield f-int-24-9)
 		    	 (and (srl (ifield f-s-22)
 			      	   (const 13))
 			      (const #x1f)))
-		    (set (ifield f-int-12-13)
+		    (set (ifield f-s-13)
 		    	 (and (ifield f-s-22)
 			      (const #x7ff)))
 	)
@@ -267,22 +351,30 @@
 	   	(trunc HI
 		       (or (sll (ifield f-int-24-9)
 		       	   	(const 13))
-			   (ifield f-int-12-13)))
+			   (ifield f-s-13)))
 	    )
+  )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-int-8-9	(c-raw-call SI "findLoS22" value))
+			  (set SI f-int-24-9 	(c-raw-call SI "findMidS22" value))
+	  	    	  (set SI f-int-28-4-lo (c-raw-call SI "findHiS22" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decodeS22" value f-int-8-9 f-int-24-9 f-int-28-4-lo))
   )
 )
 (define-multi-ifield
   (name f-s-16)
   (comment "sint 16bit format-16")
-;  (attrs MACH-32)
   (mode INT)
-  (subfields f-int-24-6 f-int-12-10)
+  (subfields f-int-24-6 f-s-10)	;f-int-28-4-lo f-int-8-6
   (insert (sequence ()
   	  	    (set (ifield f-int-24-6)
 		    	 (and (srl (ifield f-s-16)
 			      	   (const 10))
 			      (const #x1f)))
-		    (set (ifield f-int-12-10)
+		    (set (ifield f-s-10)
 		    	 (and (ifield f-s-16)
 			      (const #x7ff)))
 	)
@@ -292,39 +384,55 @@
 	   	(trunc HI
 		       (or (sll (ifield f-int-24-6)
 		       	   	(const 10))
-			   (ifield f-int-12-10)))
+			   (ifield f-s-10)))
 	    )
+  )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-int-8-6	(c-raw-call SI "findLoS16" value))
+			  (set SI f-int-24-6 	(c-raw-call SI "findMidS16" value))
+	  	    	  (set SI f-int-28-4-lo (c-raw-call SI "findHiS16" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decodeS16" value f-int-8-6 f-int-24-6 f-int-28-4-lo))
   )
 )
 (define-multi-ifield
-  (name f-s-10)
+  (name f-s-10-fin)
   (comment "sint 10bit format-12")
-;  (attrs MACH-32)
-  (mode INT)
-  (subfields f-int-24-3 f-int-12-7)
+  (mode INT);     middle	    high	  low
+  (subfields f-int-24-3 f-s-7)  ;f-int-28-4-lo f-int-8-3
   (insert (sequence ()
   	  	    (set (ifield f-int-24-3)
-		    	 (and (srl (ifield f-s-10)
+		    	 (and (srl (ifield f-s-10-fin)
 			      	   (const 7))
 			      (const #x1f)))
-		    (set (ifield f-int-12-7)
-		    	 (and (ifield f-s-10)
+		    (set (ifield f-s-7)
+		    	 (and (ifield f-s-10-fin)
 			      (const #x7ff)))
 	)
   )
   (extract
-	   (set (ifield f-s-10)
+	   (set (ifield f-s-10-fin)
 	   	(trunc HI
 		       (or (sll (ifield f-int-24-3)
 		       	   	(const 7))
-			   (ifield f-int-12-7)))
+			   (ifield f-s-7)))
 	    )
+  )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-int-8-3	(c-raw-call SI "findLoS10" value))
+			  (set SI f-int-24-3 	(c-raw-call SI "findMidS10" value))
+	  	    	  (set SI f-int-28-4-lo (c-raw-call SI "findHiS10" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decodeS10" value f-int-8-3 f-int-24-3 f-int-28-4-lo))
   )
 )
 (define-multi-ifield
   (name f-i-12)
   (comment "uint 12bit format-14")
-;  (attrs MACH-32)
   (mode UINT)
   (subfields f-uint-5-6 f-uint-21-6)
   (insert (sequence ()
@@ -345,15 +453,24 @@
 			   (ifield f-uint-5-6)))
 	    )
   )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-uint-21-6 (c-raw-call SI "findHi12" value))
+	  	       	  (set SI f-uint-5-6 (c-raw-call SI "findLo12" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode12" value f-uint-21-6 f-uint-5-6))
+  )
 )
+(define-full-operand i12 "12bit uint" (all-aap-isas) h-uint USI f-i-12 ()()())
+
 (define-multi-ifield
   (name f-i-16)
   (comment "uint 16bit format-14")
- ; (attrs MACH-32)
   (mode UINT)
-  (subfields f-i-12 f-uint-12-4)
+  (subfields f-i-12 f-uint-28-4)  ;f-uint-21-6 f-uint-5-6
   (insert (sequence ()
-  	  	    (set (ifield f-uint-12-4)
+  	  	    (set (ifield f-uint-28-4)
 		    	 (and (srl (ifield f-i-16)
 			      	   (const 4))
 			      (const #x1f)))
@@ -365,24 +482,33 @@
   (extract
 	   (set (ifield f-i-16)
 	   	(trunc HI
-		       (or (sll (ifield f-uint-12-4)
+		       (or (sll (ifield f-uint-28-4)
 		       	   	(const 4))
 			   (ifield f-i-12)))
 	    )
   )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-uint-21-6 (c-raw-call SI "findHi16" value))
+	  	       	  (set SI f-uint-28-4 (c-raw-call SI "findMid16" value))
+	  	       	  (set SI f-uint-5-6 (c-raw-call SI "findLo16" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode16" value f-uint-21-6 f-uint-28-4 f-uint-5-6))
+  )
 )
+
 (define-multi-ifield
   (name f-i-6)
   (comment "uint 6bit")
-;  (attrs MACH-32)
   (mode UINT)
-  (subfields f-uint-2-3 f-uint-18-3)
+  (subfields f-uint-18-3-hi f-uint-2-3-lo)
   (insert (sequence ()
-  	  	    (set (ifield f-uint-18-3)
+  	  	    (set (ifield f-uint-18-3-hi)
 		    	 (and (srl (ifield f-i-6)
 			      	   (const 3))
 			      (const #x1f)))
-		    (set (ifield f-uint-2-3)
+		    (set (ifield f-uint-2-3-lo)
 		    	 (and (ifield f-i-6)
 			      (const #x7ff)))
 	)
@@ -390,20 +516,64 @@
   (extract
 	   (set (ifield f-i-6)
 	   	(trunc HI
-		       (or (sll (ifield f-uint-18-3)
+		       (or (sll (ifield f-uint-18-3-hi)
 		       	   	(const 3))
-			   (ifield f-uint-2-3)))
+			   (ifield f-uint-2-3-lo)))
 	    )
   )
+  (encode (value pc)
+  	  (sequence USI () (set USI f-uint-2-3-lo (c-raw-call USI "findLo" value))
+	  	    	  (set USI f-uint-18-3-hi (c-raw-call USI "findHi" value)))
+
+  )
+  (decode (value pc)
+  	  (set USI value (c-raw-call USI "decode6" value f-uint-2-3-lo f-uint-18-3-hi))
+  )
 )
+(define-full-operand i6 "6bit uint" (all-aap-isas) h-uint USI f-i-6 ()()())
+
+(define-multi-ifield
+  (name f-i-9)
+  (comment "uint 9bit")
+  (mode UINT)
+  (subfields f-i-6 f-uint-28-3)
+  (insert (sequence ()
+  	  	    (set (ifield f-uint-28-3)
+		    	 (and (srl (ifield f-i-9)
+			      	   (const 3))
+			      (const #x1f)))
+		    (set (ifield f-i-6)
+		    	 (and (ifield f-i-9)
+			      (const #x7ff)))
+	)
+  )
+  (extract
+	   (set (ifield f-i-9)
+	   	(trunc HI
+		       (or (sll (ifield f-uint-28-3)
+		       	   	(const 3))
+			   (ifield f-i-6)))
+	    )
+  )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-uint-28-3 (c-raw-call SI "findHi9" value))
+	  	       	  (set SI f-uint-18-3-hi (c-raw-call SI "findMid9" value))
+	  	       	  (set SI f-uint-2-3-lo (c-raw-call SI "findLo9" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode9" value f-uint-2-3-lo f-uint-18-3-hi f-uint-28-3))
+  )
+)
+(define-full-operand i9 "9bit uint" (all-aap-isas) h-uint USI f-i-9 ()()())
+
 (define-multi-ifield
   (name f-i-10)
   (comment "uint 10bit")
-;  (attrs MACH-32)
   (mode UINT)
-  (subfields f-i-6 f-uint-12-4)
+  (subfields f-i-6 f-uint-28-4)
   (insert (sequence ()
-  	  	    (set (ifield f-uint-12-4)
+  	  	    (set (ifield f-uint-28-4)
 		    	 (and (srl (ifield f-i-10)
 			      	   (const 4))
 			      (const #x1f)))
@@ -415,72 +585,64 @@
   (extract
 	   (set (ifield f-i-10)
 	   	(trunc HI
-		       (or (sll (ifield f-uint-12-4)
+		       (or (sll (ifield f-uint-28-4)
 		       	   	(const 4))
 			   (ifield f-i-6)))
 	    )
   )
-)
-(define-multi-ifield
-  (name f-i-10i)
-  (comment "uint 10bit using iii1")
-  (attrs MACH-32)
-  (mode UINT)
-  (subfields f-i-6 f-uint-iii1)
-  (insert (sequence ()
-  	  	    (set (ifield f-uint-iii1)
-		    	 (and (srl (ifield f-i-10)
-			      	   (const 4))
-			      (const #x1f)))
-		    (set (ifield f-i-6)
-		    	 (and (ifield f-i-10)
-			      (const #x7ff)))
-	)
+  (encode (value pc)
+  	  (sequence SI () (set SI f-uint-18-3-hi (c-raw-call SI "findMid10" value))
+	  	       	  (set SI f-uint-28-4 (c-raw-call SI "findHi10" value))
+	  	       	  (set SI f-uint-2-3-lo (c-raw-call SI "findLo10" value)))
+
   )
-  (extract
-	   (set (ifield f-i-10)
-	   	(trunc HI
-		       (or (sll (ifield f-uint-iii1)
-		       	   	(const 4))
-			   (ifield f-i-6)))
-	    )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode10" value f-uint-2-3-lo f-uint-28-4 f-uint-18-3-hi))
   )
 )
+(define-full-operand i10 "10bit uint" (all-aap-isas) h-uint USI f-i-10 ()()())
+
 (define-multi-ifield
   (name f-d-6)
   (comment "register 6bit dest")
- ; (attrs MACH-32)
-  (subfields f-dst-reg f-x-dst-reg)
+  (subfields f-dst-hi f-dst-lo)
   (insert (sequence ()
-  	  	    (set (ifield f-dst-reg)
-		    	 (and (srl (ifield f-d-6)
-			      	   (const 3))
-			      (const #x1f)))
-		    (set (ifield f-x-dst-reg)
+		    (set (ifield f-dst-lo)
 		    	 (and (ifield f-d-6)
-			      (const #x7ff)))
+			      #xf))
+		    (set (ifield f-dst-hi)
+		    	 (srl (ifield f-d-6)
+			      3))
 	)
   )
   (extract
 	   (set (ifield f-d-6)
-	   	(trunc HI
-		       (or (sll (ifield f-dst-reg)
-		       	   	(const 3))
-			   (ifield f-x-dst-reg)))
+	       (or (sll (ifield f-dst-hi)
+	 	   	(const 3))
+		   (ifield f-dst-lo))
 	    )
   )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-dst-hi (c-raw-call SI "findHiR" value))
+	  	    	  (set SI f-dst-lo (c-raw-call SI "findLoR" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode6" value f-dst-lo f-dst-hi))
+  )
 )
+(define-full-operand d6 "6bit dest" (all-aap-isas) h-gpr SI f-d-6 ()()())
+
 (define-multi-ifield
   (name f-a-6)
   (comment "register 6bit src1")
-;  (attrs MACH-32)
-  (subfields f-src-reg-1 f-x-src-reg-1)
+  (subfields f-src-1-hi f-src-1-lo)
   (insert (sequence ()
-  	  	    (set (ifield f-src-reg-1)
+  	  	    (set (ifield f-src-1-hi)
 		    	 (and (srl (ifield f-a-6)
 			      	   (const 3))
 			      (const #x1f)))
-		    (set (ifield f-x-src-reg-1)
+		    (set (ifield f-src-1-lo)
 		    	 (and (ifield f-a-6)
 			      (const #x7ff)))
 	)
@@ -488,23 +650,32 @@
   (extract
 	   (set (ifield f-a-6)
 	   	(trunc HI
-		       (or (sll (ifield f-src-reg-1)
+		       (or (sll (ifield f-src-1-hi)
 		       	   	(const 3))
-			   (ifield f-x-src-reg-1)))
+			   (ifield f-src-1-lo)))
 	    )
   )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-src-1-hi (c-raw-call SI "findHiR" value))
+	  	    	  (set SI f-src-1-lo (c-raw-call SI "findLoR" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode6" value f-src-1-lo f-src-1-hi))
+  )
 )
+(define-full-operand a6 "6bit source1" (all-aap-isas) h-gpr SI f-a-6 ()()())
+
 (define-multi-ifield
   (name f-b-6)
   (comment "register 6bit src2")
- ; (attrs MACH-32)
-  (subfields f-src-reg-2 f-x-src-reg-2)
+  (subfields f-src-2-hi f-src-2-lo)
   (insert (sequence ()
-  	  	    (set (ifield f-src-reg-2)
+  	  	    (set (ifield f-src-2-hi)
 		    	 (and (srl (ifield f-b-6)
 			      	   (const 3))
 			      (const #x1f)))
-		    (set (ifield f-x-src-reg-2)
+		    (set (ifield f-src-2-lo)
 		    	 (and (ifield f-b-6)
 			      (const #x7ff)))
 	)
@@ -512,12 +683,21 @@
   (extract
 	   (set (ifield f-b-6)
 	   	(trunc HI
-		       (or (sll (ifield f-src-reg-2)
+		       (or (sll (ifield f-src-2-hi)
 		       	   	(const 3))
-			   (ifield f-x-src-reg-2)))
+			   (ifield f-src-2-lo)))
 	    )
   )
+  (encode (value pc)
+  	  (sequence SI () (set SI f-src-2-hi (c-raw-call SI "findHiR" value))
+	  	    	  (set SI f-src-2-lo (c-raw-call SI "findLoR" value)))
+
+  )
+  (decode (value pc)
+  	  (set SI value (c-raw-call SI "decode6" value f-src-2-lo f-src-2-hi))
+  )
 )
+(define-full-operand b6 "6bit source2" (all-aap-isas) h-gpr SI f-b-6 ()()())
 
 
 ;;
@@ -581,57 +761,19 @@
    ("JLES" 45)
    ("JLTU" 46)
    ("JLEU" 47)
-  )
+   ("RD" 48))
 )
 
 (define-normal-insn-enum
   opcodes2 "opcodes2" () OP2_ f-x-opcode
   (("NOP" 0)
-   ("ADD" 1)
-   ("SUB" 2)
-   ("AND" 3)
-   ("OR"  4)
-   ("XOR" 5)
-   ("ASR" 6)
-   ("LSL" 7)
-   ("LSR" 8)
-   ("MOV" 9)
-   ("ADDI" 10)
-   ("SUBI" 11)
-   ("ASRI" 12)
-   ("LSLI" 13)
-   ("LSRI" 14)
-   ("MOVI" 15)
-   ("LDB" 16)
-   ("LDW" 20)
-   ("LDBPO" 17)
-   ("LDWPO" 21)
-   ("LDBPR" 18)
-   ("LDWPR" 22)
-   ("STB" 24)
-   ("STW" 28)
-   ("STBPO" 25)
-   ("STWPO" 29)
-   ("STBPR" 26)
-   ("STWPR" 30)
-   ("BRA" 32)
-   ("BAL" 33)
-   ("BEQ" 34)
-   ("BNE" 35)
-   ("BLTS" 36)
-   ("BLES" 37)
-   ("BLTU" 38)
-   ("BLEU" 39)
-   ("JMP" 40)
-   ("JAL" 41)
-   ("JEQ" 42)
-   ("JNE" 43)
-   ("JLTS" 44)
-   ("JLES" 45)
-   ("JLTU" 46)
-   ("JLEU" 47)
-   ("RD" 48)
-  )
+   ("ADD" 1))
+)
+
+(define-normal-insn-enum
+  opcodes3 "opcodes3" () OP3_ f-class-1
+  (("IMM" 1)
+   ("NOR" 0))
 )
 
 (define-normal-insn-enum
@@ -669,26 +811,9 @@
   (index f-x-src-reg-2)
 )
 (define-operand
-  (name d6)
-  (comment "dest 6bit")
-  (type h-gpr)
-  (index f-d-6)
-)
-(define-operand
-  (name a6)
-  (comment "src1 6bit")
-  (type h-gpr)
-  (index f-a-6)
-)
-(define-operand
-  (name b6)
-  (comment "src2 6bit")
-  (type h-gpr)
-  (index f-b-6)
-)
-(define-operand
   (name dest1)
   (comment "dest+1")
+  (attrs all-aap-isas)
   (type h-gpr)
   (index f-dst+1-reg)
 )
@@ -702,41 +827,18 @@
   (handlers (parse "move_immi"))
 )
 (define-operand
-  (name uint023)
-  (comment "uint 2 3")
-  (type h-uint)
-  (index f-uint-2-3)
-)
-(define-operand
-  (name i12)
-  (comment "uint 12bit")
-  (type h-uint)
-  (index f-i-12)
-)
-(define-operand
   (name i16)
   (comment "uint 16bit")
+  (attrs all-aap-isas)
   (type h-uint)
   (index f-i-16)
   (handlers (parse "move_immi32"))
 )
 (define-operand
-  (name i6)
-  (comment "uint 6bit")
+  (name uint023)
+  (comment "uint 2 3")
   (type h-uint)
-  (index f-i-6)
-)
-(define-operand
-  (name i10)
-  (comment "uint 10bit")
-  (type h-uint)
-  (index f-i-10)
-)
-(define-operand
-  (name i10i)
-  (comment "uint 10bit with iii1")
-  (type h-uint)
-  (index f-i-10i)
+  (index f-uint-2-3)
 )
 
 ;; Numbers signed (h-sint)
@@ -744,7 +846,7 @@
   (name int1210)
   (comment "int 12 10")
   (type h-sint)
-  (index f-int-12-10)
+  (index f-s-10) ;FIX??
 )
 (define-operand
   (name int083)
@@ -776,6 +878,7 @@
 (define-operand
   (name s22)
   (comment "s 22")
+  (attrs all-aap-isas)
   (type h-sint)
   (index f-s-22)
   (handlers (parse "bra32"))
@@ -783,6 +886,7 @@
 (define-operand
   (name s16)
   (comment "s 16")
+  (attrs all-aap-isas)
   (type h-sint)
   (index f-s-16)
   (handlers (parse "branch_and_link32"))
@@ -790,8 +894,9 @@
 (define-operand
   (name s10)
   (comment "s 10")
+  (attrs all-aap-isas)
   (type h-sint)
-  (index f-s-10)
+  (index f-s-10-fin)
   (handlers (parse "branch_cond32"))
 )
 
@@ -804,9 +909,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest},${xsrc1},${xsrc2}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 xsrc2))
+      (format (.splice + LEN1_16 (f-opcode opcode) xdest xsrc1 xsrc2))
       (semantics semantic1 semantic2 (set pc (add pc 1)))
     )
   )
@@ -817,9 +922,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 xsrc2))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest xsrc1 xsrc2))
       (semantics semantic1 (set xsrc1 0)(set xsrc2 0))
     )
   )
@@ -830,9 +935,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest},${xsrc2}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 xsrc2))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest xsrc1 xsrc2))
       (semantics semantic1 semantic2 (set xsrc1 0))
     )
   )
@@ -843,9 +948,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest},${xsrc1}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 xsrc2))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest xsrc1 xsrc2))
       (semantics semantic1 semantic2 (set xsrc2 0))
     )
   )
@@ -856,9 +961,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest},${xsrc1},${uint023}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 uint023))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest xsrc1 uint023))
       (semantics semantic1 semantic2 (set pc (add pc 1)))
     )
   )
@@ -869,9 +974,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${int083},${xsrc1},${xsrc2}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) int083 xsrc1 xsrc2))
+      (format (.splice + LEN2_0 (f-opcode opcode) int083 xsrc1 xsrc2))
       (semantics (if (semantic xsrc1 xsrc2)
 		   (set pc (add pc (ext SI int083)))
 		   (set pc (add pc 1))
@@ -885,9 +990,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest xsrc1 int023))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest xsrc1 int023))
       (semantics semantic1 semantic2 semantic3 (set pc (add pc 1)))
     )
   )
@@ -898,9 +1003,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${xdest},${uint056}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) xdest uint056))
+      (format (.splice + LEN2_0 (f-opcode opcode) xdest uint056))
       (semantics semantic (set pc (add pc 1)))
     )
   )
@@ -911,9 +1016,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${int086},${xsrc2}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) int086 xsrc2))
+      (format (.splice + LEN2_0 (f-opcode opcode) int086 xsrc2))
       (semantics (set xsrc2 (add pc 1))
                  (set pc (add pc (ext SI int086)))
 		 )					;;Rb <- PC + 1, PC <- PC + SignExt(S)
@@ -926,9 +1031,9 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-16)
+      (attrs ISA-16)
       (syntax (.str mnemonic " ${int089}"))
-      (format (.splice + LEN2_0 (f-x-opcode opcode) int089))
+      (format (.splice + LEN2_0 (f-opcode opcode) int089))
       (semantics (set pc (add pc (ext SI int089))))	 ;;PC <- PC + SignExt(S)
     )
   )
@@ -939,7 +1044,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${a6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))
@@ -953,7 +1058,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))
@@ -967,7 +1072,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))
@@ -981,7 +1086,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${a6}"))
       (format (.splice + LEN1_32 (f-opcode opcode0) d6 a6 b6
       	      	       	 LEN2_0 (f-x-opcode opcode1)))
@@ -995,7 +1100,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${a6},${i6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i6
       	      	       	 LEN2_0 OP2_NOP))
@@ -1009,11 +1114,13 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
-      (syntax (.str mnemonic " ${d6},${a6},${i10i}"))
-      (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10i
-      	      	       	 LEN2_0 CLA_NOP))
-      (semantics semantic (set pc (add pc 2)))
+      (attrs ISA-32)
+      (syntax (.str mnemonic " ${d6},${a6},${i9}"))
+      (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i9
+      	      	       	 LEN2_0 OP3_IMM CLA_NOP))
+      (semantics (set pc (add pc 2))
+		 (set d6 (semantic a6 i9))
+		 )
     )
   )
 )
@@ -1023,7 +1130,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${a6},${i10}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10
       	      	       	 LEN2_0 CLA_NOP))
@@ -1037,13 +1144,13 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${s10},${a6},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s10 a6 b6
       	      	       	 LEN2_0 CLA_NOP))
-      (semantics (if (semantic a6 b6)
-      		 (set pc (add pc (ext SI s10)))
-		 (set pc (add pc 2))
+      (semantics (set pc (add pc 2))
+      		 (if (semantic a6 b6)
+      		     (set pc (add pc (ext SI s10)))
 		 ))
     )
   )
@@ -1054,7 +1161,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 a6 i10
       	      	       	 LEN2_0 CLA_NOP))
@@ -1068,11 +1175,13 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${i12}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 i12
       	      	       	 LEN2_0 OP2_NOP))
-      (semantics (nop))
+      (semantics (if (le i12 4)
+      		     (set d6 (c-call USI "@cpu@_nop_insn" i12 d6))
+		 ))
     )
   )
 )
@@ -1082,7 +1191,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${d6},${i16}"))
       (format (.splice + LEN1_32 (f-opcode opcode) d6 i16
       	      	       	 LEN2_0 CLA_NOP))
@@ -1096,7 +1205,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${s16},${b6}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s16 b6 ;; 19, 1
       	      	       	 LEN2_0 CLA_NOP))
@@ -1112,7 +1221,7 @@
     (define-insn
       (name (.sym mnemonic))
       (comment (.str mnemonic))
-      (attrs MACH-32)
+      (attrs ISA-32)
       (syntax (.str mnemonic " ${s22}"))
       (format (.splice + LEN1_32 (f-opcode opcode) s22
       	      	       	 LEN2_0 CLA_NOP))
@@ -1126,83 +1235,82 @@
 ;; Instructions
 ;;
 ;; Format 1
-(aap-format-1 "add" OP2_ADD (set xdest (add xsrc1 xsrc2))
+(aap-format-1 "add" OP1_ADD (set xdest (add xsrc1 xsrc2))
 	      	      	      (set carry (ge (add xsrc1 xsrc2) 0x10000)))
+(aap-format-1 "sub" OP1_SUB (set xdest (sub xsrc1 xsrc2))(set carry (lt xsrc1 xsrc2)))
 
-(aap-format-1 "sub" OP2_SUB (set xdest (sub xsrc1 xsrc2))(set carry (lt xsrc1 xsrc2)))
+(aap-format-1 "and" OP1_AND (set xdest (and xsrc1 xsrc2))(nop))
 
-(aap-format-1 "and" OP2_AND (set xdest (and xsrc1 xsrc2))(nop))
+(aap-format-1 "or"  OP1_OR (set xdest (or xsrc1 xsrc2))(nop))
 
-(aap-format-1 "or"  OP2_OR (set xdest (or xsrc1 xsrc2))(nop))
+(aap-format-1 "xor" OP1_XOR (set xdest (xor xsrc1 xsrc2))(nop))
 
-(aap-format-1 "xor" OP2_XOR (set xdest (xor xsrc1 xsrc2))(nop))
+(aap-format-1 "asr" OP1_ASR (set xdest (srl (or xsrc1 (sll SI carry 16)) xsrc2))(set carry 0))
 
-(aap-format-1 "asr" OP2_ASR (set xdest (srl (or xsrc1 (sll SI carry 16)) xsrc2))(set carry 0))
+(aap-format-1 "lsl" OP1_LSL (set xdest (sll xsrc1 xsrc2))(nop))
 
-(aap-format-1 "lsl" OP2_LSL (set xdest (sll xsrc1 xsrc2))(nop))
+(aap-format-1 "lsr" OP1_LSR (set xdest (srl xsrc1 xsrc2))(nop))
 
-(aap-format-1 "lsr" OP2_LSR (set xdest (srl xsrc1 xsrc2))(nop))
+(aap-format-mov "mov" OP1_MOV (set xdest xsrc1)(set pc (add pc 1)))
 
-(aap-format-mov "mov" OP2_MOV (set xdest xsrc1)(set pc (add pc 1)))
-
-(aap-format-jmp "jmp" OP2_JMP (set pc xdest)) ;;pc + 1 in format 1
+(aap-format-jmp "jmp" OP1_JMP (set pc xdest)) ;;pc + 1 in format 1
 	      
-(aap-format-jal "jal" OP2_JAL (set xsrc2 (add pc 1))(set pc xdest))
+(aap-format-jal "jal" OP1_JAL (set xsrc2 (add pc 1))(set pc xdest))
 
-(aap-format-1 "jeq" OP2_JEQ (if (eq xsrc1 xsrc2)
+(aap-format-1 "jeq" OP1_JEQ (if (eq xsrc1 xsrc2)
 	      	      	      	  (set pc xdest)
 	      	      	      	  (set pc (add pc 1)))
 			      (set pc (sub pc 1)))
 			      
-(aap-format-1 "jne" OP2_JNE (if (ne xsrc1 xsrc2) (set pc xdest)
+(aap-format-1 "jne" OP1_JNE (if (ne xsrc1 xsrc2) (set pc xdest)
 	      	      	      	      	    	   (set pc (add pc 1)))
 			      (set pc (sub pc 1)))
 						   
-(aap-format-1 "jlts" OP2_JLTS (if (lt xsrc1 xsrc2) (set pc xdest)
+(aap-format-1 "jlts" OP1_JLTS (if (lt xsrc1 xsrc2) (set pc xdest)
 	      	       		    	      	     (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 						     
-(aap-format-1 "jles" OP2_JLES (if (le xsrc1 xsrc2) (set pc xdest)
+(aap-format-1 "jles" OP1_JLES (if (le xsrc1 xsrc2) (set pc xdest)
 	      	       		    	      	     (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 	      
-(aap-format-1 "jltu" OP2_JLTU (if (lt xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-1 "jltu" OP1_JLTU (if (lt xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:lt->ltu (causes LTUUSI)
 	      	       		    	       	      (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 
-(aap-format-1 "jleu" OP2_JLEU (if (le xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:le->leu (causes LEUUSI)
+(aap-format-1 "jleu" OP1_JLEU (if (le xsrc1 xsrc2) (set pc xdest)  ;;FIX ME:le->leu (causes LEUUSI)
 	      	       		    	       	      (set pc (add pc 1)))
 				(set pc (sub pc 1)))
 
-(aap-format-jmp "rte"  OP2_RD (set pc xdest))
+(aap-format-jmp "rte"  OP1_RD (set pc xdest))
 
 ;; Format 2
-(aap-format-2 "addi" OP2_ADDI (set xdest (add xsrc1 uint023))
+(aap-format-2 "addi" OP1_ADDI (set xdest (add xsrc1 uint023))
 	      	       		(set carry (ge (add xsrc1 uint023) 0x10000)))
 
-(aap-format-2 "subi" OP2_SUBI (set xdest (sub xsrc1 uint023))(set carry (gt xsrc1 uint023)))
+(aap-format-2 "subi" OP1_SUBI (set xdest (sub xsrc1 uint023))(set carry (gt xsrc1 uint023)))
 
-(aap-format-2 "asri" OP2_ASRI (set xdest (srl (or xsrc1 (sll SI carry 16)) uint023))(set carry 0))
+(aap-format-2 "asri" OP1_ASRI (set xdest (srl (or xsrc1 (sll SI carry 16)) uint023))(set carry 0))
 
-(aap-format-2 "lsli" OP2_LSLI (set xdest (sll xsrc1 xsrc2))(nop))
+(aap-format-2 "lsli" OP1_LSLI (set xdest (sll xsrc1 xsrc2))(nop))
 
-(aap-format-2 "lsri" OP2_LSRI (set xdest (srl xsrc1 xsrc2))(nop))
+(aap-format-2 "lsri" OP1_LSRI (set xdest (srl xsrc1 xsrc2))(nop))
 
 ;; Format 3
-(aap-format-3 "beq" OP2_BEQ eq)
-(aap-format-3 "bne" OP2_BNE ne)
-(aap-format-3 "blts" OP2_BLTS lt)
-(aap-format-3 "bles" OP2_BLES le)
-(aap-format-3 "bltu" OP2_BLTU lt)   ;;FIX ME:lt->ltu (causes LTUUSI)
-(aap-format-3 "bleu" OP2_BLEU le)   ;;FIX ME:le->leu (causes LEUUSI)
+(aap-format-3 "beq" OP1_BEQ eq)
+(aap-format-3 "bne" OP1_BNE ne)
+(aap-format-3 "blts" OP1_BLTS lt)
+(aap-format-3 "bles" OP1_BLES le)
+(aap-format-3 "bltu" OP1_BLTU lt)   ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-3 "bleu" OP1_BLEU le)   ;;FIX ME:le->leu (causes LEUUSI)
 
 ;; Format 4
-(aap-format-4 "ldb ${xdest},[${xsrc1},${int023}]" OP2_LDB (set xdest
+(aap-format-4 "ldb ${xdest},[${xsrc1},${int023}]" OP1_LDB (set xdest
 	      	      	      (mem QI
 			      	   (add xsrc1 (ext SI int023))))
 				(nop)(nop))
 				
-(aap-format-4 "ldw ${xdest},[${xsrc1},${int023}]" OP2_LDW (set xdest
+(aap-format-4 "ldw ${xdest},[${xsrc1},${int023}]" OP1_LDW (set xdest
 	      	      	      (or
 				(mem QI
 			      	  (addc xsrc1 (ext SI int023) 1))
@@ -1210,13 +1318,13 @@
 			      	  (add xsrc1 (ext SI int023))) 8)))
 				(nop)(nop))
 
-(aap-format-4 "ldb ${xdest},[${xsrc1}+,${int023}]" OP2_LDBPO (set xdest
+(aap-format-4 "ldb ${xdest},[${xsrc1}+,${int023}]" OP1_LDBPO (set xdest
 	      			    (mem QI (add xsrc1 (ext SI int023))))
 				  (set xsrc1
 				    (add xsrc1 (ext SI int023)))
 				  (nop))
 
-(aap-format-4 "ldw ${xdest},[${xsrc1}+,${int023}]" OP2_LDWPO (set xdest
+(aap-format-4 "ldw ${xdest},[${xsrc1}+,${int023}]" OP1_LDWPO (set xdest
 	      			    (or
 				      (mem QI (addc xsrc1 (ext SI int023) 1))
 				      (sll (mem QI (add xsrc1 (ext SI int023))) 8)))
@@ -1224,175 +1332,181 @@
 				    (add xsrc1 (ext SI int023)))
 				  (nop))
 
-(aap-format-4 "ldb ${xdest},[-${xsrc1},${int023}]" OP2_LDBPR (set xsrc1
+(aap-format-4 "ldb ${xdest},[-${xsrc1},${int023}]" OP1_LDBPR (set xsrc1
 	      			    (sub xsrc1 (ext SI int023)))
 				  (set xdest (ext DI (mem QI xsrc1)))
 				  (nop))
 
-(aap-format-4 "ldw ${xdest},[-${xsrc1},${int023}]" OP2_LDWPR (set xsrc1
+(aap-format-4 "ldw ${xdest},[-${xsrc1},${int023}]" OP1_LDWPR (set xsrc1
 	      			    (sub xsrc1 (ext SI int023)))
 				  (set xdest
 				    (or (ext DI (mem QI xsrc1))
 				    (sll (ext DI (mem QI (add xsrc1 1))) 8)))
 				  (nop))
 
-(aap-format-4 "stb [${xdest},${int023}],${xsrc1}" OP2_STB (set
+(aap-format-4 "stb [${xdest},${int023}],${xsrc1}" OP1_STB (set
 	      	     				    	    (mem QI (add xdest (ext SI int023)))
 	      	      	   				    (and xsrc1 255))
 			      				    (nop)(nop))
 			      
-(aap-format-4 "stw [${xdest},${int023}],${xsrc1}" OP2_STW (set (mem QI (add xdest (ext SI int023)))
+(aap-format-4 "stw [${xdest},${int023}],${xsrc1}" OP1_STW (set (mem QI (add xdest (ext SI int023)))
 	      	      	        (and xsrc1 255))
 			      (set (mem QI (addc xdest (ext SI int023) 1))
 	      	      	        (srl xsrc1 8))
 			      (nop))
 
-(aap-format-4 "stb [${xdest}+,${int023}],${xsrc1}" OP2_STBPO (set (mem QI (add xdest (ext SI int023)))
+(aap-format-4 "stb [${xdest}+,${int023}],${xsrc1}" OP1_STBPO (set (mem QI (add xdest (ext SI int023)))
 	      	      	            (and xsrc1 255))
 				  (set d6 (add d6 (ext SI int023)))
 				  (nop))
 
-(aap-format-4 "stw [${xdest}+,${int023}],${xsrc1}" OP2_STWPO (set (mem QI (add xdest (ext SI int023)))
+(aap-format-4 "stw [${xdest}+,${int023}],${xsrc1}" OP1_STWPO (set (mem QI (add xdest (ext SI int023)))
 	      	      	            (and xsrc1 255))
 			          (set (mem QI (addc xdest (ext SI int023) 1))
 	      	      	            (srl xsrc1 8))
 			  	  (set d6 (add d6 (ext SI int023))))
 
-(aap-format-4 "stb [-${xdest},${int023}],${xsrc1}" OP2_STBPR (set d6 (sub d6 (ext SI int023)))
+(aap-format-4 "stb [-${xdest},${int023}],${xsrc1}" OP1_STBPR (set d6 (sub d6 (ext SI int023)))
 	      			  (set (mem QI (add xdest))
 	      	      	            (and xsrc1 255))
 				  (nop))
 
-(aap-format-4 "stw [-${xdest},${int023}],${xsrc1}" OP2_STWPR (set d6 (sub d6 (ext SI int023)))
+(aap-format-4 "stw [-${xdest},${int023}],${xsrc1}" OP1_STWPR (set d6 (sub d6 (ext SI int023)))
 	      			  (set (mem QI (add xdest))
 	      	      	            (and xsrc1 255))
 				  (set (mem QI (add xdest 1))
 	      	      	            (srl xsrc1 8)))
 
 ;; Format 5
-(aap-format-5 "nop" OP2_NOP (nop))
-	      	      	      	       ;;0: breakpoint, 1: do nothing, 2: exit, 3: stdout, 4: stderr
-(aap-format-5 "movi" OP2_MOVI (set xdest uint056))	;;Rd = I, PC++
+(aap-format-5 "nop" OP1_NOP (nop))
+	      	    ;;0: breakpoint, 1: do nothing, 2: exit, 3: stdout, 4: stderr
+(aap-format-5 "movi" OP1_MOVI (set xdest uint056))	;;Rd = I, PC++
 
 ;; Format 6
-(aap-format-6 "bal" OP2_BAL)
+(aap-format-6 "bal" OP1_BAL)
 
 ;; Format 7
-(aap-format-7 "bra" OP2_BRA)
+(aap-format-7 "bra" OP1_BRA)
 
 ;; Format 8
-(aap-format-8 "add32" OP1_ADD OP2_NOP (set d6 (add a6 b6))
-	      				(set carry (ge (add a6 b6) 0x10000))
-					(set pc (add pc 2)))
+(aap-format-8 "add" OP1_ADD OP2_NOP (set d6 (add a6 b6))
+	      			    (set carry (ge (add a6 b6) (const 65536)))
+				    (set pc (add pc 2)))
 					
-(aap-format-8 "sub32" OP1_SUB OP2_NOP (set d6 (sub a6 b6))
-	      				(set carry (gt a6 b6))
-					(set pc (add pc 2)))
+(aap-format-8 "sub" OP1_SUB OP2_NOP (set d6 (sub a6 b6))
+	      			    (set carry (gt a6 b6))
+				    (set pc (add pc 2)))
 					
-(aap-format-8 "and32" OP1_AND OP2_NOP (set d6 (and a6 b6))
-	      				(set pc (add pc 2))
-					(nop))
+(aap-format-8 "and" OP1_AND OP2_NOP (set d6 (and a6 b6))
+	      			    (set pc (add pc 2))
+				    (nop))
 					
-(aap-format-8 "or32"  OP1_OR  OP2_NOP (set d6 (or a6 b6))
-	      				(set pc (add pc 2))
-					(nop))
+(aap-format-8 "or"  OP1_OR  OP2_NOP (set d6 (or a6 b6))
+	      			    (set pc (add pc 2))
+				    (nop))
 
-(aap-format-8 "xor32" OP1_XOR OP2_NOP (set d6 (xor a6 b6))
-	      				(set pc (add pc 2))
-					(nop))
+(aap-format-8 "xor" OP1_XOR OP2_NOP (set d6 (xor a6 b6))
+	      			    (set pc (add pc 2))
+				    (nop))
 
-(aap-format-8 "asr32" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll SI carry 16)) b6))
-	      				(set carry 0)
-					(set pc (add pc 2)))
+(aap-format-8 "asr" OP1_ASR OP2_NOP (set d6 (srl (or a6 (sll SI carry 16)) b6))
+	      			    (set carry 0)
+				    (set pc (add pc 2)))
 					
-(aap-format-8 "lsl32" OP1_LSL OP2_NOP (set d6 (sll a6 b6))(set pc (add pc 2))(nop))
+(aap-format-8 "lsl" OP1_LSL OP2_NOP (set d6 (sll a6 b6))
+	      	    	    	    (set pc (add pc 2))
+				    (nop))
 
-(aap-format-8 "lsr32" OP1_LSR OP2_NOP (set d6 (srl a6 b6))(set pc (add pc 2))(nop))
+(aap-format-8 "lsr" OP1_LSR OP2_NOP (set d6 (srl a6 b6))
+	      	    	    	    (set pc (add pc 2))
+				    (nop))
 
-(aap-format-mo32 "mov32" OP1_MOV OP2_NOP (set d6 a6)(set pc (add pc 2))(nop))
+(aap-format-mo32 "mov" OP1_MOV OP2_NOP (set d6 a6)(
+		       	       	       set pc (add pc 2))
+				       (nop))
 
-(aap-format-8 "addc32" OP1_ADD OP2_ADD (set d6 (addc a6 b6 carry))
-	      		 	 	 (set carry (ge (addc a6 b6 carry) 0x10000))
-					 (set pc (add pc 2)))
+(aap-format-8 "addc" OP1_ADD OP2_ADD (set d6 (addc a6 b6 carry))
+	      		 	     (set carry (ge (addc a6 b6 carry) 0x10000))
+				     (set pc (add pc 2)))
 
-(aap-format-8 "subc32" OP1_SUB OP2_ADD (set d6 (subc a6 b6 carry))
+(aap-format-8 "subc" OP1_SUB OP2_ADD (set d6 (subc a6 b6 carry))
 	      		 	 	 (set carry (gt (add b6 carry) a6))
 					 (set pc (add pc 2)))
 					 
-(aap-format-jm32 "jmp32" OP1_JMP OP2_NOP (set pc d6)(nop)(nop))
+(aap-format-jm32 "jmp" OP1_JMP OP2_NOP (set pc d6)(nop)(nop))
 
-(aap-format-ja32 "jal32" OP1_JAL OP2_NOP (set b6 (add pc 2))(set pc d6)(nop))
+(aap-format-ja32 "jal" OP1_JAL OP2_NOP (set b6 (add pc 2))(set pc d6)(nop))
 
-(aap-format-8 "jeq32" OP1_JEQ OP2_NOP (if (eq a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "jeq" OP1_JEQ OP2_NOP (if (eq a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "jne32" OP1_JNE OP2_NOP (if (ne a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "jne" OP1_JNE OP2_NOP (if (ne a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "jlts32" OP1_JLTS OP2_NOP (if (lt a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "jlts" OP1_JLTS OP2_NOP (if (lt a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "jles32" OP1_JLES OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
+(aap-format-8 "jles" OP1_JLES OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "jltu32" OP1_JLTU OP2_NOP (if (lt a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))  ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-8 "jltu" OP1_JLTU OP2_NOP (if (ltu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-8 "jleu32" OP1_JLEU OP2_NOP (if (le a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))  ;;FIX ME:le->leu (causes LEUUSI)
+(aap-format-8 "jleu" OP1_JLEU OP2_NOP (if (leu a6 b6)(set pc d6)(set pc (add pc 2)))(nop)(nop))
 
-(aap-format-jm32 "jmpl32" OP1_JMP OP2_ADD (set dest1 (add d6 1))(set pc (or (sll dest1 16) d6))(nop))
+(aap-format-jm32 "jmpl" OP1_JMP OP2_ADD (set dest1 (add d6 1))(set pc (or (sll dest1 16) d6))(nop))
 
-(aap-format-ja32 "jall32" OP1_JAL OP2_ADD (set b6 (add pc 2))
+(aap-format-ja32 "jall" OP1_JAL OP2_ADD (set b6 (add pc 2))
 	      		 	 	 (set dest1 (add d6 1))
 					 (set pc (or (sll dest1 16) d6)))
 
-(aap-format-8 "jeql32" OP1_JEQ OP2_ADD (set dest1 (add d6 1))
+(aap-format-8 "jeql" OP1_JEQ OP2_ADD (set dest1 (add d6 1))
 	      		 	 	 (if (eq a6 b6) (set pc (or (sll dest1 16) d6))
 					     	    	(set pc (add pc 2)))(nop))
 
-(aap-format-8 "jnel32" OP1_JNE OP2_ADD (set dest1 (add d6 1))
+(aap-format-8 "jnel" OP1_JNE OP2_ADD (set dest1 (add d6 1))
 	      		 	 	 (if (ne a6 b6) (set pc (or (sll dest1 16) d6))
 					     	    	(set pc (add pc 2)))(nop))
 
-(aap-format-8 "jltsl32" OP1_JLTS OP2_ADD (set dest1 (add d6 1))
+(aap-format-8 "jltsl" OP1_JLTS OP2_ADD (set dest1 (add d6 1))
 	      		  	   	   (if (lt a6 b6) (set pc (or (sll dest1 16) d6))
 					       	      	  (set pc (add pc 2)))(nop))
 
-(aap-format-8 "jlesl32" OP1_JLES OP2_ADD (set dest1 (add d6 1))
+(aap-format-8 "jlesl" OP1_JLES OP2_ADD (set dest1 (add d6 1))
 	      		  	   	   (if (le a6 b6) (set pc (or (sll dest1 16) d6))
 					       	      	  (set pc (add pc 2)))(nop))
 
-(aap-format-8 "jltul32" OP1_JLTU OP2_ADD (set dest1 (add d6 1))
-	      		  	   	   (if (lt a6 b6) (set pc (or (sll dest1 16) d6))  ;;FIX ME:lt->ltu (causes LTUUSI)
+(aap-format-8 "jltul" OP1_JLTU OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (ltu a6 b6) (set pc (or (sll dest1 16) d6))
 					       	       	   (set pc (add pc 2)))(nop))
 							   
-(aap-format-8 "jleul32" OP1_JLEU OP2_ADD (set dest1 (add d6 1))
-	      		  	   	   (if (le a6 b6) (set pc (or (sll dest1 16) d6))  ;;FIX ME:le->leu (causes LEUUSI)
+(aap-format-8 "jleul" OP1_JLEU OP2_ADD (set dest1 (add d6 1))
+	      		  	   	   (if (leu a6 b6) (set pc (or (sll dest1 16) d6))
 					       	       	   (set pc (add pc 2)))(nop))
 
 ;; Format 9
-(aap-format-9 "asri32" OP1_ASRI (set d6 (srl (or a6 (sll SI carry 16)) i6))(set carry 0))
-(aap-format-9 "lsli32" OP1_LSLI (set d6 (sll a6 i6))(nop))
-(aap-format-9 "lsri32" OP1_LSRI (set d6 (srl a6 i6))(nop))
+(aap-format-9 "asri" OP1_ASRI (set d6 (srl (or a6 (sll SI carry 16)) i6))(set carry 0))
+(aap-format-9 "lsli" OP1_LSLI (set d6 (sll a6 i6))(nop))
+(aap-format-9 "lsri" OP1_LSRI (set d6 (srl a6 i6))(nop))
 
 ;; Format 10
-(aap-format-10 "andi32" OP1_AND (set d6 (and a6 i10i)))
-(aap-format-10 "ori32"  OP1_OR (set d6 (or a6 i10i)))
-(aap-format-10 "xori32" OP1_XOR (set d6 (xor a6 i10i)))
+(aap-format-10 "andi" OP1_AND and)
+(aap-format-10 "ori"  OP1_OR or)
+(aap-format-10 "xori" OP1_XOR xor)
 
 ;; Format 11
-(aap-format-11 "addi32" OP1_ADDI (set d6 (add a6 i10))(set carry (ge (add a6 i10) 0x10000)))
-(aap-format-11 "subi32" OP1_SUBI (set d6 (sub a6 i10))(set carry (gt i10 a6)))
+(aap-format-11 "addi" OP1_ADDI (set d6 (add a6 i10))(set carry (ge (add a6 i10) 0x10000)))
+(aap-format-11 "subi" OP1_SUBI (set d6 (sub a6 i10))(set carry (gt i10 a6)))
 
 ;; Format 12
-(aap-format-12 "beq32" OP1_BEQ eq)
-(aap-format-12 "bne32" OP1_BNE ne)
-(aap-format-12 "blts32" OP1_BLTS lt)
-(aap-format-12 "bles32" OP1_BLES le)
-(aap-format-12 "bltu32" OP1_BLTU lt)  ;;FIX ME:lt->ltu (causes LTUUSI)
-(aap-format-12 "bleu32" OP1_BLEU le)  ;;FIX ME:le->leu (causes LEUUSI)
+(aap-format-12 "beq" OP1_BEQ eq)
+(aap-format-12 "bne" OP1_BNE ne)
+(aap-format-12 "blts" OP1_BLTS lt)
+(aap-format-12 "bles" OP1_BLES le)
+(aap-format-12 "bltu" OP1_BLTU ltu)
+(aap-format-12 "bleu" OP1_BLEU leu)
 
 ;; Format 13
-(aap-format-13 "ldb32 ${d6},[${a6},${i10}]" OP1_LDB (set d6
+(aap-format-13 "ldb ${d6},[${a6},${i10}]" OP1_LDB (set d6
 	       		 	   (mem QI(add a6 (ext SI i10))))
 				 (nop)(nop))
 
-(aap-format-13 "ldw32 ${d6},[${a6},${i10}]" OP1_LDW (set d6
+(aap-format-13 "ldw ${d6},[${a6},${i10}]" OP1_LDW (set d6
 	       		 	   (or
 				     (mem QI(add a6 (ext SI i10)))
 				     (sll (mem QI (addc a6 (ext SI i10) 1)) 8)
@@ -1400,12 +1514,12 @@
 				 )
 	       		 	 (nop)(nop))
 
-(aap-format-13 "ldb32 ${d6},[${a6}+,${i10}]" OP1_LDBPO (set d6
+(aap-format-13 "ldb ${d6},[${a6}+,${i10}]" OP1_LDBPO (set d6
 	       		 	       (mem QI(add a6 (ext SI i10))))
 				     (set a6 (add a6 (ext SI i10)))
 	       		   	     (nop))
 
-(aap-format-13 "ldw32 ${d6},[${a6}+,${i10}]" OP1_LDWPO (set d6
+(aap-format-13 "ldw ${d6},[${a6}+,${i10}]" OP1_LDWPO (set d6
 	       		 	       (or
 				         (mem QI(add a6 (ext SI i10)))
 			    	         (sll (mem QI (addc a6 (ext SI i10) 1)) 8)
@@ -1415,13 +1529,13 @@
 				       (add a6 (ext SI i10)))
 	       		   	     (nop))
 
-(aap-format-13 "ldb32 ${d6},[-${a6},${i10}]" OP1_LDBPR (set a6
+(aap-format-13 "ldb ${d6},[-${a6},${i10}]" OP1_LDBPR (set a6
 	       		   	       (sub a6 (ext SI i10)))
 	       		   	     (set d6
 				       (mem QI(a6)))
 	       		   	     (nop))
 
-(aap-format-13 "ldw32 ${d6},[-${a6},${i10}]" OP1_LDWPR (set a6
+(aap-format-13 "ldw ${d6},[-${a6},${i10}]" OP1_LDWPR (set a6
 	       		   	       (add a6 (ext SI i10)))
 	       		   	     (set d6
 				       (or
@@ -1429,37 +1543,37 @@
 					 (sll (mem QI(add a6 1)) 8)))
 	       		   	     (nop))
 
-(aap-format-13 "stb32 [${d6},${i10}],${a6}" OP1_STB (set (mem QI (add d6 (ext SI i10)))
+(aap-format-13 "stb [${d6},${i10}],${a6}" OP1_STB (set (mem QI (add d6 (ext SI i10)))
 	       		 	   (and a6 255))
 	       		 	 (nop)
 				 (nop))
 
-(aap-format-13 "stw32 [${d6},${i10}],${a6}" OP1_STW (set (mem QI (add d6 (ext SI i10)))
+(aap-format-13 "stw [${d6},${i10}],${a6}" OP1_STW (set (mem QI (add d6 (ext SI i10)))
 	       		 	   (and a6 255))
 	       		 	 (set (mem QI (addc d6 (ext SI i10) 1))
-	       		 	   (srl a6 8))
+				      (srl a6 8))
 				 (nop))
 
-(aap-format-13 "stb32 [${d6}+,${i10}],${a6}" OP1_STBPO (set (mem QI (add d6 (ext SI i10)))
+(aap-format-13 "stb [${d6}+,${i10}],${a6}" OP1_STBPO (set (mem QI (add d6 (ext SI i10)))
 	       		 	       (and a6 255))
 	       		   	     (set d6
 				       (add d6 (ext SI i10)))
 				     (nop))
 
-(aap-format-13 "stw32 [${d6}+,${i10}],${a6}" OP1_STWPO (set (mem QI (add d6 (ext SI i10)))
+(aap-format-13 "stw [${d6}+,${i10}],${a6}" OP1_STWPO (set (mem QI (add d6 (ext SI i10)))
 	       		   	       (and a6 255))
 	       		 	     (set (mem QI (addc d6 (ext SI i10) 1))
 	       		 	       (srl a6 8))
 				     (set d6
 				       (add d6 (ext SI i10))))
 
-(aap-format-13 "stb32 [-${d6},${i10}],${a6}" OP1_STBPR (set d6
+(aap-format-13 "stb [-${d6},${i10}],${a6}" OP1_STBPR (set d6
 				       (sub d6 (ext SI i10)))
 	       		   	     (set (mem QI (add d6 (ext SI i10)))
 	       		 	       (and a6 255))
 				     (nop))
 
-(aap-format-13 "stw32 [-${d6},${i10}],${a6}" OP1_STWPR (set d6
+(aap-format-13 "stw [-${d6},${i10}],${a6}" OP1_STWPR (set d6
 				       (sub d6 (ext SI i10)))
 	       		   	     (set (mem QI (add d6 (ext SI i10)))
 	       		 	       (and a6 255))
@@ -1469,13 +1583,13 @@
 					 (srl (mem QI(add a6 1)) 8))))
 
 ;; Format 14
-(aap-format-14 "nop32" OP1_NOP)
+(aap-format-14 "nop" OP1_NOP)
 
 ;; Format 15
-(aap-format-15 "movi32" OP1_MOVI)
+(aap-format-15 "movi" OP1_MOVI)
 
 ;; Format 16
-(aap-format-16 "bal32" OP1_BAL)
+(aap-format-16 "bal" OP1_BAL)
 
 ;; Format 17
-(aap-format-17 "bra32" OP1_BRA)
+(aap-format-17 "bra" OP1_BRA)

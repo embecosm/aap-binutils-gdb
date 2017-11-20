@@ -25,6 +25,8 @@
 
 /* Processor specific flags for the ELF header e_flags field.  */
 #define EF_AAP_MACH 0x7F
+//#define EF_AAP_MACH_16 
+//#define EF_AAP_MACH_32 
 
 /* If bit #7 is set, it is assumed that the elf file uses local symbols
    as reference for the relocations so that linker relaxation is possible.  */
@@ -51,5 +53,9 @@ START_RELOC_NUMBERS (elf_aap_reloc_type)
   RELOC_NUMBER (R_AAP_SHIFT6,       16)
   RELOC_NUMBER (R_AAP_OFF10,        17)
 END_RELOC_NUMBERS (R_AAP_max)
+
+/* cpu flags */
+#define EF_AAP_CPU_16  0x00000000
+#define EF_AAP_CPU_32  0x01000000
 
 #endif /* _ELF_AAP_H */

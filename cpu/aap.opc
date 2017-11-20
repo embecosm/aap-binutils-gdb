@@ -14,22 +14,37 @@
 #undef CGEN_DIS_HASH_SIZE
 #define CGEN_DIS_HASH_SIZE 128
 #undef CGEN_DIS_HASH
-#define CGEN_DIS_HASH(buf, value) (((buf [1]) >> 1) & 0x7f)
+#define CGEN_DIS_HASH(buf, value) (1)
 
 /* Allows reason codes to be output when assembler errors occur. */
 #define CGEN_VERBOSE_ASSEMBLER_ERRORS
 
+//#include "../cpu/aap_ifield.h"
 /* -- */
 
 /* -- opc.c */
+#include "elf/aap.h"
+#include <stdio.h>
 /* -- */
 
 /* -- asm.c */
+
+#include "elf/aap.h"
+
+static const char * parse_branch_and_link (CGEN_CPU_DESC, const char **, int, long int*);
+static const char * parse_branch_and_link32 (CGEN_CPU_DESC, const char **, int, long int*);
+static const char * parse_bra (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_bra32 (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_branch_cond (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_branch_cond32 (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_move_immi (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_move_immi32 (CGEN_CPU_DESC, const char **, int, long int *);
+
 static const char *
-parse_branch_and_link(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+parse_branch_and_link (CGEN_CPU_DESC cd,
+	      	      const char ** strp,
+	      	      int opindex,
+	      	      long int * valuep)
 {
   printf("parse_branch_and_link\n");
   
@@ -43,10 +58,10 @@ parse_branch_and_link(CGEN_CPU_DESC cd,
 }
 
 static const char *
-parse_branch_and_link32(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      unsigned long * valuep)
+parse_branch_and_link32 (CGEN_CPU_DESC cd,
+	      		const char ** strp,
+	      		int opindex,
+	      		long int * valuep)
 {
   printf("parse_branch_and_link32\n");
   
@@ -60,10 +75,10 @@ parse_branch_and_link32(CGEN_CPU_DESC cd,
 }
 
 static const char *
-parse_bra(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+parse_bra (CGEN_CPU_DESC cd,
+	  const char ** strp,
+	  int opindex,
+	  long int * valuep)
 {
   printf("parse_bra\n");
   
@@ -80,7 +95,7 @@ static const char *
 parse_bra32(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_bra32\n");
   
@@ -97,7 +112,7 @@ static const char *
 parse_branch_cond(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_branch_cond\n");
   
@@ -112,9 +127,9 @@ parse_branch_cond(CGEN_CPU_DESC cd,
 
 static const char *
 parse_branch_cond32(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+	      	    const char ** strp,
+	      	    int opindex,
+	      	    long int * valuep)
 {
   printf("parse_branch_cond32\n");
   
@@ -131,7 +146,7 @@ static const char *
 parse_move_immi(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_move_immi\n");
   
@@ -148,7 +163,7 @@ static const char *
 parse_move_immi32(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_move_immi32\n");
   
@@ -164,86 +179,29 @@ parse_move_immi32(CGEN_CPU_DESC cd,
 /* -- */
 
 /* -- dis.c */
+
+#include "elf/aap.h"
+#include "elf-bfd.h"
+
 #define CGEN_PRINT_NORMAL(cd, info, value, attrs, pc, length)
-#define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length) 
-#define CGEN_PRINT_INSN aap_print_insn
-#define CGEN_BFD_ARCH bfd_arch_aap
+#define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length)
+#define CGEN_BFD_ARCH bfd_arch_aap	
 
-/* The print_insn_aap is a function that is a wrapper around
-  default_print_insn that is created by cgen. Your wrapper just sets
-  up some default flags in the disassembler_info struct, then calls
-  the cgen generated print routine. (used m32r.opc) */
-
-static int
-aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info *info)
-{
-  int result = 0;
-  bfd_byte buffer[CGEN_MAX_INSN_SIZE];
-  bfd_byte *buf = buffer;
-  int status = -1;
-  int buflen = (pc & 3) == 0 ? 4 : 2;
-  int big_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_BIG;
-  int little_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_LITTLE;
-  bfd_byte *x;
-  
-  /* Configure INFO to correctly display decode instruction bytes. */
-  info->bytes_per_line = 4;
-  info->bytes_per_chunk = 2;
-  info->display_endian = BFD_ENDIAN_LITTLE;
-
-  /* Read the base part of the insn.  */
-  status = (*info->read_memory_func) (pc - ((!little_p && (pc & 3) != 0) ? 2 : 0),
-				      buf, buflen, info);
-  if (status != 0)
-  {
-    (*info->memory_error_func) (status, pc, info);
-    return -1;
-  }
-    
-  /* 32 bit insn?  */
-  x = (big_p ? &buf[0] : &buf[3]);
-  if ((pc & 3) == 0 && (*x & 0x80) != 0)
-    return print_insn (cd, pc, info, buf, buflen);
-
-  /* Print the first insn.  */
-  if ((pc & 3) == 0)
-  {
-    buf += (little_p ? 0 : 2);
-    if (print_insn (cd, pc, info, buf, 2) == 0)
-      (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
-    buf += (little_p ? 2 : -2);
-  }
-
-  x = (little_p ? &buf[0] : &buf[1]);
-
-  (*info->fprintf_func) (info->stream, "\t");
-
-  /* The "& 3" is to pass a consistent address.
-     Parallel insns arguably both begin on the word boundary.
-     Also, branch insns are calculated relative to the word boundary.  */
-  if (print_insn (cd, pc & ~ (bfd_vma) 3, info, buf, 2) == 0)
-    (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
-
-  result = (pc & 3) ? 2 : 4;
-  return result;
-}
-
-print_insn_aap(pc, info);
+print_insn_aap(bfd_vma pc, disassemble_info *info);
 
 static void
-print_lo (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
-	  void * dis_info,
-	  long value,
-	  unsigned int attrs ATTRIBUTE_UNUSED,
-	  bfd_vma pc ATTRIBUTE_UNUSED,
-	  int length ATTRIBUTE_UNUSED)
+print_6bit_reg(CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
+		 void * dis_info,
+		 long int value,
+		 bfd_vma pc ATTRIBUTE_UNUSED,
+		 int length)
 {
+  printf("value: %d, length: %d\n", value, length);
+
   disassemble_info *info = (disassemble_info *) dis_info;
-  if (value)
-    (*info->fprintf_func) (info->stream, "0x%lx", value);
-  else
-    (*info->fprintf_func) (info->stream, "lo(0x%lx)", value);
+  (*info->fprintf_func) (info->stream, "$r");
 }
+
 /* -- */
 
 /* -- ibd.h */

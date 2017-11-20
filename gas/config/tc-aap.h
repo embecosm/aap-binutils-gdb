@@ -14,8 +14,6 @@
 
 #define md_operand(x)
 
-#define NO_RELOC	BFD_RELOC_NONE
-
 /* for create jumps */
 #define AAP_JMP (0x17)		/* Useful for branch optimising. Jump instr*/
 #define AAP_ABSOLUTE_MODE (0x9F)/* Use as @#...			           */
@@ -40,7 +38,7 @@ extern char *aap_atof (int , char *, int *);
 extern void aap_begin (void);
 #define md_begin aap_begin
 
-extern void aap_convert_frag (bfd *, segT, fragS *);                                /*unfinished*/
+extern void aap_convert_frag (bfd *, segT, fragS *);
 #define md_convert_frag aap_convert_frag
 
 extern void aap_create_short_jump (char *, addressT, addressT, fragS *, symbolS *);

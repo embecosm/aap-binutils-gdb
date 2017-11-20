@@ -58,86 +58,29 @@ static int read_insn
 /* -- disassembler routines inserted here.  */
 
 /* -- dis.c */
+
+#include "elf/aap.h"
+#include "elf-bfd.h"
+
 #define CGEN_PRINT_NORMAL(cd, info, value, attrs, pc, length)
-#define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length) 
-#define CGEN_PRINT_INSN aap_print_insn
-#define CGEN_BFD_ARCH bfd_arch_aap
+#define CGEN_PRINT_ADDRESS(cd, info, value, attrs, pc, length)
+#define CGEN_BFD_ARCH bfd_arch_aap	
 
-/* The print_insn_aap is a function that is a wrapper around
-  default_print_insn that is created by cgen. Your wrapper just sets
-  up some default flags in the disassembler_info struct, then calls
-  the cgen generated print routine. (used m32r.opc) */
-
-static int
-aap_print_insn (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED, bfd_vma pc, disassemble_info *info)
-{
-  int result = 0;
-  bfd_byte buffer[CGEN_MAX_INSN_SIZE];
-  bfd_byte *buf = buffer;
-  int status = -1;
-  int buflen = (pc & 3) == 0 ? 4 : 2;
-  int big_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_BIG;
-  int little_p = CGEN_CPU_INSN_ENDIAN (cd) == CGEN_ENDIAN_LITTLE;
-  bfd_byte *x;
-  
-  /* Configure INFO to correctly display decode instruction bytes. */
-  info->bytes_per_line = 4;
-  info->bytes_per_chunk = 2;
-  info->display_endian = BFD_ENDIAN_LITTLE;
-
-  /* Read the base part of the insn.  */
-  status = (*info->read_memory_func) (pc - ((!little_p && (pc & 3) != 0) ? 2 : 0),
-				      buf, buflen, info);
-  if (status != 0)
-  {
-    (*info->memory_error_func) (status, pc, info);
-    return -1;
-  }
-    
-  /* 32 bit insn?  */
-  x = (big_p ? &buf[0] : &buf[3]);
-  if ((pc & 3) == 0 && (*x & 0x80) != 0)
-    return print_insn (cd, pc, info, buf, buflen);
-
-  /* Print the first insn.  */
-  if ((pc & 3) == 0)
-  {
-    buf += (little_p ? 0 : 2);
-    if (print_insn (cd, pc, info, buf, 2) == 0)
-      (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
-    buf += (little_p ? 2 : -2);
-  }
-
-  x = (little_p ? &buf[0] : &buf[1]);
-
-  (*info->fprintf_func) (info->stream, "\t");
-
-  /* The "& 3" is to pass a consistent address.
-     Parallel insns arguably both begin on the word boundary.
-     Also, branch insns are calculated relative to the word boundary.  */
-  if (print_insn (cd, pc & ~ (bfd_vma) 3, info, buf, 2) == 0)
-    (*info->fprintf_func) (info->stream, UNKNOWN_INSN_MSG);
-
-  result = (pc & 3) ? 2 : 4;
-  return result;
-}
-
-print_insn_aap(pc, info);
+print_insn_aap(bfd_vma pc, disassemble_info *info);
 
 static void
-print_lo (CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
-	  void * dis_info,
-	  long value,
-	  unsigned int attrs ATTRIBUTE_UNUSED,
-	  bfd_vma pc ATTRIBUTE_UNUSED,
-	  int length ATTRIBUTE_UNUSED)
+print_6bit_reg(CGEN_CPU_DESC cd ATTRIBUTE_UNUSED,
+		 void * dis_info,
+		 long int value,
+		 bfd_vma pc ATTRIBUTE_UNUSED,
+		 int length)
 {
+  printf("value: %d, length: %d\n", value, length);
+
   disassemble_info *info = (disassemble_info *) dis_info;
-  if (value)
-    (*info->fprintf_func) (info->stream, "0x%lx", value);
-  else
-    (*info->fprintf_func) (info->stream, "lo(0x%lx)", value);
+  (*info->fprintf_func) (info->stream, "$r");
 }
+
 /* -- */
 
 void aap_cgen_print_operand
@@ -189,9 +132,6 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I10 :
       print_normal (cd, info, fields->f_i_10, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
-    case AAP_OPERAND_I10I :
-      print_normal (cd, info, fields->f_i_10i, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
-      break;
     case AAP_OPERAND_I12 :
       print_normal (cd, info, fields->f_i_12, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
@@ -200,6 +140,9 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
       break;
     case AAP_OPERAND_I6 :
       print_normal (cd, info, fields->f_i_6, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
+    case AAP_OPERAND_I9 :
+      print_normal (cd, info, fields->f_i_9, 0|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_INT023 :
       print_normal (cd, info, fields->f_int_2_3, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
@@ -214,10 +157,10 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
       print_normal (cd, info, fields->f_int_8_9, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
       break;
     case AAP_OPERAND_INT1210 :
-      print_normal (cd, info, fields->f_int_12_10, 0|(1<<CGEN_OPERAND_SIGNED), pc, length);
+      print_normal (cd, info, fields->f_s_10, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_S10 :
-      print_normal (cd, info, fields->f_s_10, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      print_normal (cd, info, fields->f_s_10_fin, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
     case AAP_OPERAND_S16 :
       print_normal (cd, info, fields->f_s_16, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);

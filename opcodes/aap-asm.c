@@ -49,11 +49,23 @@ static const char * parse_insn_normal
 /* -- assembler routines inserted here.  */
 
 /* -- asm.c */
+
+#include "elf/aap.h"
+
+static const char * parse_branch_and_link (CGEN_CPU_DESC, const char **, int, long int*);
+static const char * parse_branch_and_link32 (CGEN_CPU_DESC, const char **, int, long int*);
+static const char * parse_bra (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_bra32 (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_branch_cond (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_branch_cond32 (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_move_immi (CGEN_CPU_DESC, const char **, int, long int *);
+static const char * parse_move_immi32 (CGEN_CPU_DESC, const char **, int, long int *);
+
 static const char *
-parse_branch_and_link(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+parse_branch_and_link (CGEN_CPU_DESC cd,
+	      	      const char ** strp,
+	      	      int opindex,
+	      	      long int * valuep)
 {
   printf("parse_branch_and_link\n");
   
@@ -67,10 +79,10 @@ parse_branch_and_link(CGEN_CPU_DESC cd,
 }
 
 static const char *
-parse_branch_and_link32(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      unsigned long * valuep)
+parse_branch_and_link32 (CGEN_CPU_DESC cd,
+	      		const char ** strp,
+	      		int opindex,
+	      		long int * valuep)
 {
   printf("parse_branch_and_link32\n");
   
@@ -84,10 +96,10 @@ parse_branch_and_link32(CGEN_CPU_DESC cd,
 }
 
 static const char *
-parse_bra(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+parse_bra (CGEN_CPU_DESC cd,
+	  const char ** strp,
+	  int opindex,
+	  long int * valuep)
 {
   printf("parse_bra\n");
   
@@ -104,7 +116,7 @@ static const char *
 parse_bra32(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_bra32\n");
   
@@ -121,7 +133,7 @@ static const char *
 parse_branch_cond(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_branch_cond\n");
   
@@ -136,9 +148,9 @@ parse_branch_cond(CGEN_CPU_DESC cd,
 
 static const char *
 parse_branch_cond32(CGEN_CPU_DESC cd,
-	      const char ** strp,
-	      int opindex,
-	      bfd_vma * valuep)
+	      	    const char ** strp,
+	      	    int opindex,
+	      	    long int * valuep)
 {
   printf("parse_branch_cond32\n");
   
@@ -155,7 +167,7 @@ static const char *
 parse_move_immi(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_move_immi\n");
   
@@ -172,7 +184,7 @@ static const char *
 parse_move_immi32(CGEN_CPU_DESC cd,
 	      const char ** strp,
 	      int opindex,
-	      bfd_vma * valuep)
+	      long int * valuep)
 {
   printf("parse_move_immi32\n");
   
@@ -233,9 +245,6 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I10 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10, (unsigned long *) (& fields->f_i_10));
       break;
-    case AAP_OPERAND_I10I :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10I, (unsigned long *) (& fields->f_i_10i));
-      break;
     case AAP_OPERAND_I12 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I12, (unsigned long *) (& fields->f_i_12));
       break;
@@ -244,6 +253,9 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       break;
     case AAP_OPERAND_I6 :
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I6, (unsigned long *) (& fields->f_i_6));
+      break;
+    case AAP_OPERAND_I9 :
+      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I9, (unsigned long *) (& fields->f_i_9));
       break;
     case AAP_OPERAND_INT023 :
       errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
@@ -258,10 +270,10 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = parse_bra (cd, strp, AAP_OPERAND_INT089, (long *) (& fields->f_int_8_9));
       break;
     case AAP_OPERAND_INT1210 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT1210, (long *) (& fields->f_int_12_10));
+      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT1210, (long *) (& fields->f_s_10));
       break;
     case AAP_OPERAND_S10 :
-      errmsg = parse_branch_cond32 (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10));
+      errmsg = parse_branch_cond32 (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10_fin));
       break;
     case AAP_OPERAND_S16 :
       errmsg = parse_branch_and_link32 (cd, strp, AAP_OPERAND_S16, (long *) (& fields->f_s_16));

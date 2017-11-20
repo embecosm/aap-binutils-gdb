@@ -33,12 +33,6 @@ This file is part of the GNU simulators.
 #include "decode.h"
 #endif
 
-#ifdef WANT_CPU_AAPBF16
-#include "eng16.h"
-#include "cpu16.h"
-#include "decode16.h"
-#endif
-
 extern const MACH aap32_mach;
 extern const MACH aap16_mach;
 
