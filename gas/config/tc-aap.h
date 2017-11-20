@@ -68,3 +68,7 @@ extern symbolS *aap_undefined_symbol (char *);
 /* After creating a fixup for an instruction operand, we need to check for
    HI16 relocs and queue them up for later sorting.  */
 #define md_cgen_record_fixup_exp aap_cgen_record_fixup_exp
+
+/* For 0x0100 */
+#define HANDLE_ALIGN(fragp) aap_handle_align (fragp)
+extern void aap_handle_align (struct frag *);

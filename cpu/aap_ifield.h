@@ -10,12 +10,40 @@
 /*****************************************************/
 /** --------------------------------------------------
 --------------------------------------------------- **/
-signed int findLoCl (signed int value);
-signed int findHiCl (signed int value);
-signed int decodeCl (signed int value, signed int op_hi, signed int op_lo);
-signed int findLoR  (signed int value);
-signed int findHiR  (signed int value);
-signed int decode6R (signed int value, signed int op_lo, signed int op_hi);
+signed int findLoCl  (signed int value);
+signed int findHiCl  (signed int value);
+signed int decodeCl  (signed int value, signed int op_hi, signed int op_lo);
+
+signed int findLoR   (signed int value);
+signed int findHiR   (signed int value);
+signed int decode6R  (signed int value, signed int op_lo, signed int op_hi);
+
+unsigned int findLo  (unsigned int value);
+unsigned int findHi  (unsigned int value);
+unsigned int decode6 (unsigned int value,
+		      unsigned int op_lo, unsigned int op_hi);
+
+signed int findLo9   (signed int value);
+signed int findMid9  (signed int value);
+signed int findHi9   (signed int value);
+signed int decode9   (signed int value, signed int op_lo,
+		      signed int op_mid, signed int op_hi);
+
+signed int findLo10  (signed int value);
+signed int findMid10 (signed int value);
+signed int findHi10  (signed int value);
+signed int decode10  (signed int value, signed int op_lo,
+		      signed int op_mid, signed int op_hi);
+
+signed int findLo12  (signed int value);
+signed int findHi12  (signed int value);
+signed int decode12  (signed int value, signed int op_lo, signed int op_hi);
+
+signed int findLo16  (signed int value);
+signed int findMid16 (signed int value);
+signed int findHi16  (signed int value);
+signed int decode16  (signed int value, signed int op_lo,
+		      signed int op_mid, signed int op_hi);
 
 /*****************************************************/
 /***                  5 bits reg                   ***/
@@ -54,8 +82,6 @@ decodeCl (signed int value, signed int op_hi, signed int op_lo)
 {
   value = op_lo;
   value += (32 * op_hi);
-
-  printf("hi: %d, lo: %d\n",op_hi, op_lo);
 
   return value;
 }
@@ -119,8 +145,6 @@ findLo (unsigned int value)
   value--;
   op_lo = value % 8;
   
-  printf("value6: %d, lo6: %d\n", value, op_lo);
-  
   return op_lo;
 }
 unsigned int
@@ -130,8 +154,6 @@ findHi (unsigned int value)
 
   value--;
   op_hi = value / 8;
-  
-  printf("value6: %d, hi6: %d\n", value, op_hi);
 
   return op_hi;
 }
@@ -194,8 +216,6 @@ decode9 (signed int value, signed int op_lo, signed int op_mid, signed int op_hi
   value += (8 * op_mid);
   value += (64 * op_hi);
 
-  printf("hi: %d, mid: %d, lo: %d\n",op_hi, op_mid, op_lo);
-
   return value;
 }
 
@@ -222,7 +242,7 @@ signed int
 findMid10 (signed int value)
 {
   signed int op_mid, store;
-  uint8_t mask = 0x0f;
+  uint8_t mask = 0x07;
   
   store = (value >> 3);
 
@@ -234,10 +254,11 @@ signed int
 findHi10 (signed int value)
 {
   signed int op_hi, store;
+  uint8_t mask = 0x0f;
   
   store = (value >> 6);
 
-  op_hi = store;
+  op_hi = store & mask;
 
   return op_hi;
 }
@@ -248,9 +269,7 @@ decode10 (signed int value, signed int op_lo, signed int op_hi, signed int op_mi
 {
   value = op_lo;
   value += (8 * op_mid);
-  value += (128 * op_hi);
-
-  printf("hi: %d, mid: %d, lo: %d\n",op_hi, op_mid, op_lo);
+  value += (64 * op_hi);
 
   return value;
 }
@@ -306,51 +325,51 @@ decode12 (signed int value, signed int op_hi, signed int op_lo)
 
 /* For encoding a 16bit uint */
 signed int
-findLo16 (signed int value)
+findLo16 (signed int value)  //6 bits
 {
   signed int op_lo;
+  uint8_t mask = 0x3f;
 
   if (value > (65536)) {
 	printf("ERROR: invalid value for multi-field!\n");
 	return 64;
   }
-  else {
-    op_lo = value % 64;
-  }
+  
+  op_lo = value & mask;
 
   return op_lo;
 }
-/* For encoding the middle bits for a 16bit int or uint */
 signed int
-findMid16 (signed int value)
+findHi16 (signed int value)  //6 bits
 {
-  signed int op_mid, store;
+  signed int op_hi, store;
+  uint8_t mask = 0x3f;
 
   store = (value >> 6);
 
-  op_mid = store % 16;
-
-  return op_mid;
-}
-/* For encoding the high bits for a 16bit int or uint */
-signed int
-findHi16 (signed int value)
-{
-  signed int op_hi, store;
-  
-  store = (value >> 10);
-
-  op_hi = store;
+  op_hi = store & mask;
 
   return op_hi;
 }
+signed int
+findMid16 (signed int value)   //4 bits
+{
+  signed int op_mid, store;
+  uint8_t mask = 0x0f;
+  
+  store = (value >> 12);
+
+  op_mid = store & mask;
+
+  return op_mid;
+}
 /* For decoding 16bit int or uint */
 signed int
-decode16 (signed int value, signed int op_hi, signed int op_mid, signed int op_lo)
+decode16 (signed int value, signed int op_mid, signed int op_hi, signed int op_lo)
 {
   value = op_lo;
   value += (64 * op_mid);
-  value += (1024 * op_hi);
+  value += (4096 * op_hi);
 
   return value;
 }
@@ -362,13 +381,34 @@ decode16 (signed int value, signed int op_hi, signed int op_mid, signed int op_l
 /*****************************************************/
 /** --------------------------------------------------
 --------------------------------------------------- **/
+signed int findLoS7   (signed int value);
+signed int findHiS7   (signed int value);
+signed int decodeS7   (signed int value, signed int op_lo, signed int op_hi);
+
+signed int findLoS10  (signed int value);
+signed int findMidS10 (signed int value);
+signed int findHiS10  (signed int value);
+signed int decodeS10  (signed int value, signed int op_lo,
+		       signed int op_mid, signed int op_hi);
+
+signed int findLoS16  (signed int value);
+signed int findMidS16 (signed int value);
+signed int findHiS16  (signed int value);
+signed int decodeS16  (signed int value, signed int op_lo,
+		       signed int op_mid, signed int op_hi);
+
+signed int findLoS22  (signed int value);
+signed int findMidS22 (signed int value);
+signed int findHiS22  (signed int value);
+signed int decodeS22  (signed int value, signed int op_lo,
+		       signed int op_mid, signed int op_hi);
 
 /*****************************************************/
 /***                  7 bits int                   ***/
 /*****************************************************/
-/* For encoding 7bit int */
+/* For encoding */
 signed int
-findLoS7 (signed int value)//4bit
+findLoS7 (signed int value)  //4bit
 {
   signed int op_lo;
   uint8_t mask = 0x0f;
@@ -401,8 +441,6 @@ findHiS7 (signed int value)
   store = (value >> 4);
 
   op_hi = store;
-  
-  printf("hiS7: %d\n",op_hi);
 
   return op_hi;
 }
@@ -540,7 +578,6 @@ signed int
 findHiS16 (signed int value)
 {
   signed int op_hi, store;
-  uint8_t mask = 0x0f;
   
   store = (value >> 12);
   
@@ -614,7 +651,6 @@ signed int
 findHiS22 (signed int value)
 {
   signed int op_hi, store;
-  uint8_t mask = 0x0f;
   
   store = (value >> 18);
   

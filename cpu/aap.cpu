@@ -488,8 +488,8 @@
 	    )
   )
   (encode (value pc)
-  	  (sequence SI () (set SI f-uint-21-6 (c-raw-call SI "findHi16" value))
-	  	       	  (set SI f-uint-28-4 (c-raw-call SI "findMid16" value))
+  	  (sequence SI () (set SI f-uint-21-6 (c-raw-call SI "findHi16" value));mid
+	  	       	  (set SI f-uint-28-4 (c-raw-call SI "findMid16" value));hi
 	  	       	  (set SI f-uint-5-6 (c-raw-call SI "findLo16" value)))
 
   )

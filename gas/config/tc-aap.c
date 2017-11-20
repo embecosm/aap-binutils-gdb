@@ -436,15 +436,29 @@ AAP options:\n\
 
 /* GAS will call this function for each section at the end of the assembly,
    to permit the CPU backend to adjust the alignment of a section.  */
-
+// Look at sparc_handle_align in tc-sparc.c
 valueT
 aap_section_align (segT segment,
 		  valueT size)
 {
-  printf("aap_section_align\n");
+  printf("aap_section_align:");
+
+  #ifndef OBJ_ELF
+  /* This is not right for ELF; a.out wants it, and COFF will force
+     the alignment anyways.  */
+  valueT align = ((valueT) 1
+		  << (valueT) bfd_get_section_alignment (stdoutput, segment));
+  valueT newsize;
   
-  int align = bfd_get_section_alignment (stdoutput, segment);
-  return ((size + (1 << align) - 1) & (-1 << align));
+  printf("%d\n",align);
+  /* Turn alignment value into a mask.  */
+  align--;
+  newsize = (size + align) & ~align;
+  return newsize;
+#else
+  printf("%d\n",size);
+  return size;
+#endif
 }
 
 symbolS *
@@ -508,4 +522,44 @@ aap_cgen_record_fixup_exp (fragS *frag,
                                            operand, opinfo, exp);
 
   return fixP;
+}
+
+/* This is called from HANDLE_ALIGN in tc-aap.h. (from sparc)  */
+void
+aap_handle_align (fragS *fragp)
+{
+  int count, fix;
+  char *p;
+
+  printf("handle_align\n");
+
+  count = fragp->fr_next->fr_address - fragp->fr_address - fragp->fr_fix;
+
+  switch (fragp->fr_type)
+    {
+    case rs_align_test:
+      if (count != 0)
+	as_bad_where (fragp->fr_file, fragp->fr_line, _("misaligned data"));
+      break;
+
+    case rs_align_code:
+      p = fragp->fr_literal + fragp->fr_fix;
+      fix = 0;
+
+      if (count & 1)
+	{
+	  fix = count & 1;
+	  memset (p, 0, fix);
+	  p += fix;
+	  count -= fix;
+	}                          //buf, val, n
+      number_to_chars_littleendian (p, 0x0001, 2);
+
+      fragp->fr_fix += fix;
+      fragp->fr_var = 2;
+      break;
+
+    default:
+      break;
+    }
 }
