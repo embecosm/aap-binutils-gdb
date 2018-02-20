@@ -162,6 +162,9 @@ aap_cgen_print_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_S10 :
       print_normal (cd, info, fields->f_s_10_fin, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;
+    case AAP_OPERAND_S10_13 :
+      print_normal (cd, info, fields->f_s_form_13, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
+      break;
     case AAP_OPERAND_S16 :
       print_normal (cd, info, fields->f_s_16, 0|(1<<CGEN_OPERAND_SIGNED)|(1<<CGEN_OPERAND_VIRTUAL), pc, length);
       break;

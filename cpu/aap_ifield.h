@@ -282,30 +282,32 @@ signed int
 findLo12 (signed int value)
 {
   signed int op_lo;
+  uint8_t mask = 0x3f;
 
   if (value > (4095)) {
 	printf("ERROR: invalid value for multi-field!\n");
-	return 64;
+	return 128;
   }
-  else {
-    op_lo = value % 64;
-  }
-
+  
+  op_lo = value & mask;
+  printf("lo: %d\n",op_lo);
   return op_lo;
 }
 signed int
 findHi12 (signed int value)
 {
   signed int op_hi, store;
+  uint8_t mask = 0x3f;
   
   if (value > (4095)) {
 	printf("ERROR: invalid value for multi-field!\n");
-	return 64;
+	return 128;
   }
   
   store = (value >> 6);
 
-  op_hi = store;
+  op_hi = store & mask;
+  printf("hi: %d\n",op_hi);
 
   return op_hi;
 }

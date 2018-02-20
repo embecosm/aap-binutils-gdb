@@ -30,34 +30,18 @@ This file is part of the GNU simulators.
 
 /* Get the value of h-gpr.  */
 
-USI
+DI
 aapbf_h_gpr_get (SIM_CPU *current_cpu, UINT regno)
 {
-  return CPU (h_gpr[regno]);
+  return GET_H_GPR (regno);
 }
 
 /* Set a value for h-gpr.  */
 
 void
-aapbf_h_gpr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
+aapbf_h_gpr_set (SIM_CPU *current_cpu, UINT regno, DI newval)
 {
-  CPU (h_gpr[regno]) = newval;
-}
-
-/* Get the value of h-cr.  */
-
-USI
-aapbf_h_cr_get (SIM_CPU *current_cpu, UINT regno)
-{
-  return CPU (h_cr[regno]);
-}
-
-/* Set a value for h-cr.  */
-
-void
-aapbf_h_cr_set (SIM_CPU *current_cpu, UINT regno, USI newval)
-{
-  CPU (h_cr[regno]) = newval;
+  SET_H_GPR (regno, newval);
 }
 
 /* Get the value of h-cf.  */
@@ -81,7 +65,7 @@ aapbf_h_cf_set (SIM_CPU *current_cpu, BI newval)
 USI
 aapbf_h_pc_get (SIM_CPU *current_cpu)
 {
-  return CPU (h_pc);
+  return GET_H_PC ();
 }
 
 /* Set a value for h-pc.  */
@@ -89,7 +73,7 @@ aapbf_h_pc_get (SIM_CPU *current_cpu)
 void
 aapbf_h_pc_set (SIM_CPU *current_cpu, USI newval)
 {
-  CPU (h_pc) = newval;
+  SET_H_PC (newval);
 }
 
 /* Record trace results for INSN.  */

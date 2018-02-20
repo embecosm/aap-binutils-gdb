@@ -1,16 +1,31 @@
-/* Main header for AAP */
+/* aap simulator support code
+   Copyright (C) 1998-2017 Free Software Foundation, Inc.
+   Contributed by Embecosm.
+
+This file is part of the GNU simulators.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+
+/* Main header for aap.  */
 
 #ifndef SIM_MAIN_H
 #define SIM_MAIN_H
 
-#define USING_SIM_BASE_H
-
-struct _sim_cpu; /* FIXME: should be in sim-basics.h */
-typedef struct _sim_cpu SIM_CPU;
-
-/* sim-basics.h includes config.h but cgen-types.h must be included before
-   sim-basics.h and cgen-types.h needs config.h.  */
-#include "config.h"
+/* This is a global setting.  Different cpu families can't mix-n-match -scache
+   and -pbb.  However some cpu families may use -simple while others use
+   one of -scache/-pbb.  */
+#define WITH_SCACHE_PBB 0
 
 #include "symcat.h"
 #include "sim-basics.h"
@@ -19,16 +34,9 @@ typedef struct _sim_cpu SIM_CPU;
 #include "aap-opc.h"
 #include "arch.h"
 
-/* These must be defined before sim-base.h.  */
-typedef UDI sim_cia;
-
-#define CIA_GET(cpu)     CPU_PC_GET (cpu)
-#define CIA_SET(cpu,val) CPU_PC_SET (cpu,val)
-
 #include "sim-base.h"
 #include "cgen-sim.h"
 #include "aap-sim.h"
-#include "opcode/cgen.h"
 
 /* The _sim_cpu struct.  */
 
@@ -41,52 +49,29 @@ struct _sim_cpu {
 
   /* CPU specific parts go here.
      Note that in files that don't need to access these pieces WANT_CPU_FOO
-     won't be defined and thus these parts won't appear.  It is a source of 
-     bugs though.  */
+     won't be defined and thus these parts won't appear.  This is ok in the
+     sense that things work.  It is a source of bugs though.
+     One has to of course be careful to not take the size of this
+     struct and no structure members accessed in non-cpu specific files can
+     go after here.  Oh for a better language.  */
 #if defined (WANT_CPU_AAPBF)
   AAPBF_CPU_DATA cpu_data;
 #endif
-  //#if defined (WANT_CPU_AAPBF16)
-  //  AAPBF16_CPU_DATA cpu_data;
-  //#endif
 };
-
+
 /* The sim_state struct.  */
 
 struct sim_state {
-  sim_cpu *cpu;
-#define STATE_CPU(sd, n) (/*&*/ (sd)->cpu)
+  sim_cpu *cpu[MAX_NR_PROCESSORS];
 
   CGEN_STATE cgen_state;
 
   sim_state_base base;
 };
-
+
 /* Misc.  */
 
-/* Catch address exceptions.  */
-extern SIM_CORE_SIGNAL_FN aap_core_signal;
-#define SIM_CORE_SIGNAL(SD,CPU,CIA,MAP,NR_BYTES,ADDR,TRANSFER,ERROR) \
-aap_core_signal ((SD), (CPU), (CIA), (MAP), (NR_BYTES), (ADDR), \
-		  (TRANSFER), (ERROR))
-
 /* Default memory size.  */
-#define AAP_DEFAULT_MEM_SIZE 0x800000 /* 8M */
-
-/* For decode.c */
-//#include "../../cpu/aap_ifield.h"
-#define aapbf_aap_sem_init_idesc_table aapbf_sem_init_idesc_table
-
-/* For model.c */
-#define aapbf_aap_engine_run_fast aapbf_engine_run_fast
-#define aapbf_aap_engine_run_full aapbf_engine_run_full
-
-/* For mloop.c */
-#define AAPBF_INSN_X_AFTER AAPBF_AAP_INSN_X_AFTER
-#define AAPBF_INSN_X_BEFORE AAPBF_AAP_INSN_X_BEFORE
-#define AAPBF_INSN_X_BEGIN AAPBF_AAP_INSN_X_BEGIN
-#define AAPBF_INSN_X_CTI_CHAIN AAPBF_AAP_INSN_X_CTI_CHAIN
-#define AAPBF_INSN_X_CHAIN AAPBF_AAP_INSN_X_CHAIN
-#define aapbf_decode aapbf_aap_decode
+#define AAP_DEFAULT_MEM_SIZE 0x2000000 /* 32MB */
 
 #endif /* SIM_MAIN_H */

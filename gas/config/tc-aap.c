@@ -226,8 +226,6 @@ aap_atof (int type,
   return  ieee_md_atof (type, litP, sizeP, TRUE);;
 }
 
-#define GOT_NAME "_GLOBAL_OFFSET_TABLE_"
-
 /* Translate internal representation of relocation info to BFD target
    format.  */
 
@@ -400,12 +398,6 @@ md_cgen_lookup_reloc (const CGEN_INSN * insn ATTRIBUTE_UNUSED,
   
   if (fixP->fx_cgen.opinfo)
     return fixP->fx_cgen.opinfo;
-
-  switch (operand->type)
-    {
-    default:
-      return BFD_RELOC_NONE;
-    }
 }
 
 /**********************************************************************************/

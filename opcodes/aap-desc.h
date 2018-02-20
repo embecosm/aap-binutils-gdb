@@ -77,60 +77,11 @@ typedef enum gpr_names {
  , H_GPR__R60, H_GPR__R61, H_GPR__R62, H_GPR__R63
 } GPR_NAMES;
 
-/* Enum declaration for .  */
-typedef enum cr_names {
-  H_CR_CR0, H_CR_CR1, H_CR_CR2, H_CR_CR3
- , H_CR_CR4, H_CR_CR5, H_CR_CR6, H_CR_CR7
- , H_CR_CR8, H_CR_CR9, H_CR_CR10, H_CR_CR11
- , H_CR_CR12, H_CR_CR13, H_CR_CR14, H_CR_CR15
-} CR_NAMES;
-
-/* Enum declaration for length.  */
-typedef enum length1 {
-  LEN1_16, LEN1_32
-} LENGTH1;
-
-/* Enum declaration for x_length.  */
-typedef enum length2 {
-  LEN2_0, LEN2_ERROR
-} LENGTH2;
-
-/* Enum declaration for opcodes.  */
-typedef enum opcodes1 {
-  OP1_NOP = 0, OP1_ADD = 1, OP1_SUB = 2, OP1_AND = 3
- , OP1_OR = 4, OP1_XOR = 5, OP1_ASR = 6, OP1_LSL = 7
- , OP1_LSR = 8, OP1_MOV = 9, OP1_ADDI = 10, OP1_SUBI = 11
- , OP1_ASRI = 12, OP1_LSLI = 13, OP1_LSRI = 14, OP1_MOVI = 15
- , OP1_LDB = 16, OP1_LDW = 20, OP1_LDBPO = 17, OP1_LDWPO = 21
- , OP1_LDBPR = 18, OP1_LDWPR = 22, OP1_STB = 24, OP1_STW = 28
- , OP1_STBPO = 25, OP1_STWPO = 29, OP1_STBPR = 26, OP1_STWPR = 30
- , OP1_BRA = 32, OP1_BAL = 33, OP1_BEQ = 34, OP1_BNE = 35
- , OP1_BLTS = 36, OP1_BLES = 37, OP1_BLTU = 38, OP1_BLEU = 39
- , OP1_JMP = 40, OP1_JAL = 41, OP1_JEQ = 42, OP1_JNE = 43
- , OP1_JLTS = 44, OP1_JLES = 45, OP1_JLTU = 46, OP1_JLEU = 47
- , OP1_RD = 48
-} OPCODES1;
-
-/* Enum declaration for opcodes2.  */
-typedef enum opcodes2 {
-  OP2_NOP, OP2_ADD
-} OPCODES2;
-
-/* Enum declaration for opcodes3.  */
-typedef enum opcodes3 {
-  OP3_IMM = 1, OP3_NOR = 0
-} OPCODES3;
-
-/* Enum declaration for xclass.  */
-typedef enum xclass {
-  CLA_NOP, CLA_ERROR
-} XCLASS;
-
 /* Attributes.  */
 
 /* Enum declaration for machine type selection.  */
 typedef enum mach_attr {
-  MACH_BASE, MACH_AAP16, MACH_AAP32, MACH_MAX
+  MACH_BASE, MACH_AAP_A16, MACH_AAP_A32, MACH_MAX
 } MACH_ATTR;
 
 /* Enum declaration for instruction set selection.  */
@@ -177,11 +128,11 @@ typedef enum ifield_type {
  , AAP_F_INT_18_3, AAP_F_INT_24_9, AAP_F_INT_24_6, AAP_F_INT_24_3
  , AAP_F_INT_28_4_LO, AAP_F_INT_2_3, AAP_F_INT_8_3, AAP_F_INT_8_6
  , AAP_F_INT_8_9, AAP_F_INT_12_7, AAP_F_INT_12_10, AAP_F_INT_12_13
- , AAP_F_U16, AAP_F_CARRY, AAP_F_DST_1_REG, AAP_F_S_13
- , AAP_F_S_10, AAP_F_S_7, AAP_F_S_22, AAP_F_S_16
- , AAP_F_S_10_FIN, AAP_F_I_12, AAP_F_I_16, AAP_F_I_6
- , AAP_F_I_9, AAP_F_I_10, AAP_F_D_6, AAP_F_A_6
- , AAP_F_B_6, AAP_F_MAX
+ , AAP_F_CARRY, AAP_F_DST_1_REG, AAP_F_S_13, AAP_F_S_10
+ , AAP_F_S_7, AAP_F_S_7_13, AAP_F_S_22, AAP_F_S_16
+ , AAP_F_S_10_FIN, AAP_F_S_FORM_13, AAP_F_I_12, AAP_F_I_16
+ , AAP_F_I_6, AAP_F_I_9, AAP_F_I_10, AAP_F_D_6
+ , AAP_F_A_6, AAP_F_B_6, AAP_F_MAX
 } IFIELD_TYPE;
 
 #define MAX_IFLD ((int) AAP_F_MAX)
@@ -209,8 +160,8 @@ typedef enum cgen_hw_attr {
 /* Enum declaration for aap hardware types.  */
 typedef enum cgen_hw_type {
   HW_H_MEMORY, HW_H_SINT, HW_H_UINT, HW_H_ADDR
- , HW_H_IADDR, HW_H_GPR, HW_H_CR, HW_H_CF
- , HW_H_PC, HW_MAX
+ , HW_H_IADDR, HW_H_GPR, HW_H_CF, HW_H_PC
+ , HW_MAX
 } CGEN_HW_TYPE;
 
 #define MAX_HW ((int) HW_MAX)
@@ -242,17 +193,17 @@ typedef enum cgen_operand_attr {
 
 /* Enum declaration for aap operand types.  */
 typedef enum cgen_operand_type {
-  AAP_OPERAND_PC, AAP_OPERAND_I12, AAP_OPERAND_I6, AAP_OPERAND_I9
- , AAP_OPERAND_I10, AAP_OPERAND_D6, AAP_OPERAND_A6, AAP_OPERAND_B6
- , AAP_OPERAND_CARRY, AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1, AAP_OPERAND_XSRC2
+  AAP_OPERAND_PC, AAP_OPERAND_CARRY, AAP_OPERAND_D6, AAP_OPERAND_A6
+ , AAP_OPERAND_B6, AAP_OPERAND_XDEST, AAP_OPERAND_XSRC1, AAP_OPERAND_XSRC2
  , AAP_OPERAND_DEST1, AAP_OPERAND_UINT056, AAP_OPERAND_I16, AAP_OPERAND_UINT023
+ , AAP_OPERAND_I12, AAP_OPERAND_I10, AAP_OPERAND_I9, AAP_OPERAND_I6
  , AAP_OPERAND_INT1210, AAP_OPERAND_INT083, AAP_OPERAND_INT086, AAP_OPERAND_INT089
- , AAP_OPERAND_INT023, AAP_OPERAND_S22, AAP_OPERAND_S16, AAP_OPERAND_S10
- , AAP_OPERAND_MAX
+ , AAP_OPERAND_INT023, AAP_OPERAND_S22, AAP_OPERAND_S16, AAP_OPERAND_S10_13
+ , AAP_OPERAND_S10, AAP_OPERAND_MAX
 } CGEN_OPERAND_TYPE;
 
 /* Number of operands types.  */
-#define MAX_OPERANDS 24
+#define MAX_OPERANDS 25
 
 /* Maximum number of operands referenced by any insn.  */
 #define MAX_OPERAND_INSTANCES 8
@@ -298,7 +249,6 @@ extern const CGEN_ATTR_TABLE aap_cgen_insn_attr_table[];
 /* Hardware decls.  */
 
 extern CGEN_KEYWORD aap_cgen_opval_gpr_names;
-extern CGEN_KEYWORD aap_cgen_opval_cr_names;
 
 extern const CGEN_HW_ENTRY aap_cgen_hw_table[];
 

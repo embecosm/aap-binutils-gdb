@@ -243,10 +243,10 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = cgen_parse_keyword (cd, strp, & aap_cgen_opval_gpr_names, & fields->f_dst_1_reg);
       break;
     case AAP_OPERAND_I10 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I10, (unsigned long *) (& fields->f_i_10));
+      errmsg = parse_bra32 (cd, strp, AAP_OPERAND_I10, (unsigned long *) (& fields->f_i_10));
       break;
     case AAP_OPERAND_I12 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I12, (unsigned long *) (& fields->f_i_12));
+      errmsg = parse_bra32 (cd, strp, AAP_OPERAND_I12, (unsigned long *) (& fields->f_i_12));
       break;
     case AAP_OPERAND_I16 :
       errmsg = parse_move_immi32 (cd, strp, AAP_OPERAND_I16, (unsigned long *) (& fields->f_i_16));
@@ -255,10 +255,10 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I6, (unsigned long *) (& fields->f_i_6));
       break;
     case AAP_OPERAND_I9 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_I9, (unsigned long *) (& fields->f_i_9));
+      errmsg = parse_bra32 (cd, strp, AAP_OPERAND_I9, (unsigned long *) (& fields->f_i_9));
       break;
     case AAP_OPERAND_INT023 :
-      errmsg = cgen_parse_signed_integer (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
+      errmsg = parse_bra (cd, strp, AAP_OPERAND_INT023, (long *) (& fields->f_int_2_3));
       break;
     case AAP_OPERAND_INT083 :
       errmsg = parse_branch_cond (cd, strp, AAP_OPERAND_INT083, (long *) (& fields->f_int_8_3));
@@ -275,6 +275,9 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_S10 :
       errmsg = parse_branch_cond32 (cd, strp, AAP_OPERAND_S10, (long *) (& fields->f_s_10_fin));
       break;
+    case AAP_OPERAND_S10_13 :
+      errmsg = parse_bra32 (cd, strp, AAP_OPERAND_S10_13, (long *) (& fields->f_s_form_13));
+      break;
     case AAP_OPERAND_S16 :
       errmsg = parse_branch_and_link32 (cd, strp, AAP_OPERAND_S16, (long *) (& fields->f_s_16));
       break;
@@ -282,7 +285,7 @@ aap_cgen_parse_operand (CGEN_CPU_DESC cd,
       errmsg = parse_bra32 (cd, strp, AAP_OPERAND_S22, (long *) (& fields->f_s_22));
       break;
     case AAP_OPERAND_UINT023 :
-      errmsg = cgen_parse_unsigned_integer (cd, strp, AAP_OPERAND_UINT023, (unsigned long *) (& fields->f_uint_2_3));
+      errmsg = parse_bra (cd, strp, AAP_OPERAND_UINT023, (unsigned long *) (& fields->f_uint_2_3));
       break;
     case AAP_OPERAND_UINT056 :
       errmsg = parse_move_immi (cd, strp, AAP_OPERAND_UINT056, (unsigned long *) (& fields->f_uint_5_6));
