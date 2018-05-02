@@ -1,6 +1,6 @@
 /* QNX Neutrino specific low level interface, for the remote server
    for GDB.
-   Copyright (C) 2009-2015 Free Software Foundation, Inc.
+   Copyright (C) 2009-2017 Free Software Foundation, Inc.
 
    This file is part of GDB.
 
@@ -347,14 +347,17 @@ nto_read_auxv_from_initial_stack (CORE_ADDR initial_stack,
   return len_read;
 }
 
-/* Start inferior specified by PROGRAM passing arguments ALLARGS.  */
+/* Start inferior specified by PROGRAM, using PROGRAM_ARGS as its
+   arguments.  */
 
 static int
-nto_create_inferior (char *program, char **allargs)
+nto_create_inferior (const char *program,
+		     const std::vector<char *> &program_args)
 {
   struct inheritance inherit;
   pid_t pid;
   sigset_t set;
+  std::string str_program_args = stringify_argv (program_args);
 
   TRACE ("%s %s\n", __func__, program);
   /* Clear any pending SIGUSR1's but keep the behavior the same.  */
@@ -367,7 +370,8 @@ nto_create_inferior (char *program, char **allargs)
   memset (&inherit, 0, sizeof (inherit));
   inherit.flags |= SPAWN_SETGROUP | SPAWN_HOLD;
   inherit.pgroup = SPAWN_NEWPGROUP;
-  pid = spawnp (program, 0, NULL, &inherit, allargs, 0);
+  pid = spawnp (program, 0, NULL, &inherit,
+		(char *) str_program_args.c_str (), 0);
   sigprocmask (SIG_BLOCK, &set, NULL);
 
   if (pid == -1)
@@ -794,7 +798,7 @@ nto_insert_point (enum raw_bkpt_type type, CORE_ADDR addr,
 {
   int wtype = _DEBUG_BREAK_HW; /* Always request HW.  */
 
-  TRACE ("%s type:%c addr: 0x%08lx len:%d\n", __func__, (int)type, addr, len);
+  TRACE ("%s type:%c addr: 0x%08lx len:%d\n", __func__, (int)type, addr, size);
   switch (type)
     {
     case raw_bkpt_type_sw:
@@ -826,7 +830,7 @@ nto_remove_point (enum raw_bkpt_type type, CORE_ADDR addr,
 {
   int wtype = _DEBUG_BREAK_HW; /* Always request HW.  */
 
-  TRACE ("%s type:%c addr: 0x%08lx len:%d\n", __func__, (int)type, addr, len);
+  TRACE ("%s type:%c addr: 0x%08lx len:%d\n", __func__, (int)type, addr, size);
   switch (type)
     {
     case raw_bkpt_type_sw:
@@ -921,10 +925,19 @@ nto_supports_non_stop (void)
   return 0;
 }
 
+/* Implementation of the target_ops method "sw_breakpoint_from_kind".  */
+
+static const gdb_byte *
+nto_sw_breakpoint_from_kind (int kind, int *size)
+{
+  *size = the_low_target.breakpoint_len;
+  return the_low_target.breakpoint;
+}
 
 
 static struct target_ops nto_target_ops = {
   nto_create_inferior,
+  NULL,  /* post_create_inferior */
   nto_attach,
   nto_kill,
   nto_detach,
@@ -949,6 +962,7 @@ static struct target_ops nto_target_ops = {
   NULL, /* supports_stopped_by_sw_breakpoint */
   NULL, /* stopped_by_hw_breakpoint */
   NULL, /* supports_stopped_by_hw_breakpoint */
+  target_can_do_hardware_single_step,
   nto_stopped_by_watchpoint,
   nto_stopped_data_address,
   NULL, /* nto_read_offsets */
@@ -959,7 +973,42 @@ static struct target_ops nto_target_ops = {
   NULL, /* xfer_siginfo */
   nto_supports_non_stop,
   NULL, /* async */
-  NULL  /* start_non_stop */
+  NULL, /* start_non_stop */
+  NULL, /* supports_multi_process */
+  NULL, /* supports_fork_events */
+  NULL, /* supports_vfork_events */
+  NULL, /* supports_exec_events */
+  NULL, /* handle_new_gdb_connection */
+  NULL, /* handle_monitor_command */
+  NULL, /* core_of_thread */
+  NULL, /* read_loadmap */
+  NULL, /* process_qsupported */
+  NULL, /* supports_tracepoints */
+  NULL, /* read_pc */
+  NULL, /* write_pc */
+  NULL, /* thread_stopped */
+  NULL, /* get_tib_address */
+  NULL, /* pause_all */
+  NULL, /* unpause_all */
+  NULL, /* stabilize_threads */
+  NULL, /* install_fast_tracepoint_jump_pad */
+  NULL, /* emit_ops */
+  NULL, /* supports_disable_randomization */
+  NULL, /* get_min_fast_tracepoint_insn_len */
+  NULL, /* qxfer_libraries_svr4 */
+  NULL, /* support_agent */
+  NULL, /* support_btrace */
+  NULL, /* enable_btrace */
+  NULL, /* disable_btrace */
+  NULL, /* read_btrace */
+  NULL, /* read_btrace_conf */
+  NULL, /* supports_range_stepping */
+  NULL, /* pid_to_exec_file */
+  NULL, /* multifs_open */
+  NULL, /* multifs_unlink */
+  NULL, /* multifs_readlink */
+  NULL, /* breakpoint_kind_from_pc */
+  nto_sw_breakpoint_from_kind,
 };
 
 
@@ -973,8 +1022,6 @@ initialize_low (void)
 
   TRACE ("%s\n", __func__);
   set_target_ops (&nto_target_ops);
-  set_breakpoint_data (the_low_target.breakpoint,
-		       the_low_target.breakpoint_len);
 
   /* We use SIGUSR1 to gain control after we block waiting for a process.
      We use sigwaitevent to wait.  */

@@ -1,4 +1,4 @@
-/* Copyright (C) 2009-2015 Free Software Foundation, Inc.
+/* Copyright (C) 2009-2017 Free Software Foundation, Inc.
 
    This file is part of GDB.
 
@@ -28,6 +28,8 @@
 #include "gdb_wait.h"
 #include <signal.h>
 #include "filestuff.h"
+#include "common-inferior.h"
+#include "nat/fork-inferior.h"
 
 int using_threads = 1;
 
@@ -218,42 +220,49 @@ lynx_add_process (int pid, int attached)
 
   proc = add_process (pid, attached);
   proc->tdesc = lynx_tdesc;
-  proc->priv = xcalloc (1, sizeof (*proc->priv));
+  proc->priv = XCNEW (struct process_info_private);
   proc->priv->last_wait_event_ptid = null_ptid;
 
   return proc;
 }
 
+/* Callback used by fork_inferior to start tracing the inferior.  */
+
+static void
+lynx_ptrace_fun ()
+{
+  int pgrp;
+
+  /* Switch child to its own process group so that signals won't
+     directly affect GDBserver. */
+  pgrp = getpid();
+  if (pgrp < 0)
+    trace_start_error_with_name ("pgrp");
+  if (setpgid (0, pgrp) < 0)
+    trace_start_error_with_name ("setpgid");
+  if (ioctl (0, TIOCSPGRP, &pgrp) < 0)
+    trace_start_error_with_name ("ioctl");
+  if (lynx_ptrace (PTRACE_TRACEME, null_ptid, 0, 0, 0) < 0)
+    trace_start_error_with_name ("lynx_ptrace");
+}
+
 /* Implement the create_inferior method of the target_ops vector.  */
 
 static int
-lynx_create_inferior (char *program, char **allargs)
+lynx_create_inferior (const char *program,
+		      const std::vector<char *> &program_args)
 {
   int pid;
+  std::string str_program_args = stringify_argv (program_args);
 
   lynx_debug ("lynx_create_inferior ()");
 
-  pid = fork ();
-  if (pid < 0)
-    perror_with_name ("fork");
+  pid = fork_inferior (program,
+		       str_program_args.c_str (),
+		       get_environ ()->envp (), lynx_ptrace_fun,
+		       NULL, NULL, NULL, NULL);
 
-  if (pid == 0)
-    {
-      int pgrp;
-
-      close_most_fds ();
-
-      /* Switch child to its own process group so that signals won't
-         directly affect gdbserver. */
-      pgrp = getpid();
-      setpgid (0, pgrp);
-      ioctl (0, TIOCSPGRP, &pgrp);
-      lynx_ptrace (PTRACE_TRACEME, null_ptid, 0, 0, 0);
-      execv (program, allargs);
-      fprintf (stderr, "Cannot exec %s: %s.\n", program, strerror (errno));
-      fflush (stderr);
-      _exit (0177);
-    }
+  post_fork_inferior (pid, program);
 
   lynx_add_process (pid, 0);
   /* Do not add the process thread just yet, as we do not know its tid.
@@ -343,7 +352,7 @@ lynx_resume (struct thread_resume *resume_info, size_t n)
   if (ptid_equal (ptid, minus_one_ptid))
     ptid = thread_to_gdb_id (current_thread);
 
-  regcache_invalidate ();
+  regcache_invalidate_pid (ptid_get_pid (ptid));
 
   errno = 0;
   lynx_ptrace (request, ptid, 1, signal, 0);
@@ -546,16 +555,36 @@ lynx_detach (int pid)
   return 0;
 }
 
+/* A callback for find_inferior which removes from the thread list
+   all threads belonging to process PROC.  */
+
+static int
+lynx_delete_thread_callback (struct inferior_list_entry *entry, void *proc)
+{
+  struct process_info *process = (struct process_info *) proc;
+
+  if (ptid_get_pid (entry->id) == pid_of (process))
+    {
+      struct thread_info *thr = find_thread_ptid (entry->id);
+
+      remove_thread (thr);
+    }
+
+  return 0;
+}
+
 /* Implement the mourn target_ops method.  */
 
 static void
 lynx_mourn (struct process_info *proc)
 {
+  find_inferior (&all_threads, lynx_delete_thread_callback, proc);
+
   /* Free our private data.  */
   free (proc->priv);
   proc->priv = NULL;
 
-  clear_inferiors ();
+  remove_process (proc);
 }
 
 /* Implement the join target_ops method.  */
@@ -713,7 +742,7 @@ lynx_write_memory (CORE_ADDR memaddr, const unsigned char *myaddr, int len)
 static void
 lynx_request_interrupt (void)
 {
-  ptid_t inferior_ptid = thread_to_gdb_id (current_thread);
+  ptid_t inferior_ptid = thread_to_gdb_id (get_first_thread ());
 
   kill (lynx_ptid_get_pid (inferior_ptid), SIGINT);
 }
@@ -722,6 +751,7 @@ lynx_request_interrupt (void)
 
 static struct target_ops lynx_target_ops = {
   lynx_create_inferior,
+  NULL,  /* post_create_inferior */
   lynx_attach,
   lynx_kill,
   lynx_detach,
@@ -746,6 +776,7 @@ static struct target_ops lynx_target_ops = {
   NULL,  /* supports_stopped_by_sw_breakpoint */
   NULL,  /* stopped_by_hw_breakpoint */
   NULL,  /* supports_stopped_by_hw_breakpoint */
+  target_can_do_hardware_single_step,
   NULL,  /* stopped_by_watchpoint */
   NULL,  /* stopped_data_address */
   NULL,  /* read_offsets */
@@ -758,6 +789,10 @@ static struct target_ops lynx_target_ops = {
   NULL,  /* async */
   NULL,  /* start_non_stop */
   NULL,  /* supports_multi_process */
+  NULL,  /* supports_fork_events */
+  NULL,  /* supports_vfork_events */
+  NULL,  /* supports_exec_events */
+  NULL,  /* handle_new_gdb_connection */
   NULL,  /* handle_monitor_command */
 };
 

@@ -488,10 +488,19 @@ dump_section_header (bfd *abfd, asection *section,
     }
   PF (SEC_SMALL_DATA, "SMALL_DATA");
   if (bfd_get_flavour (abfd) == bfd_target_coff_flavour)
-    PF (SEC_COFF_SHARED, "SHARED");
+    {
+      PF (SEC_COFF_SHARED, "SHARED");
+      PF (SEC_COFF_NOREAD, "NOREAD");
+    }
+//  else if (bfd_get_flavour (abfd) == bfd_target_elf_flavour)
+//    PF (SEC_ELF_PURECODE, "PURECODE");
   PF (SEC_THREAD_LOCAL, "THREAD_LOCAL");
   PF (SEC_GROUP, "GROUP");
-
+/*  if (bfd_get_arch (abfd) == bfd_arch_mep)
+    {
+      PF (SEC_MEP_VLIW, "VLIW");
+    }
+*/
   if ((section->flags & SEC_LINK_ONCE) != 0)
     {
       const char *ls;
@@ -2203,7 +2212,9 @@ disassemble_data (bfd *abfd)
     }
 
   /* Use libopcodes to locate a suitable disassembler.  */
-  aux.disassemble_fn = disassembler (abfd);
+  aux.disassemble_fn = disassembler (bfd_get_arch (abfd),
+				     bfd_big_endian (abfd),
+				     bfd_get_mach (abfd), abfd);
   if (!aux.disassemble_fn)
     {
       non_fatal (_("can't disassemble for architecture %s\n"),
@@ -2453,6 +2464,10 @@ dump_dwarf (bfd *abfd)
       init_dwarf_regnames_aarch64();
       break;
 
+/*   case bfd_arch_aap:
+      init_dwarf_regnames_aap ();
+      break;
+*/
     default:
       break;
     }

@@ -107,10 +107,11 @@
 #endif
 
 disassembler_ftype
-disassembler (abfd)
-     bfd *abfd;
+disassembler (enum bfd_architecture a,
+	      bfd_boolean big ATTRIBUTE_UNUSED,
+	      unsigned long mach ATTRIBUTE_UNUSED,
+	      bfd *abfd ATTRIBUTE_UNUSED)
 {
-  enum bfd_architecture a = bfd_get_arch (abfd);
   disassembler_ftype disassemble;
 
   switch (a)

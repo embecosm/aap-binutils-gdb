@@ -312,6 +312,7 @@ extern int print_insn_rl78		(bfd_vma, disassemble_info *);
 extern disassembler_ftype arc_get_disassembler (void *);
 extern disassembler_ftype cris_get_disassembler (bfd *);
 
+extern void print_aap_disassembler_options (FILE *);
 extern void print_aarch64_disassembler_options (FILE *);
 extern void print_i386_disassembler_options (FILE *);
 extern void print_mips_disassembler_options (FILE *);
@@ -326,8 +327,12 @@ extern bfd_boolean aarch64_symbol_is_valid (asymbol *, struct disassemble_info *
 extern bfd_boolean arm_symbol_is_valid (asymbol *, struct disassemble_info *);
 extern void disassemble_init_powerpc (struct disassemble_info *);
 
-/* Fetch the disassembler for a given BFD, if that support is available.  */
-extern disassembler_ftype disassembler (bfd *);
+/* Fetch the disassembler for a given architecture ARC, endianess (big
+   endian if BIG is true), bfd_mach value MACH, and ABFD, if that support
+   is available.  ABFD may be NULL.  */
+extern disassembler_ftype disassembler (enum bfd_architecture arc,
+					bfd_boolean big, unsigned long mach,
+					bfd *abfd);
 
 /* Amend the disassemble_info structure as necessary for the target architecture.
    Should only be called after initialising the info->arch field.  */

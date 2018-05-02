@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright 1996-2010 Free Software Foundation, Inc.
+Copyright 1996-2017 Free Software Foundation, Inc.
 
 This file is part of the GNU simulators.
 
@@ -17,8 +17,7 @@ This file is part of the GNU simulators.
    License for more details.
 
    You should have received a copy of the GNU General Public License along
-   with this program; if not, write to the Free Software Foundation, Inc.,
-   51 Franklin Street - Fifth Floor, Boston, MA 02110-1301, USA.
+   with this program; if not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -33,7 +32,7 @@ This file is part of the GNU simulators.
 #include "decode.h"
 #endif
 
-extern const MACH lm32_mach;
+extern const SIM_MACH lm32_mach;
 
 #ifndef WANT_CPU
 /* The ARGBUF struct.  */

@@ -1,5 +1,5 @@
 /* Low level interface to SPUs, for the remote server for GDB.
-   Copyright (C) 2006-2015 Free Software Foundation, Inc.
+   Copyright (C) 2006-2017 Free Software Foundation, Inc.
 
    Contributed by Ulrich Weigand <uweigand@de.ibm.com>.
 
@@ -27,6 +27,7 @@
 #include <sys/syscall.h>
 #include "filestuff.h"
 #include "hostio.h"
+#include "nat/fork-inferior.h"
 
 /* Some older glibc versions do not define this.  */
 #ifndef __WNOTHREAD
@@ -56,6 +57,9 @@ int using_threads = 0;
 void init_registers_spu (void);
 extern const struct target_desc *tdesc_spu;
 
+/* Software breakpoint instruction.  */
+static const gdb_byte breakpoint[] = { 0x00, 0x00, 0x3f, 0xff };
+
 /* Fetch PPU register REGNO.  */
 static CORE_ADDR
 fetch_ppc_register (int regno)
@@ -73,10 +77,10 @@ fetch_ppc_register (int regno)
     char buf[8];
 
     errno = 0;
-    ptrace (PPC_PTRACE_PEEKUSR_3264, tid,
+    ptrace ((PTRACE_TYPE_ARG1) PPC_PTRACE_PEEKUSR_3264, tid,
 	    (PTRACE_TYPE_ARG3) (regno * 8), buf);
     if (errno == 0)
-      ptrace (PPC_PTRACE_PEEKUSR_3264, tid,
+      ptrace ((PTRACE_TYPE_ARG1) PPC_PTRACE_PEEKUSR_3264, tid,
 	      (PTRACE_TYPE_ARG3) (regno * 8 + 4), buf + 4);
     if (errno == 0)
       return (CORE_ADDR) *(unsigned long long *)buf;
@@ -106,7 +110,8 @@ fetch_ppc_memory_1 (int tid, CORE_ADDR memaddr, PTRACE_TYPE_RET *word)
   if (memaddr >> 32)
     {
       unsigned long long addr_8 = (unsigned long long) memaddr;
-      ptrace (PPC_PTRACE_PEEKTEXT_3264, tid, (PTRACE_TYPE_ARG3) &addr_8, word);
+      ptrace ((PTRACE_TYPE_ARG1) PPC_PTRACE_PEEKTEXT_3264, tid,
+	      (PTRACE_TYPE_ARG3) &addr_8, word);
     }
   else
 #endif
@@ -125,7 +130,8 @@ store_ppc_memory_1 (int tid, CORE_ADDR memaddr, PTRACE_TYPE_RET word)
   if (memaddr >> 32)
     {
       unsigned long long addr_8 = (unsigned long long) memaddr;
-      ptrace (PPC_PTRACE_POKEDATA_3264, tid, (PTRACE_TYPE_ARG3) &addr_8, word);
+      ptrace ((PTRACE_TYPE_ARG1) PPC_PTRACE_POKEDATA_3264, tid,
+	      (PTRACE_TYPE_ARG3) &addr_8, word);
     }
   else
 #endif
@@ -147,7 +153,7 @@ fetch_ppc_memory (CORE_ADDR memaddr, char *myaddr, int len)
 
   int tid = ptid_get_lwp (current_ptid);
 
-  buffer = (PTRACE_TYPE_RET *) alloca (count * sizeof (PTRACE_TYPE_RET));
+  buffer = XALLOCAVEC (PTRACE_TYPE_RET, count);
   for (i = 0; i < count; i++, addr += sizeof (PTRACE_TYPE_RET))
     if ((ret = fetch_ppc_memory_1 (tid, addr, &buffer[i])) != 0)
       return ret;
@@ -172,7 +178,7 @@ store_ppc_memory (CORE_ADDR memaddr, char *myaddr, int len)
 
   int tid = ptid_get_lwp (current_ptid);
 
-  buffer = (PTRACE_TYPE_RET *) alloca (count * sizeof (PTRACE_TYPE_RET));
+  buffer = XALLOCAVEC (PTRACE_TYPE_RET, count);
 
   if (addr != memaddr || len < (int) sizeof (PTRACE_TYPE_RET))
     if ((ret = fetch_ppc_memory_1 (tid, addr, &buffer[0])) != 0)
@@ -256,36 +262,37 @@ spu_proc_xfer_spu (const char *annex, unsigned char *readbuf,
   return ret;
 }
 
+/* Callback to be used when calling fork_inferior, responsible for
+   actually initiating the tracing of the inferior.  */
+
+static void
+spu_ptrace_fun ()
+{
+  if (ptrace (PTRACE_TRACEME, 0, 0, 0) < 0)
+    trace_start_error_with_name ("ptrace");
+  if (setpgid (0, 0) < 0)
+    trace_start_error_with_name ("setpgid");
+}
 
 /* Start an inferior process and returns its pid.
-   ALLARGS is a vector of program-name and args. */
+   PROGRAM is the name of the program to be started, and PROGRAM_ARGS
+   are its arguments.  */
+
 static int
-spu_create_inferior (char *program, char **allargs)
+spu_create_inferior (const char *program,
+		     const std::vector<char *> &program_argv)
 {
   int pid;
   ptid_t ptid;
   struct process_info *proc;
+  std::string str_program_args = stringify_argv (program_args);
 
-  pid = fork ();
-  if (pid < 0)
-    perror_with_name ("fork");
+  pid = fork_inferior (program,
+		       str_program_args.c_str (),
+		       get_environ ()->envp (), spu_ptrace_fun,
+		       NULL, NULL, NULL, NULL);
 
-  if (pid == 0)
-    {
-      close_most_fds ();
-      ptrace (PTRACE_TRACEME, 0, 0, 0);
-
-      setpgid (0, 0);
-
-      execv (program, allargs);
-      if (errno == ENOENT)
-	execvp (program, allargs);
-
-      fprintf (stderr, "Cannot exec %s: %s.\n", program,
-	       strerror (errno));
-      fflush (stderr);
-      _exit (0177);
-    }
+  post_fork_inferior (pid, program);
 
   proc = add_process (pid, 0);
   proc->tdesc = tdesc_spu;
@@ -383,11 +390,12 @@ spu_thread_alive (ptid_t ptid)
 static void
 spu_resume (struct thread_resume *resume_info, size_t n)
 {
+  struct thread_info *thr = get_first_thread ();
   size_t i;
 
   for (i = 0; i < n; i++)
     if (ptid_equal (resume_info[i].thread, minus_one_ptid)
-	|| ptid_equal (resume_info[i].thread, current_ptid))
+	|| ptid_equal (resume_info[i].thread, ptid_of (thr)))
       break;
 
   if (i == n)
@@ -401,7 +409,7 @@ spu_resume (struct thread_resume *resume_info, size_t n)
   regcache_invalidate ();
 
   errno = 0;
-  ptrace (PTRACE_CONT, ptid_get_lwp (current_ptid), 0, resume_info[i].sig);
+  ptrace (PTRACE_CONT, ptid_get_lwp (ptid_of (thr)), 0, resume_info[i].sig);
   if (errno)
     perror_with_name ("ptrace");
 }
@@ -633,11 +641,23 @@ spu_look_up_symbols (void)
 static void
 spu_request_interrupt (void)
 {
-  syscall (SYS_tkill, ptid_get_lwp (current_ptid), SIGINT);
+  struct thread_info *thr = get_first_thread ();
+
+  syscall (SYS_tkill, lwpid_of (thr), SIGINT);
+}
+
+/* Implementation of the target_ops method "sw_breakpoint_from_kind".  */
+
+static const gdb_byte *
+spu_sw_breakpoint_from_kind (int kind, int *size)
+{
+  *size = sizeof breakpoint;
+  return breakpoint;
 }
 
 static struct target_ops spu_target_ops = {
   spu_create_inferior,
+  NULL,  /* post_create_inferior */
   spu_attach,
   spu_kill,
   spu_detach,
@@ -662,20 +682,58 @@ static struct target_ops spu_target_ops = {
   NULL, /* supports_stopped_by_sw_breakpoint */
   NULL, /* stopped_by_hw_breakpoint */
   NULL, /* supports_stopped_by_hw_breakpoint */
+  NULL, /* supports_hardware_single_step */
   NULL,
   NULL,
   NULL,
   NULL,
   spu_proc_xfer_spu,
   hostio_last_error_from_errno,
+  NULL, /* qxfer_osdata */
+  NULL, /* qxfer_siginfo */
+  NULL, /* supports_non_stop */
+  NULL, /* async */
+  NULL, /* start_non_stop */
+  NULL, /* supports_multi_process */
+  NULL, /* supports_fork_events */
+  NULL, /* supports_vfork_events */
+  NULL, /* supports_exec_events */
+  NULL, /* handle_new_gdb_connection */
+  NULL, /* handle_monitor_command */
+  NULL, /* core_of_thread */
+  NULL, /* read_loadmap */
+  NULL, /* process_qsupported */
+  NULL, /* supports_tracepoints */
+  NULL, /* read_pc */
+  NULL, /* write_pc */
+  NULL, /* thread_stopped */
+  NULL, /* get_tib_address */
+  NULL, /* pause_all */
+  NULL, /* unpause_all */
+  NULL, /* stabilize_threads */
+  NULL, /* install_fast_tracepoint_jump_pad */
+  NULL, /* emit_ops */
+  NULL, /* supports_disable_randomization */
+  NULL, /* get_min_fast_tracepoint_insn_len */
+  NULL, /* qxfer_libraries_svr4 */
+  NULL, /* support_agent */
+  NULL, /* support_btrace */
+  NULL, /* enable_btrace */
+  NULL, /* disable_btrace */
+  NULL, /* read_btrace */
+  NULL, /* read_btrace_conf */
+  NULL, /* supports_range_stepping */
+  NULL, /* pid_to_exec_file */
+  NULL, /* multifs_open */
+  NULL, /* multifs_unlink */
+  NULL, /* multifs_readlink */
+  NULL, /* breakpoint_kind_from_pc */
+  spu_sw_breakpoint_from_kind,
 };
 
 void
 initialize_low (void)
 {
-  static const unsigned char breakpoint[] = { 0x00, 0x00, 0x3f, 0xff };
-
   set_target_ops (&spu_target_ops);
-  set_breakpoint_data (breakpoint, sizeof breakpoint);
   init_registers_spu ();
 }

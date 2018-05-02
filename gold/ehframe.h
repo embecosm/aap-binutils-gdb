@@ -1,6 +1,6 @@
 // ehframe.h -- handle exception frame sections for gold  -*- C++ -*-
 
-// Copyright (C) 2006-2015 Free Software Foundation, Inc.
+// Copyright (C) 2006-2017 Free Software Foundation, Inc.
 // Written by Ian Lance Taylor <iant@google.com>.
 
 // This file is part of gold.
@@ -217,6 +217,8 @@ class Fde
 	section_offset_type cie_offset, unsigned char fde_encoding,
 	Eh_frame_hdr* eh_frame_hdr);
 
+  bool operator==(const Fde&) const;
+
  private:
   // The object in which this FDE was seen.  This will be NULL for a
   // linker generated FDE.
@@ -298,6 +300,10 @@ class Cie
   add_fde(Fde* fde)
   { this->fdes_.push_back(fde); }
 
+  // Remove an FDE associated with this CIE.  Only the last FDE may be removed.
+  void
+  remove_fde(const Fde*);
+
   // Return the number of FDEs.
   unsigned int
   fde_count() const
@@ -322,6 +328,11 @@ class Cie
 	section_offset_type offset, uint64_t address,
 	unsigned int addralign, Eh_frame_hdr* eh_frame_hdr,
 	Post_fdes* post_fdes);
+
+  // Return the FDE encoding.
+  unsigned char
+  fde_encoding() const
+  { return this->fde_encoding_; }
 
   friend bool operator<(const Cie&, const Cie&);
   friend bool operator==(const Cie&, const Cie&);
@@ -399,6 +410,13 @@ class Eh_frame : public Output_section_data
   add_ehframe_for_plt(Output_data* plt, const unsigned char* cie_data,
 		      size_t cie_length, const unsigned char* fde_data,
 		      size_t fde_length);
+
+  // Remove unwind information for a PLT.  Only the last FDE added may
+  // be removed.
+  void
+  remove_ehframe_for_plt(Output_data* plt, const unsigned char* cie_data,
+			 size_t cie_length, const unsigned char* fde_data,
+			 size_t fde_length);
 
   // Return the number of FDEs.
   unsigned int

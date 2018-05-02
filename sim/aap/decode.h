@@ -25,11 +25,11 @@ This file is part of the GNU simulators.
 #ifndef AAPBF_AAP32_DECODE_H
 #define AAPBF_AAP32_DECODE_H
 
-extern const IDESC *aapbf_aap32_decode (SIM_CPU *, IADDR,
+extern const IDESC *aapbf_decode (SIM_CPU *, IADDR,
                                   CGEN_INSN_WORD, CGEN_INSN_WORD,
                                   ARGBUF *);
 extern void aapbf_aap32_init_idesc_table (SIM_CPU *);
-extern void aapbf_aap32_sem_init_idesc_table (SIM_CPU *);
+extern void aapbf_sem_init_idesc_table (SIM_CPU *);
 extern void aapbf_aap32_semf_init_idesc_table (SIM_CPU *);
 
 /* Enum declaration for instructions in cpu family aapbf.  */

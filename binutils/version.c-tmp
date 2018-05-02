@@ -1,0 +1,4 @@
+#include "version.h"
+const char version[] = "7.9.50.20150412-cvs";
+const char host_name[] = "version.c";
+const char target_name[] = "";

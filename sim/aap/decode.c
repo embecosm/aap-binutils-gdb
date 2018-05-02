@@ -169,7 +169,7 @@ aapbf_aap32_init_idesc_table (SIM_CPU *cpu)
 /* Given an instruction, return a pointer to its IDESC entry.  */
 
 const IDESC *
-aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
+aapbf_decode (SIM_CPU *current_cpu, IADDR pc,
               CGEN_INSN_WORD base_insn, CGEN_INSN_WORD entire_insn,
               ARGBUF *abuf)
 {
@@ -691,10 +691,10 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
 #define FLD(f) abuf->fields.sfmt_asri.f
     UINT f_dst_hi;
     UINT f_src_1_hi;
-    UINT f_uint_18_3_hi;
+    UINT f_uint_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
-    UINT f_uint_2_3_lo;
+    UINT f_uint_2_3;
     UINT f_carry;
     SI f_d_6;
     SI f_a_6;
@@ -702,10 +702,10 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
 
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
-    f_uint_18_3_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3);
+    f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
-    f_uint_2_3_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3);
+    f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3);
     f_carry = EXTRACT_LSB0_UINT (insn, 32, 0, 1);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
@@ -714,7 +714,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));
+  f_i_6 = ((((f_uint_18_3) << (3))) | (((f_uint_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -735,20 +735,20 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
 #define FLD(f) abuf->fields.sfmt_asri.f
     UINT f_dst_hi;
     UINT f_src_1_hi;
-    UINT f_uint_18_3_hi;
+    UINT f_uint_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
-    UINT f_uint_2_3_lo;
+    UINT f_uint_2_3;
     SI f_d_6;
     SI f_a_6;
     USI f_i_6;
 
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
-    f_uint_18_3_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3);
+    f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
-    f_uint_2_3_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3);
+    f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
@@ -756,7 +756,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));
+  f_i_6 = ((((f_uint_18_3) << (3))) | (((f_uint_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -790,18 +790,21 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     UINT f_uint_28_4;
     UINT f_dst_hi;
     UINT f_src_1_hi;
+    UINT f_uint_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
+    UINT f_uint_2_3;
     SI f_d_6;
     SI f_a_6;
-    USI f_i_6;
     USI f_i_10;
 
     f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
+    f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
+    f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
@@ -809,10 +812,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));
-}
-{
-  f_i_10 = ((((f_uint_28_4) << (4))) | (((f_i_6) << (0))));
+  f_i_10 = ((((((f_uint_28_4) << (6))) | (((f_uint_18_3) << (3))))) | (((f_uint_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -830,21 +830,24 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_ldb___d6_____a6____s10_13__.f
+    INT f_int_28_4;
     UINT f_dst_hi;
     UINT f_src_1_hi;
     INT f_int_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
+    INT f_int_2_3;
     SI f_d_6;
     SI f_a_6;
-    SI f_s_7_13;
     SI f_s_form_13;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
     f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
+    f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
@@ -852,10 +855,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));
-}
-{
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -873,21 +873,24 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_ldb___d6_____a6____s10_13__.f
+    INT f_int_28_4;
     UINT f_dst_hi;
     UINT f_src_1_hi;
     INT f_int_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
+    INT f_int_2_3;
     SI f_d_6;
     SI f_a_6;
-    SI f_s_7_13;
     SI f_s_form_13;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
     f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
+    f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
@@ -895,10 +898,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));
-}
-{
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -916,24 +916,24 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_ldb___d6_____a6____s10_13__.f
+    INT f_int_28_4;
     UINT f_src_1_hi;
     INT f_int_18_3;
     UINT f_src_1_lo;
+    INT f_int_2_3;
     SI f_a_6;
-    SI f_s_7_13;
     SI f_s_form_13;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
     f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
+    f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3);
 {
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));
-}
-{
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -950,21 +950,24 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_ldb___d6_____a6____s10_13__.f
+    INT f_int_28_4;
     UINT f_dst_hi;
     UINT f_src_1_hi;
     INT f_int_18_3;
     UINT f_dst_lo;
     UINT f_src_1_lo;
+    INT f_int_2_3;
     SI f_d_6;
     SI f_a_6;
-    SI f_s_7_13;
     SI f_s_form_13;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3);
     f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
     f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3);
+    f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
@@ -972,10 +975,7 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));
 }
 {
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));
-}
-{
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -993,24 +993,24 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_ldb___d6_____a6____s10_13__.f
+    INT f_int_28_4;
     UINT f_dst_hi;
     INT f_int_18_3;
     UINT f_dst_lo;
+    INT f_int_2_3;
     SI f_d_6;
-    SI f_s_7_13;
     SI f_s_form_13;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
     f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
+    f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
 {
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));
-}
-{
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -1061,22 +1061,22 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
 #define FLD(f) abuf->fields.sfmt_movi.f
     UINT f_uint_28_4;
     UINT f_dst_hi;
+    UINT f_uint_21_6;
     UINT f_dst_lo;
+    UINT f_uint_5_6;
     SI f_d_6;
-    USI f_i_12;
     USI f_i_16;
 
     f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4);
     f_dst_hi = EXTRACT_LSB0_UINT (insn, 32, 24, 3);
+    f_uint_21_6 = EXTRACT_LSB0_UINT (insn, 32, 21, 6);
     f_dst_lo = EXTRACT_LSB0_UINT (insn, 32, 8, 3);
+    f_uint_5_6 = EXTRACT_LSB0_UINT (insn, 32, 5, 6);
 {
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));
 }
 {
-  f_i_12 = ((((f_uint_21_6) << (6))) | (((f_uint_5_6) << (0))));
-}
-{
-  f_i_16 = ((((f_uint_28_4) << (4))) | (((f_i_12) << (0))));
+  f_i_16 = ((((((f_uint_28_4) << (12))) | (((f_uint_21_6) << (6))))) | (((f_uint_5_6) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */
@@ -1116,16 +1116,16 @@ aapbf_aap32_decode (SIM_CPU *current_cpu, IADDR pc,
     const IDESC *idesc = &aapbf_aap32_insn_data[itype];
     CGEN_INSN_WORD insn = entire_insn;
 #define FLD(f) abuf->fields.sfmt_bra.f
+    INT f_int_28_4;
     INT f_int_24_9;
-    SI f_s_13;
+    INT f_int_8_9;
     SI f_s_22;
 
+    f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4);
     f_int_24_9 = EXTRACT_LSB0_SINT (insn, 32, 24, 9);
+    f_int_8_9 = EXTRACT_LSB0_SINT (insn, 32, 8, 9);
 {
-  f_s_13 = ((((f_int_28_4_lo) << (9))) | (((f_int_8_9) << (0))));
-}
-{
-  f_s_22 = ((((f_int_24_9) << (13))) | (((f_s_13) << (0))));
+  f_s_22 = ((((((f_int_24_9) << (13))) | (((f_int_28_4) << (9))))) | (((f_int_8_9) << (0))));
 }
 
   /* Record the fields for the semantic handler.  */

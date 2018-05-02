@@ -39,7 +39,7 @@ sim_open (kind, callback, abfd, argv)
      SIM_OPEN_KIND kind;
      host_callback *callback;
      struct bfd *abfd;
-     char * const *argv;
+     char **argv;
 {
   SIM_DESC sd = sim_state_alloc (kind, callback);
   char c;
@@ -117,8 +117,8 @@ SIM_RC
 sim_create_inferior (sd, abfd, argv, envp)
      SIM_DESC sd;
      struct bfd *abfd;
-     char * const *argv;
-     char * const *envp;
+     char **argv;
+     char **envp;
 {
   SIM_CPU *current_cpu = STATE_CPU (sd, 0);
   SIM_ADDR addr;

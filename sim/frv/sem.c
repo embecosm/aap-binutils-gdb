@@ -2,7 +2,7 @@
 
 THIS FILE IS MACHINE GENERATED WITH CGEN.
 
-Copyright 1996-2010 Free Software Foundation, Inc.
+Copyright 1996-2017 Free Software Foundation, Inc.
 
 This file is part of the GNU simulators.
 
@@ -17,8 +17,7 @@ This file is part of the GNU simulators.
    License for more details.
 
    You should have received a copy of the GNU General Public License along
-   with this program; if not, write to the Free Software Foundation, Inc.,
-   51 Franklin Street - Fifth Floor, Boston, MA 02110-1301, USA.
+   with this program; if not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -37,8 +36,8 @@ This file is part of the GNU simulators.
    FAST_P, when desired, is defined on the command line, -DFAST_P=1.  */
 #if FAST_P
 #define SEM_FN_NAME(cpu,fn) XCONCAT3 (cpu,_semf_,fn)
-#undef TRACE_RESULT
-#define TRACE_RESULT(cpu, abuf, name, type, val)
+#undef CGEN_TRACE_RESULT
+#define CGEN_TRACE_RESULT(cpu, abuf, name, type, val)
 #else
 #define SEM_FN_NAME(cpu,fn) XCONCAT3 (cpu,_sem_,fn)
 #endif
@@ -211,7 +210,7 @@ SEM_FN_NAME (frvbf,add) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -232,7 +231,7 @@ SEM_FN_NAME (frvbf,sub) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SUBSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -253,7 +252,7 @@ SEM_FN_NAME (frvbf,and) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ANDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -274,7 +273,7 @@ SEM_FN_NAME (frvbf,or) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ORSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -295,7 +294,7 @@ SEM_FN_NAME (frvbf,xor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = XORSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -316,7 +315,7 @@ SEM_FN_NAME (frvbf,not) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = INVSI (GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -417,7 +416,7 @@ SEM_FN_NAME (frvbf,smul) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 
   return vpc;
@@ -438,7 +437,7 @@ SEM_FN_NAME (frvbf,umul) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = MULDI (ZEXTSIDI (GET_H_GR (FLD (f_GRi))), ZEXTSIDI (GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 
   return vpc;
@@ -459,7 +458,7 @@ SEM_FN_NAME (frvbf,smu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_iacc0_set, ((UINT) 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
   }
 
   return vpc;
@@ -480,7 +479,7 @@ SEM_FN_NAME (frvbf,smass) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = (ANDIF (ANDIF (GTDI (MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj)))), 0), GTDI (GET_H_IACC0 (((UINT) 0)), 0)), LTDI (SUBDI (MAKEDI (2147483647, 0xffffffff), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))), GET_H_IACC0 (((UINT) 0))))) ? (MAKEDI (2147483647, 0xffffffff)) : (ANDIF (ANDIF (LTDI (MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj)))), 0), LTDI (GET_H_IACC0 (((UINT) 0)), 0)), GTDI (SUBDI (MAKEDI (0x80000000, 0), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))), GET_H_IACC0 (((UINT) 0))))) ? (MAKEDI (0x80000000, 0)) : (ADDDI (GET_H_IACC0 (((UINT) 0)), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_iacc0_set, ((UINT) 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
   }
 
   return vpc;
@@ -501,7 +500,7 @@ SEM_FN_NAME (frvbf,smsss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = (ANDIF (ANDIF (LTDI (MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj)))), 0), GTDI (GET_H_IACC0 (((UINT) 0)), 0)), LTDI (ADDDI (MAKEDI (2147483647, 0xffffffff), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))), GET_H_IACC0 (((UINT) 0))))) ? (MAKEDI (2147483647, 0xffffffff)) : (ANDIF (ANDIF (GTDI (MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj)))), 0), LTDI (GET_H_IACC0 (((UINT) 0)), 0)), GTDI (ADDDI (MAKEDI (0x80000000, 0), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))), GET_H_IACC0 (((UINT) 0))))) ? (MAKEDI (0x80000000, 0)) : (SUBDI (GET_H_IACC0 (((UINT) 0)), MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_iacc0_set, ((UINT) 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iacc0", 'D', opval);
   }
 
   return vpc;
@@ -522,7 +521,7 @@ SEM_FN_NAME (frvbf,sll) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SLLSI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -543,7 +542,7 @@ SEM_FN_NAME (frvbf,srl) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SRLSI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -564,7 +563,7 @@ SEM_FN_NAME (frvbf,sra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SRASI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -585,7 +584,7 @@ SEM_FN_NAME (frvbf,slass) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_shift_left_arith_saturate (current_cpu, GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -606,7 +605,7 @@ SEM_FN_NAME (frvbf,scutss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_iacc_cut (current_cpu, GET_H_IACC0 (((UINT) 0)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -632,7 +631,7 @@ SEM_FN_NAME (frvbf,scan) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_scan_result (current_cpu, XORSI (tmp_tmp1, tmp_tmp2));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -656,7 +655,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -681,7 +680,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = SUBSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -706,7 +705,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = ANDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -731,7 +730,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = ORSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -756,7 +755,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = XORSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -781,7 +780,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = INVSI (GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -806,7 +805,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 
@@ -877,7 +876,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = SLLSI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -902,7 +901,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = SRLSI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -927,7 +926,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = SRASI (GET_H_GR (FLD (f_GRi)), ANDSI (GET_H_GR (FLD (f_GRj)), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -957,7 +956,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_scan_result (current_cpu, XORSI (tmp_tmp1, tmp_tmp2));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -1008,12 +1007,12 @@ if (LTSI (tmp_result, 0)) {
   {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1062,12 +1061,12 @@ if (LTSI (tmp_result, 0)) {
   {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1092,14 +1091,14 @@ SEM_FN_NAME (frvbf,andcc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1107,14 +1106,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1142,14 +1141,14 @@ SEM_FN_NAME (frvbf,orcc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1157,14 +1156,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1192,14 +1191,14 @@ SEM_FN_NAME (frvbf,xorcc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1207,14 +1206,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1246,7 +1245,7 @@ SEM_FN_NAME (frvbf,sllcc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1260,7 +1259,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1289,7 +1288,7 @@ SEM_FN_NAME (frvbf,srlcc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1303,7 +1302,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1332,7 +1331,7 @@ SEM_FN_NAME (frvbf,sracc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1346,7 +1345,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1383,12 +1382,12 @@ if (EQBI (EQDI (tmp_tmp, 0), 0)) {
   {
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1425,12 +1424,12 @@ if (EQBI (EQDI (tmp_tmp, 0), 0)) {
   {
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -1481,13 +1480,13 @@ if (LTSI (tmp_result, 0)) {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1540,13 +1539,13 @@ if (LTSI (tmp_result, 0)) {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1587,13 +1586,13 @@ if (EQBI (EQDI (tmp_tmp, 0), 0)) {
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1622,14 +1621,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1637,14 +1636,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1675,14 +1674,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1690,14 +1689,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1728,14 +1727,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -1743,14 +1742,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1785,7 +1784,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1800,7 +1799,7 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1833,7 +1832,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1848,7 +1847,7 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1881,7 +1880,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -1896,7 +1895,7 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[ANDSI (FLD (f_CCi), 3)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -1920,7 +1919,7 @@ SEM_FN_NAME (frvbf,addx) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ADDCSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)), TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -1941,7 +1940,7 @@ SEM_FN_NAME (frvbf,subx) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SUBCSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)), TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -1986,12 +1985,12 @@ if (LTSI (tmp_tmp, 0)) {
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2037,12 +2036,12 @@ if (LTSI (tmp_tmp, 0)) {
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2065,13 +2064,13 @@ SEM_FN_NAME (frvbf,addss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (ADDOFSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)), 0)) {
   {
     SI opval = (GTSI (GET_H_GR (FLD (f_GRi)), 0)) ? (2147483647) : (LTSI (GET_H_GR (FLD (f_GRi)), 0)) ? (0x80000000) : (0);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -2095,13 +2094,13 @@ SEM_FN_NAME (frvbf,subss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SUBSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (SUBOFSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj)), 0)) {
   {
     SI opval = (GTSI (GET_H_GR (FLD (f_GRi)), 0)) ? (2147483647) : (LTSI (GET_H_GR (FLD (f_GRi)), 0)) ? (0x80000000) : (0);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -2124,7 +2123,7 @@ SEM_FN_NAME (frvbf,addi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2145,7 +2144,7 @@ SEM_FN_NAME (frvbf,subi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SUBSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2166,7 +2165,7 @@ SEM_FN_NAME (frvbf,andi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ANDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2187,7 +2186,7 @@ SEM_FN_NAME (frvbf,ori) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ORSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2208,7 +2207,7 @@ SEM_FN_NAME (frvbf,xori) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = XORSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2309,7 +2308,7 @@ SEM_FN_NAME (frvbf,smuli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = MULDI (EXTSIDI (GET_H_GR (FLD (f_GRi))), EXTSIDI (FLD (f_d12)));
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 
   return vpc;
@@ -2330,7 +2329,7 @@ SEM_FN_NAME (frvbf,umuli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = MULDI (ZEXTSIDI (GET_H_GR (FLD (f_GRi))), ZEXTSIDI (FLD (f_d12)));
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 
   return vpc;
@@ -2351,7 +2350,7 @@ SEM_FN_NAME (frvbf,slli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SLLSI (GET_H_GR (FLD (f_GRi)), ANDSI (FLD (f_d12), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2372,7 +2371,7 @@ SEM_FN_NAME (frvbf,srli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SRLSI (GET_H_GR (FLD (f_GRi)), ANDSI (FLD (f_d12), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2393,7 +2392,7 @@ SEM_FN_NAME (frvbf,srai) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SRASI (GET_H_GR (FLD (f_GRi)), ANDSI (FLD (f_d12), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2419,7 +2418,7 @@ SEM_FN_NAME (frvbf,scani) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_scan_result (current_cpu, XORSI (tmp_tmp1, tmp_tmp2));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -2468,12 +2467,12 @@ if (LTSI (tmp_result, 0)) {
   {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2522,12 +2521,12 @@ if (LTSI (tmp_result, 0)) {
   {
     SI opval = tmp_result;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2552,14 +2551,14 @@ SEM_FN_NAME (frvbf,andicc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -2567,14 +2566,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -2602,14 +2601,14 @@ SEM_FN_NAME (frvbf,oricc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -2617,14 +2616,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -2652,14 +2651,14 @@ SEM_FN_NAME (frvbf,xoricc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 7), 4);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
 if (LTSI (tmp_tmp, 0)) {
@@ -2667,14 +2666,14 @@ if (LTSI (tmp_tmp, 0)) {
     UQI opval = ORQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 11), 8);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 } else {
   {
     UQI opval = ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 3);
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 }
@@ -2714,12 +2713,12 @@ if (EQBI (EQDI (tmp_tmp, 0), 0)) {
   {
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2756,12 +2755,12 @@ if (EQBI (EQDI (tmp_tmp, 0), 0)) {
   {
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2790,7 +2789,7 @@ SEM_FN_NAME (frvbf,sllicc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -2804,7 +2803,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2833,7 +2832,7 @@ SEM_FN_NAME (frvbf,srlicc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -2847,7 +2846,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2876,7 +2875,7 @@ SEM_FN_NAME (frvbf,sraicc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (EQSI (tmp_tmp, 0)) {
   tmp_cc = ORQI (ANDQI (tmp_cc, 7), 4);
@@ -2890,7 +2889,7 @@ if (LTSI (tmp_tmp, 0)) {
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -2912,7 +2911,7 @@ SEM_FN_NAME (frvbf,addxi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ADDCSI (GET_H_GR (FLD (f_GRi)), FLD (f_s10), TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2933,7 +2932,7 @@ SEM_FN_NAME (frvbf,subxi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = SUBCSI (GET_H_GR (FLD (f_GRi)), FLD (f_s10), TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_1)]), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -2978,12 +2977,12 @@ if (LTSI (tmp_tmp, 0)) {
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -3029,12 +3028,12 @@ if (LTSI (tmp_tmp, 0)) {
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -3078,7 +3077,7 @@ if (EQBI (EQSI (ANDSI (GET_H_GR (FLD (f_GRi)), 255), ANDSI (GET_H_GR (FLD (f_GRj
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -3108,7 +3107,7 @@ if (EQBI (ORIF (EQSI (ANDSI (GET_H_GR (FLD (f_GRi)), 0xff000000), ANDSI (GET_H_G
   {
     UQI opval = tmp_cc;
     sim_queue_qi_write (current_cpu, & CPU (h_iccr[FLD (f_ICCi_1)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "iccr", 'x', opval);
   }
 }
 
@@ -3130,7 +3129,7 @@ SEM_FN_NAME (frvbf,setlo) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = FLD (f_u16);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_gr_lo_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_lo", 'x', opval);
   }
 
   return vpc;
@@ -3151,7 +3150,7 @@ SEM_FN_NAME (frvbf,sethi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = FLD (f_u16);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_gr_hi_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_hi", 'x', opval);
   }
 
   return vpc;
@@ -3172,7 +3171,7 @@ SEM_FN_NAME (frvbf,setlos) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = FLD (f_s16);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3193,7 +3192,7 @@ SEM_FN_NAME (frvbf,ldsb) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3214,7 +3213,7 @@ SEM_FN_NAME (frvbf,ldub) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3235,7 +3234,7 @@ SEM_FN_NAME (frvbf,ldsh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3256,7 +3255,7 @@ SEM_FN_NAME (frvbf,lduh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3277,7 +3276,7 @@ SEM_FN_NAME (frvbf,ld) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -3298,7 +3297,7 @@ SEM_FN_NAME (frvbf,ldbf) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -3319,7 +3318,7 @@ SEM_FN_NAME (frvbf,ldhf) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -3340,7 +3339,7 @@ SEM_FN_NAME (frvbf,ldf) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -3361,7 +3360,7 @@ SEM_FN_NAME (frvbf,ldc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_si_write (current_cpu, & CPU (h_cpr[FLD (f_CPRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cpr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cpr", 'x', opval);
   }
 
   return vpc;
@@ -3387,7 +3386,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -3416,7 +3415,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -3445,7 +3444,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -3474,7 +3473,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -3503,7 +3502,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -3532,7 +3531,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -3561,7 +3560,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -3590,7 +3589,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -3620,7 +3619,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -3649,7 +3648,7 @@ SEM_FN_NAME (frvbf,lddf) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
 }
@@ -3676,7 +3675,7 @@ SEM_FN_NAME (frvbf,lddc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_cpr_double_set, FLD (f_CPRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "cpr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cpr_double", 'D', opval);
   }
 }
 }
@@ -3709,7 +3708,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -3745,7 +3744,7 @@ if (tmp_do_op) {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
 }
@@ -3901,7 +3900,7 @@ SEM_FN_NAME (frvbf,ldsbu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -3909,7 +3908,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -3938,7 +3937,7 @@ SEM_FN_NAME (frvbf,ldubu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -3946,7 +3945,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -3975,7 +3974,7 @@ SEM_FN_NAME (frvbf,ldshu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -3983,7 +3982,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4012,7 +4011,7 @@ SEM_FN_NAME (frvbf,lduhu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4020,7 +4019,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4049,7 +4048,7 @@ SEM_FN_NAME (frvbf,ldu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4057,7 +4056,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4091,7 +4090,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4099,7 +4098,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4135,7 +4134,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4143,7 +4142,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4179,7 +4178,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4187,7 +4186,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4223,7 +4222,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4231,7 +4230,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4267,7 +4266,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
 {
@@ -4275,7 +4274,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4306,12 +4305,12 @@ SEM_FN_NAME (frvbf,ldbfu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4337,12 +4336,12 @@ SEM_FN_NAME (frvbf,ldhfu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4368,12 +4367,12 @@ SEM_FN_NAME (frvbf,ldfu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4399,12 +4398,12 @@ SEM_FN_NAME (frvbf,ldcu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_si_write (current_cpu, & CPU (h_cpr[FLD (f_CPRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cpr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cpr", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4435,13 +4434,13 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4475,13 +4474,13 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4515,13 +4514,13 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4553,7 +4552,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -4563,7 +4562,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4599,7 +4598,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -4609,7 +4608,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4641,13 +4640,13 @@ SEM_FN_NAME (frvbf,lddfu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4674,13 +4673,13 @@ SEM_FN_NAME (frvbf,lddcu) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_cpr_double_set, FLD (f_CPRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "cpr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cpr_double", 'D', opval);
   }
 }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4712,14 +4711,14 @@ if (tmp_do_op) {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4754,7 +4753,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4793,7 +4792,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4827,7 +4826,7 @@ frvbf_load_quad_FRint (current_cpu, pc, tmp_address, FLD (f_FRk));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4856,7 +4855,7 @@ frvbf_load_quad_CPR (current_cpu, pc, tmp_address, FLD (f_CPRk));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4890,7 +4889,7 @@ frvbf_load_quad_FRint (current_cpu, pc, tmp_address, FLD (f_FRk));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_force_update (current_cpu);
 }
@@ -4916,7 +4915,7 @@ SEM_FN_NAME (frvbf,ldsbi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -4937,7 +4936,7 @@ SEM_FN_NAME (frvbf,ldshi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -4958,7 +4957,7 @@ SEM_FN_NAME (frvbf,ldi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -4979,7 +4978,7 @@ SEM_FN_NAME (frvbf,ldubi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -5000,7 +4999,7 @@ SEM_FN_NAME (frvbf,lduhi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -5021,7 +5020,7 @@ SEM_FN_NAME (frvbf,ldbfi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -5042,7 +5041,7 @@ SEM_FN_NAME (frvbf,ldhfi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -5063,7 +5062,7 @@ SEM_FN_NAME (frvbf,ldfi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -5089,7 +5088,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -5118,7 +5117,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -5147,7 +5146,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -5176,7 +5175,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -5205,7 +5204,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -5234,7 +5233,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -5263,7 +5262,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -5292,7 +5291,7 @@ if (tmp_do_op) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -5322,7 +5321,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -5351,7 +5350,7 @@ SEM_FN_NAME (frvbf,lddfi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
 }
@@ -5384,7 +5383,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -5420,7 +5419,7 @@ if (tmp_do_op) {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
 }
@@ -5782,7 +5781,7 @@ frvbf_write_mem_QI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5808,7 +5807,7 @@ frvbf_write_mem_HI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5834,7 +5833,7 @@ frvbf_write_mem_WI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5860,7 +5859,7 @@ frvbf_write_mem_QI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5886,7 +5885,7 @@ frvbf_write_mem_HI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5912,7 +5911,7 @@ frvbf_write_mem_SI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5938,7 +5937,7 @@ frvbf_write_mem_SI (current_cpu, pc, tmp_address, CPU (h_cpr[FLD (f_CPRk)]));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5966,7 +5965,7 @@ frvbf_write_mem_DI (current_cpu, pc, tmp_address, GET_H_GR_DOUBLE (FLD (f_GRk)))
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -5994,7 +5993,7 @@ frvbf_write_mem_DF (current_cpu, pc, tmp_address, GET_H_FR_DOUBLE (FLD (f_FRk)))
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6022,7 +6021,7 @@ frvbf_write_mem_DI (current_cpu, pc, tmp_address, GET_H_CPR_DOUBLE (FLD (f_CPRk)
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6050,7 +6049,7 @@ frvbf_store_quad_GR (current_cpu, pc, tmp_address, FLD (f_GRk));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6078,7 +6077,7 @@ frvbf_store_quad_FRint (current_cpu, pc, tmp_address, FLD (f_FRk));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6106,7 +6105,7 @@ frvbf_store_quad_CPR (current_cpu, pc, tmp_address, FLD (f_CPRk));
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6130,7 +6129,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6155,7 +6154,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6180,7 +6179,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6205,7 +6204,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6230,7 +6229,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -6255,7 +6254,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -6280,7 +6279,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -6305,7 +6304,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -6335,7 +6334,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -6367,7 +6366,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
 }
@@ -6422,14 +6421,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_QI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6459,14 +6458,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6496,14 +6495,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_HI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6533,14 +6532,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6570,14 +6569,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 if (NESI (FLD (f_GRi), FLD (f_GRk))) {
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6607,13 +6606,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UQI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6642,13 +6641,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_UHI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6677,13 +6676,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frvbf_read_mem_SI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6714,7 +6713,7 @@ if (NESI (FLD (f_GRk), 0)) {
     DI opval = frvbf_read_mem_DI (current_cpu, pc, tmp_address);
     sim_queue_fn_di_write (current_cpu, frvbf_h_gr_double_set, FLD (f_GRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr_double", 'D', opval);
   }
 }
 }
@@ -6723,7 +6722,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6754,14 +6753,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DF opval = frvbf_read_mem_DF (current_cpu, pc, tmp_address);
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 }
   {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -6794,7 +6793,7 @@ if (NESI (FLD (f_GRi), FLD (f_GRk))) {
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7014,7 +7013,7 @@ frvbf_write_mem_QI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7044,7 +7043,7 @@ frvbf_write_mem_HI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7074,7 +7073,7 @@ frvbf_write_mem_SI (current_cpu, pc, tmp_address, GET_H_GR (FLD (f_GRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7104,7 +7103,7 @@ frvbf_write_mem_QI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7134,7 +7133,7 @@ frvbf_write_mem_HI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7164,7 +7163,7 @@ frvbf_write_mem_SI (current_cpu, pc, tmp_address, GET_H_FR_INT (FLD (f_FRk)));
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7196,7 +7195,7 @@ frvbf_write_mem_DI (current_cpu, pc, tmp_address, GET_H_GR_DOUBLE (FLD (f_GRk)))
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7228,7 +7227,7 @@ frvbf_write_mem_DF (current_cpu, pc, tmp_address, GET_H_FR_DOUBLE (FLD (f_FRk)))
     SI opval = tmp_address;
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7452,7 +7451,7 @@ frvbf_check_swap_address (current_cpu, tmp_address);
   {
     SI opval = frvbf_read_mem_WI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_write_mem_WI (current_cpu, pc, tmp_address, tmp_tmp);
 }
@@ -7481,7 +7480,7 @@ frvbf_check_swap_address (current_cpu, tmp_address);
   {
     SI opval = frvbf_read_mem_WI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_write_mem_WI (current_cpu, pc, tmp_address, tmp_tmp);
 }
@@ -7512,7 +7511,7 @@ frvbf_check_swap_address (current_cpu, tmp_address);
     SI opval = frvbf_read_mem_WI (current_cpu, pc, tmp_address);
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 frvbf_write_mem_WI (current_cpu, pc, tmp_address, tmp_tmp);
 }
@@ -7537,7 +7536,7 @@ SEM_FN_NAME (frvbf,movgf) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -7558,7 +7557,7 @@ SEM_FN_NAME (frvbf,movfg) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = GET_H_FR_INT (FLD (f_FRk));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -7582,13 +7581,13 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 } else {
@@ -7597,13 +7596,13 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = GET_H_GR (ADDSI (FLD (f_GRj), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -7630,13 +7629,13 @@ if (NESI (FLD (f_GRj), 0)) {
     SI opval = GET_H_FR_INT (FLD (f_FRk));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     USI opval = GET_H_FR_INT (ADDSI (FLD (f_FRk), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, ADDSI (FLD (f_GRj), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7663,25 +7662,25 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 } else {
@@ -7690,25 +7689,25 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = GET_H_GR (ADDSI (FLD (f_GRj), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = GET_H_GR (ADDSI (FLD (f_GRj), 2));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = GET_H_GR (ADDSI (FLD (f_GRj), 3));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -7735,25 +7734,25 @@ if (NESI (FLD (f_GRj), 0)) {
     SI opval = GET_H_FR_INT (FLD (f_FRk));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     USI opval = GET_H_FR_INT (ADDSI (FLD (f_FRk), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, ADDSI (FLD (f_GRj), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     USI opval = GET_H_FR_INT (ADDSI (FLD (f_FRk), 2));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, ADDSI (FLD (f_GRj), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     USI opval = GET_H_FR_INT (ADDSI (FLD (f_FRk), 3));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, ADDSI (FLD (f_GRj), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7779,7 +7778,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -7804,7 +7803,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = GET_H_FR_INT (FLD (f_FRk));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 
@@ -7831,13 +7830,13 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = 0;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 } else {
@@ -7846,13 +7845,13 @@ if (EQSI (FLD (f_GRj), 0)) {
     SI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = GET_H_GR (ADDSI (FLD (f_GRj), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -7880,13 +7879,13 @@ if (ANDIF (NESI (FLD (f_GRj), 0), EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_
     SI opval = GET_H_FR_INT (FLD (f_FRk));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
   {
     USI opval = GET_H_FR_INT (ADDSI (FLD (f_FRk), 1));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, ADDSI (FLD (f_GRj), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 }
 }
@@ -7910,7 +7909,7 @@ SEM_FN_NAME (frvbf,movgs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     USI opval = GET_H_GR (FLD (f_GRj));
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, FLD (f_spr), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 
   return vpc;
@@ -7931,7 +7930,7 @@ SEM_FN_NAME (frvbf,movsg) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = GET_H_SPR (FLD (f_spr));
     sim_queue_fn_si_write (current_cpu, frvbf_h_gr_set, FLD (f_GRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "gr", 'x', opval);
   }
 
   return vpc;
@@ -7954,7 +7953,7 @@ frvbf_model_branch (current_cpu, FLD (i_label16), FLD (f_hint));
   {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 
@@ -7997,7 +7996,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8025,7 +8024,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8053,7 +8052,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)), XORBI 
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8081,7 +8080,7 @@ if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)),
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8109,7 +8108,7 @@ if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNC
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8137,7 +8136,7 @@ if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3))
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8165,7 +8164,7 @@ if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI (SRLQI 
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8193,7 +8192,7 @@ if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI 
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8221,7 +8220,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8249,7 +8248,7 @@ if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8277,7 +8276,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8305,7 +8304,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8333,7 +8332,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8361,7 +8360,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1)))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8387,7 +8386,7 @@ frvbf_model_branch (current_cpu, FLD (i_label16), FLD (f_hint));
   {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 
@@ -8430,7 +8429,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), ORIF (
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8458,7 +8457,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8486,7 +8485,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8514,7 +8513,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8542,7 +8541,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8570,7 +8569,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8598,7 +8597,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8626,7 +8625,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8654,7 +8653,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8682,7 +8681,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8710,7 +8709,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8738,7 +8737,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8766,7 +8765,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))) {
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8794,7 +8793,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = FLD (i_label16);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8823,7 +8822,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (EQSI (FLD (f_ccond), 0)) {
 if (NESI (tmp_tmp, 0)) {
@@ -8831,7 +8830,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -8840,7 +8839,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8868,7 +8867,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 
@@ -8911,7 +8910,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8939,7 +8938,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8967,7 +8966,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)), XORBI 
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -8995,7 +8994,7 @@ if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)),
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9023,7 +9022,7 @@ if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNC
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9051,7 +9050,7 @@ if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3))
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9079,7 +9078,7 @@ if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI (SRLQI 
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9107,7 +9106,7 @@ if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI 
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9135,7 +9134,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9163,7 +9162,7 @@ if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9191,7 +9190,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9219,7 +9218,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9247,7 +9246,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9275,7 +9274,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1)))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9301,7 +9300,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 
@@ -9344,7 +9343,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9372,7 +9371,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), ORIF (
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9400,7 +9399,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9428,7 +9427,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9456,7 +9455,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9484,7 +9483,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9512,7 +9511,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9540,7 +9539,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9568,7 +9567,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9596,7 +9595,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQ
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9624,7 +9623,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9652,7 +9651,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9680,7 +9679,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9708,7 +9707,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9737,7 +9736,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (EQSI (FLD (f_ccond), 0)) {
 if (NESI (tmp_tmp, 0)) {
@@ -9745,7 +9744,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -9754,7 +9753,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9785,7 +9784,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 ((void) 0); /*nop*/
 }
@@ -9814,7 +9813,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -9823,7 +9822,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -9832,7 +9831,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9864,7 +9863,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -9873,7 +9872,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -9882,7 +9881,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9914,7 +9913,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)), XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -9923,7 +9922,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -9932,7 +9931,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -9964,7 +9963,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)), XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1)))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -9973,7 +9972,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -9982,7 +9981,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10014,7 +10013,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10023,7 +10022,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10032,7 +10031,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10064,7 +10063,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10073,7 +10072,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10082,7 +10081,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10114,7 +10113,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10123,7 +10122,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10132,7 +10131,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10164,7 +10163,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 4), 2))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10173,7 +10172,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10182,7 +10181,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10214,7 +10213,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10223,7 +10222,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10232,7 +10231,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10264,7 +10263,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10273,7 +10272,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10282,7 +10281,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10314,7 +10313,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10323,7 +10322,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10332,7 +10331,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10364,7 +10363,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 8), 3)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10373,7 +10372,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10382,7 +10381,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10414,7 +10413,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10423,7 +10422,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10432,7 +10431,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10464,7 +10463,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_2)]), 2), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10473,7 +10472,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10482,7 +10481,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10514,7 +10513,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (EQSI (FLD (f_ccond), 0)) {
 if (NESI (tmp_tmp, 0)) {
@@ -10522,7 +10521,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10531,7 +10530,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10562,7 +10561,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 ((void) 0); /*nop*/
 }
@@ -10591,7 +10590,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10600,7 +10599,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10609,7 +10608,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10641,7 +10640,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10650,7 +10649,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10659,7 +10658,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10691,7 +10690,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10700,7 +10699,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10709,7 +10708,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10741,7 +10740,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10750,7 +10749,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10759,7 +10758,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10791,7 +10790,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10800,7 +10799,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10809,7 +10808,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10841,7 +10840,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10850,7 +10849,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10859,7 +10858,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10891,7 +10890,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10900,7 +10899,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10909,7 +10908,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10941,7 +10940,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -10950,7 +10949,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -10959,7 +10958,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -10991,7 +10990,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11000,7 +10999,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11009,7 +11008,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11041,7 +11040,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11050,7 +11049,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11059,7 +11058,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11091,7 +11090,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11100,7 +11099,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11109,7 +11108,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11141,7 +11140,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11150,7 +11149,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11159,7 +11158,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11191,7 +11190,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 1))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11200,7 +11199,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11209,7 +11208,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11241,7 +11240,7 @@ frvbf_model_branch (current_cpu, GET_H_SPR (((UINT) 272)), FLD (f_hint));
   {
     USI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_spr_set, ((UINT) 273), opval);
-    TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "spr", 'x', opval);
   }
 if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 8), 3)), ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 4), 2)), TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_2)]), 2), 1))))) {
 if (EQSI (FLD (f_ccond), 0)) {
@@ -11250,7 +11249,7 @@ if (NESI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 } else {
@@ -11259,7 +11258,7 @@ if (EQSI (tmp_tmp, 0)) {
     USI opval = GET_H_SPR (((UINT) 272));
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 }
 }
@@ -11290,7 +11289,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
   {
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -11317,7 +11316,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
   {
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -11344,7 +11343,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
   {
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -11371,7 +11370,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
   {
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), FLD (f_d12)), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -11396,7 +11395,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
   {
     USI opval = FLD (i_label24);
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -11420,7 +11419,7 @@ SEM_FN_NAME (frvbf,rett) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     USI opval = frv_rett (current_cpu, pc, FLD (f_debug));
     sim_queue_pc_write (current_cpu, opval);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -13602,7 +13601,7 @@ SEM_FN_NAME (frvbf,andcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 0, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13623,7 +13622,7 @@ SEM_FN_NAME (frvbf,orcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 1, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13644,7 +13643,7 @@ SEM_FN_NAME (frvbf,xorcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 2, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13665,7 +13664,7 @@ SEM_FN_NAME (frvbf,nandcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 3, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13686,7 +13685,7 @@ SEM_FN_NAME (frvbf,norcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 4, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13707,7 +13706,7 @@ SEM_FN_NAME (frvbf,andncr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 5, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13728,7 +13727,7 @@ SEM_FN_NAME (frvbf,orncr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 6, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13749,7 +13748,7 @@ SEM_FN_NAME (frvbf,nandncr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 7, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13770,7 +13769,7 @@ SEM_FN_NAME (frvbf,norncr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = frvbf_cr_logic (current_cpu, 8, CPU (h_cccr[FLD (f_CRi)]), CPU (h_cccr[FLD (f_CRj)]));
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13791,7 +13790,7 @@ SEM_FN_NAME (frvbf,notcr) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = XORQI (CPU (h_cccr[FLD (f_CRj)]), 1);
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRk)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13812,7 +13811,7 @@ SEM_FN_NAME (frvbf,ckra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13833,7 +13832,7 @@ SEM_FN_NAME (frvbf,ckno) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -13856,14 +13855,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -13888,14 +13887,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -13920,14 +13919,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)), XORBI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -13952,14 +13951,14 @@ if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)),
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -13984,14 +13983,14 @@ if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)), TRUNC
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14016,14 +14015,14 @@ if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14048,14 +14047,14 @@ if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI (SRLQI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14080,14 +14079,14 @@ if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14112,14 +14111,14 @@ if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14144,14 +14143,14 @@ if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14176,14 +14175,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14208,14 +14207,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14240,14 +14239,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14272,14 +14271,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14302,7 +14301,7 @@ SEM_FN_NAME (frvbf,fckra) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -14323,7 +14322,7 @@ SEM_FN_NAME (frvbf,fckno) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 
   return vpc;
@@ -14346,14 +14345,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14378,14 +14377,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14410,14 +14409,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14442,14 +14441,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14474,14 +14473,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14506,14 +14505,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14538,14 +14537,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14570,14 +14569,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14602,14 +14601,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14634,14 +14633,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14666,14 +14665,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14698,14 +14697,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14730,14 +14729,14 @@ if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14762,14 +14761,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 1);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14794,14 +14793,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14826,14 +14825,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14859,14 +14858,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -14874,7 +14873,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14900,14 +14899,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -14915,7 +14914,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14941,14 +14940,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)), XORBI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -14956,7 +14955,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)), XORBI 
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -14982,14 +14981,14 @@ if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)),
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -14997,7 +14996,7 @@ if (NOTBI (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 4), 2)),
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15023,14 +15022,14 @@ if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)), TRUNC
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15038,7 +15037,7 @@ if (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)), TRUNC
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15064,14 +15063,14 @@ if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15079,7 +15078,7 @@ if (NOTBI (XORBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15105,14 +15104,14 @@ if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI (SRLQI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15120,7 +15119,7 @@ if (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI (SRLQI 
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15146,14 +15145,14 @@ if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI 
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15161,7 +15160,7 @@ if (NOTBI (ORIF (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)), TRUNCQIBI 
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15187,14 +15186,14 @@ if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15202,7 +15201,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15228,14 +15227,14 @@ if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15243,7 +15242,7 @@ if (NOTBI (TRUNCQIBI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 1)))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15269,14 +15268,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15284,7 +15283,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15310,14 +15309,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15325,7 +15324,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 8), 3)))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15351,14 +15350,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15366,7 +15365,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15392,14 +15391,14 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1)))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15407,7 +15406,7 @@ if (NOTBI (TRUNCQIBI (SRLQI (ANDQI (CPU (h_iccr[FLD (f_ICCi_3)]), 2), 1)))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_int)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15432,14 +15431,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15464,14 +15463,14 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15497,14 +15496,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15512,7 +15511,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), ORIF (
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15538,14 +15537,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15553,7 +15552,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15579,14 +15578,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15594,7 +15593,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15620,14 +15619,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15635,7 +15634,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15661,14 +15660,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15676,7 +15675,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15702,14 +15701,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15717,7 +15716,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15743,14 +15742,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15758,7 +15757,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 4), 2))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15784,14 +15783,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15799,7 +15798,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15825,14 +15824,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15840,7 +15839,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15866,14 +15865,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15881,7 +15880,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), TRUNCQ
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15907,14 +15906,14 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15922,7 +15921,7 @@ if (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 2), 1))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15948,14 +15947,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -15963,7 +15962,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -15989,14 +15988,14 @@ if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 1))) {
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -16004,7 +16003,7 @@ if (TRUNCQIBI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 1))) {
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -16030,14 +16029,14 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 3;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 } else {
@@ -16045,7 +16044,7 @@ if (ORIF (TRUNCQIBI (SRLQI (ANDQI (CPU (h_fccr[FLD (f_FCCi_3)]), 8), 3)), ORIF (
     UQI opval = 0;
     sim_queue_qi_write (current_cpu, & CPU (h_cccr[FLD (f_CRj_float)]), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "cccr", 'x', opval);
   }
 }
 
@@ -16074,7 +16073,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -16105,7 +16104,7 @@ frvbf_set_write_next_vliw_addr_to_LR (current_cpu, 1);
     USI opval = ANDSI (ADDSI (GET_H_GR (FLD (f_GRi)), GET_H_GR (FLD (f_GRj))), 0xfffffffc);
     sim_queue_pc_write (current_cpu, opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "pc", 'x', opval);
   }
 frvbf_model_branch (current_cpu, pc, 2);
 }
@@ -16641,7 +16640,7 @@ SEM_FN_NAME (frvbf,fitos) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -16662,7 +16661,7 @@ SEM_FN_NAME (frvbf,fstoi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -16683,7 +16682,7 @@ SEM_FN_NAME (frvbf,fitod) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsidf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -16704,7 +16703,7 @@ SEM_FN_NAME (frvbf,fdtoi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixdfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -16726,12 +16725,12 @@ SEM_FN_NAME (frvbf,fditos) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -16754,12 +16753,12 @@ SEM_FN_NAME (frvbf,fdstoi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -16783,13 +16782,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -16813,13 +16812,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     USI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -16843,7 +16842,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -16868,7 +16867,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -16893,7 +16892,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->floatsisf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -16917,7 +16916,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SI opval = CGEN_CPU_FPU (current_cpu)->ops->fixsfsi (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -16939,7 +16938,7 @@ SEM_FN_NAME (frvbf,fmovs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = GET_H_FR (FLD (f_FRj));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -16960,7 +16959,7 @@ SEM_FN_NAME (frvbf,fmovd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = GET_H_FR_DOUBLE (FLD (f_FRj));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -16982,12 +16981,12 @@ SEM_FN_NAME (frvbf,fdmovs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = GET_H_FR (FLD (f_FRj));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = GET_H_FR (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17011,7 +17010,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = GET_H_FR (FLD (f_FRj));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17034,7 +17033,7 @@ SEM_FN_NAME (frvbf,fnegs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->negsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17055,7 +17054,7 @@ SEM_FN_NAME (frvbf,fnegd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->negdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17077,12 +17076,12 @@ SEM_FN_NAME (frvbf,fdnegs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->negsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->negsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17106,7 +17105,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->negsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17129,7 +17128,7 @@ SEM_FN_NAME (frvbf,fabss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->abssf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17150,7 +17149,7 @@ SEM_FN_NAME (frvbf,fabsd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->absdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17172,12 +17171,12 @@ SEM_FN_NAME (frvbf,fdabss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->abssf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->abssf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17201,7 +17200,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->abssf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17224,7 +17223,7 @@ SEM_FN_NAME (frvbf,fsqrts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17246,12 +17245,12 @@ SEM_FN_NAME (frvbf,fdsqrts) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17275,13 +17274,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17303,7 +17302,7 @@ SEM_FN_NAME (frvbf,fsqrtd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17326,7 +17325,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17351,7 +17350,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->sqrtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17373,7 +17372,7 @@ SEM_FN_NAME (frvbf,fadds) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17394,7 +17393,7 @@ SEM_FN_NAME (frvbf,fsubs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17415,7 +17414,7 @@ SEM_FN_NAME (frvbf,fmuls) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17436,7 +17435,7 @@ SEM_FN_NAME (frvbf,fdivs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17457,7 +17456,7 @@ SEM_FN_NAME (frvbf,faddd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->adddf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17478,7 +17477,7 @@ SEM_FN_NAME (frvbf,fsubd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->subdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17499,7 +17498,7 @@ SEM_FN_NAME (frvbf,fmuld) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->muldf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17520,7 +17519,7 @@ SEM_FN_NAME (frvbf,fdivd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->divdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -17543,7 +17542,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17568,7 +17567,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17593,7 +17592,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17618,7 +17617,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17643,7 +17642,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17667,7 +17666,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17691,7 +17690,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17715,7 +17714,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -17739,7 +17738,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17747,7 +17746,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17755,14 +17754,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -17789,7 +17788,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)))) {
@@ -17797,7 +17796,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj)))) {
@@ -17805,14 +17804,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltdf (CGEN_CPU_FPU (current_cpu), GET_H_FR_
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 2);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -17840,7 +17839,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17848,7 +17847,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17856,14 +17855,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -17892,7 +17891,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17900,7 +17899,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -17908,14 +17907,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -17925,7 +17924,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)))) {
@@ -17933,7 +17932,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)))) {
@@ -17941,14 +17940,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -17974,7 +17973,7 @@ SEM_FN_NAME (frvbf,fmadds) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -17995,7 +17994,7 @@ SEM_FN_NAME (frvbf,fmsubs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 
   return vpc;
@@ -18016,7 +18015,7 @@ SEM_FN_NAME (frvbf,fmaddd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->adddf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->muldf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj))), GET_H_FR_DOUBLE (FLD (f_FRk)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -18037,7 +18036,7 @@ SEM_FN_NAME (frvbf,fmsubd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DF opval = CGEN_CPU_FPU (current_cpu)->ops->subdf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->muldf (CGEN_CPU_FPU (current_cpu), GET_H_FR_DOUBLE (FLD (f_FRi)), GET_H_FR_DOUBLE (FLD (f_FRj))), GET_H_FR_DOUBLE (FLD (f_FRk)));
     sim_queue_fn_df_write (current_cpu, frvbf_h_fr_double_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_double", 'f', opval);
   }
 
   return vpc;
@@ -18059,12 +18058,12 @@ SEM_FN_NAME (frvbf,fdmadds) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1))), GET_H_FR (ADDSI (FLD (f_FRk), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18088,13 +18087,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1))), GET_H_FR (ADDSI (FLD (f_FRk), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18118,7 +18117,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18143,7 +18142,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18168,7 +18167,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18192,7 +18191,7 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj))), GET_H_FR (FLD (f_FRk)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18215,12 +18214,12 @@ SEM_FN_NAME (frvbf,fmas) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18243,12 +18242,12 @@ SEM_FN_NAME (frvbf,fmss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18271,22 +18270,22 @@ SEM_FN_NAME (frvbf,fdmas) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 2)), GET_H_FR (ADDSI (FLD (f_FRj), 2)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 2), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 3)), GET_H_FR (ADDSI (FLD (f_FRj), 3)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 3), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18309,22 +18308,22 @@ SEM_FN_NAME (frvbf,fdmss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 2)), GET_H_FR (ADDSI (FLD (f_FRj), 2)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 2), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 3)), GET_H_FR (ADDSI (FLD (f_FRj), 3)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 3), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18351,22 +18350,22 @@ frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 3));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 2)), GET_H_FR (ADDSI (FLD (f_FRj), 2)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 2), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 3)), GET_H_FR (ADDSI (FLD (f_FRj), 3)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 3), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18393,22 +18392,22 @@ frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 3));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 2)), GET_H_FR (ADDSI (FLD (f_FRj), 2)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 2), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 3)), GET_H_FR (ADDSI (FLD (f_FRj), 3)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 3), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18433,13 +18432,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 }
@@ -18466,13 +18465,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 }
@@ -18497,12 +18496,12 @@ SEM_FN_NAME (frvbf,fmad) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->ftruncdfsf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, CGEN_CPU_FPU (current_cpu)->ops->muldf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRi))), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)))));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->ftruncdfsf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, CGEN_CPU_FPU (current_cpu)->ops->adddf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRi), 1))), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRj), 1)))));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18525,12 +18524,12 @@ SEM_FN_NAME (frvbf,fmsd) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->ftruncdfsf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, CGEN_CPU_FPU (current_cpu)->ops->muldf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRi))), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (FLD (f_FRj)))));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->ftruncdfsf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, CGEN_CPU_FPU (current_cpu)->ops->subdf (CGEN_CPU_FPU (current_cpu), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRi), 1))), CGEN_CPU_FPU (current_cpu)->ops->fextsfdf (CGEN_CPU_FPU (current_cpu), FPCONV_DEFAULT, GET_H_FR (ADDSI (FLD (f_FRj), 1)))));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18554,13 +18553,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18584,13 +18583,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18613,12 +18612,12 @@ SEM_FN_NAME (frvbf,fdadds) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18641,12 +18640,12 @@ SEM_FN_NAME (frvbf,fdsubs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18669,12 +18668,12 @@ SEM_FN_NAME (frvbf,fdmuls) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18697,12 +18696,12 @@ SEM_FN_NAME (frvbf,fddivs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18725,12 +18724,12 @@ SEM_FN_NAME (frvbf,fdsads) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18753,12 +18752,12 @@ SEM_FN_NAME (frvbf,fdmulcs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18782,13 +18781,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18812,13 +18811,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18842,13 +18841,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18872,13 +18871,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->mulsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18902,13 +18901,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->divsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18932,13 +18931,13 @@ frvbf_set_ne_index (current_cpu, FLD (f_FRk));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->addsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 frvbf_set_ne_index (current_cpu, ADDSI (FLD (f_FRk), 1));
   {
     SF opval = CGEN_CPU_FPU (current_cpu)->ops->subsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)));
     sim_queue_fn_sf_write (current_cpu, frvbf_h_fr_set, ADDSI (FLD (f_FRk), 1), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr", 'f', opval);
   }
 }
 
@@ -18964,7 +18963,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -18972,7 +18971,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (FLD (f_FRi)), GET_H_FR (FLD (f_FRj)))) {
@@ -18980,14 +18979,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCi_2)]), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -18998,7 +18997,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->gtsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)))) {
@@ -19006,7 +19005,7 @@ if (CGEN_CPU_FPU (current_cpu)->ops->eqsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR (ADDSI (FLD (f_FRi), 1)), GET_H_FR (ADDSI (FLD (f_FRj), 1)))) {
@@ -19014,14 +19013,14 @@ if (CGEN_CPU_FPU (current_cpu)->ops->ltsf (CGEN_CPU_FPU (current_cpu), GET_H_FR 
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCi_2), 1)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -19047,7 +19046,7 @@ SEM_FN_NAME (frvbf,mhsetlos) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = FLD (f_u12);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 
   return vpc;
@@ -19068,7 +19067,7 @@ SEM_FN_NAME (frvbf,mhsethis) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = FLD (f_u12);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 
   return vpc;
@@ -19090,17 +19089,17 @@ SEM_FN_NAME (frvbf,mhdsets) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = FLD (f_u12);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = FLD (f_u12);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -19127,7 +19126,7 @@ SEM_FN_NAME (frvbf,mhsetloh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -19154,7 +19153,7 @@ SEM_FN_NAME (frvbf,mhsethih) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 
@@ -19177,7 +19176,7 @@ SEM_FN_NAME (frvbf,mhdseth) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   HI tmp_tmp;
@@ -19187,7 +19186,7 @@ SEM_FN_NAME (frvbf,mhdseth) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 {
@@ -19198,7 +19197,7 @@ SEM_FN_NAME (frvbf,mhdseth) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -19221,7 +19220,7 @@ SEM_FN_NAME (frvbf,mand) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ANDSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19242,7 +19241,7 @@ SEM_FN_NAME (frvbf,mor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ORSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19263,7 +19262,7 @@ SEM_FN_NAME (frvbf,mxor) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = XORSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19286,7 +19285,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = ANDSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -19311,7 +19310,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = ORSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -19336,7 +19335,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = XORSI (GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -19359,7 +19358,7 @@ SEM_FN_NAME (frvbf,mnot) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = INVSI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19382,7 +19381,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = INVSI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 3);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -19405,7 +19404,7 @@ SEM_FN_NAME (frvbf,mrotli) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = ROLSI (GET_H_FR_INT (FLD (f_FRi)), ANDSI (FLD (f_u6), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19426,7 +19425,7 @@ SEM_FN_NAME (frvbf,mrotri) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = RORSI (GET_H_FR_INT (FLD (f_FRi)), ANDSI (FLD (f_u6), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19447,7 +19446,7 @@ SEM_FN_NAME (frvbf,mwcut) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_cut (current_cpu, GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (ADDSI (FLD (f_FRi), 1)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19468,7 +19467,7 @@ SEM_FN_NAME (frvbf,mwcuti) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_cut (current_cpu, GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (ADDSI (FLD (f_FRi), 1)), FLD (f_u6));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19489,7 +19488,7 @@ SEM_FN_NAME (frvbf,mcut) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_media_cut (current_cpu, GET_H_ACC40S (FLD (f_ACC40Si)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19510,7 +19509,7 @@ SEM_FN_NAME (frvbf,mcuti) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_media_cut (current_cpu, GET_H_ACC40S (FLD (f_ACC40Si)), FLD (f_s6));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19531,7 +19530,7 @@ SEM_FN_NAME (frvbf,mcutss) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_media_cut_ss (current_cpu, GET_H_ACC40S (FLD (f_ACC40Si)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19552,7 +19551,7 @@ SEM_FN_NAME (frvbf,mcutssi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_media_cut_ss (current_cpu, GET_H_ACC40S (FLD (f_ACC40Si)), FLD (f_s6));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19581,13 +19580,13 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frvbf_media_cut_ss (current_cpu, GET_H_ACC40S (FLD (f_ACC40Si)), FLD (f_s6));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = frvbf_media_cut_ss (current_cpu, GET_H_ACC40S (ADDSI (FLD (f_ACC40Si), 1)), FLD (f_s6));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -19612,7 +19611,7 @@ SEM_FN_NAME (frvbf,maveh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frvbf_media_average (current_cpu, GET_H_FR_INT (FLD (f_FRi)), GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -19634,22 +19633,22 @@ SEM_FN_NAME (frvbf,msllhi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -19672,22 +19671,22 @@ SEM_FN_NAME (frvbf,msrlhi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = SRLHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SRLHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -19710,22 +19709,22 @@ SEM_FN_NAME (frvbf,msrahi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -19752,13 +19751,13 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = ROLSI (GET_H_FR_INT (FLD (f_FRi)), ANDSI (FLD (f_s6), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     USI opval = ROLSI (GET_H_FR_INT (ADDSI (FLD (f_FRi), 1)), ANDSI (FLD (f_s6), 31));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 }
@@ -19786,12 +19785,12 @@ SEM_FN_NAME (frvbf,mcplhi) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   tmp_shift = ANDSI (FLD (f_u6), 15);
   tmp_arg1 = SLLHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), tmp_shift);
@@ -19805,7 +19804,7 @@ if (NEHI (tmp_shift, 0)) {
   {
     UHI opval = tmp_arg1;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 
@@ -19839,7 +19838,7 @@ if (NESI (tmp_shift, 0)) {
   {
     SI opval = tmp_tmp;
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 }
 
@@ -19874,7 +19873,7 @@ if (GTHI (tmp_argihi, tmp_argjhi)) {
     UHI opval = tmp_argjhi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
@@ -19882,14 +19881,14 @@ if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
     UHI opval = INVHI (tmp_argjhi);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argihi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -19898,7 +19897,7 @@ if (GTHI (tmp_argilo, tmp_argjlo)) {
     UHI opval = tmp_argjlo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
@@ -19906,14 +19905,14 @@ if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
     UHI opval = INVHI (tmp_argjlo);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argilo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -19947,7 +19946,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -19960,7 +19959,7 @@ if (GTHI (tmp_argihi, tmp_argjhi)) {
     UHI opval = tmp_argjhi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
@@ -19968,14 +19967,14 @@ if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
     UHI opval = INVHI (tmp_argjhi);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argihi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -19984,7 +19983,7 @@ if (GTHI (tmp_argilo, tmp_argjlo)) {
     UHI opval = tmp_argjlo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
@@ -19992,14 +19991,14 @@ if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
     UHI opval = INVHI (tmp_argjlo);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argilo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20014,7 +20013,7 @@ if (GTHI (tmp_argihi, tmp_argjhi)) {
     UHI opval = tmp_argjhi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
@@ -20022,14 +20021,14 @@ if (LTHI (tmp_argihi, INVHI (tmp_argjhi))) {
     UHI opval = INVHI (tmp_argjhi);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argihi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20038,7 +20037,7 @@ if (GTHI (tmp_argilo, tmp_argjlo)) {
     UHI opval = tmp_argjlo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
@@ -20046,14 +20045,14 @@ if (LTHI (tmp_argilo, INVHI (tmp_argjlo))) {
     UHI opval = INVHI (tmp_argjlo);
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argilo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20092,14 +20091,14 @@ if (GTUHI (tmp_argihi, tmp_argjhi)) {
     UHI opval = tmp_argjhi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argihi;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 if (GTUHI (tmp_argilo, tmp_argjlo)) {
@@ -20107,14 +20106,14 @@ if (GTUHI (tmp_argilo, tmp_argjlo)) {
     UHI opval = tmp_argjlo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 } else {
   {
     UHI opval = tmp_argilo;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20154,7 +20153,7 @@ if (GTHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (EQHI (tmp_argihi, tmp_argjhi)) {
@@ -20162,7 +20161,7 @@ if (EQHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argihi, tmp_argjhi)) {
@@ -20170,14 +20169,14 @@ if (LTHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -20187,7 +20186,7 @@ if (GTHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (EQHI (tmp_argilo, tmp_argjlo)) {
@@ -20195,7 +20194,7 @@ if (EQHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (LTHI (tmp_argilo, tmp_argjlo)) {
@@ -20203,14 +20202,14 @@ if (LTHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -20253,7 +20252,7 @@ if (GTUHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (EQHI (tmp_argihi, tmp_argjhi)) {
@@ -20261,7 +20260,7 @@ if (EQHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (LTUHI (tmp_argihi, tmp_argjhi)) {
@@ -20269,14 +20268,14 @@ if (LTUHI (tmp_argihi, tmp_argjhi)) {
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[FLD (f_FCCk)]), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -20286,7 +20285,7 @@ if (GTUHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 2;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (EQHI (tmp_argilo, tmp_argjlo)) {
@@ -20294,7 +20293,7 @@ if (EQHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 8;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
 if (LTUHI (tmp_argilo, tmp_argjlo)) {
@@ -20302,14 +20301,14 @@ if (LTUHI (tmp_argilo, tmp_argjlo)) {
     UQI opval = 4;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 } else {
   {
     UQI opval = 1;
     sim_queue_qi_write (current_cpu, & CPU (h_fccr[ADDSI (FLD (f_FCCk), 1)]), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fccr", 'x', opval);
   }
 }
 }
@@ -20339,12 +20338,12 @@ SEM_FN_NAME (frvbf,mabshs) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   tmp_arghi = GET_H_FR_HI (ADDSI (FLD (f_FRj), 0));
   tmp_arglo = GET_H_FR_LO (ADDSI (FLD (f_FRj), 0));
@@ -20354,7 +20353,7 @@ if (GTDI (ABSDI (EXTHIDI (tmp_arghi)), 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20365,7 +20364,7 @@ if (LTDI (ABSDI (EXTHIDI (tmp_arghi)), -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20374,7 +20373,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = ABSDI (EXTHIDI (tmp_arghi));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20384,7 +20383,7 @@ if (GTDI (ABSDI (EXTHIDI (tmp_arglo)), 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20395,7 +20394,7 @@ if (LTDI (ABSDI (EXTHIDI (tmp_arglo)), -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20404,7 +20403,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = ABSDI (EXTHIDI (tmp_arglo));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20446,7 +20445,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20457,7 +20456,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20466,7 +20465,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20480,7 +20479,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20491,7 +20490,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20500,7 +20499,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20543,7 +20542,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20554,7 +20553,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20563,7 +20562,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20577,7 +20576,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20588,7 +20587,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20597,7 +20596,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20640,7 +20639,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20651,7 +20650,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20660,7 +20659,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20674,7 +20673,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20685,7 +20684,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20694,7 +20693,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20737,7 +20736,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20748,7 +20747,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20757,7 +20756,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20771,7 +20770,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20782,7 +20781,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20791,7 +20790,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20835,7 +20834,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20846,7 +20845,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20855,7 +20854,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20869,7 +20868,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20880,7 +20879,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20889,7 +20888,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -20934,7 +20933,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20945,7 +20944,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -20954,7 +20953,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -20968,7 +20967,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20979,7 +20978,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -20988,7 +20987,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21033,7 +21032,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21044,7 +21043,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21053,7 +21052,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21067,7 +21066,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21078,7 +21077,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21087,7 +21086,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21132,7 +21131,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21143,7 +21142,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21152,7 +21151,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21166,7 +21165,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21177,7 +21176,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21186,7 +21185,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21222,7 +21221,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -21239,7 +21238,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21250,7 +21249,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21259,7 +21258,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21273,7 +21272,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21284,7 +21283,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21293,7 +21292,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21313,7 +21312,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21324,7 +21323,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21333,7 +21332,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21347,7 +21346,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21358,7 +21357,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21367,7 +21366,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21403,7 +21402,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -21420,7 +21419,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21431,7 +21430,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21440,7 +21439,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21454,7 +21453,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21465,7 +21464,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21474,7 +21473,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21494,7 +21493,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21505,7 +21504,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21514,7 +21513,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21528,7 +21527,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21539,7 +21538,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21548,7 +21547,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21584,7 +21583,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -21601,7 +21600,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21612,7 +21611,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21621,7 +21620,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21635,7 +21634,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21646,7 +21645,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21655,7 +21654,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21675,7 +21674,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21686,7 +21685,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21695,7 +21694,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21709,7 +21708,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21720,7 +21719,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21729,7 +21728,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21765,7 +21764,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -21782,7 +21781,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21793,7 +21792,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21802,7 +21801,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21816,7 +21815,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21827,7 +21826,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -21836,7 +21835,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21856,7 +21855,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21867,7 +21866,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -21876,7 +21875,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21890,7 +21889,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21901,7 +21900,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -21910,7 +21909,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -21947,7 +21946,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -21964,7 +21963,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21975,7 +21974,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -21984,7 +21983,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -21998,7 +21997,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22009,7 +22008,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22018,7 +22017,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22038,7 +22037,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22049,7 +22048,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22058,7 +22057,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22072,7 +22071,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22083,7 +22082,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22092,7 +22091,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22130,7 +22129,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -22147,7 +22146,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22158,7 +22157,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22167,7 +22166,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22181,7 +22180,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22192,7 +22191,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22201,7 +22200,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22221,7 +22220,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22232,7 +22231,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22241,7 +22240,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22255,7 +22254,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22266,7 +22265,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22275,7 +22274,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22313,7 +22312,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -22330,7 +22329,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22341,7 +22340,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22350,7 +22349,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22364,7 +22363,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22375,7 +22374,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22384,7 +22383,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22404,7 +22403,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22415,7 +22414,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22424,7 +22423,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22438,7 +22437,7 @@ if (GTDI (tmp_tmp, 32767)) {
     UHI opval = 32767;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22449,7 +22448,7 @@ if (LTDI (tmp_tmp, -32768)) {
     UHI opval = -32768;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22458,7 +22457,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22496,7 +22495,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -22513,7 +22512,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22524,7 +22523,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22533,7 +22532,7 @@ frvbf_media_overflow (current_cpu, 8);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22547,7 +22546,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22558,7 +22557,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -22567,7 +22566,7 @@ frvbf_media_overflow (current_cpu, 4);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22587,7 +22586,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22598,7 +22597,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -22607,7 +22606,7 @@ frvbf_media_overflow (current_cpu, 2);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
 }
 }
@@ -22621,7 +22620,7 @@ if (GTDI (tmp_tmp, 65535)) {
     UHI opval = 65535;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22632,7 +22631,7 @@ if (LTDI (tmp_tmp, 0)) {
     UHI opval = 0;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -22641,7 +22640,7 @@ frvbf_media_overflow (current_cpu, 1);
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22682,7 +22681,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_a1 = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -22700,25 +22699,25 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = (LEUHI (ABSHI (tmp_a1), ABSHI (tmp_b1))) ? (0) : (LEHI (0, tmp_b1)) ? (tmp_a1) : (EQHI (tmp_a1, -32768)) ? (32767) : (NEGHI (tmp_a1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = (LEUHI (ABSHI (tmp_a2), ABSHI (tmp_b2))) ? (0) : (LEHI (0, tmp_b2)) ? (tmp_a2) : (EQHI (tmp_a2, -32768)) ? (32767) : (NEGHI (tmp_a2));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = (LEUHI (ABSHI (tmp_a3), ABSHI (tmp_b3))) ? (0) : (LEHI (0, tmp_b3)) ? (tmp_a3) : (EQHI (tmp_a3, -32768)) ? (32767) : (NEGHI (tmp_a3));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = (LEUHI (ABSHI (tmp_a4), ABSHI (tmp_b4))) ? (0) : (LEHI (0, tmp_b4)) ? (tmp_a4) : (EQHI (tmp_a4, -32768)) ? (32767) : (NEGHI (tmp_a4));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22755,7 +22754,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   tmp_a1 = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -22773,25 +22772,25 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = (ANDIF (GTHI (tmp_b1, -32768), GEHI (tmp_a1, ABSHI (tmp_b1)))) ? (tmp_b1) : (GTHI (tmp_a1, NEGHI (ABSHI (tmp_b1)))) ? (tmp_a1) : (EQHI (tmp_b1, -32768)) ? (32767) : (NEGHI (tmp_b1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = (ANDIF (GTHI (tmp_b2, -32768), GEHI (tmp_a2, ABSHI (tmp_b2)))) ? (tmp_b2) : (GTHI (tmp_a2, NEGHI (ABSHI (tmp_b2)))) ? (tmp_a2) : (EQHI (tmp_b2, -32768)) ? (32767) : (NEGHI (tmp_b2));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = (ANDIF (GTHI (tmp_b3, -32768), GEHI (tmp_a3, ABSHI (tmp_b3)))) ? (tmp_b3) : (GTHI (tmp_a3, NEGHI (ABSHI (tmp_b3)))) ? (tmp_a3) : (EQHI (tmp_b3, -32768)) ? (32767) : (NEGHI (tmp_b3));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = (ANDIF (GTHI (tmp_b4, -32768), GEHI (tmp_a4, ABSHI (tmp_b4)))) ? (tmp_b4) : (GTHI (tmp_a4, NEGHI (ABSHI (tmp_b4)))) ? (tmp_a4) : (EQHI (tmp_b4, -32768)) ? (32767) : (NEGHI (tmp_b4));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22820,37 +22819,37 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SLLHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 1)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22879,37 +22878,37 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 0)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = SRAHI (GET_H_FR_LO (ADDSI (FLD (f_FRi), 1)), ANDSI (FLD (f_u6), 15));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -22944,7 +22943,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22955,7 +22954,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -22964,7 +22963,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23003,7 +23002,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23014,7 +23013,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23023,7 +23022,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23066,7 +23065,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23077,7 +23076,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23086,7 +23085,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23100,7 +23099,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23111,7 +23110,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23120,7 +23119,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23165,7 +23164,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23176,7 +23175,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23185,7 +23184,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23199,7 +23198,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23210,7 +23209,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23219,7 +23218,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23264,7 +23263,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23275,7 +23274,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23284,7 +23283,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 4);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23298,7 +23297,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23309,7 +23308,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23318,7 +23317,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 5);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23363,7 +23362,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23374,7 +23373,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -23383,7 +23382,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23397,7 +23396,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23408,7 +23407,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -23417,7 +23416,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23431,7 +23430,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -23442,7 +23441,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -23451,7 +23450,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23465,7 +23464,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -23476,7 +23475,7 @@ if (LTDI (tmp_tmp, INVDI (MAKEDI (127, 0xffffffff)))) {
     DI opval = INVDI (MAKEDI (127, 0xffffffff));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -23485,7 +23484,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23531,13 +23530,13 @@ frvbf_media_acc_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23578,13 +23577,13 @@ frvbf_media_acc_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23625,13 +23624,13 @@ frvbf_media_acc_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23672,13 +23671,13 @@ frvbf_media_acc_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23720,13 +23719,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23769,13 +23768,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23820,13 +23819,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -23838,13 +23837,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23889,13 +23888,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -23907,13 +23906,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -23958,13 +23957,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -23976,13 +23975,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24027,13 +24026,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -24045,13 +24044,13 @@ frvbf_media_register_not_aligned (current_cpu);
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24097,13 +24096,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -24115,13 +24114,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (EXTHIDI (tmp_argihi), EXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (EXTHIDI (tmp_argilo), EXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24168,13 +24167,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 {
   tmp_argihi = ADDHI (GET_H_FR_HI (ADDSI (FLD (f_FRi), 1)), MULSI (GET_H_FR_INT (FLD (f_FRi)), 0));
@@ -24186,13 +24185,13 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     DI opval = MULDI (ZEXTHIDI (tmp_argihi), ZEXTHIDI (tmp_argjhi));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
   {
     DI opval = MULDI (ZEXTHIDI (tmp_argilo), ZEXTHIDI (tmp_argjlo));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24240,7 +24239,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24251,7 +24250,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24260,7 +24259,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24274,7 +24273,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24285,7 +24284,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24294,7 +24293,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24343,7 +24342,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24354,7 +24353,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24363,7 +24362,7 @@ frvbf_media_overflow (current_cpu, 8);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24377,7 +24376,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24388,7 +24387,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24397,7 +24396,7 @@ frvbf_media_overflow (current_cpu, 4);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24446,7 +24445,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24457,7 +24456,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24466,7 +24465,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24480,7 +24479,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24491,7 +24490,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24500,7 +24499,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24549,7 +24548,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24560,7 +24559,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24569,7 +24568,7 @@ frvbf_media_overflow (current_cpu, 8);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24583,7 +24582,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24594,7 +24593,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24603,7 +24602,7 @@ frvbf_media_overflow (current_cpu, 4);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24653,7 +24652,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24664,7 +24663,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24673,7 +24672,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24687,7 +24686,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24698,7 +24697,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24707,7 +24706,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24758,7 +24757,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24769,7 +24768,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24778,7 +24777,7 @@ frvbf_media_overflow (current_cpu, 8);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24792,7 +24791,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24803,7 +24802,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24812,7 +24811,7 @@ frvbf_media_overflow (current_cpu, 4);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -24865,7 +24864,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24876,7 +24875,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -24885,7 +24884,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24899,7 +24898,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24910,7 +24909,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -24919,7 +24918,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24939,7 +24938,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -24950,7 +24949,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -24959,7 +24958,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -24973,7 +24972,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -24984,7 +24983,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -24993,7 +24992,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25046,7 +25045,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25057,7 +25056,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25066,7 +25065,7 @@ frvbf_media_overflow (current_cpu, 8);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25080,7 +25079,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25091,7 +25090,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25100,7 +25099,7 @@ frvbf_media_overflow (current_cpu, 4);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25120,7 +25119,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25131,7 +25130,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25140,7 +25139,7 @@ frvbf_media_overflow (current_cpu, 2);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25154,7 +25153,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25165,7 +25164,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25174,7 +25173,7 @@ frvbf_media_overflow (current_cpu, 1);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25228,7 +25227,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25239,7 +25238,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25248,7 +25247,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25262,7 +25261,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25273,7 +25272,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25282,7 +25281,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25302,7 +25301,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25313,7 +25312,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25322,7 +25321,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25336,7 +25335,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25347,7 +25346,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25356,7 +25355,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25411,7 +25410,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25422,7 +25421,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25431,7 +25430,7 @@ frvbf_media_overflow (current_cpu, 8);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, FLD (f_ACC40Uk), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25445,7 +25444,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25456,7 +25455,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25465,7 +25464,7 @@ frvbf_media_overflow (current_cpu, 4);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 1), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25485,7 +25484,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25496,7 +25495,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25505,7 +25504,7 @@ frvbf_media_overflow (current_cpu, 2);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 2), opval);
     written |= (1 << 21);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25519,7 +25518,7 @@ if (GTDI (tmp_tmp, MAKEDI (255, 0xffffffff))) {
     UDI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25530,7 +25529,7 @@ if (LTDI (tmp_tmp, MAKEDI (0, 0))) {
     UDI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25539,7 +25538,7 @@ frvbf_media_overflow (current_cpu, 1);
     UDI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40U_set, ADDSI (FLD (f_ACC40Uk), 3), opval);
     written |= (1 << 22);
-    TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40U", 'D', opval);
   }
 }
 }
@@ -25593,7 +25592,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25604,7 +25603,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25613,7 +25612,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25627,7 +25626,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25638,7 +25637,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25647,7 +25646,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25667,7 +25666,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25678,7 +25677,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25687,7 +25686,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25701,7 +25700,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25712,7 +25711,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25721,7 +25720,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25774,7 +25773,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25785,7 +25784,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -25794,7 +25793,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25808,7 +25807,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25819,7 +25818,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -25828,7 +25827,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25848,7 +25847,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25859,7 +25858,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25868,7 +25867,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25882,7 +25881,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25893,7 +25892,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -25902,7 +25901,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25955,7 +25954,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25966,7 +25965,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -25975,7 +25974,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -25989,7 +25988,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26000,7 +25999,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26009,7 +26008,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26029,7 +26028,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -26040,7 +26039,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 2);
 }
@@ -26049,7 +26048,7 @@ frvbf_media_overflow (current_cpu, 2);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 2), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26063,7 +26062,7 @@ if (GTDI (tmp_tmp, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -26074,7 +26073,7 @@ if (LTDI (tmp_tmp, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 1);
 }
@@ -26083,7 +26082,7 @@ frvbf_media_overflow (current_cpu, 1);
     DI opval = tmp_tmp;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 3), opval);
     written |= (1 << 20);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26133,7 +26132,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26144,7 +26143,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26153,7 +26152,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26201,7 +26200,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26212,7 +26211,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26221,7 +26220,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26269,7 +26268,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26280,7 +26279,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26289,7 +26288,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26337,7 +26336,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26348,7 +26347,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26357,7 +26356,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26406,7 +26405,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26417,7 +26416,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26426,7 +26425,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26476,7 +26475,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26487,7 +26486,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26496,7 +26495,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26546,7 +26545,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26557,7 +26556,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26566,7 +26565,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26616,7 +26615,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26627,7 +26626,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26636,7 +26635,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26691,7 +26690,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26702,7 +26701,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26711,7 +26710,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26734,7 +26733,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26745,7 +26744,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26754,7 +26753,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26810,7 +26809,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26821,7 +26820,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26830,7 +26829,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26853,7 +26852,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26864,7 +26863,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26873,7 +26872,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26929,7 +26928,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26940,7 +26939,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -26949,7 +26948,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -26972,7 +26971,7 @@ if (GTDI (tmp_tmp1, MAKEDI (127, 0xffffffff))) {
     DI opval = MAKEDI (127, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26983,7 +26982,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0xffffff80, 0))) {
     DI opval = MAKEDI (0xffffff80, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -26992,7 +26991,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -27048,7 +27047,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -27059,7 +27058,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 8);
 }
@@ -27068,7 +27067,7 @@ frvbf_media_overflow (current_cpu, 8);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -27091,7 +27090,7 @@ if (GTDI (tmp_tmp1, MAKEDI (255, 0xffffffff))) {
     DI opval = MAKEDI (255, 0xffffffff);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -27102,7 +27101,7 @@ if (LTDI (tmp_tmp1, MAKEDI (0, 0))) {
     DI opval = MAKEDI (0, 0);
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 frvbf_media_overflow (current_cpu, 4);
 }
@@ -27111,7 +27110,7 @@ frvbf_media_overflow (current_cpu, 4);
     DI opval = tmp_tmp1;
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, ADDSI (FLD (f_ACC40Sk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 }
 }
@@ -27147,12 +27146,12 @@ if (ANDSI (FLD (f_u6), 1)) {
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -27183,13 +27182,13 @@ if (ANDSI (FLD (f_u6), 1)) {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27219,7 +27218,7 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_u6), 1)) {
   tmp_tmp = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
@@ -27230,25 +27229,25 @@ if (ANDSI (FLD (f_u6), 1)) {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27279,7 +27278,7 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_u6), 1)) {
   tmp_tmp = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
@@ -27290,25 +27289,25 @@ if (ANDSI (FLD (f_u6), 1)) {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = tmp_tmp;
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27334,12 +27333,12 @@ SEM_FN_NAME (frvbf,mpackh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 
@@ -27366,32 +27365,32 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 {
@@ -27399,13 +27398,13 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27435,38 +27434,38 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
     written |= (1 << 6);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 7);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), ADDSI (0, 1)), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), ADDSI (0, 1)), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27496,38 +27495,38 @@ frvbf_media_register_not_aligned (current_cpu);
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRi), opval);
     written |= (1 << 8);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
     written |= (1 << 9);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 {
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), ADDSI (0, 1)), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), ADDSI (0, 1)), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 {
@@ -27535,25 +27534,25 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRi), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), ADDSI (2, 1)), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRi), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), ADDSI (2, 1)), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27579,12 +27578,12 @@ SEM_FN_NAME (frvbf,mbtoh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRk), SUBSI (2, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27594,25 +27593,25 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27638,12 +27637,12 @@ SEM_FN_NAME (frvbf,cmbtoh) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRk), SUBSI (2, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27654,25 +27653,25 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27699,12 +27698,12 @@ SEM_FN_NAME (frvbf,mhtob) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRj), SUBSI (2, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27714,25 +27713,25 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_3_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_3", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_3", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_2_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_2", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_2", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_1_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_1", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_1", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_0_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_0", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_0", 'x', opval);
   }
 }
 }
@@ -27758,12 +27757,12 @@ SEM_FN_NAME (frvbf,cmhtob) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRj), SUBSI (2, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27774,25 +27773,25 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_3_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_3", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_3", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_2_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_2", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_2", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_HI (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_1_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_1", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_1", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_LO (ADDSI (FLD (f_FRj), 1));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_0_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_0", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_0", 'x', opval);
   }
 }
 }
@@ -27819,12 +27818,12 @@ SEM_FN_NAME (frvbf,mbtohe) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRk), SUBSI (4, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27834,49 +27833,49 @@ frvbf_media_register_not_aligned (current_cpu);
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 10);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 11);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -27902,12 +27901,12 @@ SEM_FN_NAME (frvbf,cmbtohe) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRj)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRj), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
   {
     SI opval = frv_ref_SI (GET_H_FR_INT (FLD (f_FRk)));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 if (ANDSI (FLD (f_FRk), SUBSI (4, 1))) {
 frvbf_media_register_not_aligned (current_cpu);
@@ -27918,49 +27917,49 @@ if (EQQI (CPU (h_cccr[FLD (f_CCi)]), ORSI (FLD (f_cond), 2))) {
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 12);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_3 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 0), opval);
     written |= (1 << 16);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 13);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_2 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 1), opval);
     written |= (1 << 17);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 14);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_1 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 2), opval);
     written |= (1 << 18);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_hi_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 15);
-    TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_hi", 'x', opval);
   }
   {
     UHI opval = GET_H_FR_0 (ADDSI (FLD (f_FRj), 0));
     sim_queue_fn_hi_write (current_cpu, frvbf_h_fr_lo_set, ADDSI (FLD (f_FRk), 3), opval);
     written |= (1 << 19);
-    TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_lo", 'x', opval);
   }
 }
 }
@@ -28037,7 +28036,7 @@ SEM_FN_NAME (frvbf,mrdacc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = GET_H_ACC40S (FLD (f_ACC40Si));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -28058,7 +28057,7 @@ SEM_FN_NAME (frvbf,mrdaccg) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     SI opval = GET_H_ACCG (FLD (f_ACCGi));
     sim_queue_fn_si_write (current_cpu, frvbf_h_fr_int_set, FLD (f_FRk), opval);
-    TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "fr_int", 'x', opval);
   }
 
   return vpc;
@@ -28079,7 +28078,7 @@ SEM_FN_NAME (frvbf,mwtacc) (SIM_CPU *current_cpu, SEM_ARG sem_arg)
   {
     DI opval = ORDI (ANDDI (GET_H_ACC40S (FLD (f_ACC40Sk)), MAKEDI (0xffffffff, 0)), GET_H_FR_INT (FLD (f_FRi)));
     sim_queue_fn_di_write (current_cpu, frvbf_h_acc40S_set, FLD (f_ACC40Sk), opval);
-    TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "acc40S", 'D', opval);
   }
 
   return vpc;
@@ -28102,7 +28101,7 @@ frv_ref_SI (GET_H_ACCG (FLD (f_ACCGk)));
   {
     USI opval = GET_H_FR_INT (FLD (f_FRi));
     sim_queue_fn_si_write (current_cpu, frvbf_h_accg_set, FLD (f_ACCGk), opval);
-    TRACE_RESULT (current_cpu, abuf, "accg", 'x', opval);
+    CGEN_TRACE_RESULT (current_cpu, abuf, "accg", 'x', opval);
   }
 }
 

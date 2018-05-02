@@ -45,14 +45,14 @@ This file is part of the GNU simulators.
 #define TIMING_DATA(td) 0
 #endif
 
-static const MODEL aap_a32_models[] =
+static const SIM_MODEL aap_a32_models[] =
 {
   { 0 }
 };
 
 /* The properties of this cpu's implementation.  */
 
-static const MACH_IMP_PROPERTIES aapbf_imp_properties =
+static const SIM_MACH_IMP_PROPERTIES aapbf_imp_properties =
 {
   sizeof (SIM_CPU),
 #if WITH_SCACHE
@@ -86,15 +86,15 @@ aap_a32_init_cpu (SIM_CPU *cpu)
   CPU_GET_IDATA (cpu) = aapbf_get_idata;
   CPU_MAX_INSNS (cpu) = AAPBF_AAP32_INSN__MAX;
   CPU_INSN_NAME (cpu) = cgen_insn_name;
-  CPU_FULL_ENGINE_FN (cpu) = aapbf_aap32_engine_run_full;
+  CPU_FULL_ENGINE_FN (cpu) = aapbf_engine_run_full;
 #if WITH_FAST
   CPU_FAST_ENGINE_FN (cpu) = aapbf_aap32_engine_run_fast;
 #else
-  CPU_FAST_ENGINE_FN (cpu) = aapbf_aap32_engine_run_full;
+  CPU_FAST_ENGINE_FN (cpu) = aapbf_engine_run_full;
 #endif
 }
 
-const MACH aap_a32_mach =
+const SIM_MACH aap_a32_mach =
 {
   "aap:a32", "aap", MACH_AAP_A32,
   32, 32, & aap_a32_models[0], & aapbf_imp_properties,

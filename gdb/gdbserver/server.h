@@ -1,5 +1,5 @@
 /* Common definitions for remote server for GDB.
-   Copyright (C) 1993-2015 Free Software Foundation, Inc.
+   Copyright (C) 1993-2017 Free Software Foundation, Inc.
 
    This file is part of GDB.
 
@@ -62,6 +62,7 @@ int vsnprintf(char *str, size_t size, const char *format, va_list ap);
 #include "mem-break.h"
 #include "gdbthread.h"
 #include "inferiors.h"
+#include "environ.h"
 
 /* Target-specific functions */
 
@@ -82,8 +83,14 @@ extern int disable_packet_Tthread;
 extern int disable_packet_qC;
 extern int disable_packet_qfThreadInfo;
 
+extern char *own_buf;
+
 extern int run_once;
 extern int multi_process;
+extern int report_fork_events;
+extern int report_vfork_events;
+extern int report_exec_events;
+extern int report_thread_events;
 extern int non_stop;
 
 /* True if the "swbreak+" feature is active.  In that case, GDB wants
@@ -109,13 +116,23 @@ typedef int gdb_fildes_t;
 #include "event-loop.h"
 
 /* Functions from server.c.  */
+extern void handle_v_requests (char *own_buf, int packet_len,
+			       int *new_packet_len);
 extern int handle_serial_event (int err, gdb_client_data client_data);
 extern int handle_target_event (int err, gdb_client_data client_data);
+
+/* Get rid of the currently pending stop replies that match PTID.  */
+extern void discard_queued_stop_replies (ptid_t ptid);
+
+/* Returns true if there's a pending stop reply that matches PTID in
+   the vStopped notifications queue.  */
+extern int in_queued_stop_replies (ptid_t ptid);
 
 #include "remote-utils.h"
 
 #include "utils.h"
 #include "debug.h"
+#include "gdb_vecs.h"
 
 /* Maximum number of bytes to read/write at once.  The value here
    is chosen to fill up a packet (the headers account for the 32).  */
@@ -125,5 +142,24 @@ extern int handle_target_event (int err, gdb_client_data client_data);
    value to accomodate multiple register formats.  This value must be at least
    as large as the largest register set supported by gdbserver.  */
 #define PBUFSIZ 16384
+
+/* Definition for an unknown syscall, used basically in error-cases.  */
+#define UNKNOWN_SYSCALL (-1)
+
+/* Definition for any syscall, used for unfiltered syscall reporting.  */
+#define ANY_SYSCALL (-2)
+
+/* After fork_inferior has been called, we need to adjust a few
+   signals and call startup_inferior to start the inferior and consume
+   its first events.  This is done here.  PID is the pid of the new
+   inferior and PROGRAM is its name.  */
+extern void post_fork_inferior (int pid, const char *program);
+
+/* Get the gdb_environ being used in the current session.  */
+extern gdb_environ *get_environ ();
+
+extern target_waitstatus last_status;
+extern ptid_t last_ptid;
+extern unsigned long signal_pid;
 
 #endif /* SERVER_H */

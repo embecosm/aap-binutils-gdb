@@ -31,9 +31,9 @@ int
 aapbf_fetch_register (SIM_CPU * current_cpu, int rn, unsigned char *buf,
                           int len)
 {
-  if (SIM_AAP_ZERO_REGNUM <= rn && rn <= SIM_AAP_T6_REGNUM)
+  if (SIM_AAP_GPR0_REGNUM <= rn && rn <= SIM_AAP_GPR63_REGNUM)
     {
-      int gprn = rn - SIM_AAP_ZERO_REGNUM;
+      int gprn = rn - SIM_AAP_GPR0_REGNUM;
       SETTDI (buf, GET_H_GPR (gprn));
     }
   else if (rn == SIM_AAP_PC_REGNUM)
@@ -54,9 +54,9 @@ int
 aapbf_store_register (SIM_CPU * current_cpu, int rn, unsigned char *buf,
                           int len)
 {
-  if (SIM_AAP_ZERO_REGNUM <= rn && rn <= SIM_AAP_T6_REGNUM)
+  if (SIM_AAP_GPR0_REGNUM <= rn && rn <= SIM_AAP_GPR63_REGNUM)
     {
-      int gprn = rn - SIM_AAP_ZERO_REGNUM;
+      int gprn = rn - SIM_AAP_GPR0_REGNUM;
       SET_H_GPR (gprn, GETTDI (buf));
     }
   else if (rn == SIM_AAP_PC_REGNUM)
@@ -84,7 +84,7 @@ aapbf_h_gpr_set_handler (SIM_CPU * current_cpu, UINT gpr, DI newval)
   CPU (h_gpr[gpr]) = newval;
 }
 
-UDI
+/*UDI
 aapbf_h_csr_get_handler (SIM_CPU * current_cpu, UINT csr)
 {
   return CPU (h_csr[csr]);
@@ -94,7 +94,7 @@ void
 aapbf_h_csr_set_handler (SIM_CPU * current_cpu, UINT csr, UDI newval)
 {
   CPU (h_csr[csr]) = newval;
-}
+  }*/
 
 int
 aapbf_model_aap_u_exec (SIM_CPU *cpu, const IDESC *idesc,

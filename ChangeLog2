@@ -1,19 +1,7 @@
-2017-09-26  T-J-Teru
-	* aap.cpu: Created basic file.
-	* aap.opc: Created basic file.
-	* tc-aap.c: Created basic file.
-	* tc-aap.h: Created basic file.
-	* configure.ac: Added aap with cgen.
-	* configure.tgt: Added aap endianess.
-
-2017-09-28  Mary Bennett  <mary.bennett@embecosm.com>
-	* aap.cpu: Set up hardware and opcodes.
-	* disassemnble.c: Added aap architecture.
-	* aap.cpu: Added NOP and ADD instructions.
-	* aap.cpu: Added SUB, AND and OR instructions.
-
-2017-09-29  Mary Bennett  <mary.bennett@embecosm.com>
-	* aap.cpu: Added all 32 bit insn and all 16 bit insn in low address.
+2017-10-09  Mary Bennett  <mary.bennett@embecosm.com>
+	* ChangeLog2: Created.
+	* aap.cpu: Added semantics for each format.
+	* aap.cpu: Changed syntax for format 4 and 13.
 
 2017-10-02  Mary Bennett  <mary.bennett@embecosm.com>
 	* aap.opc: Added print functions.
@@ -21,7 +9,19 @@
 	* tc-aap.h: Changed the names of some functions.
 	* tc-aap.c: Added relax and reloc.
 
-2017-10-09  Mary Bennett  <mary.bennett@embecosm.com>
-	* ChangeLog2: Created.
-	* aap.cpu: Added semantics for each format.
-	* aap.cpu: Changed syntax for format 4 and 13.
+2017-09-29  Mary Bennett  <mary.bennett@embecosm.com>
+	* aap.cpu: Added all 32 bit insn and all 16 bit insn in low address.
+
+2017-09-28  Mary Bennett  <mary.bennett@embecosm.com>
+	* aap.cpu: Set up hardware and opcodes.
+	* disassemnble.c: Added aap architecture.
+	* aap.cpu: Added NOP and ADD instructions.
+	* aap.cpu: Added SUB, AND and OR instructions.
+
+2017-09-26  T-J-Teru
+	* aap.cpu: Created basic file.
+	* aap.opc: Created basic file.
+	* tc-aap.c: Created basic file.
+	* tc-aap.h: Created basic file.
+	* configure.ac: Added aap with cgen.
+	* configure.tgt: Added aap endianess.

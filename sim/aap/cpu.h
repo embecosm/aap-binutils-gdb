@@ -227,8 +227,8 @@ struct scache {
   UINT f_src_1_hi; \
   UINT f_src_1_lo; \
   SI f_a_6; \
-  UINT f_uint_18_3_hi; \
-  UINT f_uint_2_3_lo; \
+  UINT f_uint_18_3; \
+  UINT f_uint_2_3; \
   USI f_i_6; \
   unsigned int length;
 #define EXTRACT_IFMT_ASRI_CODE \
@@ -247,10 +247,10 @@ struct scache {
 {\
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));\
 }\
-  f_uint_18_3_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
-  f_uint_2_3_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
+  f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
 {\
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));\
+  f_i_6 = ((((f_uint_18_3) << (3))) | (((f_uint_2_3) << (0))));\
 }\
 
 #define EXTRACT_IFMT_ANDI_VARS \
@@ -265,7 +265,8 @@ struct scache {
   UINT f_src_1_hi; \
   UINT f_src_1_lo; \
   SI f_a_6; \
-  USI f_i_6; \
+  UINT f_uint_2_3; \
+  UINT f_uint_18_3; \
   UINT f_uint_28_3; \
   USI f_i_9; \
   unsigned int length;
@@ -286,12 +287,11 @@ struct scache {
 {\
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));\
 }\
-{\
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));\
-}\
+  f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
   f_uint_28_3 = EXTRACT_LSB0_UINT (insn, 32, 28, 3); \
 {\
-  f_i_9 = ((((f_uint_28_3) << (3))) | (((f_i_6) << (0))));\
+  f_i_9 = ((((((f_uint_28_3) << (6))) | (((f_uint_18_3) << (3))))) | (((f_uint_2_3) << (0))));\
 }\
 
 #define EXTRACT_IFMT_ADDI_VARS \
@@ -305,7 +305,8 @@ struct scache {
   UINT f_src_1_hi; \
   UINT f_src_1_lo; \
   SI f_a_6; \
-  USI f_i_6; \
+  UINT f_uint_2_3; \
+  UINT f_uint_18_3; \
   UINT f_uint_28_4; \
   USI f_i_10; \
   unsigned int length;
@@ -325,12 +326,11 @@ struct scache {
 {\
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));\
 }\
-{\
-  f_i_6 = ((((f_uint_18_3_hi) << (3))) | (((f_uint_2_3_lo) << (0))));\
-}\
+  f_uint_2_3 = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
+  f_uint_18_3 = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
   f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4); \
 {\
-  f_i_10 = ((((f_uint_28_4) << (4))) | (((f_i_6) << (0))));\
+  f_i_10 = ((((((f_uint_28_4) << (6))) | (((f_uint_18_3) << (3))))) | (((f_uint_2_3) << (0))));\
 }\
 
 #define EXTRACT_IFMT_BEQ_VARS \
@@ -339,7 +339,8 @@ struct scache {
   UINT f_length; \
   UINT f_opcode; \
   INT f_int_24_3; \
-  SI f_s_7; \
+  INT f_int_28_4; \
+  INT f_int_8_3; \
   SI f_s_10_fin; \
   UINT f_src_1_hi; \
   UINT f_src_1_lo; \
@@ -355,11 +356,10 @@ struct scache {
   f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
   f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_3 = EXTRACT_LSB0_SINT (insn, 32, 24, 3); \
+  f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4); \
+  f_int_8_3 = EXTRACT_LSB0_SINT (insn, 32, 8, 3); \
 {\
-  f_s_7 = ((((f_int_28_4_lo) << (3))) | (((f_int_8_3) << (0))));\
-}\
-{\
-  f_s_10_fin = ((((f_int_24_3) << (7))) | (((f_s_7) << (0))));\
+  f_s_10_fin = ((((((f_int_24_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_8_3) << (0))));\
 }\
   f_src_1_hi = EXTRACT_LSB0_UINT (insn, 32, 21, 3); \
   f_src_1_lo = EXTRACT_LSB0_UINT (insn, 32, 5, 3); \
@@ -384,7 +384,8 @@ struct scache {
   UINT f_src_1_lo; \
   SI f_a_6; \
   INT f_int_18_3; \
-  SI f_s_7_13; \
+  INT f_int_28_4; \
+  INT f_int_2_3; \
   SI f_s_form_13; \
   unsigned int length;
 #define EXTRACT_IFMT_LDB___D6_____A6____S10_13___CODE \
@@ -404,11 +405,10 @@ struct scache {
   f_a_6 = ((((f_src_1_hi) << (3))) | (((f_src_1_lo) << (0))));\
 }\
   f_int_18_3 = EXTRACT_LSB0_SINT (insn, 32, 18, 3); \
+  f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4); \
+  f_int_2_3 = EXTRACT_LSB0_SINT (insn, 32, 2, 3); \
 {\
-  f_s_7_13 = ((((f_int_28_4_lo) << (3))) | (((f_int_2_3) << (0))));\
-}\
-{\
-  f_s_form_13 = ((((f_int_18_3) << (7))) | (((f_s_7_13) << (0))));\
+  f_s_form_13 = ((((((f_int_18_3) << (7))) | (((f_int_28_4) << (3))))) | (((f_int_2_3) << (0))));\
 }\
 
 #define EXTRACT_IFMT_NOP_VARS \
@@ -448,7 +448,8 @@ struct scache {
   UINT f_dst_hi; \
   UINT f_dst_lo; \
   SI f_d_6; \
-  USI f_i_12; \
+  UINT f_uint_5_6; \
+  UINT f_uint_21_6; \
   UINT f_uint_28_4; \
   USI f_i_16; \
   unsigned int length;
@@ -463,12 +464,11 @@ struct scache {
 {\
   f_d_6 = ((((f_dst_hi) << (3))) | (((f_dst_lo) << (0))));\
 }\
-{\
-  f_i_12 = ((((f_uint_21_6) << (6))) | (((f_uint_5_6) << (0))));\
-}\
+  f_uint_5_6 = EXTRACT_LSB0_UINT (insn, 32, 5, 6); \
+  f_uint_21_6 = EXTRACT_LSB0_UINT (insn, 32, 21, 6); \
   f_uint_28_4 = EXTRACT_LSB0_UINT (insn, 32, 28, 4); \
 {\
-  f_i_16 = ((((f_uint_28_4) << (4))) | (((f_i_12) << (0))));\
+  f_i_16 = ((((((f_uint_28_4) << (12))) | (((f_uint_21_6) << (6))))) | (((f_uint_5_6) << (0))));\
 }\
 
 #define EXTRACT_IFMT_BAL_VARS \
@@ -477,7 +477,8 @@ struct scache {
   UINT f_length; \
   UINT f_opcode; \
   INT f_int_24_6; \
-  SI f_s_10; \
+  INT f_int_28_4; \
+  INT f_int_8_6; \
   SI f_s_16; \
   UINT f_src_2_hi; \
   UINT f_src_2_lo; \
@@ -490,11 +491,10 @@ struct scache {
   f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
   f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_6 = EXTRACT_LSB0_SINT (insn, 32, 24, 6); \
+  f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4); \
+  f_int_8_6 = EXTRACT_LSB0_SINT (insn, 32, 8, 6); \
 {\
-  f_s_10 = ((((f_int_28_4_lo) << (6))) | (((f_int_8_6) << (0))));\
-}\
-{\
-  f_s_16 = ((((f_int_24_6) << (10))) | (((f_s_10) << (0))));\
+  f_s_16 = ((((((f_int_24_6) << (10))) | (((f_int_28_4) << (6))))) | (((f_int_8_6) << (0))));\
 }\
   f_src_2_hi = EXTRACT_LSB0_UINT (insn, 32, 18, 3); \
   f_src_2_lo = EXTRACT_LSB0_UINT (insn, 32, 2, 3); \
@@ -508,7 +508,8 @@ struct scache {
   UINT f_length; \
   UINT f_opcode; \
   INT f_int_24_9; \
-  SI f_s_13; \
+  INT f_int_28_4; \
+  INT f_int_8_9; \
   SI f_s_22; \
   unsigned int length;
 #define EXTRACT_IFMT_BRA_CODE \
@@ -518,11 +519,10 @@ struct scache {
   f_length = EXTRACT_LSB0_UINT (insn, 32, 15, 1); \
   f_opcode = EXTRACT_LSB0_UINT (insn, 32, 14, 6); \
   f_int_24_9 = EXTRACT_LSB0_SINT (insn, 32, 24, 9); \
+  f_int_28_4 = EXTRACT_LSB0_SINT (insn, 32, 28, 4); \
+  f_int_8_9 = EXTRACT_LSB0_SINT (insn, 32, 8, 9); \
 {\
-  f_s_13 = ((((f_int_28_4_lo) << (9))) | (((f_int_8_9) << (0))));\
-}\
-{\
-  f_s_22 = ((((f_int_24_9) << (13))) | (((f_s_13) << (0))));\
+  f_s_22 = ((((((f_int_24_9) << (13))) | (((f_int_28_4) << (9))))) | (((f_int_8_9) << (0))));\
 }\
 
 /* Collection of various things for the trace handler to use.  */

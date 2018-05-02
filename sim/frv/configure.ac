@@ -5,19 +5,18 @@ sinclude(../common/acinclude.m4)
 
 SIM_AC_COMMON
 
-SIM_AC_OPTION_ENDIAN(BIG_ENDIAN)
+SIM_AC_OPTION_ENDIAN(BIG)
 SIM_AC_OPTION_ALIGNMENT(STRICT_ALIGNMENT)
-SIM_AC_OPTION_HOSTENDIAN
 SIM_AC_OPTION_SCACHE(16384)
 SIM_AC_OPTION_DEFAULT_MODEL(fr500)
-SIM_AC_OPTION_ENVIRONMENT
 SIM_AC_OPTION_CGEN_MAINT
 
 #
 # Enable making unknown traps dump out registers
 #
 AC_ARG_ENABLE(sim-trapdump,
-[  --enable-sim-trapdump		Make unknown traps dump the registers],
+[AS_HELP_STRING([--enable-sim-trapdump],
+		[Make unknown traps dump the registers])],
 [case "${enableval}" in
   yes) sim_trapdump="-DTRAPDUMP=1";;
   no)  sim_trapdump="-DTRAPDUMP=0";;

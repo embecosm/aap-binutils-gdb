@@ -1,6 +1,6 @@
 // plugin.h -- plugin manager for gold      -*- C++ -*-
 
-// Copyright (C) 2008-2015 Free Software Foundation, Inc.
+// Copyright (C) 2008-2017 Free Software Foundation, Inc.
 // Written by Cary Coutant <ccoutant@google.com>.
 
 // This file is part of gold.
@@ -378,7 +378,7 @@ class Plugin_manager
   Mapfile* mapfile_;
   Task_token* this_blocker_;
 
-  // An extra directory to seach for the libraries passed by
+  // An extra directory to search for the libraries passed by
   // add_input_library.
   std::string extra_search_path_;
   Lock* lock_;
@@ -432,6 +432,16 @@ class Pluginobj : public Object
   off_t
   filesize()
   { return this->filesize_; }
+
+  // Return the word size of the object file.
+  int
+  elfsize() const
+  { gold_unreachable(); }
+
+  // Return TRUE if this is a big-endian object file.
+  bool
+  is_big_endian() const
+  { gold_unreachable(); }
 
  protected:
   // Return TRUE if this is an object claimed by a plugin.

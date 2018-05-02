@@ -14,7 +14,7 @@
 #undef CGEN_DIS_HASH_SIZE
 #define CGEN_DIS_HASH_SIZE 128
 #undef CGEN_DIS_HASH
-#define CGEN_DIS_HASH(buf, value) (1)
+#define CGEN_DIS_HASH(buf, value) 0
 
 /* Allows reason codes to be output when assembler errors occur. */
 #define CGEN_VERBOSE_ASSEMBLER_ERRORS

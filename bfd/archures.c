@@ -502,7 +502,8 @@ DESCRIPTION
 .  bfd_arch_visium,	{* Visium *}
 .#define bfd_mach_visium	1
 .  bfd_arch_aap,       {* An Altruistic Processor  *}
-.#define bfd_mach_aap          1
+.#define bfd_mach_aap16        1
+.#define bfd_mach_aap32        1
 .  bfd_arch_last
 .  };
 */

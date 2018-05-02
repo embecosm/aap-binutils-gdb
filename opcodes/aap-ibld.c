@@ -616,21 +616,14 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I10 :
       {
 {
-  FLD (f_uint_28_4) = ((((USI) (FLD (f_i_10)) >> (4))) & (31));
-  FLD (f_i_6) = ((((USI) (FLD (f_i_10)) >> (0))) & (127));
+  FLD (f_uint_28_4) = ((((USI) (FLD (f_i_10)) >> (6))) & (15));
+  FLD (f_uint_18_3) = ((((USI) (FLD (f_i_10)) >> (3))) & (7));
+  FLD (f_uint_2_3) = ((((USI) (FLD (f_i_10)) >> (0))) & (7));
 }
-        {
-{
-  FLD (f_uint_18_3_hi) = ((((USI) (FLD (f_i_6)) >> (3))) & (7));
-  FLD (f_uint_2_3_lo) = ((((USI) (FLD (f_i_6)) >> (0))) & (7));
-}
-        errmsg = insert_normal (cd, fields->f_uint_18_3_hi, 0, 0, 18, 3, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
         if (errmsg)
           break;
-        errmsg = insert_normal (cd, fields->f_uint_2_3_lo, 0, 0, 2, 3, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_uint_28_4, 0, 0, 28, 4, 32, total_length, buffer);
@@ -641,8 +634,8 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I12 :
       {
 {
-  FLD (f_uint_21_6) = ((((USI) (FLD (f_i_12)) >> (6))) & (127));
-  FLD (f_uint_5_6) = ((((USI) (FLD (f_i_12)) >> (0))) & (127));
+  FLD (f_uint_21_6) = ((((USI) (FLD (f_i_12)) >> (6))) & (63));
+  FLD (f_uint_5_6) = ((((USI) (FLD (f_i_12)) >> (0))) & (63));
 }
         errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
         if (errmsg)
@@ -655,21 +648,14 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I16 :
       {
 {
-  FLD (f_uint_28_4) = ((((USI) (FLD (f_i_16)) >> (12))) & (31));
-  FLD (f_i_12) = ((((USI) (FLD (f_i_16)) >> (0))) & (8191));
-}
-        {
-{
-  FLD (f_uint_21_6) = ((((USI) (FLD (f_i_12)) >> (6))) & (127));
-  FLD (f_uint_5_6) = ((((USI) (FLD (f_i_12)) >> (0))) & (127));
+  FLD (f_uint_28_4) = ((((USI) (FLD (f_i_16)) >> (12))) & (15));
+  FLD (f_uint_21_6) = ((((USI) (FLD (f_i_16)) >> (6))) & (63));
+  FLD (f_uint_5_6) = ((((USI) (FLD (f_i_16)) >> (0))) & (63));
 }
         errmsg = insert_normal (cd, fields->f_uint_5_6, 0, 0, 5, 6, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_uint_21_6, 0, 0, 21, 6, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_uint_28_4, 0, 0, 28, 4, 32, total_length, buffer);
@@ -680,13 +666,13 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I6 :
       {
 {
-  FLD (f_uint_18_3_hi) = ((((USI) (FLD (f_i_6)) >> (3))) & (7));
-  FLD (f_uint_2_3_lo) = ((((USI) (FLD (f_i_6)) >> (0))) & (7));
+  FLD (f_uint_18_3) = ((((USI) (FLD (f_i_6)) >> (3))) & (7));
+  FLD (f_uint_2_3) = ((((USI) (FLD (f_i_6)) >> (0))) & (7));
 }
-        errmsg = insert_normal (cd, fields->f_uint_18_3_hi, 0, 0, 18, 3, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
         if (errmsg)
           break;
-        errmsg = insert_normal (cd, fields->f_uint_2_3_lo, 0, 0, 2, 3, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
         if (errmsg)
           break;
       }
@@ -694,21 +680,14 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_I9 :
       {
 {
-  FLD (f_uint_28_3) = ((((USI) (FLD (f_i_9)) >> (3))) & (7));
-  FLD (f_i_6) = ((((USI) (FLD (f_i_9)) >> (0))) & (127));
+  FLD (f_uint_28_3) = ((((USI) (FLD (f_i_9)) >> (6))) & (7));
+  FLD (f_uint_18_3) = ((((USI) (FLD (f_i_9)) >> (3))) & (7));
+  FLD (f_uint_2_3) = ((((USI) (FLD (f_i_9)) >> (0))) & (7));
 }
-        {
-{
-  FLD (f_uint_18_3_hi) = ((((USI) (FLD (f_i_6)) >> (3))) & (7));
-  FLD (f_uint_2_3_lo) = ((((USI) (FLD (f_i_6)) >> (0))) & (7));
-}
-        errmsg = insert_normal (cd, fields->f_uint_18_3_hi, 0, 0, 18, 3, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_uint_2_3, 0, 0, 2, 3, 32, total_length, buffer);
         if (errmsg)
           break;
-        errmsg = insert_normal (cd, fields->f_uint_2_3_lo, 0, 0, 2, 3, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
+        errmsg = insert_normal (cd, fields->f_uint_18_3, 0, 0, 18, 3, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_uint_28_3, 0, 0, 28, 3, 32, total_length, buffer);
@@ -731,10 +710,10 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_INT1210 :
       {
 {
-  FLD (f_int_28_4_lo) = ((((USI) (FLD (f_s_10)) >> (6))) & (31));
-  FLD (f_int_8_6) = ((((USI) (FLD (f_s_10)) >> (0))) & (127));
+  FLD (f_int_28_4) = ((((USI) (FLD (f_s_10)) >> (6))) & (15));
+  FLD (f_int_8_6) = ((((USI) (FLD (f_s_10)) >> (0))) & (63));
 }
-        errmsg = insert_normal (cd, fields->f_int_28_4_lo, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_int_28_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_int_8_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, buffer);
@@ -746,23 +725,16 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
       {
 {
   FLD (f_int_24_3) = ((((USI) (FLD (f_s_10_fin)) >> (7))) & (7));
-  FLD (f_s_7) = ((((USI) (FLD (f_s_10_fin)) >> (0))) & (255));
+  FLD (f_int_28_4) = ((((USI) (FLD (f_s_10_fin)) >> (3))) & (15));
+  FLD (f_int_8_3) = ((((USI) (FLD (f_s_10_fin)) >> (0))) & (7));
 }
         errmsg = insert_normal (cd, fields->f_int_24_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, buffer);
         if (errmsg)
           break;
-        {
-{
-  FLD (f_int_28_4_lo) = ((((USI) (FLD (f_s_7)) >> (3))) & (31));
-  FLD (f_int_8_3) = ((((USI) (FLD (f_s_7)) >> (0))) & (7));
-}
-        errmsg = insert_normal (cd, fields->f_int_28_4_lo, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_int_28_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_int_8_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 3, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
         if (errmsg)
           break;
       }
@@ -771,23 +743,16 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
       {
 {
   FLD (f_int_18_3) = ((((USI) (FLD (f_s_form_13)) >> (7))) & (7));
-  FLD (f_s_7_13) = ((((USI) (FLD (f_s_form_13)) >> (0))) & (255));
+  FLD (f_int_28_4) = ((((USI) (FLD (f_s_form_13)) >> (3))) & (15));
+  FLD (f_int_2_3) = ((((USI) (FLD (f_s_form_13)) >> (0))) & (7));
 }
         errmsg = insert_normal (cd, fields->f_int_18_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, buffer);
         if (errmsg)
           break;
-        {
-{
-  FLD (f_int_28_4_lo) = ((((USI) (FLD (f_s_7_13)) >> (3))) & (31));
-  FLD (f_int_2_3) = ((((USI) (FLD (f_s_7_13)) >> (0))) & (7));
-}
-        errmsg = insert_normal (cd, fields->f_int_28_4_lo, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_int_28_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_int_2_3, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
         if (errmsg)
           break;
       }
@@ -795,24 +760,17 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_S16 :
       {
 {
-  FLD (f_int_24_6) = ((((USI) (FLD (f_s_16)) >> (10))) & (127));
-  FLD (f_s_10) = ((((USI) (FLD (f_s_16)) >> (0))) & (2047));
+  FLD (f_int_24_6) = ((((USI) (FLD (f_s_16)) >> (10))) & (63));
+  FLD (f_int_28_4) = ((((USI) (FLD (f_s_16)) >> (6))) & (15));
+  FLD (f_int_8_6) = ((((USI) (FLD (f_s_16)) >> (0))) & (63));
 }
         errmsg = insert_normal (cd, fields->f_int_24_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, buffer);
         if (errmsg)
           break;
-        {
-{
-  FLD (f_int_28_4_lo) = ((((USI) (FLD (f_s_10)) >> (6))) & (31));
-  FLD (f_int_8_6) = ((((USI) (FLD (f_s_10)) >> (0))) & (127));
-}
-        errmsg = insert_normal (cd, fields->f_int_28_4_lo, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_int_28_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_int_8_6, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
         if (errmsg)
           break;
       }
@@ -820,24 +778,17 @@ aap_cgen_insert_operand (CGEN_CPU_DESC cd,
     case AAP_OPERAND_S22 :
       {
 {
-  FLD (f_int_24_9) = ((((USI) (FLD (f_s_22)) >> (13))) & (31));
-  FLD (f_s_13) = ((((USI) (FLD (f_s_22)) >> (0))) & (16383));
+  FLD (f_int_24_9) = ((((USI) (FLD (f_s_22)) >> (13))) & (511));
+  FLD (f_int_28_4) = ((((USI) (FLD (f_s_22)) >> (9))) & (15));
+  FLD (f_int_8_9) = ((((USI) (FLD (f_s_22)) >> (0))) & (511));
 }
         errmsg = insert_normal (cd, fields->f_int_24_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, buffer);
         if (errmsg)
           break;
-        {
-{
-  FLD (f_int_28_4_lo) = ((((USI) (FLD (f_s_13)) >> (9))) & (31));
-  FLD (f_int_8_9) = ((((USI) (FLD (f_s_13)) >> (0))) & (1023));
-}
-        errmsg = insert_normal (cd, fields->f_int_28_4_lo, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
+        errmsg = insert_normal (cd, fields->f_int_28_4, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, buffer);
         if (errmsg)
           break;
         errmsg = insert_normal (cd, fields->f_int_8_9, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, buffer);
-        if (errmsg)
-          break;
-      }
         if (errmsg)
           break;
       }
@@ -941,20 +892,14 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       break;
     case AAP_OPERAND_I10 :
       {
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3_hi);
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
         if (length <= 0) break;
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3_lo);
-        if (length <= 0) break;
-{
-  FLD (f_i_6) = ((((FLD (f_uint_18_3_hi)) << (3))) | (((FLD (f_uint_2_3_lo)) << (0))));
-}
-      }
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0, 0, 28, 4, 32, total_length, pc, & fields->f_uint_28_4);
         if (length <= 0) break;
 {
-  FLD (f_i_10) = ((((FLD (f_uint_28_4)) << (4))) | (((FLD (f_i_6)) << (0))));
+  FLD (f_i_10) = ((((((FLD (f_uint_28_4)) << (6))) | (((FLD (f_uint_18_3)) << (3))))) | (((FLD (f_uint_2_3)) << (0))));
 }
       }
       break;
@@ -971,50 +916,38 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       break;
     case AAP_OPERAND_I16 :
       {
-        {
         length = extract_normal (cd, ex_info, insn_value, 0, 0, 5, 6, 32, total_length, pc, & fields->f_uint_5_6);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0, 0, 21, 6, 32, total_length, pc, & fields->f_uint_21_6);
         if (length <= 0) break;
-{
-  FLD (f_i_12) = ((((FLD (f_uint_21_6)) << (6))) | (((FLD (f_uint_5_6)) << (0))));
-}
-      }
-        if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0, 0, 28, 4, 32, total_length, pc, & fields->f_uint_28_4);
         if (length <= 0) break;
 {
-  FLD (f_i_16) = ((((FLD (f_uint_28_4)) << (4))) | (((FLD (f_i_12)) << (0))));
+  FLD (f_i_16) = ((((((FLD (f_uint_28_4)) << (12))) | (((FLD (f_uint_21_6)) << (6))))) | (((FLD (f_uint_5_6)) << (0))));
 }
       }
       break;
     case AAP_OPERAND_I6 :
       {
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3_hi);
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
         if (length <= 0) break;
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
         if (length <= 0) break;
 {
-  FLD (f_i_6) = ((((FLD (f_uint_18_3_hi)) << (3))) | (((FLD (f_uint_2_3_lo)) << (0))));
+  FLD (f_i_6) = ((((FLD (f_uint_18_3)) << (3))) | (((FLD (f_uint_2_3)) << (0))));
 }
       }
       break;
     case AAP_OPERAND_I9 :
       {
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3_hi);
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3);
         if (length <= 0) break;
-        length = extract_normal (cd, ex_info, insn_value, 0, 0, 2, 3, 32, total_length, pc, & fields->f_uint_2_3_lo);
-        if (length <= 0) break;
-{
-  FLD (f_i_6) = ((((FLD (f_uint_18_3_hi)) << (3))) | (((FLD (f_uint_2_3_lo)) << (0))));
-}
-      }
+        length = extract_normal (cd, ex_info, insn_value, 0, 0, 18, 3, 32, total_length, pc, & fields->f_uint_18_3);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0, 0, 28, 3, 32, total_length, pc, & fields->f_uint_28_3);
         if (length <= 0) break;
 {
-  FLD (f_i_9) = ((((FLD (f_uint_28_3)) << (3))) | (((FLD (f_i_6)) << (0))));
+  FLD (f_i_9) = ((((((FLD (f_uint_28_3)) << (6))) | (((FLD (f_uint_18_3)) << (3))))) | (((FLD (f_uint_2_3)) << (0))));
 }
       }
       break;
@@ -1032,12 +965,12 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       break;
     case AAP_OPERAND_INT1210 :
       {
-        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, pc, & fields->f_int_8_6);
         if (length <= 0) break;
 {
-  FLD (f_s_10) = ((((FLD (f_int_28_4_lo)) << (6))) | (((FLD (f_int_8_6)) << (0))));
+  FLD (f_s_10) = ((((FLD (f_int_28_4)) << (6))) | (((FLD (f_int_8_6)) << (0))));
 }
       }
       break;
@@ -1045,18 +978,12 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       {
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 3, 32, total_length, pc, & fields->f_int_24_3);
         if (length <= 0) break;
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 3, 32, total_length, pc, & fields->f_int_8_3);
         if (length <= 0) break;
 {
-  FLD (f_s_7) = ((((FLD (f_int_28_4_lo)) << (3))) | (((FLD (f_int_8_3)) << (0))));
-}
-      }
-        if (length <= 0) break;
-{
-  FLD (f_s_10_fin) = ((((FLD (f_int_24_3)) << (7))) | (((FLD (f_s_7)) << (0))));
+  FLD (f_s_10_fin) = ((((((FLD (f_int_24_3)) << (7))) | (((FLD (f_int_28_4)) << (3))))) | (((FLD (f_int_8_3)) << (0))));
 }
       }
       break;
@@ -1064,18 +991,12 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       {
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 18, 3, 32, total_length, pc, & fields->f_int_18_3);
         if (length <= 0) break;
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 2, 3, 32, total_length, pc, & fields->f_int_2_3);
         if (length <= 0) break;
 {
-  FLD (f_s_7_13) = ((((FLD (f_int_28_4_lo)) << (3))) | (((FLD (f_int_2_3)) << (0))));
-}
-      }
-        if (length <= 0) break;
-{
-  FLD (f_s_form_13) = ((((FLD (f_int_18_3)) << (7))) | (((FLD (f_s_7_13)) << (0))));
+  FLD (f_s_form_13) = ((((((FLD (f_int_18_3)) << (7))) | (((FLD (f_int_28_4)) << (3))))) | (((FLD (f_int_2_3)) << (0))));
 }
       }
       break;
@@ -1083,18 +1004,12 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       {
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 6, 32, total_length, pc, & fields->f_int_24_6);
         if (length <= 0) break;
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 6, 32, total_length, pc, & fields->f_int_8_6);
         if (length <= 0) break;
 {
-  FLD (f_s_10) = ((((FLD (f_int_28_4_lo)) << (6))) | (((FLD (f_int_8_6)) << (0))));
-}
-      }
-        if (length <= 0) break;
-{
-  FLD (f_s_16) = ((((FLD (f_int_24_6)) << (10))) | (((FLD (f_s_10)) << (0))));
+  FLD (f_s_16) = ((((((FLD (f_int_24_6)) << (10))) | (((FLD (f_int_28_4)) << (6))))) | (((FLD (f_int_8_6)) << (0))));
 }
       }
       break;
@@ -1102,18 +1017,12 @@ aap_cgen_extract_operand (CGEN_CPU_DESC cd,
       {
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 24, 9, 32, total_length, pc, & fields->f_int_24_9);
         if (length <= 0) break;
-        {
-        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4_lo);
+        length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 28, 4, 32, total_length, pc, & fields->f_int_28_4);
         if (length <= 0) break;
         length = extract_normal (cd, ex_info, insn_value, 0|(1<<CGEN_IFLD_SIGNED), 0, 8, 9, 32, total_length, pc, & fields->f_int_8_9);
         if (length <= 0) break;
 {
-  FLD (f_s_13) = ((((FLD (f_int_28_4_lo)) << (9))) | (((FLD (f_int_8_9)) << (0))));
-}
-      }
-        if (length <= 0) break;
-{
-  FLD (f_s_22) = ((((FLD (f_int_24_9)) << (13))) | (((FLD (f_s_13)) << (0))));
+  FLD (f_s_22) = ((((((FLD (f_int_24_9)) << (13))) | (((FLD (f_int_28_4)) << (9))))) | (((FLD (f_int_8_9)) << (0))));
 }
       }
       break;

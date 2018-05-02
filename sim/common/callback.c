@@ -1,15 +1,19 @@
 /* Remote target callback routines.
-   Copyright 1995-2015 Free Software Foundation, Inc.
+   Copyright 1995-2017 Free Software Foundation, Inc.
    Contributed by Cygnus Solutions.
+
    This file is part of GDB.
+
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 3 of the License, or
    (at your option) any later version.
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -17,9 +21,8 @@
    level.  */
 
 #ifdef HAVE_CONFIG_H
-#include "cconfig.h"
-#endif
 #include "config.h"
+#endif
 #include "ansidecl.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -753,6 +756,7 @@ host_callback default_callback =
    This assumes that the basic system call recognition and value passing/
    returning is supported.  So maybe some coding/recompilation will be
    necessary, but not as much.
+
    If an error occurs, the existing mapping is not changed.  */
 
 CB_RC
@@ -791,6 +795,32 @@ cb_read_target_syscall_maps (host_callback *cb, const char *file)
   return CB_RC_OK;
 }
 
+/* General utility functions to search a map for a value.  */
+
+static const CB_TARGET_DEFS_MAP *
+cb_target_map_entry (const CB_TARGET_DEFS_MAP map[], int target_val)
+{
+  const CB_TARGET_DEFS_MAP *m;
+
+  for (m = &map[0]; m->target_val != -1; ++m)
+    if (m->target_val == target_val)
+      return m;
+
+  return NULL;
+}
+
+static const CB_TARGET_DEFS_MAP *
+cb_host_map_entry (const CB_TARGET_DEFS_MAP map[], int host_val)
+{
+  const CB_TARGET_DEFS_MAP *m;
+
+  for (m = &map[0]; m->host_val != -1; ++m)
+    if (m->host_val == host_val)
+      return m;
+
+  return NULL;
+}
+
 /* Translate the target's version of a syscall number to the host's.
    This isn't actually the host's version, rather a canonical form.
    ??? Perhaps this should be renamed to ..._canon_syscall.  */
@@ -798,13 +828,10 @@ cb_read_target_syscall_maps (host_callback *cb, const char *file)
 int
 cb_target_to_host_syscall (host_callback *cb, int target_val)
 {
-  CB_TARGET_DEFS_MAP *m;
+  const CB_TARGET_DEFS_MAP *m =
+    cb_target_map_entry (cb->syscall_map, target_val);
 
-  for (m = &cb->syscall_map[0]; m->target_val != -1; ++m)
-    if (m->target_val == target_val)
-      return m->host_val;
-
-  return -1;
+  return m ? m->host_val : -1;
 }
 
 /* FIXME: sort tables if large.
@@ -816,16 +843,12 @@ cb_target_to_host_syscall (host_callback *cb, int target_val)
 int
 cb_host_to_target_errno (host_callback *cb, int host_val)
 {
-  CB_TARGET_DEFS_MAP *m;
-
-  for (m = &cb->errno_map[0]; m->host_val; ++m)
-    if (m->host_val == host_val)
-      return m->target_val;
+  const CB_TARGET_DEFS_MAP *m = cb_host_map_entry (cb->errno_map, host_val);
 
   /* ??? Which error to return in this case is up for grabs.
      Note that some missing values may have standard alternatives.
      For now return 0 and require caller to deal with it.  */
-  return 0;
+  return m ? m->target_val : 0;
 }
 
 /* Given a set of target bitmasks for the open system call,
@@ -869,6 +892,7 @@ cb_target_to_host_open (host_callback *cb, int target_val)
 
 /* Utility for e.g. cb_host_to_target_stat to store values in the target's
    stat struct.
+
    ??? The "val" must be as big as target word size.  */
 
 void
@@ -896,6 +920,7 @@ cb_store_target_endian (host_callback *cb, char *p, int size, long val)
 /* Translate a host's stat struct into a target's.
    If HS is NULL, just compute the length of the buffer required,
    TS is ignored.
+
    The result is the size of the target's stat struct,
    or zero if an error occurred during the translation.  */
 
@@ -993,6 +1018,7 @@ cb_host_to_target_stat (host_callback *cb, const struct stat *hs, PTR ts)
 }
 
 /* Cover functions to the vfprintf callbacks.
+
    ??? If one thinks of the callbacks as a subsystem onto itself [or part of
    a larger "remote target subsystem"] with a well defined interface, then
    one would think that the subsystem would provide these.  However, until
@@ -1036,4 +1062,55 @@ int
 cb_is_stderr (host_callback *cb, int fd)
 {
   return fdbad (cb, fd) ? 0 : fdmap (cb, fd) == 2;
+}
+
+const char *
+cb_host_str_syscall (host_callback *cb, int host_val)
+{
+  const CB_TARGET_DEFS_MAP *m = cb_host_map_entry (cb->syscall_map, host_val);
+
+  return m ? m->name : NULL;
+}
+
+const char *
+cb_host_str_errno (host_callback *cb, int host_val)
+{
+  const CB_TARGET_DEFS_MAP *m = cb_host_map_entry (cb->errno_map, host_val);
+
+  return m ? m->name : NULL;
+}
+
+const char *
+cb_host_str_signal (host_callback *cb, int host_val)
+{
+  const CB_TARGET_DEFS_MAP *m = cb_host_map_entry (cb->signal_map, host_val);
+
+  return m ? m->name : NULL;
+}
+
+const char *
+cb_target_str_syscall (host_callback *cb, int target_val)
+{
+  const CB_TARGET_DEFS_MAP *m =
+    cb_target_map_entry (cb->syscall_map, target_val);
+
+  return m ? m->name : NULL;
+}
+
+const char *
+cb_target_str_errno (host_callback *cb, int target_val)
+{
+  const CB_TARGET_DEFS_MAP *m =
+    cb_target_map_entry (cb->errno_map, target_val);
+
+  return m ? m->name : NULL;
+}
+
+const char *
+cb_target_str_signal (host_callback *cb, int target_val)
+{
+  const CB_TARGET_DEFS_MAP *m =
+    cb_target_map_entry (cb->signal_map, target_val);
+
+  return m ? m->name : NULL;
 }

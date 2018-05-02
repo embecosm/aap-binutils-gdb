@@ -1,5 +1,5 @@
 /* BFD back-end for archive files (libraries).
-   Copyright (C) 1990-2015 Free Software Foundation, Inc.
+   Copyright (C) 1990-2017 Free Software Foundation, Inc.
    Written by Cygnus Support.  Mostly Gumby Henkel-Wallace's fault.
 
    This file is part of BFD, the Binary File Descriptor library.
@@ -392,6 +392,7 @@ open_nested_file (const char *filename, bfd *archive)
     {
       n_bfd->lto_output = archive->lto_output;
       n_bfd->no_export = archive->no_export;
+      n_bfd->my_archive = archive;
     }
   return n_bfd;
 }
@@ -730,6 +731,9 @@ _bfd_get_elt_at_filepos (bfd *archive, file_ptr filepos)
 				    | BFD_DECOMPRESS
 				    | BFD_COMPRESS_GABI);
 
+  /* Copy is_linker_input.  */
+  n_bfd->is_linker_input = archive->is_linker_input;
+
   if (_bfd_add_bfd_to_archive_cache (archive, filepos, n_bfd))
     return n_bfd;
 
@@ -783,21 +787,29 @@ bfd_openr_next_archived_file (bfd *archive, bfd *last_file)
 bfd *
 bfd_generic_openr_next_archived_file (bfd *archive, bfd *last_file)
 {
-  file_ptr filestart;
+  ufile_ptr filestart;
 
   if (!last_file)
     filestart = bfd_ardata (archive)->first_file_filepos;
   else
     {
-      bfd_size_type size = arelt_size (last_file);
-
       filestart = last_file->proxy_origin;
       if (! bfd_is_thin_archive (archive))
-	filestart += size;
-      /* Pad to an even boundary...
-	 Note that last_file->origin can be odd in the case of
-	 BSD-4.4-style element with a long odd size.  */
-      filestart += filestart % 2;
+	{
+	  bfd_size_type size = arelt_size (last_file);
+
+	  filestart += size;
+	  /* Pad to an even boundary...
+	     Note that last_file->origin can be odd in the case of
+	     BSD-4.4-style element with a long odd size.  */
+	  filestart += filestart % 2;
+	  if (filestart < last_file->proxy_origin)
+	    {
+	      /* Prevent looping.  See PR19256.  */
+	      bfd_set_error (bfd_error_malformed_archive);
+	      return NULL;
+	    }
+	}
     }
 
   return _bfd_get_elt_at_filepos (archive, filestart);
@@ -822,7 +834,12 @@ bfd_generic_archive_p (bfd *abfd)
   if (strncmp (armag, ARMAG, SARMAG) != 0
       && strncmp (armag, ARMAGB, SARMAG) != 0
       && ! bfd_is_thin_archive (abfd))
-    return NULL;
+    {
+      bfd_set_error (bfd_error_wrong_format);
+      if (abfd->format == bfd_archive)
+	abfd->format = bfd_unknown;
+      return NULL;
+    }
 
   tdata_hold = bfd_ardata (abfd);
 
@@ -1133,10 +1150,9 @@ bfd_slurp_armap (bfd *abfd)
     return do_slurp_coff_armap (abfd);
   else if (CONST_STRNEQ (nextname, "/SYM64/         "))
     {
-      /* 64bit ELF (Irix 6) archive.  */
+      /* 64bit (Irix 6) archive.  */
 #ifdef BFD64
-      extern bfd_boolean bfd_elf64_archive_slurp_armap (bfd *);
-      return bfd_elf64_archive_slurp_armap (abfd);
+      return _bfd_archive_64_bit_slurp_armap (abfd);
 #else
       bfd_set_error (bfd_error_wrong_format);
       return FALSE;
@@ -2278,7 +2294,7 @@ _bfd_write_archive_contents (bfd *arch)
 	{
 	  if (bfd_update_armap_timestamp (arch))
 	    break;
-	  (*_bfd_error_handler)
+	  _bfd_error_handler
 	    (_("Warning: writing archive was slow: rewriting timestamp\n"));
 	}
       while (++tries < 6);
@@ -2390,9 +2406,9 @@ _bfd_compute_and_write_armap (bfd *arch, unsigned int elength)
 			}
 
 		      if (strcmp (syms[src_count]->name, "__gnu_lto_slim") == 0)
-			(*_bfd_error_handler)
-			  (_("%s: plugin needed to handle lto object"),
-			   bfd_get_filename (current));
+			_bfd_error_handler
+			  (_("%B: plugin needed to handle lto object"),
+			   current);
 		      namelen = strlen (syms[src_count]->name);
 		      amt = sizeof (char *);
 		      map[orl_count].name = (char **) bfd_alloc (arch, amt);
@@ -2444,26 +2460,60 @@ _bfd_compute_and_write_armap (bfd *arch, unsigned int elength)
 }
 
 bfd_boolean
-bsd_write_armap (bfd *arch,
-		 unsigned int elength,
-		 struct orl *map,
-		 unsigned int orl_count,
-		 int stridx)
+_bfd_bsd_write_armap (bfd *arch,
+		      unsigned int elength,
+		      struct orl *map,
+		      unsigned int orl_count,
+		      int stridx)
 {
   int padit = stridx & 1;
   unsigned int ranlibsize = orl_count * BSD_SYMDEF_SIZE;
   unsigned int stringsize = stridx + padit;
   /* Include 8 bytes to store ranlibsize and stringsize in output.  */
   unsigned int mapsize = ranlibsize + stringsize + 8;
-  file_ptr firstreal;
-  bfd *current = arch->archive_head;
-  bfd *last_elt = current;	/* Last element arch seen.  */
+  file_ptr firstreal, first;
+  bfd *current;
+  bfd *last_elt;
   bfd_byte temp[4];
   unsigned int count;
   struct ar_hdr hdr;
   long uid, gid;
 
-  firstreal = mapsize + elength + sizeof (struct ar_hdr) + SARMAG;
+  first = mapsize + elength + sizeof (struct ar_hdr) + SARMAG;
+
+#ifdef BFD64
+  firstreal = first;
+  current = arch->archive_head;
+  last_elt = current;	/* Last element arch seen.  */
+  for (count = 0; count < orl_count; count++)
+    {
+      unsigned int offset;
+
+      if (map[count].u.abfd != last_elt)
+	{
+	  do
+	    {
+	      struct areltdata *ared = arch_eltdata (current);
+
+	      firstreal += (ared->parsed_size + ared->extra_size
+			    + sizeof (struct ar_hdr));
+	      firstreal += firstreal % 2;
+	      current = current->archive_next;
+	    }
+	  while (current != map[count].u.abfd);
+	}
+
+      /* The archive file format only has 4 bytes to store the offset
+	 of the member.  Generate 64-bit archive if an archive is past
+	 its 4Gb limit.  */
+      offset = (unsigned int) firstreal;
+      if (firstreal != (file_ptr) offset)
+	return _bfd_archive_64_bit_write_armap (arch, elength, map,
+						orl_count, stridx);
+
+      last_elt = current;
+    }
+#endif
 
   /* If deterministic, we use 0 as the timestamp in the map.
      Some linkers may require that the archive filesystem modification
@@ -2502,6 +2552,9 @@ bsd_write_armap (bfd *arch,
   if (bfd_bwrite (temp, sizeof (temp), arch) != sizeof (temp))
     return FALSE;
 
+  firstreal = first;
+  current = arch->archive_head;
+  last_elt = current;	/* Last element arch seen.  */
   for (count = 0; count < orl_count; count++)
     {
       unsigned int offset;
@@ -2631,11 +2684,11 @@ _bfd_archive_bsd_update_armap_timestamp (bfd *arch)
    symbol name n-1  */
 
 bfd_boolean
-coff_write_armap (bfd *arch,
-		  unsigned int elength,
-		  struct orl *map,
-		  unsigned int symbol_count,
-		  int stridx)
+_bfd_coff_write_armap (bfd *arch,
+		       unsigned int elength,
+		       struct orl *map,
+		       unsigned int symbol_count,
+		       int stridx)
 {
   /* The size of the ranlib is the number of exported symbols in the
      archive * the number of bytes in an int, + an int for the count.  */
@@ -2643,6 +2696,7 @@ coff_write_armap (bfd *arch,
   unsigned int stringsize = stridx;
   unsigned int mapsize = stringsize + ranlibsize;
   file_ptr archive_member_file_ptr;
+  file_ptr first_archive_member_file_ptr;
   bfd *current = arch->archive_head;
   unsigned int count;
   struct ar_hdr hdr;
@@ -2652,10 +2706,42 @@ coff_write_armap (bfd *arch,
     mapsize++;
 
   /* Work out where the first object file will go in the archive.  */
-  archive_member_file_ptr = (mapsize
-			     + elength
-			     + sizeof (struct ar_hdr)
-			     + SARMAG);
+  first_archive_member_file_ptr = (mapsize
+				   + elength
+				   + sizeof (struct ar_hdr)
+				   + SARMAG);
+
+#ifdef BFD64
+  current = arch->archive_head;
+  count = 0;
+  archive_member_file_ptr = first_archive_member_file_ptr;
+  while (current != NULL && count < symbol_count)
+    {
+      /* For each symbol which is used defined in this object, write
+	 out the object file's address in the archive.  */
+
+      while (count < symbol_count && map[count].u.abfd == current)
+	{
+	  unsigned int offset = (unsigned int) archive_member_file_ptr;
+
+	  /* Generate 64-bit archive if an archive is past its 4Gb
+	     limit.  */
+	  if (archive_member_file_ptr != (file_ptr) offset)
+	    return _bfd_archive_64_bit_write_armap (arch, elength, map,
+						    symbol_count, stridx);
+	  count++;
+	}
+      archive_member_file_ptr += sizeof (struct ar_hdr);
+      if (! bfd_is_thin_archive (arch))
+	{
+	  /* Add size of this archive entry.  */
+	  archive_member_file_ptr += arelt_size (current);
+	  /* Remember about the even alignment.  */
+	  archive_member_file_ptr += archive_member_file_ptr % 2;
+	}
+      current = current->archive_next;
+    }
+#endif
 
   memset (&hdr, ' ', sizeof (struct ar_hdr));
   hdr.ar_name[0] = '/';
@@ -2686,6 +2772,7 @@ coff_write_armap (bfd *arch,
 
   current = arch->archive_head;
   count = 0;
+  archive_member_file_ptr = first_archive_member_file_ptr;
   while (current != NULL && count < symbol_count)
     {
       /* For each symbol which is used defined in this object, write
